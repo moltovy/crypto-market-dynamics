@@ -88,6 +88,35 @@ def parse_eth(soup: BeautifulSoup) -> tuple[list[str], list[list[str]]]:
     return headers, data
 
 
+def parse_sol(soup: BeautifulSoup) -> tuple[list[str], list[list[str]]]:
+    """Solana flows live on /sol/ (no separate *-all-data page as of 2026)."""
+    table = soup.find_all("table")[1]
+    rows = table.find_all("tr", recursive=True)
+    tickers: list[str] | None = None
+    for tr in rows:
+        cells = tr.find_all(["th", "td"], recursive=False)
+        vals = [c.get_text(strip=True) for c in cells]
+        if len(vals) > 2 and vals[1] == "BSOL":
+            tickers = vals[1:]
+            break
+    if not tickers:
+        raise ValueError("SOL: missing ticker row (expected BSOL)")
+
+    headers = ["Date"] + [t if t else "Total" for t in tickers]
+
+    data: list[list[str]] = []
+    for tr in rows:
+        tds = tr.find_all("td", recursive=False)
+        if not tds:
+            continue
+        first = tds[0].get_text(strip=True)
+        if not DATE_RE.match(first):
+            continue
+        line = [first] + [parse_flow_cell(c.get_text(strip=True)) for c in tds[1:]]
+        data.append(line)
+    return headers, data
+
+
 def to_iso_date(dmy: str) -> str:
     dt = datetime.strptime(dmy, "%d %b %Y")
     return dt.strftime("%Y-%m-%d")
@@ -106,18 +135,23 @@ def main() -> None:
     root = Path(__file__).resolve().parents[1]
     out_btc = root / "Farside ETF Data" / "BTC" / "bitcoin_etf_flow_all_data.csv"
     out_eth = root / "Farside ETF Data" / "ETH" / "ethereum_etf_flow_all_data.csv"
+    out_sol = root / "Farside ETF Data" / "SOL" / "solana_etf_flow_all_data.csv"
 
     url_btc = "https://farside.co.uk/bitcoin-etf-flow-all-data/"
     url_eth = "https://farside.co.uk/ethereum-etf-flow-all-data/"
+    url_sol = "https://farside.co.uk/sol/"
 
     h_btc, d_btc = parse_btc(BeautifulSoup(fetch_html(url_btc), "html.parser"))
     h_eth, d_eth = parse_eth(BeautifulSoup(fetch_html(url_eth), "html.parser"))
+    h_sol, d_sol = parse_sol(BeautifulSoup(fetch_html(url_sol), "html.parser"))
 
     write_csv(out_btc, h_btc, d_btc)
     write_csv(out_eth, h_eth, d_eth)
+    write_csv(out_sol, h_sol, d_sol)
 
     print(f"Wrote {out_btc} ({len(d_btc)} rows)")
     print(f"Wrote {out_eth} ({len(d_eth)} rows)")
+    print(f"Wrote {out_sol} ({len(d_sol)} rows)")
 
 
 if __name__ == "__main__":
