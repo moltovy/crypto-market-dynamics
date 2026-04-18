@@ -1,0 +1,37 @@
+# Externalized snapshot dates and backup paths that used to be hardcoded in
+# tools/data_curation/{02,03,07,10}_*.py. Edit this file when re-running the
+# pipeline so scripts do not need to be re-edited.
+
+# Step 02 — dedupe DefiLlama
+# Previously hardcoded glob pattern `*_2026-04-17.csv` and `*_2026-04-14.csv`.
+dedupe_defi:
+  target_dates:
+    - 2026-04-17
+    - 2026-04-14
+  # folders within Data/DefiLlama/_raw_parts that step 02 processes
+  target_subfolders:
+    - stablecoin_mcap
+    - cex_net_inflows
+
+# Step 03 — merge DefiLlama parts
+merge_defi:
+  target_dates:
+    - 2026-04-17
+    - 2026-04-14
+
+# Step 10 — clean new DefiLlama
+clean_new_defi:
+  target_dates:
+    - 2026-04-17
+    - 2026-04-14
+
+# Step 07 — validate (backup directory)
+# Previously: `C:/Dev/Projects/CryptoQuant_Data_backup_2026-04-16`
+# If absent, step 07 should run in fail-soft mode and WARN rather than ERROR.
+validate:
+  backup_dir: null   # set to an absolute path to enable backup diff
+
+# Harvester default OpenAPI spec path (after `git mv` to archive/)
+harvester:
+  default_spec_path: archive/defillama_openapi_2026-04-14.json
+  default_out_dir: Data/DefiLlama/TVL

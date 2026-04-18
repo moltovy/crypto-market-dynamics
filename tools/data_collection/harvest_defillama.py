@@ -35,7 +35,10 @@ DATE_COLUMNS = ["Date", "date", "timestamp", "time", "day"]
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Create DefiLlama research CSVs.")
     p.add_argument("--mode", choices=["full", "update"], default="full")
-    p.add_argument("--spec", default="defillama-api (2).json")
+    # NOTE (2026-04-18): the OpenAPI spec was moved during the repo reorg from
+    # the project root to archive/defillama_openapi_2026-04-14.json. Default is
+    # kept in sync with config/curation_snapshots.yml -> harvester.default_spec_path.
+    p.add_argument("--spec", default="archive/defillama_openapi_2026-04-14.json")
     p.add_argument("--out", default="Data/DefiLlama/TVL")
     p.add_argument("--overlap-days", type=int, default=7)
     p.add_argument("--max-workers", type=int, default=5)

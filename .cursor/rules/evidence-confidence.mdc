@@ -1,0 +1,28 @@
+---
+description: Require evidence + confidence score on every substantive claim.
+globs:
+  - "**/*.md"
+  - "**/*.ipynb"
+alwaysApply: false
+---
+
+# Evidence & confidence
+
+## Rules for markdown and notebooks
+- Each substantive claim (i.e. non-background) must carry either:
+  - a **file-path citation** (e.g. `Data/FRED/fred_macro_panel__daily.csv`), OR
+  - a **run-summary link** (`reports/run_summaries/<file>.md#anchor`), AND
+  - a **confidence label**: `[conf: High]`, `[conf: Medium]`, or `[conf: Low]`.
+
+## Required confidence labels
+- **High** — replicated from raw data in this repo by code present in `src/cqresearch/`.
+- **Medium** — replicated once but not yet in the automated test suite, OR derived from prior AI output that has been spot-checked.
+- **Low** — inherited from prior AI output without independent verification, or extrapolated from a single table/chart.
+
+## When a claim is Low-confidence
+State the missing evidence and how to upgrade it (e.g. "upgrade to Medium by rerunning `sprint_02_static_blocks.py` on 2024-01-11 ± 6m window").
+
+## Example (well-formed)
+> BTC's macro-block partial R² jumps from ~0.12 pre-ETF to ~0.28 post-ETF
+> (`reports/run_summaries/2026-04-18_rolling_blocks.md#btc_macro`,
+> `Data/CryptoQuant/BTC/Market Data/*.csv`) [conf: Medium — pending Chow F replication].

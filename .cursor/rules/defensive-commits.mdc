@@ -1,0 +1,35 @@
+---
+description: Defensive-commit practices — small, reversible, well-cited commits.
+globs:
+alwaysApply: true
+---
+
+# Defensive commits
+
+## Scope
+- One logical change per commit. No "misc" commits.
+- Prefer **move + edit** separated across two commits so `git log --follow` works (first `git mv`, then edit).
+
+## Message format
+```
+<scope>: <one-line summary tied to plan §>
+
+Why: <business/research justification, 1-3 lines>
+What: <bullet list of files and what each change does>
+Refs: project_research_plan.md §X.Y, docs/specs/<spec>.md (if applicable)
+Conf: High | Medium | Low  (only if commit advances a research claim)
+```
+Example scopes: `config`, `pipeline`, `data`, `modeling`, `viz`, `docs`, `tools`, `tests`, `chore`.
+
+## Hard prohibitions
+- Never `git push --force` on shared branches.
+- Never commit: `.env`, `*.key`, `*.pem`, anything under `secrets/`.
+- Never commit files under `Data/` (they're tracked already; only `tools/data_curation/` should modify them — and then only via additions).
+
+## Before opening a PR
+Checklist:
+- [ ] `uv run pytest -q` passes.
+- [ ] `uv run ruff check .` and `uv run ruff format --check .` pass.
+- [ ] `uv run mypy src/cqresearch` is green (or failures are justified).
+- [ ] `reports/run_summaries/` entry added if the change produces a new artifact.
+- [ ] Plan citation in the PR description.

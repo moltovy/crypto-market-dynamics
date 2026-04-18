@@ -1,0 +1,70 @@
+# Five-block factor architecture.
+# Per docs/context/01_research_framework_and_candidate_pathways.md and
+# docs/context/02_data_sources_factor_blocks_and_sample_design.md.
+#
+# Each block lists canonical CSV paths (relative to Data/) + a short description.
+# src/cqresearch/features/ modules read this to build block variables.
+
+macro:
+  description: Global macro (rates curve, credit, vol, FX, commodity, policy, stress).
+  color: "#1f77b4"
+  files:
+    - path: FRED/fred_macro_panel__daily.csv
+      columns: [DFF, DGS2, DGS10, T10Y2Y, SOFR, RRP, VIXCLS, DXY, BAMLH0A0HYM2, CPIAUCSL, UNRATE, DCOILWTICO, NFCI, STLFSI4, EPU, GLOBALFSI]
+    - path: AlternativeMe/fear_greed_index__daily.csv
+      columns: [fng_value]
+    - path: Tradingview/Daily/DXY_dollar_index__daily.csv
+      columns: [Close]
+    - path: Tradingview/Daily/GLD_spdr_gold_shares__daily.csv
+      columns: [Close]
+
+institutional:
+  description: Spot-ETF flows, ETF AUM, CEX aggregate netflows, DAT overview.
+  color: "#2ca02c"
+  files:
+    - path: Farside ETF Data/farside_btc_etf_flows__daily.csv
+    - path: Farside ETF Data/farside_eth_etf_flows__daily.csv
+    - path: Artemis/Bitcoin ETFs AUM.csv
+    - path: Artemis/Ethereum ETFs AUM.csv
+    - path: DefiLlama/CEX/cex_net_inflows_by_exchange__daily.csv
+
+liquidity:
+  description: Cross-chain TVL, DEX/CEX volume, perp OI, stablecoin supply.
+  color: "#ff7f0e"
+  files:
+    - path: DefiLlama/TVL/Daily/tvl_all_chains_daily.csv
+    - path: DefiLlama/ChainMetrics/all_chains_metrics__daily.csv
+    - path: DefiLlama/ChainMetrics/all_dex_metrics__daily.csv
+    - path: DefiLlama/ChainMetrics/all_chains_perp_volume_by_protocol__daily.csv
+    - path: Artemis/DEX - Spot Volume.csv
+    - path: Artemis/Perps - Open Interest.csv
+    - path: DefiLlama/Stablecoins/stablecoin_mcap_by_defillama_id__daily.csv
+
+btc_native:
+  description: "BTC on-chain: addresses, exchange flows, miner flows, market indicators, supply/dormancy."
+  color: "#7f7f7f"
+  files:
+    - path: CryptoQuant/BTC/Exchange Flows/
+      note: Folder; pick specific CSVs in research_spec.md
+    - path: CryptoQuant/BTC/Miner Flows/
+    - path: CryptoQuant/BTC/Market Indicator/
+    - path: CryptoQuant/BTC/Network Indicator/
+    - path: CryptoQuant/BTC/Addresses/
+    - path: CryptoQuant/BTC/Supply/
+    - path: CryptoQuant/BTC/Derivatives/
+
+eth_native:
+  description: "ETH on-chain: ETH 2.0 staking, burn, active addresses, transactions."
+  color: "#9467bd"
+  files:
+    - path: CryptoQuant/ETH/ETH 2.0/
+    - path: CryptoQuant/ETH/Network Stats/
+    - path: CryptoQuant/ETH/Addresses/
+    - path: CryptoQuant/ETH/Transactions/
+    - path: CryptoQuant/ETH/Fees And Revenue/
+
+# Per-block PCA config (for within-block dimension reduction when multicollinearity bites)
+pca_config:
+  within_block: true
+  n_components: 2
+  fit_window: full_sample

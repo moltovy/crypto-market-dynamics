@@ -13,8 +13,19 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable, Iterable
 
-ROOT = Path(__file__).resolve().parents[1]
-CRYPTOQUANT = ROOT / "CryptoQuant"
+# BUG-FIX (2026-04-18): previously parents[1] resolved to tools/, which made
+# CRYPTOQUANT = tools/CryptoQuant and silently operated on the wrong path.
+# Resolve against the project root and Data/ via config/paths.py.
+import sys as _sys
+_proot = Path(__file__).resolve().parents[2]
+if str(_proot) not in _sys.path:
+    _sys.path.insert(0, str(_proot))
+try:
+    from config.paths import DATA_DIR, PROJECT_ROOT as ROOT
+except Exception:
+    ROOT = _proot
+    DATA_DIR = ROOT / "Data"
+CRYPTOQUANT = DATA_DIR / "CryptoQuant"
 
 
 # Nav order per asset (CryptoQuant Summary pages)

@@ -1,0 +1,43 @@
+---
+description: CryptoQuant Research — global operating constitution. Auto-attaches to every session.
+globs:
+alwaysApply: true
+---
+
+# Global constitution
+
+You are working inside the **CryptoQuant Research** repo. Before doing anything, obey these invariants.
+
+## Mission
+MSc-level empirical-finance study of **how BTC and ETH factor exposures evolved around the 2024 US spot-ETF launch**. Headline diagnostic: **rolling OLS with block-level partial R²**, cross-validated against Bai-Perron / Chow structural-break tests on pre-registered event dates in `config/events.yml`, and VAR/FEVD systems for dynamic confirmation.
+
+## Non-goals
+- No price-forecasting models. We explain *factor structure*, not *future returns*.
+- No altcoin coverage beyond BTC, ETH, WBTC, and the stablecoin ecosystem already curated in `Data/`.
+- No public endpoints beyond the ones declared in `.env.example`.
+- No commits to `main` without review when touching `src/cqresearch/modeling/*`, `config/events.yml`, `config/factor_blocks.yml`, or `reports/panels/*`.
+
+## Required reads (every session, in order)
+1. `project_research_plan.md`
+2. `AGENTS.md`
+3. `config/factor_blocks.yml`, `config/events.yml`, `config/calendars.yml`, `config/chain_taxonomy.yml`
+4. `Data/MASTER_DATA.md` (data inventory)
+
+## Citation discipline
+- Every claim about data MUST cite a file path (`Data/...` or `config/...`).
+- Every claim about prior findings MUST cite a file under `reports/prior_ai_outputs/`.
+- Treat prior AI outputs as hypotheses, not facts, until verified against source data.
+- Attach a **confidence score** (High / Medium / Low) to every major claim. If < High, state what evidence is missing.
+
+## Defensive commits
+- Never overwrite files in `Data/` (raw) or `reports/prior_ai_outputs/` (frozen prior work).
+- Prefer new files with dated suffixes under `reports/drafts/` over in-place edits.
+- Never force-push. Never commit `.env`, `*.key`, `*.pem`, or anything under `secrets/`.
+
+## Environment
+- Python ≥ 3.11 via `uv`. Run `uv sync --all-extras` before first use.
+- All pipeline entry points go through `run_pipeline.py`. Do not invoke individual `tools/` scripts unless debugging.
+- Never hand-edit files in `Data/`. Use `tools/data_curation/` scripts.
+
+## When uncertain
+- Stop, state the ambiguity, cite the conflicting files, propose 2-3 disambiguations, ask.

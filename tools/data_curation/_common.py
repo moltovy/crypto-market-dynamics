@@ -6,14 +6,39 @@ from __future__ import annotations
 
 import hashlib
 import re
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable
 
-ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "Data"
-META_DIR = DATA_DIR / "_meta"
+# Make the project root importable so `from config.paths import ...` works
+# when this script is invoked directly (python tools/data_curation/XX_*.py).
+_ROOT = Path(__file__).resolve().parents[2]
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
+try:
+    # Canonical paths live in config/paths.py (single source of truth).
+    from config.paths import DATA_DIR, DATA_META_DIR as META_DIR, PROJECT_ROOT as ROOT
+except Exception:  # pragma: no cover - fall back if config/ not present yet
+    ROOT = _ROOT
+    DATA_DIR = ROOT / "Data"
+    META_DIR = DATA_DIR / "_meta"
+
 LOG_PATH = META_DIR / "curation_log.md"
+
+
+def load_curation_snapshots() -> dict:
+    """Load config/curation_snapshots.yml. Returns {} if file or PyYAML missing."""
+    try:
+        import yaml  # type: ignore
+    except Exception:
+        return {}
+    p = ROOT / "config" / "curation_snapshots.yml"
+    if not p.exists():
+        return {}
+    with p.open("r", encoding="utf-8") as f:
+        return yaml.safe_load(f) or {}
 
 
 def ensure_meta_dir() -> None:

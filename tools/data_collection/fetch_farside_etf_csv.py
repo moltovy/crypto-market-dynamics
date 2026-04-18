@@ -132,10 +132,19 @@ def write_csv(path: Path, headers: list[str], data: list[list[str]]) -> None:
 
 
 def main() -> None:
-    root = Path(__file__).resolve().parents[1]
-    out_btc = root / "Farside ETF Data" / "BTC" / "bitcoin_etf_flow_all_data.csv"
-    out_eth = root / "Farside ETF Data" / "ETH" / "ethereum_etf_flow_all_data.csv"
-    out_sol = root / "Farside ETF Data" / "SOL" / "solana_etf_flow_all_data.csv"
+    # BUG-FIX (2026-04-18): previously parents[1] which resolved to tools/,
+    # so outputs landed in tools/Farside ETF Data/... instead of Data/.
+    import sys as _sys
+    _proot = Path(__file__).resolve().parents[2]
+    if str(_proot) not in _sys.path:
+        _sys.path.insert(0, str(_proot))
+    try:
+        from config.paths import DATA_DIR as _DATA_DIR
+    except Exception:
+        _DATA_DIR = _proot / "Data"
+    out_btc = _DATA_DIR / "Farside ETF Data" / "BTC" / "bitcoin_etf_flow_all_data.csv"
+    out_eth = _DATA_DIR / "Farside ETF Data" / "ETH" / "ethereum_etf_flow_all_data.csv"
+    out_sol = _DATA_DIR / "Farside ETF Data" / "SOL" / "solana_etf_flow_all_data.csv"
 
     url_btc = "https://farside.co.uk/bitcoin-etf-flow-all-data/"
     url_eth = "https://farside.co.uk/ethereum-etf-flow-all-data/"

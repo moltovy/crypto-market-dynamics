@@ -1,0 +1,48 @@
+# Chain taxonomy: used by src/cqresearch/data/loaders.py and analysis code
+# to aggregate ETH L1/L2, define "crypto-majors", etc.
+#
+# Per Manager_Outline.md: NEVER sum L1 and L2 addresses as "unique users".
+# Always publish L1-only, L2-sum, and L2-share as separate columns.
+
+ethereum_ecosystem:
+  l1: [ethereum]
+  canonical_l2:
+    - arbitrum
+    - optimism
+    - base
+    - zksync_era
+    - linea
+    - scroll
+  broad_ecosystem:
+    - ethereum
+    - arbitrum
+    - optimism
+    - base
+    - zksync_era
+    - linea
+    - scroll
+    - polygon_pos
+    - starknet
+  aggregation_outputs:
+    - eth_l1_only
+    - eth_l2_sum
+    - eth_l2_share_of_broad
+
+bitcoin_ecosystem:
+  l1: [bitcoin]
+  wrapped_on_eth: [wbtc]
+  sidechains: [rsk, stacks, bitlayer]
+
+# Map DefiLlama canonical chain names -> our taxonomy keys.
+defillama_name_map:
+  Ethereum: ethereum
+  Arbitrum: arbitrum
+  Optimism: optimism
+  Base: base
+  "zkSync Era": zksync_era
+  Linea: linea
+  Scroll: scroll
+  Polygon: polygon_pos
+  Starknet: starknet
+  Bitcoin: bitcoin
+  Solana: solana

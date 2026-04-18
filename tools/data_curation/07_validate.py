@@ -26,12 +26,19 @@ from _common import (  # noqa: E402
     DATA_DIR,
     META_DIR,
     iter_data_files,
+    load_curation_snapshots,
     log,
     rel_to_data,
     sha256_of_file,
 )
 
-BACKUP_DIR = Path("C:/Dev/Projects/CryptoQuant_Data_backup_2026-04-16")
+# Backup directory is now read from config/curation_snapshots.yml so the path
+# does not have to be edited in source every time a new snapshot is taken.
+# If the config entry is null or missing, we skip CQ spot-checks with a warning
+# rather than failing hard.
+_snaps = load_curation_snapshots()
+_backup_val = (_snaps.get("validate") or {}).get("backup_dir")
+BACKUP_DIR = Path(_backup_val) if _backup_val else Path()  # empty = disabled
 
 
 def _hash_all(out_name: str) -> dict[str, str]:
@@ -50,8 +57,12 @@ def _hash_all(out_name: str) -> dict[str, str]:
 
 def validate_cryptoquant_samples(n: int = 5) -> list[str]:
     lines: list[str] = []
-    if not BACKUP_DIR.is_dir():
-        return [f"- backup dir missing at `{BACKUP_DIR}`, skipping CQ spot-checks."]
+    if str(BACKUP_DIR) in ("", ".") or not BACKUP_DIR.is_dir():
+        return [
+            "- backup dir not configured or missing. "
+            "Set `validate.backup_dir` in `config/curation_snapshots.yml` to enable "
+            "CryptoQuant spot-checks. Skipping (non-fatal)."
+        ]
     cq_files = [
         p for p in DATA_DIR.rglob("*.csv")
         if rel_to_data(p).startswith("CryptoQuant/")

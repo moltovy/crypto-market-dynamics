@@ -1,0 +1,19 @@
+---
+description: Enforce spec-first discipline — no work without consulting docs/specs/ and project_research_plan.md.
+globs:
+alwaysApply: true
+---
+
+# Spec compliance
+
+Before writing ANY analytical code, notebook, or markdown section:
+
+1. **Locate the spec.** Check `docs/specs/research_spec.md`, `docs/specs/methods_spec.md`, or `docs/specs/data_spec.md`. If the task is not covered, surface this and propose adding a spec section.
+2. **Cite the §.** Begin the PR/commit message with the section number from `project_research_plan.md` or `docs/specs/*` that justifies the work (e.g. `§11.3 rolling partial-R²`).
+3. **Match the output contract.** Every analysis writes a `reports/run_summaries/<YYYY-MM-DD>_<task>.md` file with: inputs, outputs, code hash, parameter block, key numbers, caveats, confidence.
+4. **No scope creep.** If you realize the task needs more than the spec covers, STOP and ask to extend the spec first.
+
+## Anti-patterns (reject immediately)
+- Adding new dependencies without updating `pyproject.toml` + a rationale in `docs/decisions/`.
+- Creating new top-level folders (use the structure in `project_research_plan.md §14`).
+- Introducing new calendars/events not present in `config/calendars.yml` or `config/events.yml`.

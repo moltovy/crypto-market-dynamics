@@ -1,0 +1,37 @@
+# Calendar policies used by src/cqresearch/data/calendars.py
+#
+# Each key names a calendar; the `description` explains when to use it,
+# `frequency` is the pandas-compatible frequency string, and `ffill_limit`
+# gives the maximum forward-fill in days when aligning lower-frequency
+# series onto this calendar.
+
+calendar_daily:
+  description: Every calendar day, UTC. Use as the default join calendar for
+    daily on-chain series (CryptoQuant, DefiLlama, AlternativeMe) that
+    natively publish 7-day-per-week data.
+  frequency: "D"
+  ffill_limit: 0
+
+market_trading_daily:
+  description: US NYSE trading days. Use for joins that include equity/macro
+    daily series (Tradingview, FRED) when the primary return object is on a
+    trading-day calendar (e.g. CME futures).
+  frequency: "B"
+  ffill_limit: 0
+
+weekly:
+  description: Week-ending Friday UTC. Used for weekly robustness samples.
+  frequency: "W-FRI"
+  ffill_limit: 0
+
+monthly_end:
+  description: Month-end UTC. Used when joining monthly macro series (UNRATE, CPI)
+    onto a resampled daily panel via ffill.
+  frequency: "ME"
+  ffill_limit: 31
+
+# Policy notes (not consumed by code, for reference)
+# - Primary sample for the factor-evolution paper: calendar_daily from 2021-01-01.
+# - Weekly robustness: calendar_daily panel resampled via W-FRI last-value.
+# - ETF flows from Farside ETF are naturally on US trading calendar — resample
+#   to calendar_daily with `ffill_limit: 3` (skip long weekends) when joining.

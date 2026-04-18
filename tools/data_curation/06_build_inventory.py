@@ -1,4 +1,4 @@
-"""Step 06: Generate per-folder README.md files, Data/MASTER_DATA.md, Data/MASTER_DATA.csv.
+"""Step 06: Generate per-folder README.md files, Data/MASTER_DATA.md, Data/MASTER_DATA.txt, Data/MASTER_DATA.csv.
 
 For every CSV under Data/, compute:
 - Date range (from `date` column where present).
@@ -11,6 +11,7 @@ For every CSV under Data/, compute:
 Group by folder and write:
 - `<folder>/README.md` — rich, for humans.
 - `Data/MASTER_DATA.md`   — single-file overview across all sources.
+- `Data/MASTER_DATA.txt`  — same inventory as `.md` plus an LLM-oriented preamble (UTF-8 plain text; best for Perplexity / chat uploads).
 - `Data/MASTER_DATA.csv`  — machine-readable master index.
 """
 from __future__ import annotations
@@ -24,6 +25,34 @@ from pathlib import Path
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+# Preamble for MASTER_DATA.txt — optimized for LLM attachments (plain text, no PDF/DOCX parsing).
+_LLM_TXT_PREAMBLE = """\
+================================================================================
+MASTER DATA INVENTORY — context for research LLMs (e.g. Perplexity Pro)
+================================================================================
+What this is
+  Single canonical index of every CSV under Data/ for a crypto quant research
+  project: BTC/ETH factor evolution, macro, on-chain, DeFi, ETFs, sentiment.
+
+Recommended use
+  • Upload this file as a document in Perplexity (Pro) or similar deep-research chats.
+  • Use the same content as MASTER_DATA.md; tables use Markdown pipe syntax.
+  • For exact column lists and SHA-256 hashes, also attach Data/MASTER_DATA.csv.
+
+Why .txt (not PDF/DOC)
+  Plain UTF-8 text avoids PDF text-extraction errors and Word metadata noise; models
+  parse Markdown-style tables reliably.
+
+Data conventions (all time-series CSVs)
+  • First column: date — ISO YYYY-MM-DD, ascending.
+  • No separate timestamp_utc column.
+
+--------------------------------------------------------------------------------
+Inventory body (matches MASTER_DATA.md; regenerated together)
+--------------------------------------------------------------------------------
+
+"""
 from _common import DATA_DIR, log, rel_to_data, sha256_of_file  # noqa: E402
 
 
@@ -514,10 +543,21 @@ def _build_master_md(by_source: dict, all_summaries: list[dict]) -> str:
     )
     lines.append("")
     lines.append(
+        "For **LLM / chat attachments** (e.g. Perplexity Pro deep research), prefer "
+        "`Data/MASTER_DATA.txt`: same inventory as this file, UTF-8 plain text with a "
+        "short usage preamble — avoids PDF/DOCX extraction issues."
+    )
+    lines.append("")
+    lines.append(
         f"_Auto-generated on {datetime.now(timezone.utc).strftime('%Y-%m-%d')} by "
         f"`tools/data_curation/06_build_inventory.py`._"
     )
     return "\n".join(lines) + "\n"
+
+
+def _build_master_txt(master_md: str) -> str:
+    """Same body as MASTER_DATA.md with a plain-text preamble for LLM uploads."""
+    return _LLM_TXT_PREAMBLE + master_md
 
 
 def main() -> None:
@@ -583,9 +623,10 @@ def main() -> None:
             (archive / "README.md").write_text(note, encoding="utf-8")
             readmes_written += 1
 
-    # 5. Write master markdown
+    # 5. Write master markdown + LLM-friendly plain-text copy
     master_md = _build_master_md(by_source, summaries)
     (DATA_DIR / "MASTER_DATA.md").write_text(master_md, encoding="utf-8")
+    (DATA_DIR / "MASTER_DATA.txt").write_text(_build_master_txt(master_md), encoding="utf-8")
 
     # 6. Write master CSV
     csv_path = DATA_DIR / "MASTER_DATA.csv"
@@ -628,6 +669,7 @@ def main() -> None:
             f"Summarized {len(summaries)} CSV files.",
             f"Wrote {readmes_written} per-folder README.md files.",
             "Wrote `Data/MASTER_DATA.md`.",
+            "Wrote `Data/MASTER_DATA.txt`.",
             "Wrote `Data/MASTER_DATA.csv`.",
         ],
     )

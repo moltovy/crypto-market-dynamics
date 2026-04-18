@@ -1,0 +1,37 @@
+---
+description: Notebook hygiene — enforce header cells, `nbstripout`, and no raw path literals.
+globs:
+  - "notebooks/**/*.ipynb"
+alwaysApply: false
+---
+
+# Notebook hygiene
+
+## Header cell (mandatory first markdown cell)
+```
+# <notebook title>
+**Purpose.** One sentence.
+**Author / date.** <name> — <YYYY-MM-DD>.
+**Inputs.** <data files>
+**Outputs.** <figures, tables, panels — with paths under reports/>
+**Plan section.** §X.Y of project_research_plan.md
+**Confidence.** High / Medium / Low — with rationale.
+```
+
+## Path discipline
+- Import paths from `config.paths`, never hardcode absolute paths.
+  ```python
+  from config.paths import DATA_DIR, REPORTS_DIR
+  ```
+- Never write outputs outside `reports/` from a notebook.
+
+## Execution
+- All notebooks must run top-to-bottom from a fresh kernel. CI may run `jupyter nbconvert --execute` on a random sample.
+- `nbstripout` pre-commit hook strips outputs on commit. Do not disable.
+
+## Checklist before committing
+- [ ] Header cell present and filled.
+- [ ] No `!pip install` cells.
+- [ ] No `sys.path.insert` hacks.
+- [ ] All hardcoded dates replaced by `config/events.yml` or `config/curation_snapshots.yml`.
+- [ ] Final cell emits a `reports/run_summaries/` markdown entry.

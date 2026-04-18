@@ -1,0 +1,32 @@
+---
+description: Data-integrity invariants — never mutate raw, always validate, always cite.
+globs:
+  - "tools/**/*.py"
+  - "src/cqresearch/data/**/*.py"
+  - "src/cqresearch/features/**/*.py"
+alwaysApply: false
+---
+
+# Data integrity
+
+## Raw data is immutable
+- Files under `Data/` follow the layout in `Data/MASTER_DATA.md`. **Never overwrite in place.**
+- New curated outputs go under `reports/panels/` (Parquet) or `reports/tables/` (CSV). Never under `Data/`.
+- Filenames are dated: `<dataset>__<freq>__<YYYY-MM-DD>.csv`.
+
+## Date handling
+- All dates parsed as UTC (`pd.to_datetime(..., utc=True)`). No naive timestamps.
+- Default calendar is `calendar_daily` from `config/calendars.yml`. Any deviation MUST state the calendar explicitly.
+- Forward-fill is allowed ONLY when `calendars.yml` permits it for that frequency. Otherwise use the missingness taxonomy (`src/cqresearch/data/missingness.py`).
+
+## Join discipline
+- Join keys: a single `date` column, sorted ascending, no duplicates. Assert with `df.index.is_monotonic_increasing and df.index.is_unique`.
+- Before any `merge`, log left/right row counts, join key overlap, and missingness per column.
+
+## Numeric conventions
+- Returns are log-returns `np.log(P_t / P_{t-1})` unless a function name ends in `_simple_return`.
+- Percent values are stored as decimals (0.05 not 5.0). Label units in column names (`..._bps`, `..._pct`).
+- Never silently cast `int64` to `float64` on a merge. Cast explicitly.
+
+## Reproducibility
+- Every script emits a `reports/run_summaries/<date>_<script>.md` with: git commit, params, row counts in/out, hash of output file.

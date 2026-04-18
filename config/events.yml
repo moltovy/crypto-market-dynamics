@@ -1,0 +1,58 @@
+# Pre-registered event dates and stress episodes.
+# Used by src/cqresearch/modeling/structural_breaks.py (Chow tests) and
+# src/cqresearch/modeling/event_study.py (CARs).
+#
+# Convention: all dates ISO YYYY-MM-DD, UTC. When a price is US-trading-day
+# anchored (CME, SPX, DXY), the event studies shift to the nearest trading day
+# via the NYSE calendar.
+
+primary_breaks:
+  - id: btc_spot_etf_launch
+    date: 2024-01-11
+    description: US BTC spot-ETF trading begins (IBIT, FBTC, BITB, ARKB, ...).
+    source: SEC approval 2024-01-10; first trading day 2024-01-11.
+  - id: eth_spot_etf_launch
+    date: 2024-07-23
+    description: US ETH spot-ETF trading begins.
+    source: SEC final approval 2024-05-23; first trading day 2024-07-23.
+  - id: bitcoin_halving_2024
+    date: 2024-04-20
+    description: Fourth Bitcoin halving (block 840000).
+    source: On-chain block timestamp.
+
+secondary_candidates:
+  - id: dencun_upgrade
+    date: 2024-03-13
+    description: Ethereum Dencun upgrade (EIP-4844 blobs) — lowers L2 cost; possible ETH-L1/L2 break.
+  - id: luna_collapse_2022
+    date: 2022-05-09
+    description: Terra/Luna collapse; reference stress episode.
+  - id: ftx_collapse_2022
+    date: 2022-11-08
+    description: FTX bankruptcy; reference stress episode.
+  - id: svb_crisis_2023
+    date: 2023-03-10
+    description: SVB failure and stablecoin-depeg episode.
+  - id: yen_carry_unwind_2024
+    date: 2024-08-05
+    description: Yen-carry unwind; global vol spike.
+
+# Halvings (for Sample B BTC long-history)
+halvings:
+  - { date: 2012-11-28, block: 210000 }
+  - { date: 2016-07-09, block: 420000 }
+  - { date: 2020-05-11, block: 630000 }
+  - { date: 2024-04-20, block: 840000 }
+
+# Placebo dates for Red-Team validation (randomly chosen; any rolling-estimate
+# claim that also triggers at a placebo date is suspect).
+placebos:
+  - 2022-09-15
+  - 2023-06-22
+  - 2025-02-11
+
+# Event-window conventions
+windows:
+  short: 5   # ±5 trading days
+  medium: 20 # ±20 trading days
+  long: 60   # ±60 trading days
