@@ -56,3 +56,7 @@ tmp/
 *.key
 *.pem
 secrets/
+
+# --- Local archives / third-party reference dumps (keep out of GitHub)
+archive/
+references/
