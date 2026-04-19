@@ -1,0 +1,27 @@
+What was delivered
+Real, end-to-end quantitative pipeline on crypto-era data (2020-01-01 → 2026-04-11, 2,293 days × 58 columns). Every number below is reproducible from scripts/run_full_pipeline.py.
+
+Code (package cqresearch)
+src/cqresearch/data/ — typed loaders + calendar-aware alignment (crypto-7 master; business-5 stock/rate variables forward-filled up to 4 days; weekend zero-fill only for flow variables like Farside ETF inflows).
+src/cqresearch/features/ — log returns, first diffs, winsorization, realized & Garman-Klass vol, ETF-flow intensity.
+src/cqresearch/modeling/ — OLS+HAC, rolling OLS with partial-R² decomposition, Chow + sup-F break tests with placebo p-values, VAR+FEVD with BIC lag selection, market-model event studies with placebo CARs.
+src/cqresearch/viz/style.py — shared matplotlib palette + rcParams.
+9 unit tests green.
+Artifacts
+reports/panels/master_daily.parquet — the master panel + _coverage.csv + _meta.json.
+16 result tables under reports/tables/2026-04-18/ (plus 6 robustness CSVs).
+11 publication figures under reports/figures/2026-04-18/.
+Paper draft reports/drafts/paper_v0.1_2026-04-18.md — 7 sections + robustness appendix, every number tied to a CSV.
+HANDOFF.md at repo root — environment, pipeline, code map, data decisions, P0–P2 next actions.
+Headline findings (all HAC-5, placebo-verified where applicable)
+BTC volatility fell 22% post-ETF (3.18% → 2.49% daily SD). SPY correlation edged from 0.32 → 0.37, VIX anti-correlation from –0.32 → –0.35.
+ETF flow is the single tightest post-2024 driver of BTC daily returns: btc_etf_intensity β=2.33, HAC t=8.7, bumping R² from ~14% to 23.7% (n=821). Survives no-winsor (R2), HAC 5/10/20/40 (R3), and stays identical with 1-day lag added (R1 reveals next-day mean reversion of ~1/3 of the same-day move — i.e., not naïvely causal).
+Chow test at 2024-01-11 does NOT reject stable loadings (F=0.81, p=0.60). The sup-F sweep places the dominant structural break at 2021-01-04 (BTC) / 2021-05-12 (ETH), placebo p=0.00. The 2024 ETFs changed composition (ETH R² 15.4% → 21.0%), not the single-break profile.
+Diebold-Yilmaz total connectedness = 27.3% over the 8-variable VAR(1). ETH: 67% of variance from BTC shocks; DeFi TVL: 46% from BTC; BTC itself: 99.5% own.
+Event studies: BTC ETF [-1,+1] CAR −8.2% (placebo p=0.61 — not out of distribution); ETH ETF [0,+30] CAR −29.3% (placebo p=0.92); FTX collapse [-1,+1] CAR −17.7% (t=−3.67); SVB [0,+5] CAR +16.8% (t=+3.10) — the only clean two-digit-significance episode in the set.
+Status
+Branch: cursor/repo-reorg-scaffold — 1 new commit on top of the prior reorg commit. Not pushed.
+Next agent reads HANDOFF.md first, then reports/drafts/paper_v0.1_2026-04-18.md, then runs python scripts/run_full_pipeline.py. P0 work queue has 4 concrete tasks (issuer-level ETF decomposition, TVP-VAR, stablecoin sub-basket split, causal ETF-flow identification) each sized ~1 day with code pointers.
+
+
+
