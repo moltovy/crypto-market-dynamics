@@ -3,7 +3,7 @@ name = "cqresearch"
 version = "0.1.0"
 description = "CryptoQuant Research — BTC/ETH factor-block evolution around the 2024 spot-ETF structural break."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "CryptoQuant Research Team" }]
 

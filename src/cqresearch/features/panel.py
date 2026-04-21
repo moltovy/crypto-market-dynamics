@@ -5,8 +5,9 @@ Given the master daily panel, we:
 * Compute log returns on *price-like* variables (BTC, ETH, SPY, QQQ, GLD, XLK,
   DXY, CME basis, DVOL, TVL, stablecoin total).
 * Compute first differences on rate/yield-type variables (FRED rates, FNG).
-* Scale ETF flows by prior-day BTC (resp. ETH) market cap to produce a
-  stationary "flow intensity" regressor.
+* Scale ETF flows by prior-day BTC (resp. ETH) **USD market cap** so intensity is
+  dimensionless (daily USD flow / USD mcap). Farside totals are USD **millions**;
+  CryptoQuant market caps are full USD.
 * Drop obvious non-stationary levels from downstream modeling.
 
 All features are named with a clear suffix (``_ret``, ``_d1``, ``_intensity``)
@@ -37,6 +38,10 @@ DIFF_COLS = [
     "dvol_btc_close", "cme_btc_basis_close", "cme_eth_basis_close",
     # Sentiment (0-100 index)
     "fng_value",
+    # On-chain / native (levels → first difference in modeling)
+    "btc_exchange_netflow",
+    "btc_miner_to_exchange_flow",
+    "btc_mvrv",
 ]
 
 
@@ -60,15 +65,20 @@ def build_feature_panel(panel: pd.DataFrame) -> pd.DataFrame:
     if "DCOILWTICO" in panel.columns:
         feat["wti_ret"] = log_return(panel["DCOILWTICO"])
 
-    # ETF flow intensity = flow_t / (market_cap_{t-1})
-    # market cap ≈ close × circulating supply. We don't have circulating in the
-    # panel, so we use prior-day *close* as a scaling proxy — this is a
-    # **flow-per-unit-price** regressor (flow_$USD_M / price). It's stationary
-    # even if price drifts.
-    if "btc_etf_total" in panel.columns and "btc_close" in panel.columns:
-        feat["btc_etf_intensity"] = panel["btc_etf_total"] / panel["btc_close"].shift(1)
-    if "eth_etf_total" in panel.columns and "eth_close" in panel.columns:
-        feat["eth_etf_intensity"] = panel["eth_etf_total"] / panel["eth_close"].shift(1)
+    # ETF flow intensity = (USD flow) / (prior-day USD market cap), dimensionless.
+    # Farside columns are USD millions; multiply by 1e6 for dollars.
+    if "btc_etf_total" in panel.columns and "btc_mcap_usd" in panel.columns:
+        m0 = panel["btc_mcap_usd"].shift(1)
+        flow_usd = panel["btc_etf_total"] * 1.0e6
+        feat["btc_etf_intensity"] = np.where(
+            m0 > 0, flow_usd / m0, np.nan,
+        )
+    if "eth_etf_total" in panel.columns and "eth_mcap_usd" in panel.columns:
+        m0 = panel["eth_mcap_usd"].shift(1)
+        flow_usd = panel["eth_etf_total"] * 1.0e6
+        feat["eth_etf_intensity"] = np.where(
+            m0 > 0, flow_usd / m0, np.nan,
+        )
 
     return feat
 

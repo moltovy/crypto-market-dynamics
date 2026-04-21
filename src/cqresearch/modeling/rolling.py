@@ -1,11 +1,9 @@
-"""Rolling OLS with partial-R² decomposition.
+"""Rolling OLS with **drop-one marginal R²** (not Shapley/Owen).
 
-The partial R² of regressor :math:`x_j` in a window is defined as the increase
-in :math:`R^2` when :math:`x_j` is added to the model containing the other
-regressors — equivalently :math:`1 - RSS_{full}/RSS_{reduced}` for that
-regressor. This is the right object to answer "how much of BTC return
-variance does macro explain right now, beyond what institutional flows already
-explain?"
+For each regressor :math:`x_j`, we compare the full-window RSS to the RSS from
+the model that drops :math:`x_j` only, then report :math:`(RSS_{-j}-RSS)/TSS`.
+This measures incremental variance **conditional on the ordering implied by
+single-variable deletion**, not a fair Shapley allocation across correlated blocks.
 """
 from __future__ import annotations
 

@@ -4,10 +4,11 @@ Runs the full battery and writes results to ``reports/tables/`` and
 ``reports/run_summaries/``:
 
 1. Static OLS of BTC & ETH returns on factor blocks, pre vs post 2024-01-11.
-2. Rolling OLS with partial-R² decomposition (180-day window).
-3. Chow + sup-F structural-break tests with placebo inference.
-4. VAR + 10-day FEVD connectedness on the full post-2020 sample.
-5. Event study around the spot-ETF launches.
+2. Rolling OLS with **drop-one marginal R²** (not Shapley) over a 180-day window.
+3. Chow + **single-break sup-F** sweep (not full Bai–Perron multi-break) with placebo inference.
+4. VAR + 10-day FEVD: **primary** 4-variable system + **appendix** 8-variable system.
+5. Event study around the spot-ETF launches (placebo *p*-values use a **[-5,+5]** window benchmark).
+6. Static OLS on **weekday-only** rows (headline robustness vs crypto-7 calendar).
 
 Every write lands in a dated folder so reruns don't clobber prior outputs.
 """
@@ -26,6 +27,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
+from cqresearch.data.calendars import business_day_mask  # noqa: E402
 from cqresearch.features.panel import build_feature_panel  # noqa: E402
 from cqresearch.features.returns import winsorize  # noqa: E402
 from cqresearch.modeling.ols import fit_ols, subsample_ols  # noqa: E402
@@ -49,7 +51,12 @@ MACRO = ["DGS10_d1", "DGS2_d1", "VIXCLS_d1", "DTWEXBGS_d1", "DFF_d1"]
 INSTITUTIONAL = ["spy_ret", "qqq_ret", "gld_ret"]
 LIQUIDITY = ["defi_tvl_usd_ret", "stables_total_usd_ret"]
 SENT = ["fng_value_d1"]
-BTC_NATIVE = ["cme_btc_basis_close_d1"]
+BTC_NATIVE = [
+    "cme_btc_basis_close_d1",
+    "btc_exchange_netflow_d1",
+    "btc_miner_to_exchange_flow_d1",
+    "btc_mvrv_d1",
+]
 ETH_NATIVE = ["cme_eth_basis_close_d1"]
 
 
@@ -72,13 +79,18 @@ def load_features() -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 # 1. Static OLS (pre vs post ETF)
 # ---------------------------------------------------------------------------
-def static_ols(feat: pd.DataFrame, asset: str) -> list[dict]:
-    y = feat[f"{asset}_ret"].dropna()
+def static_ols(feat: pd.DataFrame, asset: str, *, calendar: str = "crypto7") -> list[dict]:
+    """calendar='crypto7' uses all rows; 'weekday' restricts to Mon–Fri (see business_day_mask)."""
+
     regressors = MACRO + INSTITUTIONAL + LIQUIDITY + SENT + (BTC_NATIVE if asset == "btc" else ETH_NATIVE)
+    regressors = [c for c in regressors if c in feat.columns]
     bp = BTC_ETF_DATE if asset == "btc" else ETH_ETF_DATE
 
-    Xall = feat[regressors]
-    # Full-sample
+    m = business_day_mask(feat.index) if calendar == "weekday" else pd.Series(True, index=feat.index)
+    sub = feat.loc[m]
+    y = sub[f"{asset}_ret"].dropna()
+    Xall = sub[regressors]
+
     full = fit_ols(y, Xall.loc[y.index], label="full")
     subs = subsample_ols(y, Xall.loc[y.index], bp, labels=("pre_etf", "post_etf"))
 
@@ -87,6 +99,7 @@ def static_ols(feat: pd.DataFrame, asset: str) -> list[dict]:
         df = res.to_frame().reset_index(names="regressor")
         df.insert(0, "sample", lab)
         df.insert(0, "asset", asset)
+        df.insert(0, "calendar", calendar)
         rows.extend(df.to_dict("records"))
     return rows
 
@@ -128,16 +141,30 @@ def structural_breaks(feat: pd.DataFrame, asset: str) -> dict:
 # ---------------------------------------------------------------------------
 # 4. VAR + FEVD (Diebold-Yilmaz connectedness)
 # ---------------------------------------------------------------------------
-def var_fevd_analysis(feat: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
-    cols = ["btc_ret", "eth_ret", "spy_ret", "gld_ret",
-            "DGS10_d1", "VIXCLS_d1", "stables_total_usd_ret", "defi_tvl_usd_ret"]
-    cols = [c for c in cols if c in feat.columns]
+def var_fevd_analysis(
+    feat: pd.DataFrame, *, label: str, columns: list[str],
+) -> tuple[pd.DataFrame, dict]:
+    cols = [c for c in columns if c in feat.columns]
     sub = feat[cols].dropna()
     fev = fit_var_fevd(sub, horizon=10, maxlags=10)
     total = connectedness_index(fev)
-    meta = {"lag_order": fev.lag_order, "n": fev.n, "horizon": fev.horizon,
-            "dy_total_connectedness_pct": round(total, 2), "columns": cols}
+    meta = {
+        "label": label,
+        "lag_order": fev.lag_order,
+        "n": fev.n,
+        "horizon": fev.horizon,
+        "dy_total_connectedness_pct": round(total, 2),
+        "columns": cols,
+        "cholesky_note": "FEVD uses statsmodels VAR with Cholesky ordering = column order listed in 'columns'.",
+    }
     return fev.table, meta
+
+
+VAR_COLS_FULL = [
+    "btc_ret", "eth_ret", "spy_ret", "gld_ret",
+    "DGS10_d1", "VIXCLS_d1", "stables_total_usd_ret", "defi_tvl_usd_ret",
+]
+VAR_COLS_COMPACT = ["btc_ret", "eth_ret", "spy_ret", "VIXCLS_d1"]
 
 
 # ---------------------------------------------------------------------------
@@ -165,6 +192,7 @@ def event_studies(feat: pd.DataFrame) -> list[dict]:
             df["beta"] = res.beta
             df["sigma_e"] = res.sigma_e
             df["placebo_p_m5_p5"] = p5
+            df["placebo_benchmark_window"] = "[-5,+5]"
             df["asset"] = asset
             df["event"] = label
             df["event_date"] = date.date().isoformat()
@@ -181,10 +209,11 @@ def main() -> None:
     feat = load_features()
     print(f"features: {feat.shape[0]} rows x {feat.shape[1]} cols")
 
-    # 1. Static OLS
+    # 1. Static OLS (crypto-7 + weekday headline)
     static_rows: list[dict] = []
     for a in ("btc", "eth"):
-        static_rows.extend(static_ols(feat, a))
+        static_rows.extend(static_ols(feat, a, calendar="crypto7"))
+        static_rows.extend(static_ols(feat, a, calendar="weekday"))
     static_df = pd.DataFrame(static_rows)
     _write_csv(static_df, "static_ols_pre_post_etf")
     print(f"[ok] static_ols rows={len(static_df)}")
@@ -205,11 +234,15 @@ def main() -> None:
     _write_csv(sb_df, "structural_breaks_summary")
     print(f"[ok] structural_breaks done")
 
-    # 4. VAR + FEVD
-    fevd_tab, meta = var_fevd_analysis(feat)
+    # 4. VAR + FEVD (compact primary + full appendix)
+    fevd_compact, meta_c = var_fevd_analysis(feat, label="compact_4var", columns=VAR_COLS_COMPACT)
+    _write_csv(fevd_compact, "fevd_10d_compact")
+    (TABLES / "var_fevd_meta_compact.json").write_text(json.dumps(meta_c, indent=2), encoding="utf-8")
+    fevd_tab, meta = var_fevd_analysis(feat, label="full_8var", columns=VAR_COLS_FULL)
     _write_csv(fevd_tab, "fevd_10d")
     (TABLES / "var_fevd_meta.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
-    print(f"[ok] VAR lag={meta['lag_order']}  DY connectedness={meta['dy_total_connectedness_pct']}")
+    print(f"[ok] VAR compact lag={meta_c['lag_order']} DY={meta_c['dy_total_connectedness_pct']}%")
+    print(f"[ok] VAR full lag={meta['lag_order']}  DY connectedness={meta['dy_total_connectedness_pct']}")
 
     # 5. Event studies
     ev_rows = event_studies(feat)
@@ -226,7 +259,9 @@ def main() -> None:
     lines.append("## 1. Static OLS (pre vs post ETF)\n")
     lines.append("See `static_ols_pre_post_etf.csv`. Headline R² (full/pre/post):\n")
     head = (
-        static_df[static_df["regressor"] == "const"][["asset","sample","r2","n"]]
+        static_df[
+            (static_df["regressor"] == "const") & (static_df["calendar"] == "crypto7")
+        ][["asset", "sample", "r2", "n"]]
         .drop_duplicates()
     )
     for _, r in head.iterrows():
@@ -244,6 +279,10 @@ def main() -> None:
         )
 
     lines.append("\n## 4. VAR + FEVD (10-day horizon)\n")
+    lines.append("### 4a Primary (4-variable compact)\n")
+    lines.append(f"BIC lag: **{meta_c['lag_order']}**  DY: **{meta_c['dy_total_connectedness_pct']:.1f}%**  cols={meta_c['columns']}")
+    lines.append("\n" + fevd_compact.round(3).to_markdown())
+    lines.append("\n### 4b Appendix (8-variable)\n")
     lines.append(f"BIC-selected lag order: **{meta['lag_order']}**  ")
     lines.append(f"Diebold-Yilmaz total connectedness: **{meta['dy_total_connectedness_pct']:.1f}%** over {meta['columns']}.")
     lines.append("\nFEVD table (rows = 'from', cols = 'to'):\n")

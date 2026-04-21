@@ -1,0 +1,26 @@
+# Pre-registered CryptoQuant native metrics for Paper 1 (BTC block)
+# Aligned with AGENTS.md claim discipline — do not swap metrics after estimation.
+
+paper_id: paper_1
+version: "2026-04-19"
+metrics:
+  - metric_id: btc_exchange_netflow_d1
+    concept: exchange_netflow
+    source: CryptoQuant
+    path: CryptoQuant/BTC/Exchange Flows/Bitcoin Exchange Netflow (Total) - All Exchanges - Day.csv
+    transform: first_difference
+    role: baseline_native_block
+
+  - metric_id: btc_miner_to_exchange_flow_d1
+    concept: miner_to_exchange_flow
+    source: CryptoQuant
+    path: CryptoQuant/BTC/Miner Flows/Bitcoin Miner to Exchange Flow (Total) - All Miners, All Exchanges - Day.csv
+    transform: first_difference
+    role: baseline_native_block
+
+  - metric_id: btc_mvrv_d1
+    concept: mvrv_ratio
+    source: CryptoQuant
+    path: CryptoQuant/BTC/Market Indicator/Bitcoin MVRV Ratio - Day.csv
+    transform: first_difference
+    role: baseline_native_block

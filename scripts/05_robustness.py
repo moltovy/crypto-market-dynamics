@@ -43,7 +43,12 @@ MACRO = ["DGS10_d1", "DGS2_d1", "VIXCLS_d1", "DTWEXBGS_d1", "DFF_d1"]
 INST = ["spy_ret", "qqq_ret", "gld_ret"]
 LIQ = ["defi_tvl_usd_ret", "stables_total_usd_ret"]
 SENT = ["fng_value_d1"]
-NATIVE_BTC = ["cme_btc_basis_close_d1"]
+NATIVE_BTC = [
+    "cme_btc_basis_close_d1",
+    "btc_exchange_netflow_d1",
+    "btc_miner_to_exchange_flow_d1",
+    "btc_mvrv_d1",
+]
 
 
 def load(winsor: bool = True) -> pd.DataFrame:

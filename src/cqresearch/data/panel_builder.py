@@ -47,6 +47,11 @@ KINDS: dict[str, str] = {
     "dvol_btc_close": "rate",       # implied-vol level
     "cme_btc_basis_close": "rate",  # basis spread
     "cme_eth_basis_close": "rate",
+    "btc_mcap_usd": "stock",
+    "eth_mcap_usd": "stock",
+    "btc_exchange_netflow": "stock",
+    "btc_miner_to_exchange_flow": "stock",
+    "btc_mvrv": "stock",
     # Volumes (flow)
     "btc_volume": "flow",
     "eth_volume": "flow",
@@ -91,6 +96,18 @@ def build_master_panel(
     for c in ["eth_open", "eth_high", "eth_low", "eth_close", "eth_volume"]:
         if c in e.columns:
             _add(c, e[c], KINDS.get(c, "stock"))
+
+    mcap_btc = all_sources["btc_mcap"].df
+    _add("btc_mcap_usd", mcap_btc["btc_mcap_usd"], KINDS["btc_mcap_usd"])
+    mcap_eth = all_sources["eth_mcap"].df
+    _add("eth_mcap_usd", mcap_eth["eth_mcap_usd"], KINDS["eth_mcap_usd"])
+
+    ex_nf = all_sources["btc_exchange_netflow"].df
+    _add("btc_exchange_netflow", ex_nf["btc_exchange_netflow"], KINDS["btc_exchange_netflow"])
+    mx = all_sources["btc_miner_to_exchange"].df
+    _add("btc_miner_to_exchange_flow", mx["btc_miner_to_exchange_flow"], KINDS["btc_miner_to_exchange_flow"])
+    mv = all_sources["btc_mvrv"].df
+    _add("btc_mvrv", mv["btc_mvrv"], KINDS["btc_mvrv"])
 
     # Tradingview closes
     for key in ["spy", "qqq", "gld", "xlk", "dxy_tv", "dvol_btc", "cme_btc_basis", "cme_eth_basis"]:

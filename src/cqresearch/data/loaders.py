@@ -93,6 +93,63 @@ def load_eth_price() -> LoadResult:
     return _finalize(df, "eth_price", path)
 
 
+def load_btc_mcap() -> LoadResult:
+    """USD market capitalization (full dollars, not millions)."""
+
+    path = DATA_DIR / "CryptoQuant/BTC/Market Data/Bitcoin Market Cap - Day.csv"
+    df = pd.read_csv(path)
+    df = _canonical(df, "date")
+    df = df.rename(columns={"Market Cap": "btc_mcap_usd"})
+    df["btc_mcap_usd"] = pd.to_numeric(df["btc_mcap_usd"], errors="coerce")
+    df["btc_mcap_usd"] = df["btc_mcap_usd"].where(df["btc_mcap_usd"] > 0, np.nan)
+    return _finalize(df[["btc_mcap_usd"]], "btc_mcap", path)
+
+
+def load_eth_mcap() -> LoadResult:
+    path = DATA_DIR / "CryptoQuant/ETH/Market Data/Ethereum Market Cap - Day.csv"
+    df = pd.read_csv(path)
+    df = _canonical(df, "date")
+    df = df.rename(columns={"Market Cap": "eth_mcap_usd"})
+    df["eth_mcap_usd"] = pd.to_numeric(df["eth_mcap_usd"], errors="coerce")
+    df["eth_mcap_usd"] = df["eth_mcap_usd"].where(df["eth_mcap_usd"] > 0, np.nan)
+    return _finalize(df[["eth_mcap_usd"]], "eth_mcap", path)
+
+
+def load_btc_exchange_netflow() -> LoadResult:
+    path = (
+        DATA_DIR
+        / "CryptoQuant/BTC/Exchange Flows/Bitcoin Exchange Netflow (Total) - All Exchanges - Day.csv"
+    )
+    df = pd.read_csv(path)
+    df = _canonical(df, "date")
+    df = df.rename(columns={"Exchange Netflow (Total)": "btc_exchange_netflow"})
+    df["btc_exchange_netflow"] = pd.to_numeric(df["btc_exchange_netflow"], errors="coerce")
+    return _finalize(df[["btc_exchange_netflow"]], "btc_exchange_netflow", path)
+
+
+def load_btc_miner_to_exchange() -> LoadResult:
+    path = (
+        DATA_DIR
+        / "CryptoQuant/BTC/Miner Flows/Bitcoin Miner to Exchange Flow (Total) - All Miners, All Exchanges - Day.csv"
+    )
+    df = pd.read_csv(path)
+    df = _canonical(df, "date")
+    df = df.rename(
+        columns={"Miner to Exchange Flow (Total)": "btc_miner_to_exchange_flow"}
+    )
+    df["btc_miner_to_exchange_flow"] = pd.to_numeric(df["btc_miner_to_exchange_flow"], errors="coerce")
+    return _finalize(df[["btc_miner_to_exchange_flow"]], "btc_miner_to_exchange", path)
+
+
+def load_btc_mvrv() -> LoadResult:
+    path = DATA_DIR / "CryptoQuant/BTC/Market Indicator/Bitcoin MVRV Ratio - Day.csv"
+    df = pd.read_csv(path)
+    df = _canonical(df, "date")
+    df = df.rename(columns={"MVRV Ratio": "btc_mvrv"})
+    df["btc_mvrv"] = pd.to_numeric(df["btc_mvrv"], errors="coerce")
+    return _finalize(df[["btc_mvrv"]], "btc_mvrv", path)
+
+
 # ---------------------------------------------------------------------------
 # Macro (FRED panel)
 # ---------------------------------------------------------------------------
@@ -204,6 +261,11 @@ def load_all() -> dict[str, LoadResult]:
     return {
         "btc_price": load_btc_price(),
         "eth_price": load_eth_price(),
+        "btc_mcap": load_btc_mcap(),
+        "eth_mcap": load_eth_mcap(),
+        "btc_exchange_netflow": load_btc_exchange_netflow(),
+        "btc_miner_to_exchange": load_btc_miner_to_exchange(),
+        "btc_mvrv": load_btc_mvrv(),
         "fred_macro": load_fred(),
         "spy": load_tv_close("SPY_sp500_etf__daily.csv", "spy"),
         "qqq": load_tv_close("QQQ_nasdaq100_etf__daily.csv", "qqq"),
@@ -229,6 +291,11 @@ __all__ = [
     "LoadResult",
     "load_btc_price",
     "load_eth_price",
+    "load_btc_mcap",
+    "load_eth_mcap",
+    "load_btc_exchange_netflow",
+    "load_btc_miner_to_exchange",
+    "load_btc_mvrv",
     "load_fred",
     "load_tv_close",
     "load_farside",

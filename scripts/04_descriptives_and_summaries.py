@@ -40,7 +40,12 @@ BLOCKS = {
     "Institutional": ["spy_ret", "qqq_ret", "gld_ret"],
     "Liquidity": ["defi_tvl_usd_ret", "stables_total_usd_ret"],
     "Sentiment": ["fng_value_d1"],
-    "Native_btc": ["cme_btc_basis_close_d1"],
+    "Native_btc": [
+        "cme_btc_basis_close_d1",
+        "btc_exchange_netflow_d1",
+        "btc_miner_to_exchange_flow_d1",
+        "btc_mvrv_d1",
+    ],
     "Native_eth": ["cme_eth_basis_close_d1"],
 }
 

@@ -8,9 +8,12 @@
 calendar_daily:
   description: Every calendar day, UTC. Use as the default join calendar for
     daily on-chain series (CryptoQuant, DefiLlama, AlternativeMe) that
-    natively publish 7-day-per-week data.
+    natively publish 7-day-per-week data. When aligning TradFi stock/rate
+    series onto this index, forward-fill at most ffill_limit days (weekends
+    + short holidays) — implemented in calendars.align_to_master.
   frequency: "D"
-  ffill_limit: 0
+  # Master panel headline policy (see AGENTS.md escalation): reconcile with code.
+  ffill_limit: 3
 
 market_trading_daily:
   description: US NYSE trading days. Use for joins that include equity/macro

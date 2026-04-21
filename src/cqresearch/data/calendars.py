@@ -8,17 +8,27 @@ Two calendars matter in this project:
   equity ETFs, FRED macro, DXY, Farside ETF flows.
 
 The `align_to_master` helper forward-fills business-5 "stock" variables into
-the crypto-7 calendar (up to 4-day gap to cover long weekends) and pads
-business-5 "flow" variables (ETF flows, returns) with 0 on weekends because
-"no trading day" is an *actual* zero inflow, not a missing observation.
+the crypto-7 calendar (forward-fill limit from ``config/calendars.yml``,
+``calendar_daily.ffill_limit``) and pads business-5 "flow" variables (ETF
+flows, returns) with 0 on weekends because "no trading day" is an *actual*
+zero inflow, not a missing observation.
+
+**Headline regressions (Paper 1):** mixed TradFi + crypto models should also
+be run on **US market trading days** only (see :func:`business_day_mask`) to
+avoid weekend flat-lines in TradFi returns; full calendar-daily results are
+reported as robustness.
 """
 from __future__ import annotations
 
 from dataclasses import dataclass
+from functools import lru_cache
 from typing import Literal
 
 import numpy as np
 import pandas as pd
+import yaml
+
+from config.paths import CALENDARS_YML
 
 SeriesKind = Literal["stock", "flow", "rate"]
 
@@ -36,6 +46,33 @@ class Calendar:
 
 CRYPTO_7 = Calendar("crypto7", "D", "All UTC calendar days")
 BUSINESS_5 = Calendar("business5", "B", "Mon-Fri, US business days")
+
+
+@lru_cache(maxsize=1)
+def _calendar_yaml() -> dict:
+    """Parse ``config/calendars.yml`` once (source of truth for ffill limits)."""
+
+    if not CALENDARS_YML.is_file():
+        return {}
+    return yaml.safe_load(CALENDARS_YML.read_text(encoding="utf-8")) or {}
+
+
+def get_master_ffill_limit() -> int:
+    """Forward-fill cap (days) when aligning stock/rate series to the crypto-7 master index."""
+
+    cfg = _calendar_yaml()
+    daily = cfg.get("calendar_daily") or {}
+    return int(daily.get("ffill_limit", 3))
+
+
+def business_day_mask(index: pd.DatetimeIndex) -> pd.Series:
+    """True on US **weekday** rows (Mon–Fri). Use as a filter for headline macro/ETF regressions.
+
+    Note: This does not remove US market holidays; for a full NYSE calendar,
+    plug in ``pandas_market_calendars`` or an exchange calendar in a later revision.
+    """
+
+    return pd.Series(index.weekday < 5, index=index, name="is_business_day")
 
 
 def crypto_index(
@@ -62,7 +99,7 @@ def align_to_master(
     series: pd.Series,
     kind: SeriesKind,
     master_index: pd.DatetimeIndex | None = None,
-    ffill_limit_days: int = 4,
+    ffill_limit_days: int | None = None,
 ) -> pd.Series:
     """Reindex a daily series onto the master crypto-7 calendar.
 
@@ -81,6 +118,7 @@ def align_to_master(
         Target index. Defaults to the project default crypto-7 window.
     ffill_limit_days
         Max number of consecutive days to forward-fill for stock/rate kinds.
+        If ``None``, uses :func:`get_master_ffill_limit` (from ``config/calendars.yml``).
 
     Returns
     -------
@@ -90,6 +128,9 @@ def align_to_master(
 
     if master_index is None:
         master_index = crypto_index()
+
+    if ffill_limit_days is None:
+        ffill_limit_days = get_master_ffill_limit()
 
     s = series.copy()
     s.index = to_daily_utc(s.index)

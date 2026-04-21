@@ -2,11 +2,12 @@
 
 F01 — BTC / ETH cumulative log returns with event markers.
 F02 — Rolling R² of BTC returns on the full factor stack (180-day).
-F03 — Rolling partial R² stacked area by factor block for BTC.
-F04 — Rolling partial R² stacked area by factor block for ETH.
-F05 — sup-F series for BTC with placebo 95th percentile.
-F06 — sup-F series for ETH with placebo 95th percentile.
-F07 — FEVD heatmap (10-day horizon).
+F03 — Rolling **drop-one marginal R²** (not Shapley) stacked by block — BTC.
+F04 — Same — ETH.
+F05 — **Single-break sup-F** sweep for BTC (not Bai–Perron multi-break).
+F06 — Same — ETH.
+F07 — FEVD heatmap, **primary 4-variable VAR** (10-day horizon; Cholesky = column order).
+F07b — FEVD heatmap, appendix 8-variable VAR.
 F08 — Event-study CARs around the BTC spot-ETF launch.
 F09 — Coverage timeline (column × date heat-map proxy).
 F10 — Pre/post-ETF rolling 60-day correlation: BTC vs SPY, BTC vs GLD, BTC vs DXY.
@@ -36,7 +37,10 @@ FIG = REPORTS_FIGURES_DIR / STAMP
 FIG.mkdir(parents=True, exist_ok=True)
 TAB = REPORTS_TABLES_DIR / STAMP
 
-FOOTER = "CryptoQuant research v0.1 · data: CryptoQuant, DefiLlama, Farside, FRED, Tradingview, AlternativeMe · 2020-01-01..2026-04-11"
+FOOTER = (
+    "CryptoQuant research v1.0 pipeline · data: CryptoQuant, DefiLlama, Farside, FRED, "
+    "Tradingview, AlternativeMe · 2020-01-01..2026-04-11"
+)
 
 BTC_ETF = pd.Timestamp("2024-01-11")
 ETH_ETF = pd.Timestamp("2024-07-23")
@@ -95,13 +99,23 @@ def f02_rolling_r2(asset: str) -> Path:
 # ---------------------------------------------------------------------------
 # F03/F04 — stacked partial R² by block
 # ---------------------------------------------------------------------------
-BLOCKS: dict[str, list[str]] = {
-    "Macro": ["DGS10_d1", "DGS2_d1", "VIXCLS_d1", "DTWEXBGS_d1", "DFF_d1"],
-    "Institutional": ["spy_ret", "qqq_ret", "gld_ret"],
-    "Liquidity": ["defi_tvl_usd_ret", "stables_total_usd_ret"],
-    "Sentiment": ["fng_value_d1"],
-    "Native": ["cme_btc_basis_close_d1", "cme_eth_basis_close_d1"],
-}
+def _block_regressors(asset: str) -> dict[str, list[str]]:
+    """Regressor IDs per factor block (must match ``02_run_analyses`` rolling spec)."""
+
+    native_btc = [
+        "cme_btc_basis_close_d1",
+        "btc_exchange_netflow_d1",
+        "btc_miner_to_exchange_flow_d1",
+        "btc_mvrv_d1",
+    ]
+    native_eth = ["cme_eth_basis_close_d1"]
+    return {
+        "Macro": ["DGS10_d1", "DGS2_d1", "VIXCLS_d1", "DTWEXBGS_d1", "DFF_d1"],
+        "Institutional": ["spy_ret", "qqq_ret", "gld_ret"],
+        "Liquidity": ["defi_tvl_usd_ret", "stables_total_usd_ret"],
+        "Sentiment": ["fng_value_d1"],
+        "Native": native_btc if asset == "btc" else native_eth,
+    }
 BLOCK_COLORS = {
     "Macro": PALETTE["macro"],
     "Institutional": PALETTE["institutional"],
@@ -113,9 +127,9 @@ BLOCK_COLORS = {
 
 def f03_partial_r2(asset: str) -> Path:
     roll = pd.read_csv(TAB / f"rolling_ols_{asset}_180d.csv", parse_dates=["date"]).set_index("date")
-    # Aggregate partial R² by block
+    # Aggregate drop-one marginal R² by block
     block_series = {}
-    for block, cols in BLOCKS.items():
+    for block, cols in _block_regressors(asset).items():
         cols_here = [f"pr2_{c}" for c in cols if f"pr2_{c}" in roll.columns]
         if not cols_here:
             continue
@@ -133,8 +147,10 @@ def f03_partial_r2(asset: str) -> Path:
     )
     for d, lbl in [(BTC_ETF, "BTC ETF"), (ETH_ETF, "ETH ETF"), (FTX, "FTX"), (SVB, "SVB")]:
         ax.axvline(d, color="#111", lw=0.6, alpha=0.6, ls=":")
-    ax.set_ylabel("partial R² (stacked)")
-    ax.set_title(f"{asset.upper()} return variance decomposition — rolling 180-day partial R² by factor block")
+    ax.set_ylabel("drop-one marginal R² (stacked by block)")
+    ax.set_title(
+        f"{asset.upper()} — rolling 180-day drop-one marginal R² by factor block (not Shapley)"
+    )
     ax.legend(loc="upper left", ncol=3)
     ax.set_ylim(bottom=0)
     return _save(fig, f"F03_{asset}_partial_r2_stack" if asset == "btc" else f"F04_{asset}_partial_r2_stack")
@@ -150,15 +166,18 @@ def f05_sup_f(asset: str) -> Path:
     for d, lbl in [(BTC_ETF, "BTC ETF"), (ETH_ETF, "ETH ETF"), (FTX, "FTX"), (SVB, "SVB")]:
         ax.axvline(d, color="#111", lw=0.7, alpha=0.55, ls=":")
     ax.set_ylabel("F statistic")
-    ax.set_title(f"{asset.upper()} — sup-F break test across all interior dates (trim=0.15)")
+    ax.set_title(
+        f"{asset.upper()} — single-break sup-F sweep (trim=0.15; not Bai–Perron multi-break)"
+    )
     return _save(fig, f"F05_sup_f_{asset}" if asset == "btc" else f"F06_sup_f_{asset}")
 
 
 # ---------------------------------------------------------------------------
 # F07 — FEVD heatmap
 # ---------------------------------------------------------------------------
-def f07_fevd_heatmap() -> Path:
-    fev = pd.read_csv(TAB / "fevd_10d.csv", index_col=0)
+def f07_fevd_heatmap(*, compact: bool) -> Path:
+    name = "fevd_10d_compact.csv" if compact else "fevd_10d.csv"
+    fev = pd.read_csv(TAB / name, index_col=0)
     fig, ax = plt.subplots(figsize=(7.5, 6.2))
     im = ax.imshow(fev.values, cmap="viridis", vmin=0, vmax=1, aspect="auto")
     ax.set_xticks(range(fev.shape[1]))
@@ -167,14 +186,17 @@ def f07_fevd_heatmap() -> Path:
     ax.set_yticklabels(fev.index)
     ax.set_xlabel("explained by shocks to →")
     ax.set_ylabel("variance of ↓")
-    ax.set_title("10-day FEVD — share of variance of row explained by shocks to column")
+    label = "4-variable VAR (primary)" if compact else "8-variable VAR (appendix)"
+    ax.set_title(
+        f"10-day FEVD — {label}; Cholesky ordering = statsmodels column order"
+    )
     for i in range(fev.shape[0]):
         for j in range(fev.shape[1]):
             val = fev.values[i, j]
             ax.text(j, i, f"{val:.2f}", ha="center", va="center",
                     color="white" if val < 0.55 else "black", fontsize=8)
     fig.colorbar(im, ax=ax, fraction=0.046)
-    return _save(fig, "F07_fevd_heatmap")
+    return _save(fig, "F07_fevd_heatmap" if compact else "F07b_fevd_heatmap_full")
 
 
 # ---------------------------------------------------------------------------
@@ -203,7 +225,7 @@ def f08_event_cars() -> Path:
     ax.axvline(0, color="#333", lw=0.8)
     # annotate t-statistics
     for y, (car, t, p) in enumerate(zip(ev["car"], ev["t_stat"], ev["placebo_p_m5_p5"])):
-        txt = f"  t={t:.2f}  p(pl.)={p:.2f}"
+        txt = f"  t={t:.2f}  p(pl.[-5,+5])={p:.2f}"
         ax.text(car, y, txt, va="center",
                 ha="left" if car >= 0 else "right", fontsize=7, color="#222")
     ax.set_xlabel("CAR (log return)")
@@ -265,7 +287,8 @@ def main() -> None:
     out_paths.append(f03_partial_r2("eth"))
     out_paths.append(f05_sup_f("btc"))
     out_paths.append(f05_sup_f("eth"))
-    out_paths.append(f07_fevd_heatmap())
+    out_paths.append(f07_fevd_heatmap(compact=True))
+    out_paths.append(f07_fevd_heatmap(compact=False))
     out_paths.append(f08_event_cars())
     out_paths.append(f09_coverage(panel))
     out_paths.append(f10_rolling_corr(panel))

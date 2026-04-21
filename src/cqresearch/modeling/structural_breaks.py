@@ -3,10 +3,10 @@
 Implements:
 
 * :func:`chow_test` — F test for a known breakpoint on OLS coefficients.
-* :func:`sup_f_sweep` — supremum-F sweep (Andrews 1993) for a single unknown
-  break over a trimmed interior window (15%..85%). This approximates the
-  Bai-Perron (1998) single-break case without the dynamic-programming search
-  for *k* unknown breaks; sufficient for the "did the loading change once" Q.
+* :func:`sup_f_sweep` — supremum-F sweep (Andrews 1993) for a **single** unknown
+  break over a trimmed interior window (15%..85%). This is **not** the
+  Bai–Perron (1998) dynamic-programming **multi-break** estimator; do not label
+  results as full Bai–Perron unless that procedure is implemented separately.
 * :func:`placebo_breaks` — Monte-Carlo p-value for a supF by resampling dates
   under the null of no break.
 """
