@@ -94,67 +94,65 @@ canonical output tables. The full contact sheet is
 
 ### Data Coverage
 
-![Frozen BTC/ETH multi-source panel](outputs/figures/F01_data_coverage.png)
+![Data coverage](outputs/figures/F01_data_coverage.png)
 
-Source: [`T01_source_inventory.csv`](outputs/tables/T01_source_inventory.csv) and
-[`T02_panel_coverage.csv`](outputs/tables/T02_panel_coverage.csv). Model card:
-[`factor_exposure.md`](outputs/model_cards/factor_exposure.md).
+The project uses a frozen daily panel from 2020 to 2026, combining crypto native metrics, macro data, and ETF flows.
+
+Source: [`T01_source_inventory.csv`](outputs/tables/T01_source_inventory.csv) and [`T02_panel_coverage.csv`](outputs/tables/T02_panel_coverage.csv) · Model card: [`factor_exposure.md`](outputs/model_cards/factor_exposure.md)
 
 ### BTC Factor Attribution
 
 ![BTC factor attribution](outputs/figures/F02_btc_block_attribution.png)
 
-Source: [`T03_block_attribution.csv`](outputs/tables/T03_block_attribution.csv)
-and [`T03_rolling_block_partial_r2_btc_180d.csv`](outputs/tables/T03_rolling_block_partial_r2_btc_180d.csv).
-Model card: [`block_attribution.md`](outputs/model_cards/block_attribution.md).
+Ablation and block-attribution diagnostics show how BTC explanatory power changes as macro, liquidity, institutional, and native variables enter the model. The visual separates native valuation-state information from macro/ETF interpretation. Note: This uses full-vs-reduced partial R², not Shapley values.
+
+Source: [`T03_block_attribution.csv`](outputs/tables/T03_block_attribution.csv) · Model card: [`block_attribution.md`](outputs/model_cards/block_attribution.md)
 
 ### ETF Flow Lead-Lag
 
 ![BTC ETF-flow lead-lag](outputs/figures/F03_btc_etf_lead_lag.png)
 
-Source: [`T04_etf_lead_lag.csv`](outputs/tables/T04_etf_lead_lag.csv). Model
-card: [`etf_flow_lead_lag.md`](outputs/model_cards/etf_flow_lead_lag.md).
-Lag convention: `lag < 0` means flow is shifted earlier and leads the target
-return. This is association, not causality.
+This chart summarizes the lead-lag pattern between ETF-flow intensity and BTC returns. The strongest visual signal is contemporaneous; lagged relationships should be read as reduced-form association rather than predictive causality. Lag convention: `lag < 0` means flow leads return.
+
+Source: [`T04_etf_lead_lag.csv`](outputs/tables/T04_etf_lead_lag.csv) · Model card: [`etf_flow_lead_lag.md`](outputs/model_cards/etf_flow_lead_lag.md)
 
 ### Rolling Correlations
 
 ![BTC rolling correlations](outputs/figures/F04_btc_rolling_correlations.png)
 
-Source: [`T05_rolling_correlations.csv`](outputs/tables/T05_rolling_correlations.csv)
-and [`T05_correlation_regime.csv`](outputs/tables/T05_correlation_regime.csv).
-Model card: [`rolling_correlations.md`](outputs/model_cards/rolling_correlations.md).
+Rolling 180-day correlations illustrate regime variation between BTC and TradFi/Macro assets. These are descriptive co-movements across crypto beta, equity risk, and volatility regimes.
+
+Source: [`T05_rolling_correlations.csv`](outputs/tables/T05_rolling_correlations.csv) · Model card: [`rolling_correlations.md`](outputs/model_cards/rolling_correlations.md)
 
 ### Liquidity And Native Factors
 
 ![Stablecoin supply and TVL](outputs/figures/F05_stablecoin_supply_tvl.png)
 
-Source: [`T06_stablecoin_liquidity.csv`](outputs/tables/T06_stablecoin_liquidity.csv).
-Model card: [`stablecoin_liquidity.md`](outputs/model_cards/stablecoin_liquidity.md).
+Stablecoin supply and DeFi TVL are shown as indexed lines to provide liquidity context alongside 30-day realized volatility. These represent proxies for liquidity rather than identified funding shocks.
+
+Source: [`T06_stablecoin_liquidity.csv`](outputs/tables/T06_stablecoin_liquidity.csv) · Model card: [`stablecoin_liquidity.md`](outputs/model_cards/stablecoin_liquidity.md)
 
 ![BTC-native dashboard](outputs/figures/F06_btc_native_dashboard.png)
 
-Source: [`T07_native_factor_ablation.csv`](outputs/tables/T07_native_factor_ablation.csv)
-and [`T07_btc_native_correlations.csv`](outputs/tables/T07_btc_native_correlations.csv).
-Model card: [`btc_native_factors.md`](outputs/model_cards/btc_native_factors.md).
+Native factor states isolate MVRV valuation state from exchange, miner, and basis flows to avoid over-reading mechanical co-movement. The ablation bars and correlation matrix separate these drivers cleanly.
+
+Source: [`T07_native_factor_ablation.csv`](outputs/tables/T07_native_factor_ablation.csv) · Model card: [`btc_native_factors.md`](outputs/model_cards/btc_native_factors.md)
 
 ### Connectedness And Robustness
 
 ![Connectedness](outputs/figures/F07_connectedness.png)
 
-Source: [`T09_connectedness.csv`](outputs/tables/T09_connectedness.csv) and
-[`T09_rolling_connectedness.csv`](outputs/tables/T09_rolling_connectedness.csv).
-Model card: [`connectedness.md`](outputs/model_cards/connectedness.md).
+A compact matrix heatmap summarizes 10-day VAR/FEVD spillover structure. Note that FEVD connectedness outputs are highly sensitive to the Cholesky ordering used in the underlying VAR design.
+
+Source: [`T09_connectedness.csv`](outputs/tables/T09_connectedness.csv) · Model card: [`connectedness.md`](outputs/model_cards/connectedness.md)
 
 ![Robustness](outputs/figures/F08_robustness_grid.png)
 
-Source: [`T10_robustness.csv`](outputs/tables/T10_robustness.csv). Model card:
-[`robustness.md`](outputs/model_cards/robustness.md).
+The robustness grid shows model sensitivity across variations in windows, HAC lags, and the inclusion of MVRV. It emphasizes that model fit is a descriptive sensitivity output rather than an absolute truth.
 
-The compact result-card view is
-[`F09_key_results_cards.png`](outputs/figures/F09_key_results_cards.png), and
-the styled table card is
-[`T00_key_results_table.png`](outputs/figures/T00_key_results_table.png).
+Source: [`T10_robustness.csv`](outputs/tables/T10_robustness.csv) · Model card: [`robustness.md`](outputs/model_cards/robustness.md)
+
+*Key results tables and supplementary visual cards are available in the [`outputs/figures/`](outputs/figures/) directory.*
 
 ## Reproduce
 

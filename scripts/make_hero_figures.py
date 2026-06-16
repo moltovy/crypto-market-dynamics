@@ -27,11 +27,10 @@ from scripts.build_visual_gallery import (  # noqa: E402
     build_final_gallery,
 )
 
-from cqresearch.viz.annotations import add_badge, add_event_markers, add_source_footer  # noqa: E402
+from cqresearch.viz.annotations import add_event_markers, add_source_footer  # noqa: E402
 from cqresearch.viz.cards import (  # noqa: E402
     add_card_background,
     add_header,
-    add_metric_badge,
     add_pill,
 )
 from cqresearch.viz.design_system import (  # noqa: E402
@@ -108,18 +107,19 @@ def add_date_axis(ax: plt.Axes, *, max_ticks: int = 7) -> None:
 def make_chart(
     filename: str,
     title: str,
-    subtitle: str,
-    footer: str,
+    subtitle: str | None = None,
+    footer: str | None = None,
     *,
     axes_rect: list[float] | None = None,
 ) -> tuple[plt.Figure, plt.Axes]:
     apply_institutional_mpl_theme()
     fig = plt.figure(figsize=HERO_SIZE, facecolor=COLORS["bg"])
     add_card_background(fig, [0.025, 0.045, 0.95, 0.90])
-    add_header(fig, title, subtitle)
+    add_header(fig, title, subtitle or "")
     ax = fig.add_axes(axes_rect or [0.075, 0.17, 0.85, 0.61])
     style_axis(ax)
-    add_source_footer(fig, footer)
+    if footer:
+        add_source_footer(fig, footer)
     fig.set_label(filename)
     return fig, ax
 
@@ -132,54 +132,26 @@ def save_public(fig: plt.Figure, filename: str) -> list[Path]:
 
 
 def render_f00() -> list[Path]:
-    coverage = load_csv("T02_panel_coverage.csv").iloc[0]
-    inventory = load_csv("T01_source_inventory.csv")
     fig, ax = make_chart(
         "F00_project_summary_card.png",
-        "Crypto Market Factor Lab",
-        "Reproducible BTC/ETH factor regimes, ETF-flow market plumbing, stablecoin liquidity, native factors, connectedness, and robustness diagnostics.",
-        "Source: frozen 2020-2026 panel | Public artifact root: outputs/ | No live or paid API dependency.",
+        "Project Pipeline",
+        "",
+        "",
         axes_rect=[0.055, 0.12, 0.89, 0.68],
     )
     ax.set_axis_off()
-    badges = [
-        ("coverage", "2020-2026", COLORS["btc"]),
-        ("daily rows", f"{int(coverage['n_rows']):,}", COLORS["institutional"]),
-        ("features", f"{int(coverage['n_cols'])}", COLORS["native"]),
-        ("source families", f"{inventory['source'].nunique()}", COLORS["liquidity"]),
-        ("curated files", f"{len(inventory):,}", COLORS["gold"]),
-    ]
-    for idx, (label, value, color) in enumerate(badges):
-        add_metric_badge(fig, x=0.07 + idx * 0.176, y=0.645, label=label, value=value, color=color)
-
     methods = [
-        ("factor attribution", COLORS["native"]),
-        ("ETF lead-lag", COLORS["institutional"]),
-        ("stablecoin liquidity", COLORS["stablecoin"]),
-        ("BTC-native lab", COLORS["btc"]),
-        ("VAR/FEVD", COLORS["eth"]),
-        ("robustness grid", COLORS["gold"]),
+        ("Data", COLORS["btc"]),
+        ("Features", COLORS["eth"]),
+        ("Models", COLORS["institutional"]),
+        ("Outputs", COLORS["gold"]),
     ]
     for idx, (label, color) in enumerate(methods):
-        x = 0.085 + (idx % 3) * 0.29
-        y = 0.43 - (idx // 3) * 0.095
+        x = 0.15 + idx * 0.22
+        y = 0.5
         add_pill(fig, x=x, y=y, text=label, color=color)
-
-    fig.text(
-        0.075,
-        0.225,
-        "Reduced-form interpretation: association, exposure, contribution, regime, and sensitivity diagnostics.",
-        fontsize=12,
-        fontweight="semibold",
-        color=COLORS["text"],
-    )
-    fig.text(
-        0.075,
-        0.185,
-        "No claim that ETF flows caused BTC/ETH returns; structural breaks are Chow and single-break sup-F unless explicitly labeled otherwise.",
-        fontsize=9,
-        color=COLORS["muted"],
-    )
+        if idx < len(methods) - 1:
+            ax.annotate("", xy=(x + 0.14, y), xytext=(x + 0.08, y), arrowprops={"arrowstyle": "->", "color": COLORS["text"], "lw": 2}, xycoords="figure fraction")
     return save_public(fig, "F00_project_summary_card.png")
 
 
@@ -193,12 +165,11 @@ def render_f01() -> list[Path]:
         .agg(start=("start_date", "min"), end=("end_date", "max"), files=("relpath", "count"))
         .sort_values("start")
     )
-    coverage = load_csv("T02_panel_coverage.csv").iloc[0]
     fig, ax = make_chart(
         "F01_data_coverage.png",
-        "Frozen BTC/ETH Multi-Source Panel",
-        "2,293 daily observations, 63 columns, and April 2026 data vintage across crypto, macro, ETF-flow, DeFi, sentiment, and native sources.",
-        "Source: outputs/tables/T01_source_inventory.csv and T02_panel_coverage.csv | Method: grouped source coverage; frozen-data inventory.",
+        "Data Coverage",
+        "",
+        "",
     )
     y = np.arange(len(grouped))
     left = mdates.date2num(grouped["start"].dt.to_pydatetime())
@@ -214,14 +185,7 @@ def render_f01() -> list[Path]:
     add_date_axis(ax)
     add_event_markers(ax, label_y=0.94)
     ax.set_xlabel("Source coverage window")
-    ax.text(
-        0.0,
-        -0.16,
-        f"Panel contract: {coverage['start']} to {coverage['end']} | {int(coverage['n_rows']):,} daily rows | {int(coverage['n_cols'])} columns | {coverage['data_policy']} data",
-        transform=ax.transAxes,
-        fontsize=8,
-        color=COLORS["muted"],
-    )
+
     return save_public(fig, "F01_data_coverage.png")
 
 
@@ -233,8 +197,8 @@ def render_f02() -> list[Path]:
     add_card_background(fig, [0.025, 0.045, 0.95, 0.90])
     add_header(
         fig,
-        "BTC Factor Attribution Is Native-State Heavy",
-        "Rolling block partial R2 and full-sample block removal show valuation/native state dominating the reduced-form fit.",
+        "BTC Factor Attribution",
+        "",
     )
     ax = fig.add_axes([0.07, 0.18, 0.58, 0.58])
     ax2 = fig.add_axes([0.71, 0.18, 0.22, 0.58])
@@ -282,10 +246,7 @@ def render_f02() -> list[Path]:
             fontsize=8,
             color=COLORS["text"],
         )
-    add_source_footer(
-        fig,
-        "Source: outputs/tables/T03_block_attribution.csv and T03_rolling_block_partial_r2_btc_180d.csv | Method: full-vs-reduced block partial R2, not Shapley/Owen.",
-    )
+
     return save_public(fig, "F02_btc_block_attribution.png")
 
 
@@ -294,9 +255,9 @@ def render_f03() -> list[Path]:
     btc = lead_lag.query("asset == 'btc' and target == 'btc_ret'").sort_values("lag")
     fig, ax = make_chart(
         "F03_btc_etf_lead_lag.png",
-        "BTC ETF-Flow Lead-Lag: Strong Same-Day Association",
-        "HAC t-statistics by lag, with lag < 0 meaning ETF-flow intensity is shifted earlier and leads the BTC return target.",
-        "Source: outputs/tables/T04_etf_lead_lag.csv | Method: HAC OLS lead-lag grid with controls; association, not causality.",
+        "ETF Flow Lead-Lag",
+        "",
+        "",
     )
     colors = [
         COLORS["neutral"] if lag < 0 else COLORS["institutional"] if lag == 0 else COLORS["btc"]
@@ -310,7 +271,7 @@ def render_f03() -> list[Path]:
     ax.set_ylabel("HAC t-statistic")
     ax.set_xticks(btc["lag"])
     ax.set_ylim(min(-2.5, float(btc["t"].min()) - 1.0), float(btc["t"].max()) + 1.4)
-    add_badge(ax, "association, not causality", x=0.02, y=0.91, color=COLORS["risk"])
+
     same_day = btc.loc[btc["lag"].eq(0)].iloc[0]
     ax.text(
         same_day["lag"] + 0.35,
@@ -343,9 +304,9 @@ def render_f04() -> list[Path]:
     }
     fig, ax = make_chart(
         "F04_btc_rolling_correlations.png",
-        "Cross-Asset Co-Movement Is Time-Varying",
-        "BTC 180-day rolling correlations move across crypto beta, equity risk, dollar, gold, and volatility regimes.",
-        "Source: outputs/tables/T05_rolling_correlations.csv and T05_correlation_regime.csv | Method: rolling pairwise correlations.",
+        "Rolling Correlations",
+        "",
+        "",
     )
     plot = corr.loc[corr["window"].eq(180) & corr["pair"].isin(pairs)].copy()
     for pair in pairs:
@@ -371,8 +332,8 @@ def render_f05() -> list[Path]:
     add_card_background(fig, [0.025, 0.045, 0.95, 0.90])
     add_header(
         fig,
-        "Stablecoin Supply And DeFi TVL Are Liquidity Context",
-        "Indexed stablecoin supply and DeFi TVL provide a market-liquidity backdrop; they are proxies, not identified funding shocks.",
+        "Stablecoins and TVL",
+        "",
     )
     ax = fig.add_axes([0.07, 0.42, 0.86, 0.33])
     ax2 = fig.add_axes([0.07, 0.17, 0.86, 0.17], sharex=ax)
@@ -391,7 +352,7 @@ def render_f05() -> list[Path]:
     for axis in (ax, ax2):
         add_date_axis(axis)
         add_event_markers(axis, label_y=0.94, alpha=0.55)
-    add_badge(ax, "proxy, not shock", x=0.02, y=0.86, color=COLORS["stablecoin"])
+
     final_supply = money_b(float(monthly["stables_total_usd"].dropna().iloc[-1]))
     final_tvl = money_b(float(monthly["defi_tvl_usd"].dropna().iloc[-1]))
     ax.text(
@@ -403,10 +364,7 @@ def render_f05() -> list[Path]:
         color=COLORS["text"],
         bbox={"boxstyle": "round,pad=0.35", "facecolor": COLORS["surface2"], "edgecolor": COLORS["grid"]},
     )
-    add_source_footer(
-        fig,
-        "Source: outputs/tables/T06_stablecoin_liquidity.csv | Method: indexed levels plus 30-day annualized realized volatility.",
-    )
+
     return save_public(fig, "F05_stablecoin_supply_tvl.png")
 
 
@@ -417,8 +375,8 @@ def render_f06() -> list[Path]:
     add_card_background(fig, [0.025, 0.045, 0.95, 0.90])
     add_header(
         fig,
-        "BTC-Native Dashboard Separates Valuation From Flow State",
-        "MVRV-style valuation state is shown separately from exchange, miner, and basis variables to avoid over-reading mechanical co-movement.",
+        "BTC Native State",
+        "",
     )
     ax = fig.add_axes([0.095, 0.18, 0.36, 0.58])
     ax2 = fig.add_axes([0.56, 0.18, 0.36, 0.58])
@@ -457,11 +415,8 @@ def render_f06() -> list[Path]:
     ax2.set_title("Native correlation matrix", loc="left", fontsize=9.5, color=COLORS["text"], pad=10)
     cbar = fig.colorbar(im, ax=ax2, fraction=0.035, pad=0.02)
     cbar.ax.tick_params(colors=COLORS["muted"], labelsize=7, length=0)
-    add_badge(ax, "valuation state isolated", x=0.02, y=0.90, color=COLORS["native"])
-    add_source_footer(
-        fig,
-        "Source: outputs/tables/T07_native_factor_ablation.csv and T07_btc_native_correlations.csv | Method: ablation and correlation diagnostics.",
-    )
+
+
     return save_public(fig, "F06_btc_native_dashboard.png")
 
 
@@ -472,8 +427,8 @@ def render_f07() -> list[Path]:
     add_card_background(fig, [0.025, 0.045, 0.95, 0.90])
     add_header(
         fig,
-        "Connectedness Depends On The VAR Design",
-        "Compact 10-day FEVD and rolling connectedness summarize spillover structure, with Cholesky ordering treated as a sensitivity issue.",
+        "Connectedness",
+        "",
     )
     ax = fig.add_axes([0.07, 0.19, 0.38, 0.56])
     ax2 = fig.add_axes([0.55, 0.19, 0.38, 0.56])
@@ -497,11 +452,8 @@ def render_f07() -> list[Path]:
     ax2.set_title("Rolling VAR/FEVD connectedness", loc="left", fontsize=9.5, color=COLORS["text"], pad=10)
     add_date_axis(ax2)
     add_event_markers(ax2, label_y=0.95, alpha=0.6)
-    add_badge(ax2, "ordering-sensitive", x=0.03, y=0.90, color=COLORS["risk"])
-    add_source_footer(
-        fig,
-        "Source: outputs/tables/T09_connectedness.csv and T09_rolling_connectedness.csv | Method: compact VAR/FEVD, Cholesky-order sensitive.",
-    )
+
+
     return save_public(fig, "F07_connectedness.png")
 
 
@@ -516,8 +468,8 @@ def render_f08() -> list[Path]:
     add_card_background(fig, [0.025, 0.045, 0.95, 0.90])
     add_header(
         fig,
-        "Robustness Grid Shows Sensitivity, Not Truth",
-        "BTC model fit is stable at a high level when MVRV is included and materially lower without valuation-state variables.",
+        "Robustness Grid",
+        "",
     )
     axes = [fig.add_axes([0.075, 0.20, 0.38, 0.54]), fig.add_axes([0.545, 0.20, 0.38, 0.54])]
     cmap = LinearSegmentedColormap.from_list("robust_heat", [COLORS["surface2"], COLORS["macro"], COLORS["liquidity"], COLORS["gold"]])
@@ -538,11 +490,8 @@ def render_f08() -> list[Path]:
                 ax.text(col_idx, row_idx, f"{val:.2f}", ha="center", va="center", fontsize=8, color=COLORS["text"])
     cbar = fig.colorbar(ims[0], ax=axes, fraction=0.025, pad=0.02)
     cbar.ax.tick_params(colors=COLORS["muted"], labelsize=7, length=0)
-    add_badge(axes[0], "robustness, not truth", x=0.02, y=0.90, color=COLORS["gold"])
-    add_source_footer(
-        fig,
-        "Source: outputs/tables/T10_robustness.csv | Method: mean R2 across winsorization/calendar choices by window, HAC lag, and MVRV inclusion.",
-    )
+
+
     return save_public(fig, "F08_robustness_grid.png")
 
 
@@ -595,9 +544,9 @@ def render_f09() -> list[Path]:
     rows = key_result_rows()
     fig, ax = make_chart(
         "F09_key_results_cards.png",
-        "Key Results, With Guardrails Attached",
-        "The public packet emphasizes evidence strength and method limits alongside the headline numbers.",
-        "Source: outputs/tables/key_results.md | Method: curated summary cards from canonical output tables.",
+        "Key Results",
+        "",
+        "",
         axes_rect=[0.055, 0.15, 0.89, 0.66],
     )
     ax.set_axis_off()
@@ -619,14 +568,7 @@ def render_f09() -> list[Path]:
             fontsize=8.4,
             color=COLORS["text"],
         )
-        ax.text(
-            x + 0.025,
-            y + 0.035,
-            textwrap.fill(row["interpretation"], width=56),
-            transform=ax.transAxes,
-            fontsize=7.2,
-            color=COLORS["muted"],
-        )
+
     return save_public(fig, "F09_key_results_cards.png")
 
 
@@ -721,8 +663,8 @@ def render_t00() -> list[Path]:
     fig, ax = make_chart(
         "T00_key_results_table.png",
         "Key Results Table",
-        "A styled table card for quick review; canonical values remain in CSV and Markdown tables.",
-        "Source: outputs/tables/key_results.md | Method: static Matplotlib table card.",
+        "",
+        "",
         axes_rect=[0.05, 0.15, 0.90, 0.66],
     )
     ax.set_axis_off()
@@ -737,7 +679,7 @@ def render_t00() -> list[Path]:
         ax.text(col_x[0], y, textwrap.fill(row["result"], width=48), transform=ax.transAxes, fontsize=8.2, color=COLORS["text"])
         ax.text(col_x[1], y, row["stat"], transform=ax.transAxes, fontsize=10.5, color=color, fontweight="semibold")
         ax.text(col_x[2], y, row["artifact"], transform=ax.transAxes, fontsize=7.8, color=COLORS["institutional"])
-        ax.text(col_x[3], y, textwrap.fill(row["interpretation"], width=31), transform=ax.transAxes, fontsize=7.2, color=COLORS["muted"])
+
         y -= 0.16
     return save_public(fig, "T00_key_results_table.png")
 

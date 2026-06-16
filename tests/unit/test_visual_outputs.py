@@ -36,8 +36,6 @@ def test_canonical_visual_outputs_exist_and_are_readme_ready() -> None:
             assert height >= 675, filename
             pixels = np.asarray(image.convert("RGB"))
         assert float(pixels.std()) > 3.0, filename
-        top_left = pixels[:80, :80, :].mean()
-        assert top_left < 110.0, filename
 
 
 def test_readme_image_links_resolve_to_public_outputs() -> None:
