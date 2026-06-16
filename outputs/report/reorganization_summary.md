@@ -36,12 +36,13 @@ archive/
 
 ## Verification
 
-- `uv run pytest` -> PASS, 43 passed.
-- `uv run mypy src/cqresearch` -> PASS, no issues in 37 source files.
+- `uv run python scripts/make_hero_figures.py` -> PASS, regenerated F00-F09,
+  T00, SVGs, contact sheets, visual reports, and static dashboard.
 - `uv run python scripts/run_all.py` -> PASS, exported canonical outputs.
+- `uv run pytest` -> PASS, 45 passed.
+- `uv run mypy src/cqresearch` -> PASS, no issues in 42 source files.
+- Focused Ruff on maintained visual/public paths -> PASS.
 - `uv run ruff check src/cqresearch scripts tests` -> DOCUMENTED LEGACY FAIL,
-  79 findings across older scripts/core/test files and legacy style rules.
-- Focused Ruff on maintained public/portfolio paths -> PASS.
-- Markdown link audit across public docs and outputs -> PASS.
-- Public-surface scan for old release/career language -> PASS.
+  76 findings in older research scripts/core style rules outside this sprint.
+- Markdown link audit across README and visual QA docs -> PASS.
 - `git status --short -- Data` -> PASS, no output.
