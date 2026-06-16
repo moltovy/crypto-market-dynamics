@@ -1,0 +1,14 @@
+regime,description,start,end,n,notes
+full,Full panel 2020-01-01 to 2026-04-11,2020-01-01,2026-04-11,2293,
+pre_btc_etf,Before BTC ETF launch (2024-01-11),2020-01-01,2024-01-10,1471,
+post_btc_etf,From BTC ETF launch (2024-01-11),2024-01-11,2026-04-11,822,
+post_eth_etf,From ETH ETF launch (2024-07-23),2024-07-23,2026-04-11,628,
+year_2020,Calendar year 2020,2020-01-01,2020-12-31,366,
+year_2021,Calendar year 2021,2021-01-01,2021-12-31,365,
+year_2022,Calendar year 2022,2022-01-01,2022-12-31,365,
+year_2023,Calendar year 2023,2023-01-01,2023-12-31,365,
+year_2024,Calendar year 2024,2024-01-01,2024-12-31,366,
+year_2025,Calendar year 2025,2025-01-01,2025-12-31,365,
+year_2026_ytd,Calendar year 2026,2026-01-01,2026-04-11,101,
+low_vol,Bottom quartile BTC 30d realized vol (< 0.4070),2020-07-02,2026-04-11,566,threshold=0.4070
+high_vol,Top quartile BTC 30d realized vol (> 0.6506),2020-03-13,2026-03-06,566,threshold=0.6506

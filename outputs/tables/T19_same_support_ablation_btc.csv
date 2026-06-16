@@ -1,0 +1,10 @@
+model_id,regime,target,n,r2,adj_r2,delta_r2_vs_prev,variables,note
+M0_intercept,full,btc_ret,1940,0.0,0.0,,,same_support
+M1_macro,full,btc_ret,1940,0.118442,0.116163,0.118442,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,same_support
+M2_macro_tradfi,full,btc_ret,1940,0.14064,0.13708,0.022198,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret,same_support
+M3_macro_tradfi_liquidity,full,btc_ret,1940,0.140852,0.136399,0.000212,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret,same_support
+M4_plus_sentiment,full,btc_ret,1940,0.143578,0.138692,0.002725,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret;fng_value_d1,same_support
+M5_plus_native_ex_mvrv,full,btc_ret,1940,0.145993,0.139783,0.002416,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret;fng_value_d1;cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,same_support
+M6_plus_mvrv,full,btc_ret,1940,0.920749,0.920131,0.774755,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret;fng_value_d1;cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1;btc_mvrv_d1,same_support
+M7_mvrv_only,full,btc_ret,1940,0.915375,0.915331,-0.005374,btc_mvrv_d1,same_support
+M8_native_ex_mvrv_only,full,btc_ret,1940,0.003544,0.002,-0.911831,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,same_support

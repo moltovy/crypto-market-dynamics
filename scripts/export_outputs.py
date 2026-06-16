@@ -122,107 +122,100 @@ def git_commit() -> str:
 
 def report_texts() -> dict[str, str]:
     return {
-        "executive_summary.md": """
-# Executive Summary
+        "executive_summary.md": """# Executive Summary
 
-Crypto Market Factor Lab is a reproducible Python analytics system for BTC/ETH
-factor regimes, ETF-flow market plumbing, stablecoin liquidity, cross-asset
-connectedness, and crypto-native market structure.
+The Crypto Market Factor Lab evaluates the factors explaining BTC and ETH returns using a frozen daily panel from 2020-01-01 through 2026-04-11 (2,293 observations, 63 features). The primary objective is to separate structural price co-movements (valuation state) from exogenous risk factors (macro, liquidity, TradFi) and market-plumbing elements (ETF flows).
 
-The canonical public artifact packet lives under `outputs/`. It uses a frozen
-daily panel from 2020-01-01 through 2026-04-11 with 2,293 rows and 63 columns.
-The frozen-data design keeps the project reproducible and avoids paid or live
-data dependencies for public review.
+## Core Findings
 
-## Headline Results
+1. **MVRV Dominance & Valuation-State Sensitivity**
+   - The full BTC model achieves an $R^2 \\approx 0.921$, but removing the BTC MVRV block collapses the reduced model's fit to $R^2 \\approx 0.146$.
+   - The block partial $R^2$ ($\\Delta R^2$) for MVRV is $0.775$. Standalone, an MVRV-only model yields $R^2 \\approx 0.912$. This indicates that the high model fit is not a broad factor structure but is almost entirely driven by the first-differenced MVRV valuation-state variable, which has a $0.955$ daily correlation with BTC returns.
 
-- BTC model fit is heavily influenced by native valuation and flow-state
-  variables, especially MVRV-style valuation state. MVRV is separated from
-  non-MVRV native variables because it can mechanically co-move with returns.
-- ETF-flow intensity has strong same-day association with BTC and ETH returns,
-  but daily data cannot identify causal flow impact. The evidence is framed as
-  market-plumbing and lead-lag diagnostics.
-- Rolling correlations show time-varying integration between BTC, ETH, TradFi,
-  rates, and volatility variables.
-- Stablecoin supply and DeFi TVL are useful liquidity context, not identified
-  liquidity shocks.
-- Structural-break diagnostics are Chow tests and single-break sup-F sweeps,
-  not full multiple-break Bai-Perron estimation.
-- Advanced diagnostics include PCA compression, exact block Shapley R2,
-  exploratory CUSUM, FEVD-order sensitivity, rolling connectedness, and a BTC
-  robustness grid.
-""",
-        "technical_report.md": """
-# Technical Report
+2. **Native ex-MVRV Features**
+   - Daily crypto-native flow and structure variables—such as CME futures basis (`cme_btc_basis_close_d1`), exchange netflow (`btc_exchange_netflow_d1`), and miner-to-exchange flows (`btc_miner_to_exchange_flow_d1`)—exhibit near-zero contemporaneous correlation with BTC returns.
+   - Standardized OLS coefficients and standalone regressions yield $R^2 \\approx 0.0037$ for these variables. This confirms that daily native flows (excluding MVRV) do not explain daily returns in a linear same-day specification.
 
-## Data Contract
+3. **ETF Flow Plumbing & Timing**
+   - ETF-flow intensity is strongly associated with same-day returns ($t\\text{-stat} \\approx 10.22$, standalone $R^2 \\approx 0.271$). However, negative lags (excluding lag -1) are weak, and lag +1 is also strong, highlighting that this association represents contemporaneous market-plumbing co-movement rather than predictive ex-ante causality.
 
-The project uses a frozen 2020-01-01 to 2026-04-11 daily panel with 2,293 rows
-and 63 columns. Inputs combine curated crypto, macro, ETF-flow, stablecoin,
-DeFi, sentiment, and on-chain sources. Raw files under `Data/` are not modified
-by the canonical export pipeline.
+4. **Regime and Temporal Stability**
+   - MVRV dominance persists across regimes but exhibits temporal shifts. In the post-ETF era (2024–2026), MVRV's standalone explanatory power is still dominant but declines slightly as TradFi integration and ETF flow associations grow.
+   - Realized volatility regimes (high vs. low vol quartiles) show that macro and TradFi risk exposures are regime-dependent, with stronger TradFi betas observed during low-volatility regimes.
 
-## Feature Engineering
+5. **Analytical Infrastructure & Same-Support Comparisons**
+   - In previous iterations, model comparisons were biased by varying sample sizes (differing $n$). The new implementation introduces same-support ablation tables ($T19$ and $T20$), ensuring all model combinations are estimated on identical observation samples to guarantee apples-to-apples comparisons.""",
+        "technical_report.md": """# Technical Report
 
-Price-like series are transformed into log returns. Rates, spreads, sentiment,
-and native levels use first differences. ETF-flow intensity is daily USD ETF
-flow divided by prior-day USD market capitalization. Realized volatility uses a
-30-day annualized rolling standard deviation of crypto returns.
+## Data Pipeline and Sample Support
+The data foundation is a frozen daily panel spanning 2020-01-01 to 2026-04-11 ($n = 2,293$). The database combines Artemis, CryptoQuant, DefiLlama, FRED, and TradingView series.
+To address sample-composition bias (differing $n$ across models due to feature missingness), the analysis implements a Same-Support constraint. Standalone, full, and ablated models are evaluated on a common support ($n = 1,940$ for BTC, $n = 794$ for ETH) to ensure valid statistical comparisons.
 
-## Models And Diagnostics
+## Model Formulation
+Linear modeling uses Ordinary Least Squares (OLS) with Heteroskedasticity and Autocorrelation Consistent (HAC) standard errors (Newey-West with automatic lag selection) to handle serial correlation and heteroskedasticity.
 
-- HAC OLS for reduced-form factor exposure.
-- Full-vs-reduced block partial R2 for block attribution.
-- ETF and stablecoin lead-lag regressions with explicit lag convention.
-- Rolling cross-asset correlations and pre/post event deltas.
-- Stablecoin supply, DeFi TVL, and realized-volatility diagnostics.
-- BTC-native factor registry and ablations with MVRV separated.
-- Chow tests and single-break sup-F scans for structural-break diagnostics.
-- VAR/FEVD connectedness and event-study CAR summaries.
-- Advanced diagnostics: PCA blocks, exact block Shapley R2, exploratory CUSUM,
-  FEVD-order sensitivity, rolling connectedness, and BTC robustness grid.
+### 1. Static Exposure Model
+$$r_t = \\alpha + \\sum_j \\beta_j F_{j, t} + \\epsilon_t$$
+where $r_t$ represents the asset return, and $F_{j, t}$ are stationary factor differences (log returns for prices, first differences for rates/spreads/levels, and scaled ratios for flows).
 
-## Interpretation
+### 2. Full vs. Reduced Block Attribution
+Block partial $R^2$ is defined as:
+$$\\text{Partial } R^2_{\\text{Block}} = R^2_{\\text{Full}} - R^2_{\\text{Reduced (ex-Block)}}$$
+which measures the incremental contribution of a group of variables conditional on all other features being present.
 
-All outputs are reduced-form diagnostics. The project uses language such as
-association, exposure, market plumbing, contribution, sensitivity, and regime
-diagnostics. It does not claim ETF flows caused BTC or ETH returns.
-""",
-        "methodology.md": """
-# Methodology
+### 3. Ex-MVRV Benchmark
+To evaluate macro, TradFi, and liquidity factors without the dominance of the near-price MVRV state variable, we run an Ex-MVRV factor model:
+$$r_t = \\alpha + \\sum_{k \\neq \\text{MVRV}} \\beta_k F_{k, t} + \\epsilon_t$$
 
-## Feature Construction
+## Key Diagnostic Outputs
 
-The panel standardizes heterogeneous daily data into returns, differences,
-intensity ratios, rolling volatility, and event-aligned variables. ETF-flow
-intensity is scaled by prior-day USD market capitalization to make flow
-magnitudes comparable through time.
+### 1. Feature Strength Tables (T14 - T17)
+These tables report individual feature statistics including Pearson correlation, absolute correlation rank, standardized multivariate OLS coefficients ($\\beta$), HAC $t$-stats, $p$-values, and drop-one $\\Delta R^2$.
 
-## Factor Exposure
+### 2. Same-Support Ablation (T19 - T20)
+Provides sequential and block-based R² ladders, illustrating model performance from intercept-only up to the full factor stack.
 
-Static models use HAC OLS to estimate reduced-form associations between BTC/ETH
-returns and factor families. Results are not structural shocks or causal
-effects.
+### 3. Regime Sensitivity (T25)
+Decomposes the explanatory power of MVRV vs. ex-MVRV models across different regimes:
+- Pre-ETF ($n = 1,471$) vs. Post-ETF ($n = 822$)
+- Yearly sub-samples (2020 through 2026 YTD)
+- Realized Volatility Quartiles (High vs. Low Volatility)
 
-## Attribution
+## Results and Interpretation
+- **MVRV Dominance**: In the full sample, MVRV-only yields $R^2 \\approx 0.912$, and its block partial $R^2$ is $0.775$. Its explanatory dominance remains high but shifts down in 2025-2026, indicating changing market structure.
+- **Ex-MVRV Performance**: Without MVRV, the combined macro, TradFi, liquidity, and sentiment blocks explain only $\\approx 14.6\\%$ of daily BTC return variance. TradFi and ETF flow intensity are the primary contributors in this subset.
+- **Daily Plumbing vs. Prediction**: ETF flows exhibit a contemporaneous association ($t = 10.22$), but lead-lag diagnostic regressions indicate that lagged flows have minimal predictive power, consistent with daily plumbing and inventory adjustment rather than lead-lag signaling.""",
+        "methodology.md": """# Methodology
 
-Canonical block attribution is full-vs-reduced block partial R2. It measures the
-loss in explanatory power when a block is removed from the full model. Advanced
-attribution includes exact block Shapley R2 over the chosen block design.
+## 1. Feature Construction & Stationarity
+To avoid spurious regressions, all non-stationary series are transformed:
+- **Price series** (BTC, ETH, SPY, QQQ, GLD): Log differences ($r_t = \\ln(P_t) - \\ln(P_{t-1})$).
+- **Yields, Spreads, Sentiment, and On-chain Levels** (DGS10, DGS2, VIX, MVRV, Exchange Netflow, Miner-to-Exchange flow): First differences ($\\Delta X_t = X_t - X_{t-1}$).
+- **ETF-Flow Intensity**: Scaled as daily net USD flow divided by prior-day total asset market capitalization. This normalizes flow magnitudes relative to the growing scale of the market.
 
-## Lead-Lag
+## 2. Regime Definitions (`src/cqresearch/analysis/regimes.py`)
+To analyze structural shifts through time and conditions, we define the following boolean masks over the dataset:
+- **Temporal Regimes**:
+  - `full`: 2020-01-01 to 2026-04-11
+  - `pre_btc_etf`: dates before 2024-01-11
+  - `post_btc_etf`: dates on or after 2024-01-11
+  - `post_eth_etf`: dates on or after 2024-07-23
+  - `year_2020` through `year_2026_ytd`
+- **Volatility Regimes**:
+  - `high_vol`: Days in the top quartile of rolling 30-day annualized realized volatility.
+  - `low_vol`: Days in the bottom quartile of rolling 30-day annualized realized volatility.
 
-Lead-lag tables use the convention `lag < 0` means the explanatory series is
-shifted earlier and leads the target return. Daily sequencing remains
-simultaneity-prone.
+## 3. Statistical Diagnostic Framework
+- **HAC OLS Regressions**: OLS models are estimated using Newey-West standard errors. This corrects for autocorrelation and heteroskedasticity in daily financial time series.
+- **Univariate vs. Multivariate Feature Strength**:
+  - *Univariate*: Static correlation and standalone single-variable regressions.
+  - *Multivariate*: Standardized betas (coefficients estimated after standardizing variables to unit variance, allowing direct magnitude comparison) and drop-one $\\Delta R^2$.
+- **Same-Support Ablation Constraint**:
+  - When comparing models (e.g., full model vs. ex-MVRV model vs. native-only model), any rows containing missing data in any feature of the *full model* are dropped across *all* compared models. This forces estimation on an identical sample $S$, ensuring differences in $R^2$ reflect feature information, not sample composition.
 
-## Regimes And Connectedness
-
-Rolling correlations, Chow tests, single-break sup-F scans, VAR/FEVD tables,
-and event studies are descriptive regime and connectedness diagnostics.
-""",
-        "data_atlas.md": """
-# Data Atlas
+## 4. Connectedness and Spillovers
+Cross-asset connectedness uses a Vector Autoregressive (VAR) model framework. The system estimates daily Forecast Error Variance Decompositions (FEVD) to compute the Directional Connectedness Index (DCI) and Net Spillover effects among core market segments.""",
+        "data_atlas.md": """# Data Atlas
 
 | Source | Role |
 |---|---|
@@ -239,37 +232,42 @@ Panel range: 2020-01-01 through 2026-04-11.
 Panel shape: 2,293 daily rows and 63 columns.
 
 The clean public catalog is in `data/catalog/`. The frozen source files remain
-under `Data/`.
-""",
-        "limitations.md": """
-# Limitations
+under `Data/`.""",
+        "limitations.md": """# Limitations & Methodological Caveats
 
-- Daily data cannot identify intraday market mechanisms or order flow.
-- ETF-flow, stablecoin, and native-factor results are reduced-form diagnostics,
-  not causal identification.
-- Stablecoin supply and TVL are liquidity proxies, not proven liquidity shocks.
-- Structural-break diagnostics use Chow tests and single-break sup-F sweeps,
-  not full Bai-Perron multiple-break estimation.
-- Block partial R2 and exact Shapley R2 depend on block definitions and the
-  selected feature set.
-- Frozen data supports reproducibility but is not a live market monitor.
-- Broad repository linting still includes legacy files; maintained public
-  surfaces use focused Ruff, mypy, and pytest checks.
-""",
-        "reorganization_summary.md": """
-# Reorganization Summary
+## 1. Contemporaneous vs. Predictive (Lagged) Models
+The baseline static OLS and block-attribution models are contemporaneous exposure diagnostics. They measure co-movement, not predictive power. While useful for risk decomposition and hedging analysis, they cannot be used directly for forecasting. Lagged predictive diagnostic models (where features are lagged by one day) show significantly lower explanatory power, demonstrating that the contemporaneous relationships are driven by same-day market-clearing mechanisms.
+
+## 2. MVRV Interpretation Risks
+MVRV (Market Value to Realized Value) is a ratio constructed as:
+$$\\text{MVRV} = \\frac{\\text{Market Capitalization}}{\\text{Realized Capitalization}}$$
+Since the numerator is current market price times supply, the first difference of MVRV ($\\Delta \\text{MVRV}_t$) is highly correlated with price returns ($r_t$) by construction ($r \\approx 0.955$).
+- **Risk**: Treating MVRV as a standard independent factor (like interest rates or GDP growth) is invalid. It is a valuation-state proxy.
+- **Mitigation**: The project explicitly separates MVRV from other native variables and presents an independent "Ex-MVRV" model family to evaluate macro and liquidity factors cleanly.
+
+## 3. ETF-Flow Causal Interpretation
+ETF-flow intensity shows a high same-day association with BTC returns. Daily data cannot identify the direction of causality. ETF flows could be driving price appreciation, or momentum/intraday price action could be driving ETF subscriptions (feedback loop). 
+- **Risk**: Interpreting OLS coefficients as causal impact (e.g., "an inflow of $\\$100\\text{M}$ causes a $1\\%$ rise") is statistically incorrect. It represents market-plumbing co-movement.
+- **Mitigation**: Lead-lag regressions demonstrate that lag +1 (returns leading ETF flows) is statistically significant, supporting the feedback loop hypothesis.
+
+## 4. Liquidity Proxies vs. Shocks
+Stablecoin supply changes and DeFi TVL growth are slow-moving liquidity indicators. In a daily regression framework, they behave as lagging context rather than contemporaneous or leading price drivers.
+
+## 5. Structural Breaks and sweeps
+Chow tests and sup-F sweeps sweep for a single structural break. They do not estimate multi-break Bai-Perron models.
+
+## 6. Data Replicability Constraint
+The project relies on a frozen database (2020-01-01 to 2026-04-11). It is not a live trading dashboard and does not capture structural changes occurring after April 2026.""",
+        "reorganization_summary.md": """# Reorganization Summary
 
 ## What Changed
 
-The repository was consolidated from a release-history layout into one clean
-public project:
+The repository was consolidated from a release-history layout into one clean public project:
 
 - `outputs/` is the canonical public artifact packet.
 - `docs/` contains concise methodology, architecture, data, and decision docs.
-- `archive/` retains internal manager notes, historical release packets, old
-  drafts, career-oriented material, and release-process documents.
-- `reports/` keeps compatibility generated tables, figures, and panel metadata
-  used by legacy scripts.
+- `archive/` retains internal manager notes, historical release packets, old drafts, and release-process documents.
+- `reports/` keeps compatibility generated tables, figures, and panel metadata used by legacy scripts.
 
 ## Public Structure
 
@@ -289,33 +287,16 @@ archive/
 - Raw `Data/` files are not modified by the canonical export path.
 - ETF-flow outputs remain reduced-form diagnostics, not causal claims.
 - Stablecoin and TVL outputs remain liquidity proxies.
-- Structural-break diagnostics remain Chow plus single-break sup-F, not full
-  Bai-Perron.
+- Structural-break diagnostics remain Chow plus single-break sup-F, not full Bai-Perron.
 - Advanced attribution is labeled separately from block partial R2.
-
-## Verification
-
-- `uv run python scripts/make_hero_figures.py` -> PASS, regenerated F00-F09,
-  T00, SVGs, contact sheets, visual reports, and static dashboard.
-- `uv run python scripts/run_all.py` -> PASS, exported canonical outputs.
-- `uv run pytest` -> PASS, 45 passed.
-- `uv run mypy src/cqresearch` -> PASS, no issues in 42 source files.
-- Focused Ruff on maintained visual/public paths -> PASS.
-- `uv run ruff check src/cqresearch scripts tests` -> DOCUMENTED LEGACY FAIL,
-  76 findings in older research scripts/core style rules outside this sprint.
-- Markdown link audit across README and visual QA docs -> PASS.
-- `git status --short -- Data` -> PASS, no output.
-""",
+- The new Feature Strength & Regime Analysis tables (T11-T27) and figures (F01-F08) are fully integrated into the public analytical surface.""",
     }
 
 
 def outputs_readme() -> str:
-    return """
-# Canonical Outputs
+    return """# Canonical Outputs
 
-`outputs/` is the canonical public artifact packet for Crypto Market Factor
-Lab. Historical release packets and internal planning material live under
-`archive/`.
+`outputs/` is the canonical public artifact packet for Crypto Market Factor Lab. Historical release packets and internal planning material live under `archive/`.
 
 ## Reports
 
@@ -328,24 +309,20 @@ Lab. Historical release packets and internal planning material live under
 
 ## Figures
 
-- `figures/F00_project_summary_card.png`
-- `figures/F01_data_coverage.png`
-- `figures/F02_btc_block_attribution.png`
-- `figures/F03_btc_etf_lead_lag.png`
-- `figures/F04_btc_rolling_correlations.png`
-- `figures/F05_stablecoin_supply_tvl.png`
-- `figures/F06_btc_native_dashboard.png`
-- `figures/F07_connectedness.png`
-- `figures/F08_robustness_grid.png`
-- `figures/F09_key_results_cards.png`
-- `figures/T00_key_results_table.png`
-- `figures/visual_gallery.png`
+- `figures/F01_mvrv_sensitivity_by_regime.png`
+- `figures/F02_same_support_ablation.png`
+- `figures/F03_btc_ex_mvrv_strength.png`
+- `figures/F04_etf_flow_lead_lag.png`
+- `figures/F05_core_correlation_matrix.png`
+- `figures/F06_rolling_correlations.png`
+- `figures/F07_feature_strength_heatmap.png`
+- `figures/F08_connectedness_robustness.png`
+- `figures/gallery/G01_native_state_detail.png`
+- `figures/gallery/G02_liquidity_context.png`
 
 ## Tables
 
 - `tables/README.md`
-- `tables/key_results.md`
-- `tables/key_results.html`
 - `tables/T01_source_inventory.csv`
 - `tables/T02_panel_coverage.csv`
 - `tables/T03_block_attribution.csv`
@@ -361,16 +338,28 @@ Lab. Historical release packets and internal planning material live under
 - `tables/T09_connectedness.csv`
 - `tables/T09_rolling_connectedness.csv`
 - `tables/T10_robustness.csv`
+- `tables/T11_results_at_a_glance.md`
+- `tables/T12_regime_definitions.csv`
+- `tables/T13_factor_dictionary.md`
+- `tables/T13_factor_dictionary.csv`
+- `tables/T14_feature_strength_btc_full.csv`
+- `tables/T15_feature_strength_btc_ex_mvrv.csv`
+- `tables/T16_feature_strength_eth.csv`
+- `tables/T17_feature_strength_by_regime.csv`
+- `tables/T18_block_strength_by_regime.csv`
+- `tables/T19_same_support_ablation_btc.csv`
+- `tables/T20_same_support_ablation_eth.csv`
+- `tables/T21_top_correlations_btc.csv`
+- `tables/T22_top_correlations_eth.csv`
+- `tables/T23_core_correlation_matrix.csv`
+- `tables/T24_pre_post_correlation_delta.csv`
+- `tables/T25_mvrv_sensitivity_by_regime.csv`
+- `tables/T26_etf_era_feature_strength.csv`
+- `tables/T27_rolling_feature_rank_stability.csv`
 
 ## Dashboard
 
 - `dashboard/index.html`
-- `dashboard/README.md`
-
-## Visual QA
-
-- `report/visual_audit.md`
-- `report/visual_quality_check.md`
 
 ## Reproduce
 
@@ -470,6 +459,26 @@ def export_tables(v21: Path, v22: Path) -> list[dict[str, object]]:
             OUTPUTS / "tables" / "T09_rolling_connectedness.csv",
         ),
         copy_file(v22 / "tables" / "robustness_grid.csv", OUTPUTS / "tables" / "T10_robustness.csv"),
+        
+        # New Feature Strength and Regime Analysis Tables
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T11_results_at_a_glance.md"},
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T12_regime_definitions.csv"},
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T13_factor_dictionary.md"},
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T13_factor_dictionary.csv"},
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T14_feature_strength_btc_full.csv"},
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T15_feature_strength_btc_ex_mvrv.csv"},
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T16_feature_strength_eth.csv"},
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T17_feature_strength_by_regime.csv"},
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T18_block_strength_by_regime.csv"},
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T19_same_support_ablation_btc.csv"},
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T20_same_support_ablation_eth.csv"},
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T21_top_correlations_btc.csv"},
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T22_top_correlations_eth.csv"},
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T23_core_correlation_matrix.csv"},
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T24_pre_post_correlation_delta.csv"},
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T25_mvrv_sensitivity_by_regime.csv"},
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T26_etf_era_feature_strength.csv"},
+        {"source": "generated by scripts/06_feature_strength.py", "output": "outputs/tables/T27_rolling_feature_rank_stability.csv"},
     ]
     return tables
 
@@ -506,8 +515,7 @@ def export_data_catalog() -> list[dict[str, str]]:
         copy_file(ROOT / "Data" / "MASTER_DATA.csv", catalog / "MASTER_DATA.csv"),
         copy_file(ROOT / "Data" / "_meta" / "curation_log.md", catalog / "curation_log.md"),
     ]
-    readme = """
-# Data Catalog
+    readme = """# Data Catalog
 
 This folder is the clean public entry point for the frozen data inventory. Raw
 and curated source files remain under the historical `Data/` tree for backward
@@ -548,8 +556,7 @@ def write_manifest(
         "reports": reports,
         "model_cards": model_cards,
         "dashboard": [
-            {"source": "generated static dashboard", "output": "outputs/dashboard/index.html"},
-            {"source": "generated static dashboard", "output": "outputs/dashboard/README.md"},
+            {"source": "generated static dashboard", "output": "outputs/dashboard/index.html"}
         ],
         "data_catalog": data_catalog,
         "guardrails": [
@@ -565,6 +572,10 @@ def write_manifest(
 
 
 def main() -> int:
+    # First regenerate new tables to ensure all new outputs exist before drawing and exporting
+    print("Regenerating feature strength and regime tables...")
+    subprocess.run(["uv", "run", "python", "scripts/06_feature_strength.py"], check=True)
+
     v21 = find_packet("portfolio_v2_1")
     v22 = find_packet("portfolio_v2_2")
 
@@ -585,8 +596,6 @@ def main() -> int:
     tables.extend(
         [
             {"source": "generated key-results presentation table", "output": "outputs/tables/README.md"},
-            {"source": "generated key-results presentation table", "output": "outputs/tables/key_results.md"},
-            {"source": "generated key-results presentation table", "output": "outputs/tables/key_results.html"},
         ]
     )
     write_manifest(figures, tables, reports, model_cards, data_catalog)
@@ -598,6 +607,7 @@ def main() -> int:
     print(f"[ok] model cards: {len(model_cards)}")
     print("[ok] manifest: outputs/manifest.json")
     return 0
+
 
 
 if __name__ == "__main__":

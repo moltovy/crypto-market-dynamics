@@ -1,8 +1,6 @@
 # Canonical Outputs
 
-`outputs/` is the canonical public artifact packet for Crypto Market Factor
-Lab. Historical release packets and internal planning material live under
-`archive/`.
+`outputs/` is the canonical public artifact packet for Crypto Market Factor Lab. Historical release packets and internal planning material live under `archive/`.
 
 ## Reports
 
@@ -15,24 +13,20 @@ Lab. Historical release packets and internal planning material live under
 
 ## Figures
 
-- `figures/F00_project_summary_card.png`
-- `figures/F01_data_coverage.png`
-- `figures/F02_btc_block_attribution.png`
-- `figures/F03_btc_etf_lead_lag.png`
-- `figures/F04_btc_rolling_correlations.png`
-- `figures/F05_stablecoin_supply_tvl.png`
-- `figures/F06_btc_native_dashboard.png`
-- `figures/F07_connectedness.png`
-- `figures/F08_robustness_grid.png`
-- `figures/F09_key_results_cards.png`
-- `figures/T00_key_results_table.png`
-- `figures/visual_gallery.png`
+- `figures/F01_mvrv_sensitivity_by_regime.png`
+- `figures/F02_same_support_ablation.png`
+- `figures/F03_btc_ex_mvrv_strength.png`
+- `figures/F04_etf_flow_lead_lag.png`
+- `figures/F05_core_correlation_matrix.png`
+- `figures/F06_rolling_correlations.png`
+- `figures/F07_feature_strength_heatmap.png`
+- `figures/F08_connectedness_robustness.png`
+- `figures/gallery/G01_native_state_detail.png`
+- `figures/gallery/G02_liquidity_context.png`
 
 ## Tables
 
 - `tables/README.md`
-- `tables/key_results.md`
-- `tables/key_results.html`
 - `tables/T01_source_inventory.csv`
 - `tables/T02_panel_coverage.csv`
 - `tables/T03_block_attribution.csv`
@@ -48,16 +42,28 @@ Lab. Historical release packets and internal planning material live under
 - `tables/T09_connectedness.csv`
 - `tables/T09_rolling_connectedness.csv`
 - `tables/T10_robustness.csv`
+- `tables/T11_results_at_a_glance.md`
+- `tables/T12_regime_definitions.csv`
+- `tables/T13_factor_dictionary.md`
+- `tables/T13_factor_dictionary.csv`
+- `tables/T14_feature_strength_btc_full.csv`
+- `tables/T15_feature_strength_btc_ex_mvrv.csv`
+- `tables/T16_feature_strength_eth.csv`
+- `tables/T17_feature_strength_by_regime.csv`
+- `tables/T18_block_strength_by_regime.csv`
+- `tables/T19_same_support_ablation_btc.csv`
+- `tables/T20_same_support_ablation_eth.csv`
+- `tables/T21_top_correlations_btc.csv`
+- `tables/T22_top_correlations_eth.csv`
+- `tables/T23_core_correlation_matrix.csv`
+- `tables/T24_pre_post_correlation_delta.csv`
+- `tables/T25_mvrv_sensitivity_by_regime.csv`
+- `tables/T26_etf_era_feature_strength.csv`
+- `tables/T27_rolling_feature_rank_stability.csv`
 
 ## Dashboard
 
 - `dashboard/index.html`
-- `dashboard/README.md`
-
-## Visual QA
-
-- `report/visual_audit.md`
-- `report/visual_quality_check.md`
 
 ## Reproduce
 
