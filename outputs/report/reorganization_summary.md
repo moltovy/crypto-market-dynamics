@@ -33,3 +33,15 @@ archive/
 - Structural-break diagnostics remain Chow plus single-break sup-F, not full
   Bai-Perron.
 - Advanced attribution is labeled separately from block partial R2.
+
+## Verification
+
+- `uv run pytest` -> PASS, 43 passed.
+- `uv run mypy src/cqresearch` -> PASS, no issues in 37 source files.
+- `uv run python scripts/run_all.py` -> PASS, exported canonical outputs.
+- `uv run ruff check src/cqresearch scripts tests` -> DOCUMENTED LEGACY FAIL,
+  79 findings across older scripts/core/test files and legacy style rules.
+- Focused Ruff on maintained public/portfolio paths -> PASS.
+- Markdown link audit across public docs and outputs -> PASS.
+- Public-surface scan for old release/career language -> PASS.
+- `git status --short -- Data` -> PASS, no output.
