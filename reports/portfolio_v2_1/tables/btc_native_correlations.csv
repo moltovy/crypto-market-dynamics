@@ -1,0 +1,6 @@
+feature,btc_ret,cme_btc_basis_close_d1,btc_exchange_netflow_d1,btc_miner_to_exchange_flow_d1,btc_mvrv_d1
+btc_ret,1.0,0.0475,-0.0121,-0.0294,0.9551
+cme_btc_basis_close_d1,0.0475,1.0,-0.0001,0.0062,0.0604
+btc_exchange_netflow_d1,-0.0121,-0.0001,1.0,0.1086,-0.0184
+btc_miner_to_exchange_flow_d1,-0.0294,0.0062,0.1086,1.0,-0.0378
+btc_mvrv_d1,0.9551,0.0604,-0.0184,-0.0378,1.0

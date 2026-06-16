@@ -1,0 +1,56 @@
+{
+  "generated_at_utc": "2026-06-16T01:24:27.876460+00:00",
+  "table_source": "reports\\tables\\2026-06-16",
+  "table_source_date": "2026-06-16",
+  "figure_source": "reports\\figures\\2026-06-16",
+  "figure_source_date": "2026-06-16",
+  "portfolio_dir": "reports\\portfolio_v2",
+  "commands_run": [
+    "uv sync --all-extras",
+    "uv run pytest",
+    "uv run mypy src/cqresearch",
+    "uv run python scripts/run_full_pipeline.py",
+    "uv run python scripts/run_portfolio_pipeline.py",
+    "uv run ruff check scripts/run_portfolio_pipeline.py tests/unit/test_portfolio_pipeline.py src/cqresearch/analysis/__init__.py src/cqresearch/modeling/__init__.py src/cqresearch/data/panel_builder.py"
+  ],
+  "panel": {
+    "start": "2020-01-01",
+    "end": "2026-04-11",
+    "n_rows": 2293,
+    "n_cols": 63
+  },
+  "copied_tables": [
+    "block_r2_pre_post.csv",
+    "correlation_matrix_post_etf.csv",
+    "correlation_matrix_pre_etf.csv",
+    "descriptive_stats.csv",
+    "etf_flow_regression.csv",
+    "event_studies.csv",
+    "fevd_10d.csv",
+    "fevd_10d_compact.csv",
+    "rolling_ols_btc_180d.csv",
+    "rolling_ols_eth_180d.csv",
+    "rolling_r2_btc_median_by_year.csv",
+    "rolling_r2_eth_median_by_year.csv",
+    "static_ols_pre_post_etf.csv",
+    "structural_breaks_summary.csv",
+    "sup_f_series_btc.csv",
+    "sup_f_series_eth.csv",
+    "var_fevd_meta.json",
+    "var_fevd_meta_compact.json"
+  ],
+  "copied_figures": [
+    "hero_cumulative_returns.png",
+    "btc_rolling_r2.png",
+    "eth_rolling_r2.png",
+    "btc_drop_one_r2_stack.png",
+    "eth_drop_one_r2_stack.png",
+    "btc_single_break_sup_f.png",
+    "eth_single_break_sup_f.png",
+    "fevd_compact_heatmap.png",
+    "fevd_full_heatmap.png",
+    "event_study_cars.png",
+    "data_coverage.png",
+    "btc_tradfi_rolling_corr.png"
+  ]
+}

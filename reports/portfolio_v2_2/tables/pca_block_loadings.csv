@@ -1,0 +1,33 @@
+block,component,feature,loading
+Macro,1,DGS10_d1,0.6681325893741373
+Macro,1,DGS2_d1,0.6766563142267551
+Macro,1,VIXCLS_d1,-0.04413445841531734
+Macro,1,DTWEXBGS_d1,0.3049579123163835
+Macro,1,DFF_d1,0.0280694982016627
+Macro,2,DGS10_d1,-0.12103238447818217
+Macro,2,DGS2_d1,-0.10683179521018586
+Macro,2,VIXCLS_d1,0.7695736082835943
+Macro,2,DTWEXBGS_d1,0.6168177091847381
+Macro,2,DFF_d1,-0.03507854770591359
+TradFi,1,spy_ret,0.6967839970701365
+TradFi,1,qqq_ret,0.6977917978632723
+TradFi,1,gld_ret,0.16606826386069612
+TradFi,2,spy_ret,-0.12368128611145056
+TradFi,2,qqq_ret,-0.11117436910549125
+TradFi,2,gld_ret,0.9860746417588342
+Liquidity,1,defi_tvl_usd_ret,0.707106781186547
+Liquidity,1,stables_total_usd_ret,0.7071067811865479
+Liquidity,2,defi_tvl_usd_ret,0.7071067811865479
+Liquidity,2,stables_total_usd_ret,-0.707106781186547
+BTC Native,1,cme_btc_basis_close_d1,-0.16868935220145911
+BTC Native,1,btc_exchange_netflow_d1,0.616378353778593
+BTC Native,1,btc_miner_to_exchange_flow_d1,0.6443256522216807
+BTC Native,1,btc_mvrv_d1,-0.42007866089120616
+BTC Native,2,cme_btc_basis_close_d1,0.7368555176427278
+BTC Native,2,btc_exchange_netflow_d1,0.29792205225322943
+BTC Native,2,btc_miner_to_exchange_flow_d1,0.26413025978446747
+BTC Native,2,btc_mvrv_d1,0.5463713048531016
+ETF Flow,1,btc_etf_intensity,0.7071067811865476
+ETF Flow,1,eth_etf_intensity,0.7071067811865475
+ETF Flow,2,btc_etf_intensity,-0.7071067811865475
+ETF Flow,2,eth_etf_intensity,0.7071067811865476

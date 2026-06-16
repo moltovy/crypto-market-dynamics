@@ -1,0 +1,14 @@
+{
+  "label": "compact_4var",
+  "lag_order": 1,
+  "n": 2291,
+  "horizon": 10,
+  "dy_total_connectedness_pct": 35.27,
+  "columns": [
+    "btc_ret",
+    "eth_ret",
+    "spy_ret",
+    "VIXCLS_d1"
+  ],
+  "cholesky_note": "FEVD uses statsmodels VAR with Cholesky ordering = column order listed in 'columns'."
+}

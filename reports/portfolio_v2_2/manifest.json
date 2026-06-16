@@ -1,0 +1,71 @@
+{
+  "generated_at_utc": "2026-06-16T16:45:46.711928+00:00",
+  "git_commit": "2d42d54",
+  "portfolio_dir": "reports\\portfolio_v2_2",
+  "panel": {
+    "start": "2020-01-01",
+    "end": "2026-04-11",
+    "n_rows": 2293,
+    "n_cols": 63
+  },
+  "commands_run": [
+    "uv run pytest",
+    "uv run mypy src/cqresearch",
+    "uv run python scripts/run_portfolio_v2_2_pipeline.py",
+    "uv run ruff check scripts/run_portfolio_v2_2_pipeline.py src/cqresearch/modeling/pca_blocks.py src/cqresearch/modeling/shapley_r2.py src/cqresearch/modeling/cusum.py src/cqresearch/modeling/fevd_sensitivity.py src/cqresearch/modeling/rolling_connectedness.py src/cqresearch/modeling/robustness_grid.py src/cqresearch/analysis/portfolio_v2_2.py tests/unit/test_pca_blocks.py tests/unit/test_shapley_r2.py tests/unit/test_cusum.py tests/unit/test_fevd_sensitivity.py tests/unit/test_rolling_connectedness.py tests/unit/test_robustness_grid.py tests/unit/test_portfolio_v2_2_pipeline.py"
+  ],
+  "tables_generated": [
+    "reports\\portfolio_v2_2\\tables\\pca_block_loadings.csv",
+    "reports\\portfolio_v2_2\\tables\\pca_explained_variance.csv",
+    "reports\\portfolio_v2_2\\tables\\pca_factor_panel_summary.csv",
+    "reports\\portfolio_v2_2\\tables\\pca_static_ols.csv",
+    "reports\\portfolio_v2_2\\tables\\shapley_r2_btc.csv",
+    "reports\\portfolio_v2_2\\tables\\rolling_shapley_r2_btc_180d.csv",
+    "reports\\portfolio_v2_2\\tables\\shapley_r2_eth.csv",
+    "reports\\portfolio_v2_2\\tables\\rolling_shapley_r2_eth_180d.csv",
+    "reports\\portfolio_v2_2\\tables\\cusum_summary.csv",
+    "reports\\portfolio_v2_2\\tables\\cusum_paths.csv",
+    "reports\\portfolio_v2_2\\tables\\fevd_order_sensitivity.csv",
+    "reports\\portfolio_v2_2\\tables\\fevd_order_sensitivity_summary.csv",
+    "reports\\portfolio_v2_2\\tables\\rolling_connectedness.csv",
+    "reports\\portfolio_v2_2\\tables\\robustness_grid.csv"
+  ],
+  "figures_generated": [
+    "reports\\portfolio_v2_2\\figures\\F70_pca_explained_variance.png",
+    "reports\\portfolio_v2_2\\figures\\F71_pca_factor_trajectories.png",
+    "reports\\portfolio_v2_2\\figures\\F72_btc_shapley_r2_stack.png",
+    "reports\\portfolio_v2_2\\figures\\F73_eth_shapley_r2_stack.png",
+    "reports\\portfolio_v2_2\\figures\\F74_btc_cusum.png",
+    "reports\\portfolio_v2_2\\figures\\F75_eth_cusum.png",
+    "reports\\portfolio_v2_2\\figures\\F76_fevd_order_sensitivity.png",
+    "reports\\portfolio_v2_2\\figures\\F77_rolling_connectedness.png",
+    "reports\\portfolio_v2_2\\figures\\F78_robustness_grid_heatmap.png"
+  ],
+  "reports_generated": [
+    "reports\\portfolio_v2_2\\executive_summary.md",
+    "reports\\portfolio_v2_2\\advanced_methods_summary.md",
+    "reports\\portfolio_v2_2\\technical_report.md",
+    "reports\\portfolio_v2_2\\data_atlas.md",
+    "reports\\portfolio_v2_2\\resume_bullets.md",
+    "reports\\portfolio_v2_2\\diagnostics\\optional_failures.md",
+    "reports\\portfolio_v2_2\\diagnostics\\verification.md"
+  ],
+  "model_cards_generated": [
+    "reports\\portfolio_v2_2\\model_cards\\pca_factor_blocks.md",
+    "reports\\portfolio_v2_2\\model_cards\\shapley_r2.md",
+    "reports\\portfolio_v2_2\\model_cards\\cusum_diagnostics.md",
+    "reports\\portfolio_v2_2\\model_cards\\fevd_order_sensitivity.md",
+    "reports\\portfolio_v2_2\\model_cards\\rolling_connectedness.md",
+    "reports\\portfolio_v2_2\\model_cards\\robustness_grid.md"
+  ],
+  "optional_failures": [],
+  "method_notes": {
+    "pca": "block-level PCA after standardization; single-variable blocks skipped",
+    "shapley_r2": "exact static block Shapley R2 plus stepped rolling windows",
+    "cusum": "exploratory standardized residual CUSUM; not full Bai-Perron",
+    "fevd": "compact VAR FEVD sensitivity; ordering-sensitive and reduced-form",
+    "rolling_connectedness": "252-day windows, step=30, 10-day FEVD horizon",
+    "robustness_grid": "BTC in-sample HAC OLS sensitivity grid",
+    "etf_flows": "no causal ETF-flow claim is made"
+  }
+}

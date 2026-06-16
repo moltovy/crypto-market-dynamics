@@ -1,0 +1,355 @@
+asset,date,window,step,block,shapley_r2,full_r2,n,n_blocks,variables,method
+btc,2020-07-08,180,30,Macro,0.04697214483324777,0.9767236504392319,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2020-07-08,180,30,TradFi,0.04996769656760498,0.9767236504392319,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2020-07-08,180,30,Liquidity,0.0042064150678230786,0.9767236504392319,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2020-07-08,180,30,Sentiment,0.0010168745920040598,0.9767236504392319,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2020-07-08,180,30,BTC Native ex MVRV,0.04416354726767569,0.9767236504392319,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2020-07-08,180,30,BTC MVRV,0.8303969721108762,0.9767236504392319,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2020-08-07,180,30,Macro,0.04817585543896956,0.9740092125381422,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2020-08-07,180,30,TradFi,0.05855317421764284,0.9740092125381422,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2020-08-07,180,30,Liquidity,0.004571578042305195,0.9740092125381422,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2020-08-07,180,30,Sentiment,0.0002707121044445592,0.9740092125381422,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2020-08-07,180,30,BTC Native ex MVRV,0.03938703793725256,0.9740092125381422,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2020-08-07,180,30,BTC MVRV,0.8230508547975275,0.9740092125381422,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2020-09-06,180,30,Macro,0.06476081382297424,0.970632554366576,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2020-09-06,180,30,TradFi,0.07138403484594538,0.970632554366576,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2020-09-06,180,30,Liquidity,0.007748360497821669,0.970632554366576,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2020-09-06,180,30,Sentiment,0.001543826590619392,0.970632554366576,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2020-09-06,180,30,BTC Native ex MVRV,0.030633476120628604,0.970632554366576,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2020-09-06,180,30,BTC MVRV,0.7945620424885869,0.970632554366576,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2020-10-10,180,30,Macro,0.06171388203044496,0.982662056080026,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2020-10-10,180,30,TradFi,0.07898735892181409,0.982662056080026,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2020-10-10,180,30,Liquidity,0.005285841843234973,0.982662056080026,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2020-10-10,180,30,Sentiment,0.004135121179725956,0.982662056080026,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2020-10-10,180,30,BTC Native ex MVRV,0.01940773905657782,0.982662056080026,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2020-10-10,180,30,BTC MVRV,0.8131321130482281,0.982662056080026,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2020-11-09,180,30,Macro,0.07291569791376692,0.9881628976901431,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2020-11-09,180,30,TradFi,0.09018015661463488,0.9881628976901431,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2020-11-09,180,30,Liquidity,0.01561378370190604,0.9881628976901431,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2020-11-09,180,30,Sentiment,0.008084662508086576,0.9881628976901431,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2020-11-09,180,30,BTC Native ex MVRV,0.011115083740938354,0.9881628976901431,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2020-11-09,180,30,BTC MVRV,0.7902535132108103,0.9881628976901431,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2020-12-16,180,30,Macro,0.08457966321863139,0.9854263596081302,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2020-12-16,180,30,TradFi,0.05865619876323288,0.9854263596081302,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2020-12-16,180,30,Liquidity,0.01047626788404223,0.9854263596081302,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2020-12-16,180,30,Sentiment,0.013555044762561357,0.9854263596081302,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2020-12-16,180,30,BTC Native ex MVRV,0.019840504282301465,0.9854263596081302,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2020-12-16,180,30,BTC MVRV,0.7983186806973609,0.9854263596081302,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2021-01-22,180,30,Macro,0.05691956148229055,0.9661520371781119,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2021-01-22,180,30,TradFi,0.025548758756340516,0.9661520371781119,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2021-01-22,180,30,Liquidity,0.0133329908569645,0.9661520371781119,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2021-01-22,180,30,Sentiment,0.014971814182306975,0.9661520371781119,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2021-01-22,180,30,BTC Native ex MVRV,0.008010822530763196,0.9661520371781119,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2021-01-22,180,30,BTC MVRV,0.8473680893694462,0.9661520371781119,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2021-03-04,180,30,Macro,0.07455010050930934,0.9526001515257563,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2021-03-04,180,30,TradFi,0.027926779474655983,0.9526001515257563,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2021-03-04,180,30,Liquidity,0.013329804553185049,0.9526001515257563,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2021-03-04,180,30,Sentiment,0.017568036877197903,0.9526001515257563,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2021-03-04,180,30,BTC Native ex MVRV,0.0076811386299643096,0.9526001515257563,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2021-03-04,180,30,BTC MVRV,0.8115442914814437,0.9526001515257563,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2021-04-05,180,30,Macro,0.05648902592419771,0.9548794993553897,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2021-04-05,180,30,TradFi,0.017741353721684013,0.9548794993553897,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2021-04-05,180,30,Liquidity,0.012009552376883769,0.9548794993553897,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2021-04-05,180,30,Sentiment,0.013446063878671977,0.9548794993553897,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2021-04-05,180,30,BTC Native ex MVRV,0.009049106493539214,0.9548794993553897,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2021-04-05,180,30,BTC MVRV,0.846144396960413,0.9548794993553897,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2021-05-07,180,30,Macro,0.04270451305050726,0.9649167359311503,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2021-05-07,180,30,TradFi,0.01476185935007044,0.9649167359311503,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2021-05-07,180,30,Liquidity,0.00631443721873112,0.9649167359311503,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2021-05-07,180,30,Sentiment,0.01139403772924373,0.9649167359311503,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2021-05-07,180,30,BTC Native ex MVRV,0.014153551765390434,0.9649167359311503,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2021-05-07,180,30,BTC MVRV,0.875588336817207,0.9649167359311503,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2021-06-10,180,30,Macro,0.033898527041622,0.9588003327860956,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2021-06-10,180,30,TradFi,0.025987440285121875,0.9588003327860956,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2021-06-10,180,30,Liquidity,0.007562337984160362,0.9588003327860956,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2021-06-10,180,30,Sentiment,0.01611541222255959,0.9588003327860956,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2021-06-10,180,30,BTC Native ex MVRV,0.017542912639071175,0.9588003327860956,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2021-06-10,180,30,BTC MVRV,0.8576937026135606,0.9588003327860956,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2021-07-28,180,30,Macro,0.032797708707632135,0.9479177783784973,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2021-07-28,180,30,TradFi,0.031328707089993794,0.9479177783784973,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2021-07-28,180,30,Liquidity,0.010997407632132607,0.9479177783784973,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2021-07-28,180,30,Sentiment,0.011120478089870368,0.9479177783784973,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2021-07-28,180,30,BTC Native ex MVRV,0.017062590667106473,0.9479177783784973,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2021-07-28,180,30,BTC MVRV,0.8446108861917621,0.9479177783784973,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2021-09-05,180,30,Macro,0.03842190064504986,0.9480117609491044,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2021-09-05,180,30,TradFi,0.028141703674287803,0.9480117609491044,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2021-09-05,180,30,Liquidity,0.01065937569422687,0.9480117609491044,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2021-09-05,180,30,Sentiment,0.007397042156103617,0.9480117609491044,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2021-09-05,180,30,BTC Native ex MVRV,0.012248918389638328,0.9480117609491044,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2021-09-05,180,30,BTC MVRV,0.8511428203897978,0.9480117609491044,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2021-10-09,180,30,Macro,0.028260947161292148,0.9596842334120819,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2021-10-09,180,30,TradFi,0.03565536571777053,0.9596842334120819,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2021-10-09,180,30,Liquidity,0.02862362887447983,0.9596842334120819,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2021-10-09,180,30,Sentiment,0.0037913185151105047,0.9596842334120819,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2021-10-09,180,30,BTC Native ex MVRV,0.01444352810573381,0.9596842334120819,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2021-10-09,180,30,BTC MVRV,0.848909445037695,0.9596842334120819,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2021-11-08,180,30,Macro,0.029842243699767176,0.9722706811623235,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2021-11-08,180,30,TradFi,0.03405999345004031,0.9722706811623235,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2021-11-08,180,30,Liquidity,0.019439400315523776,0.9722706811623235,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2021-11-08,180,30,Sentiment,0.0037900340136363155,0.9722706811623235,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2021-11-08,180,30,BTC Native ex MVRV,0.012956038327732672,0.9722706811623235,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2021-11-08,180,30,BTC MVRV,0.8721829713556231,0.9722706811623235,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2021-12-15,180,30,Macro,0.03622338845189199,0.9808305305360114,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2021-12-15,180,30,TradFi,0.036788797480688216,0.9808305305360114,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2021-12-15,180,30,Liquidity,0.027484868653733393,0.9808305305360114,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2021-12-15,180,30,Sentiment,0.0073252870619219135,0.9808305305360114,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2021-12-15,180,30,BTC Native ex MVRV,0.019824490475692676,0.9808305305360114,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2021-12-15,180,30,BTC MVRV,0.8531836984120832,0.9808305305360114,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2022-01-16,180,30,Macro,0.04423410107602442,0.9796475220428922,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2022-01-16,180,30,TradFi,0.04073711483334565,0.9796475220428922,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2022-01-16,180,30,Liquidity,0.03535242718051663,0.9796475220428922,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2022-01-16,180,30,Sentiment,0.007216269801229126,0.9796475220428922,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2022-01-16,180,30,BTC Native ex MVRV,0.0028938624942863203,0.9796475220428922,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2022-01-16,180,30,BTC MVRV,0.8492137466574899,0.9796475220428922,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2022-03-05,180,30,Macro,0.08184853617873669,0.9804962091305324,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2022-03-05,180,30,TradFi,0.05705404889784451,0.9804962091305324,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2022-03-05,180,30,Liquidity,0.02410114099193775,0.9804962091305324,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2022-03-05,180,30,Sentiment,0.004036541045789425,0.9804962091305324,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2022-03-05,180,30,BTC Native ex MVRV,0.003905341007956385,0.9804962091305324,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2022-03-05,180,30,BTC MVRV,0.8095506010082676,0.9804962091305324,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2022-04-09,180,30,Macro,0.07690022475499474,0.9770578303512797,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2022-04-09,180,30,TradFi,0.07338493852023488,0.9770578303512797,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2022-04-09,180,30,Liquidity,0.014018279353060086,0.9770578303512797,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2022-04-09,180,30,Sentiment,0.00344671935298369,0.9770578303512797,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2022-04-09,180,30,BTC Native ex MVRV,0.004774754032327079,0.9770578303512797,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2022-04-09,180,30,BTC MVRV,0.8045329143376792,0.9770578303512797,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2022-05-20,180,30,Macro,0.10252441981287752,0.962380866486376,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2022-05-20,180,30,TradFi,0.11102651578285395,0.962380866486376,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2022-05-20,180,30,Liquidity,0.0008821422490515192,0.962380866486376,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2022-05-20,180,30,Sentiment,0.0035915191379281347,0.962380866486376,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2022-05-20,180,30,BTC Native ex MVRV,0.010737276301993578,0.962380866486376,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2022-05-20,180,30,BTC MVRV,0.7336189932016712,0.962380866486376,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2022-06-29,180,30,Macro,0.10241297944625877,0.9464235725675555,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2022-06-29,180,30,TradFi,0.11649940591754454,0.9464235725675555,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2022-06-29,180,30,Liquidity,0.0018700496911553436,0.9464235725675555,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2022-06-29,180,30,Sentiment,0.0026304606676791392,0.9464235725675555,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2022-06-29,180,30,BTC Native ex MVRV,0.019203439157958854,0.9464235725675555,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2022-06-29,180,30,BTC MVRV,0.7038072376869591,0.9464235725675555,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2022-07-29,180,30,Macro,0.102258635749296,0.9415240907579596,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2022-07-29,180,30,TradFi,0.13136849492584968,0.9415240907579596,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2022-07-29,180,30,Liquidity,0.0017150344121427909,0.9415240907579596,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2022-07-29,180,30,Sentiment,0.0015837273450811818,0.9415240907579596,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2022-07-29,180,30,BTC Native ex MVRV,0.010890792302861574,0.9415240907579596,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2022-07-29,180,30,BTC MVRV,0.6937074060227283,0.9415240907579596,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2022-09-14,180,30,Macro,0.11211274348618107,0.9416907663822333,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2022-09-14,180,30,TradFi,0.13567168693131335,0.9416907663822333,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2022-09-14,180,30,Liquidity,0.0032328042197768514,0.9416907663822333,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2022-09-14,180,30,Sentiment,0.0005281172149013949,0.9416907663822333,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2022-09-14,180,30,BTC Native ex MVRV,0.008973369081018716,0.9416907663822333,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2022-09-14,180,30,BTC MVRV,0.6811720454490418,0.9416907663822333,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2022-11-06,180,30,Macro,0.10987570820754378,0.9428967359691137,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2022-11-06,180,30,TradFi,0.130875480628393,0.9428967359691137,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2022-11-06,180,30,Liquidity,0.0010134703298011675,0.9428967359691137,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2022-11-06,180,30,Sentiment,0.0003895405324784588,0.9428967359691137,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2022-11-06,180,30,BTC Native ex MVRV,0.011291580827883528,0.9428967359691137,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2022-11-06,180,30,BTC MVRV,0.6894509554430136,0.9428967359691137,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2023-01-14,180,30,Macro,0.11667887085408737,0.9513376219396262,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2023-01-14,180,30,TradFi,0.11758171407241103,0.9513376219396262,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2023-01-14,180,30,Liquidity,0.004744641491714482,0.9513376219396262,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2023-01-14,180,30,Sentiment,0.0005685854370491404,0.9513376219396262,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2023-01-14,180,30,BTC Native ex MVRV,0.0042689801751901995,0.9513376219396262,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2023-01-14,180,30,BTC MVRV,0.7074948299091739,0.9513376219396262,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2023-02-13,180,30,Macro,0.09774850095651223,0.9620422389495846,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2023-02-13,180,30,TradFi,0.09655793023485428,0.9620422389495846,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2023-02-13,180,30,Liquidity,0.00843373719939416,0.9620422389495846,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2023-02-13,180,30,Sentiment,0.0011579574740443654,0.9620422389495846,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2023-02-13,180,30,BTC Native ex MVRV,0.005681133048034888,0.9620422389495846,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2023-02-13,180,30,BTC MVRV,0.7524629800367446,0.9620422389495846,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2023-03-20,180,30,Macro,0.07851854812314749,0.9853138192158789,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2023-03-20,180,30,TradFi,0.08807391462521727,0.9853138192158789,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2023-03-20,180,30,Liquidity,0.016024060261211327,0.9853138192158789,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2023-03-20,180,30,Sentiment,0.0028104346155704953,0.9853138192158789,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2023-03-20,180,30,BTC Native ex MVRV,0.021351083230092032,0.9853138192158789,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2023-03-20,180,30,BTC MVRV,0.7785357783606403,0.9853138192158789,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2023-04-19,180,30,Macro,0.07876629073726328,0.9802156032302316,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2023-04-19,180,30,TradFi,0.08286037081561824,0.9802156032302316,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2023-04-19,180,30,Liquidity,0.01695413434508053,0.9802156032302316,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2023-04-19,180,30,Sentiment,0.0011707328758136905,0.9802156032302316,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2023-04-19,180,30,BTC Native ex MVRV,0.03551542875220933,0.9802156032302316,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2023-04-19,180,30,BTC MVRV,0.7649486457042466,0.9802156032302316,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2023-05-26,180,30,Macro,0.060845253899065525,0.97675961620566,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2023-05-26,180,30,TradFi,0.07143544438961812,0.97675961620566,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2023-05-26,180,30,Liquidity,0.018301312888562026,0.97675961620566,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2023-05-26,180,30,Sentiment,0.007304977674633435,0.97675961620566,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2023-05-26,180,30,BTC Native ex MVRV,0.031438106564719584,0.97675961620566,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2023-05-26,180,30,BTC MVRV,0.7874345207890614,0.97675961620566,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2023-06-30,180,30,Macro,0.03875709860160479,0.9790112995311753,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2023-06-30,180,30,TradFi,0.0573029392204136,0.9790112995311753,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2023-06-30,180,30,Liquidity,0.007012343253485641,0.9790112995311753,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2023-06-30,180,30,Sentiment,0.006928461563568479,0.9790112995311753,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2023-06-30,180,30,BTC Native ex MVRV,0.039905813043498724,0.9790112995311753,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2023-06-30,180,30,BTC MVRV,0.8291046438486039,0.9790112995311753,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2023-08-06,180,30,Macro,0.02105612631514285,0.988462684675037,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2023-08-06,180,30,TradFi,0.04462491305054357,0.988462684675037,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2023-08-06,180,30,Liquidity,0.004487116904377011,0.988462684675037,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2023-08-06,180,30,Sentiment,0.0032932153986556727,0.988462684675037,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2023-08-06,180,30,BTC Native ex MVRV,0.016190222148210292,0.988462684675037,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2023-08-06,180,30,BTC MVRV,0.8988110908581075,0.988462684675037,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2023-09-13,180,30,Macro,0.025789955979399256,0.9903721715387479,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2023-09-13,180,30,TradFi,0.030684944569365224,0.9903721715387479,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2023-09-13,180,30,Liquidity,0.0026781803038391128,0.9903721715387479,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2023-09-13,180,30,Sentiment,0.0023685574121217767,0.9903721715387479,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2023-09-13,180,30,BTC Native ex MVRV,0.01228447588521136,0.9903721715387479,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2023-09-13,180,30,BTC MVRV,0.9165660573888113,0.9903721715387479,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2023-10-16,180,30,Macro,0.019784611277775647,0.9938697521289122,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2023-10-16,180,30,TradFi,0.030416171396347537,0.9938697521289122,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2023-10-16,180,30,Liquidity,0.0002866371000062393,0.9938697521289122,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2023-10-16,180,30,Sentiment,2.3952405412132796e-05,0.9938697521289122,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2023-10-16,180,30,BTC Native ex MVRV,0.002945011908943733,0.9938697521289122,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2023-10-16,180,30,BTC MVRV,0.940413368040427,0.9938697521289122,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2023-11-22,180,30,Macro,0.014260638071054692,0.9909527000906785,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2023-11-22,180,30,TradFi,0.011119046738116938,0.9909527000906785,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2023-11-22,180,30,Liquidity,0.0006345727479838289,0.9909527000906785,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2023-11-22,180,30,Sentiment,0.00021398482698204623,0.9909527000906785,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2023-11-22,180,30,BTC Native ex MVRV,0.004966485706133662,0.9909527000906785,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2023-11-22,180,30,BTC MVRV,0.9597579720004072,0.9909527000906785,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2023-12-31,180,30,Macro,0.013498626799414897,0.9779581858380144,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2023-12-31,180,30,TradFi,0.01309492154948093,0.9779581858380144,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2023-12-31,180,30,Liquidity,0.0009969837079951268,0.9779581858380144,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2023-12-31,180,30,Sentiment,0.00016737810081988899,0.9779581858380144,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2023-12-31,180,30,BTC Native ex MVRV,0.007576843929444323,0.9779581858380144,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2023-12-31,180,30,BTC MVRV,0.9426234317508593,0.9779581858380144,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2024-02-01,180,30,Macro,0.014751953309995139,0.9746602756731075,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2024-02-01,180,30,TradFi,0.021561006542876352,0.9746602756731075,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2024-02-01,180,30,Liquidity,0.005609565674626758,0.9746602756731075,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2024-02-01,180,30,Sentiment,0.00031921763050427775,0.9746602756731075,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2024-02-01,180,30,BTC Native ex MVRV,0.006792319415485549,0.9746602756731075,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2024-02-01,180,30,BTC MVRV,0.9256262130996193,0.9746602756731075,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2024-03-08,180,30,Macro,0.005597075082554622,0.9589661854248483,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2024-03-08,180,30,TradFi,0.013218527741010632,0.9589661854248483,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2024-03-08,180,30,Liquidity,0.0023579632568650807,0.9589661854248483,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2024-03-08,180,30,Sentiment,0.0011726506866393516,0.9589661854248483,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2024-03-08,180,30,BTC Native ex MVRV,0.012904823319219095,0.9589661854248483,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2024-03-08,180,30,BTC MVRV,0.9237151453385595,0.9589661854248483,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2024-04-10,180,30,Macro,0.0060444730131426734,0.9710354796324138,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2024-04-10,180,30,TradFi,0.0061740861982502795,0.9710354796324138,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2024-04-10,180,30,Liquidity,0.014350737236041309,0.9710354796324138,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2024-04-10,180,30,Sentiment,0.005721948889443735,0.9710354796324138,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2024-04-10,180,30,BTC Native ex MVRV,0.022690449156492865,0.9710354796324138,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2024-04-10,180,30,BTC MVRV,0.9160537851390427,0.9710354796324138,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2024-05-13,180,30,Macro,0.003953485094851887,0.9793616514051174,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2024-05-13,180,30,TradFi,0.0074923012736333805,0.9793616514051174,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2024-05-13,180,30,Liquidity,0.010301104463133393,0.9793616514051174,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2024-05-13,180,30,Sentiment,0.004580477996248539,0.9793616514051174,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2024-05-13,180,30,BTC Native ex MVRV,0.01541394139779733,0.9793616514051174,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2024-05-13,180,30,BTC MVRV,0.9376203411794529,0.9793616514051174,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2024-06-14,180,30,Macro,0.01206908622731686,0.9829578115756652,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2024-06-14,180,30,TradFi,0.016992781492697354,0.9829578115756652,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2024-06-14,180,30,Liquidity,0.01061893248839378,0.9829578115756652,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2024-06-14,180,30,Sentiment,0.0037343966761606727,0.9829578115756652,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2024-06-14,180,30,BTC Native ex MVRV,0.014542300818882305,0.9829578115756652,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2024-06-14,180,30,BTC MVRV,0.925000313872214,0.9829578115756652,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2024-07-16,180,30,Macro,0.013935222661832378,0.9825814187033386,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2024-07-16,180,30,TradFi,0.01579445397932873,0.9825814187033386,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2024-07-16,180,30,Liquidity,0.005455651100054768,0.9825814187033386,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2024-07-16,180,30,Sentiment,0.002147067811374923,0.9825814187033386,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2024-07-16,180,30,BTC Native ex MVRV,0.011053301675554279,0.9825814187033386,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2024-07-16,180,30,BTC MVRV,0.9341957214751935,0.9825814187033386,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2024-08-15,180,30,Macro,0.03659670480885088,0.9841195127641224,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2024-08-15,180,30,TradFi,0.03022276023719345,0.9841195127641224,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2024-08-15,180,30,Liquidity,0.001692009549161866,0.9841195127641224,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2024-08-15,180,30,Sentiment,0.004850964883832553,0.9841195127641224,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2024-08-15,180,30,BTC Native ex MVRV,0.011145469499666395,0.9841195127641224,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2024-08-15,180,30,BTC MVRV,0.8996116037854172,0.9841195127641224,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2024-09-20,180,30,Macro,0.04871822065782616,0.983828444963206,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2024-09-20,180,30,TradFi,0.04866485895294774,0.983828444963206,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2024-09-20,180,30,Liquidity,0.0030238492984555497,0.983828444963206,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2024-09-20,180,30,Sentiment,0.004065955397994703,0.983828444963206,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2024-09-20,180,30,BTC Native ex MVRV,0.015736334467116853,0.983828444963206,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2024-09-20,180,30,BTC MVRV,0.8636192261888651,0.983828444963206,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2024-10-22,180,30,Macro,0.06487504575476272,0.988858517007245,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2024-10-22,180,30,TradFi,0.08195014030350352,0.988858517007245,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2024-10-22,180,30,Liquidity,0.0012142934041754518,0.988858517007245,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2024-10-22,180,30,Sentiment,0.001056502916480199,0.988858517007245,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2024-10-22,180,30,BTC Native ex MVRV,0.013501285187812968,0.988858517007245,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2024-10-22,180,30,BTC MVRV,0.8262612494405102,0.988858517007245,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2024-11-21,180,30,Macro,0.06607030723217246,0.987631959203999,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2024-11-21,180,30,TradFi,0.09008947819716327,0.987631959203999,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2024-11-21,180,30,Liquidity,0.0045293268989192005,0.987631959203999,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2024-11-21,180,30,Sentiment,0.0033773188976372955,0.987631959203999,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2024-11-21,180,30,BTC Native ex MVRV,0.001807865712851583,0.987631959203999,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2024-11-21,180,30,BTC MVRV,0.8217576622652555,0.987631959203999,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2024-12-24,180,30,Macro,0.06397787235416624,0.9791595887463472,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2024-12-24,180,30,TradFi,0.09375395749113714,0.9791595887463472,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2024-12-24,180,30,Liquidity,0.009020046487563022,0.9791595887463472,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2024-12-24,180,30,Sentiment,0.005199506775753106,0.9791595887463472,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2024-12-24,180,30,BTC Native ex MVRV,0.008010424628640147,0.9791595887463472,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2024-12-24,180,30,BTC MVRV,0.7991977810090874,0.9791595887463472,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2025-01-23,180,30,Macro,0.07065823809843338,0.9799397109538552,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2025-01-23,180,30,TradFi,0.10443908249357524,0.9799397109538552,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2025-01-23,180,30,Liquidity,0.008855542765338396,0.9799397109538552,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2025-01-23,180,30,Sentiment,0.006525932913152531,0.9799397109538552,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2025-01-23,180,30,BTC Native ex MVRV,0.004938557195937818,0.9799397109538552,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2025-01-23,180,30,BTC MVRV,0.7845223574874179,0.9799397109538552,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2025-02-27,180,30,Macro,0.048183022378684714,0.9823230667587476,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2025-02-27,180,30,TradFi,0.07798723670306879,0.9823230667587476,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2025-02-27,180,30,Liquidity,0.007467620768387202,0.9823230667587476,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2025-02-27,180,30,Sentiment,0.005417134989041011,0.9823230667587476,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2025-02-27,180,30,BTC Native ex MVRV,0.008419244490459306,0.9823230667587476,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2025-02-27,180,30,BTC MVRV,0.8348488074291064,0.9823230667587476,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2025-04-02,180,30,Macro,0.05529411652672813,0.9851589101791919,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2025-04-02,180,30,TradFi,0.060841495905414184,0.9851589101791919,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2025-04-02,180,30,Liquidity,0.0023754511123268486,0.9851589101791919,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2025-04-02,180,30,Sentiment,0.0027833845336319753,0.9851589101791919,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2025-04-02,180,30,BTC Native ex MVRV,0.014402619142486374,0.9851589101791919,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2025-04-02,180,30,BTC MVRV,0.8494618429586043,0.9851589101791919,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2025-05-02,180,30,Macro,0.05556793577243678,0.9846206111510638,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2025-05-02,180,30,TradFi,0.05827577740456406,0.9846206111510638,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2025-05-02,180,30,Liquidity,0.003625270453336064,0.9846206111510638,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2025-05-02,180,30,Sentiment,0.007496784211118306,0.9846206111510638,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2025-05-02,180,30,BTC Native ex MVRV,0.014161948210060893,0.9846206111510638,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2025-05-02,180,30,BTC MVRV,0.8454928950995476,0.9846206111510638,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2025-06-05,180,30,Macro,0.05660495668094063,0.982954198567788,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2025-06-05,180,30,TradFi,0.06156377276405604,0.982954198567788,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2025-06-05,180,30,Liquidity,0.005818137971029703,0.982954198567788,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2025-06-05,180,30,Sentiment,0.0048938898148208065,0.982954198567788,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2025-06-05,180,30,BTC Native ex MVRV,0.012741704973747766,0.982954198567788,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2025-06-05,180,30,BTC MVRV,0.8413317363631929,0.982954198567788,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2025-07-10,180,30,Macro,0.05751085832081102,0.9892531229242916,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2025-07-10,180,30,TradFi,0.044483205883808184,0.9892531229242916,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2025-07-10,180,30,Liquidity,0.011458348508557469,0.9892531229242916,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2025-07-10,180,30,Sentiment,0.003337890865648452,0.9892531229242916,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2025-07-10,180,30,BTC Native ex MVRV,0.017982428069233274,0.9892531229242916,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2025-07-10,180,30,BTC MVRV,0.8544803912762332,0.9892531229242916,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2025-08-12,180,30,Macro,0.057597218530352955,0.9908961050129392,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2025-08-12,180,30,TradFi,0.04108737448275405,0.9908961050129392,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2025-08-12,180,30,Liquidity,0.014233650195432568,0.9908961050129392,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2025-08-12,180,30,Sentiment,0.003047275459374284,0.9908961050129392,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2025-08-12,180,30,BTC Native ex MVRV,0.014837346499320806,0.9908961050129392,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2025-08-12,180,30,BTC MVRV,0.8600932398457044,0.9908961050129392,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2025-09-13,180,30,Macro,0.06124178249322874,0.9912864185326827,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2025-09-13,180,30,TradFi,0.05548641807350862,0.9912864185326827,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2025-09-13,180,30,Liquidity,0.01611291276333352,0.9912864185326827,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2025-09-13,180,30,Sentiment,0.0018263078682045908,0.9912864185326827,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2025-09-13,180,30,BTC Native ex MVRV,0.007329219462587911,0.9912864185326827,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2025-09-13,180,30,BTC MVRV,0.8492897778718194,0.9912864185326827,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2025-10-16,180,30,Macro,0.06759164711428452,0.9901959803671079,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2025-10-16,180,30,TradFi,0.05383101684858146,0.9901959803671079,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2025-10-16,180,30,Liquidity,0.004972399917994326,0.9901959803671079,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2025-10-16,180,30,Sentiment,0.000590007935713945,0.9901959803671079,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2025-10-16,180,30,BTC Native ex MVRV,0.0033581444477211496,0.9901959803671079,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2025-10-16,180,30,BTC MVRV,0.8598527641028124,0.9901959803671079,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2025-11-24,180,30,Macro,0.07223006775848523,0.9891705069690874,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2025-11-24,180,30,TradFi,0.0694898317653777,0.9891705069690874,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2025-11-24,180,30,Liquidity,0.0022124366149626137,0.9891705069690874,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2025-11-24,180,30,Sentiment,0.008623025008605758,0.9891705069690874,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2025-11-24,180,30,BTC Native ex MVRV,0.014169420310610865,0.9891705069690874,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2025-11-24,180,30,BTC MVRV,0.8224457255110454,0.9891705069690874,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2026-01-03,180,30,Macro,0.06848556723295882,0.982120564353105,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2026-01-03,180,30,TradFi,0.08930732523453212,0.982120564353105,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2026-01-03,180,30,Liquidity,0.005951831762812008,0.982120564353105,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2026-01-03,180,30,Sentiment,0.009046778260812563,0.982120564353105,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2026-01-03,180,30,BTC Native ex MVRV,0.015554299339107477,0.982120564353105,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2026-01-03,180,30,BTC MVRV,0.7937747625228819,0.982120564353105,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2026-02-08,180,30,Macro,0.08109894536281383,0.9766507678897139,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2026-02-08,180,30,TradFi,0.11754372909728833,0.9766507678897139,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2026-02-08,180,30,Liquidity,0.007911739472598853,0.9766507678897139,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2026-02-08,180,30,Sentiment,0.011977261252935729,0.9766507678897139,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2026-02-08,180,30,BTC Native ex MVRV,0.03538789789834817,0.9766507678897139,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2026-02-08,180,30,BTC MVRV,0.722731194805729,0.9766507678897139,180,6,btc_mvrv_d1,exact_block_shapley_r2
+btc,2026-03-12,180,30,Macro,0.08095652226669747,0.9658451358245054,180,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,2026-03-12,180,30,TradFi,0.11381376679867665,0.9658451358245054,180,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,2026-03-12,180,30,Liquidity,0.00899890168084322,0.9658451358245054,180,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,2026-03-12,180,30,Sentiment,0.009199504776616943,0.9658451358245054,180,6,fng_value_d1,exact_block_shapley_r2
+btc,2026-03-12,180,30,BTC Native ex MVRV,0.027927467210953738,0.9658451358245054,180,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,2026-03-12,180,30,BTC MVRV,0.7249489730907172,0.9658451358245054,180,6,btc_mvrv_d1,exact_block_shapley_r2

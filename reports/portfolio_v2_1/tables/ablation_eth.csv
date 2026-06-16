@@ -1,0 +1,29 @@
+model_id,asset,sample,n,r2,adj_r2,delta_r2_vs_prev,variables,missing_variables,note
+M0_intercept,eth,full,2292,1.1102230246251565e-16,2.220446049250313e-16,,,,ok
+M1_macro,eth,full,2287,0.12616619508591698,0.1242507329971092,0.12616619508591687,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,,ok
+M2_macro_tradfi,eth,full,2287,0.14750674046014278,0.1445129098735235,0.021340545374225806,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret,,ok
+M3_macro_tradfi_liquidity,eth,full,2287,0.14969704124593075,0.1459610880000869,0.0021903007857879686,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret,,ok
+M4_plus_sentiment,eth,full,2287,0.15169768275368456,0.14759600121974636,0.0020006415077538087,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret;fng_value_d1,,ok
+M5_plus_eth_native,eth,full,1559,0.17854443176172563,0.17216832127087223,0.02684674900804107,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret;fng_value_d1;cme_eth_basis_close_d1,,ok
+M6_plus_eth_etf_intensity_post_launch,eth,full,548,0.24555604755623062,0.22718943448175688,0.06701161579450499,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret;fng_value_d1;cme_eth_basis_close_d1;eth_etf_intensity,,ETF intensity is only interpretable on post-launch support
+M0_intercept,eth,pre_btc_etf,1470,2.220446049250313e-16,1.1102230246251565e-16,,,,ok
+M1_macro,eth,pre_btc_etf,1465,0.11684910415668459,0.11382254179944218,0.11684910415668437,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,,ok
+M2_macro_tradfi,eth,pre_btc_etf,1465,0.13744161594472915,0.1327022841642056,0.020592511788044554,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret,,ok
+M3_macro_tradfi_liquidity,eth,pre_btc_etf,1465,0.14117837908004283,0.1352717654561092,0.003736763135313681,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret,,ok
+M4_plus_sentiment,eth,pre_btc_etf,1465,0.14546158430105727,0.138992263879386,0.004283205221014441,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret;fng_value_d1,,ok
+M5_plus_eth_native,eth,pre_btc_etf,841,0.19101996955303202,0.17929562128568466,0.04555838525197475,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret;fng_value_d1;cme_eth_basis_close_d1,,ok
+M6_plus_eth_etf_intensity_post_launch,eth,pre_btc_etf,0,,,,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret;fng_value_d1;cme_eth_basis_close_d1;eth_etf_intensity,,ETF intensity is only interpretable on post-launch support
+M0_intercept,eth,post_btc_etf,822,-2.220446049250313e-16,-2.220446049250313e-16,,,,ok
+M1_macro,eth,post_btc_etf,822,0.15473347524343228,0.14955414604761996,0.1547334752434325,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,,ok
+M2_macro_tradfi,eth,post_btc_etf,822,0.1874033302679523,0.179407299077477,0.03266985502452002,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret,,ok
+M3_macro_tradfi_liquidity,eth,post_btc_etf,822,0.1878396193976134,0.17782531137538926,0.0004362891296610938,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret,,ok
+M4_plus_sentiment,eth,post_btc_etf,822,0.18784172807627786,0.17681241821064708,2.1086786644586297e-06,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret;fng_value_d1,,ok
+M5_plus_eth_native,eth,post_btc_etf,718,0.17721458406596702,0.163209725922409,-0.01062714401031084,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret;fng_value_d1;cme_eth_basis_close_d1,,ok
+M6_plus_eth_etf_intensity_post_launch,eth,post_btc_etf,548,0.24555604755623062,0.22718943448175688,0.0683414634902636,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret;fng_value_d1;cme_eth_basis_close_d1;eth_etf_intensity,,ETF intensity is only interpretable on post-launch support
+M0_intercept,eth,post_eth_etf,628,0.0,0.0,,,,ok
+M1_macro,eth,post_eth_etf,628,0.18007820679108621,0.1734871955916576,0.18007820679108621,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,,ok
+M2_macro_tradfi,eth,post_eth_etf,628,0.22544974264940254,0.21543940006651918,0.045371535858316325,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret,,ok
+M3_macro_tradfi_liquidity,eth,post_eth_etf,628,0.22547853953329056,0.212925517483587,2.8796883888015934e-05,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret,,ok
+M4_plus_sentiment,eth,post_eth_etf,628,0.22559197588369084,0.21176326116732813,0.00011343635040028666,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret;fng_value_d1,,ok
+M5_plus_eth_native,eth,post_eth_etf,549,0.21408396882935743,0.19648883380314897,-0.011508007054333413,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret;fng_value_d1;cme_eth_basis_close_d1,,ok
+M6_plus_eth_etf_intensity_post_launch,eth,post_eth_etf,548,0.24555604755623062,0.22718943448175688,0.03147207872687319,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1;spy_ret;qqq_ret;gld_ret;defi_tvl_usd_ret;stables_total_usd_ret;fng_value_d1;cme_eth_basis_close_d1;eth_etf_intensity,,ETF intensity is only interpretable on post-launch support

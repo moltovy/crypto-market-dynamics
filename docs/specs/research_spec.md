@@ -1,38 +1,42 @@
-# Research Spec — CryptoQuant BTC/ETH Factor-Block Evolution
+# Research Spec - Legacy Draft
 
-> Skeleton. Owned by the Research Lead. Every section to be filled in during Sprint 1.
+> **Legacy warning:** this v0.1 research spec is retained for provenance only.
+> The current portfolio release contract is
+> [`portfolio_spec.md`](./portfolio_spec.md) plus
+> [`methods_spec_v2.md`](./methods_spec_v2.md). Do not use this file as the
+> active public framing for portfolio v2.
 
-**Status:** DRAFT — v0.1 (2026-04-18)
-**Canonical plan:** [`project_research_plan.md`](../../project_research_plan.md)
+**Status:** LEGACY DRAFT - v0.1 (2026-04-18)
 
----
+## 1. Historical Research Question
 
-## 1. Research question (one sentence, pre-registered)
-*How did the factor exposures of BTC and ETH returns — decomposed into macro, institutional, liquidity, and native blocks — evolve around the 2024 US spot-ETF launches?*
+How did the factor exposures of BTC and ETH returns, decomposed into macro,
+institutional, liquidity, and native blocks, evolve around the 2024 US spot-ETF
+launches?
 
-## 2. Scope
-- **In scope.** BTC and ETH daily log-returns; four factor blocks per asset; pre-registered events in `config/events.yml`.
-- **Out of scope.** Altcoins beyond BTC/ETH/WBTC; intraday dynamics; forecasting.
+## 2. Historical Scope
 
-## 3. Null hypotheses (pre-registered)
-- H01: block-level partial R² is constant across pre- and post-ETF subsamples.
-- H02: no structural break at 2024-01-11 in the BTC return generating process.
-- H03: no structural break at 2024-07-23 in the ETH return generating process.
+- **In scope at the time:** BTC and ETH daily log returns, factor blocks, and
+  pre-registered events in `config/events.yml`.
+- **Out of scope:** altcoins beyond BTC/ETH/WBTC, intraday dynamics, and
+  forecasting.
+
+## 3. Historical Null Hypotheses
+
+- H01: block-level diagnostics are constant across pre- and post-ETF subsamples.
+- H02: no structural break at 2024-01-11 in the BTC return process.
+- H03: no structural break at 2024-07-23 in the ETH return process.
 - H04: Diebold-Yilmaz total-connectedness index is stationary over the sample.
 
-## 4. Success criteria
-- Each H0 is evaluated by at least two independent tests (e.g. Chow + Bai-Perron).
-- Every finding is robust to 60/120/252 day rolling window choice.
-- Placebo dates produce no false positives at the 1% level (or the false-positive rate is documented).
+## 4. Current Portfolio Interpretation
 
-## 5. Deliverables
-- Peer-reviewable empirical note (`reports/drafts/paper_v1.0.*`).
-- Reproducible panel (`reports/panels/master_daily.parquet`).
-- Public figure set (`reports/figures/`) and table set (`reports/tables/`).
-- Replication packet (`reports/drafts/submission/<date>/replication.md`).
+Portfolio v2 uses Chow plus single-break sup-F diagnostics. Full Bai-Perron
+multi-break estimation is not implemented. Rolling attribution is drop-one
+marginal R^2, not Shapley/Owen attribution. ETF-flow results are reduced-form
+associations and should not be described as causal effects.
 
-## 6. Non-goals
-Listed in `.cursor/rules/global-constitution.mdc`.
+## 5. Superseded Deliverables
 
-## 7. Open questions
-- To be populated by agent 01 (data cleaning) after DQ runs.
+The earlier paper-style deliverables are superseded by the portfolio packet in
+`reports/portfolio_v2/`: executive summary, technical report, data atlas, model
+cards, curated figures/tables, and resume bullets.

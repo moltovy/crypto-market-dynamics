@@ -13,13 +13,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 
 from cqresearch.data import loaders
 from cqresearch.data.calendars import (
     DEFAULT_END,
     DEFAULT_START,
+    SeriesKind,
     align_to_master,
     crypto_index,
 )
@@ -35,7 +35,7 @@ class PanelBuildReport:
 
 # --- kind assignments per variable ------------------------------------------
 # 'stock' forward-fills weekends; 'flow' zero-fills weekends; 'rate' ffills.
-KINDS: dict[str, str] = {
+KINDS: dict[str, SeriesKind] = {
     # Prices (stock levels — carry across the weekend for equities/FX)
     "btc_close": "stock",
     "eth_close": "stock",
@@ -68,7 +68,7 @@ KINDS: dict[str, str] = {
 }
 
 # ETF columns follow a naming convention we expand programmatically.
-def _etf_flow_kind(col: str) -> str:
+def _etf_flow_kind(col: str) -> SeriesKind:
     return "flow"  # all Farside ETF columns are flows
 
 
@@ -83,7 +83,7 @@ def build_master_panel(
 
     aligned: dict[str, pd.Series] = {}
 
-    def _add(col: str, series: pd.Series, kind: str) -> None:
+    def _add(col: str, series: pd.Series, kind: SeriesKind) -> None:
         aligned[col] = align_to_master(series, kind=kind, master_index=master_idx)
 
     # Prices
@@ -188,4 +188,4 @@ def write_panel(
     return parquet, coverage, meta
 
 
-__all__ = ["build_master_panel", "write_panel", "PanelBuildReport"]
+__all__ = ["PanelBuildReport", "build_master_panel", "write_panel"]

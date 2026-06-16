@@ -1,0 +1,7 @@
+asset,block,shapley_r2,full_r2,n,n_blocks,variables,method
+btc,Macro,0.04230246240834372,0.9207488900191318,1940,6,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+btc,TradFi,0.04681013251720195,0.9207488900191318,1940,6,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+btc,Liquidity,0.0008284290492945896,0.9207488900191318,1940,6,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+btc,Sentiment,0.0008760978772705503,0.9207488900191318,1940,6,fng_value_d1,exact_block_shapley_r2
+btc,BTC Native ex MVRV,0.0016020196337552175,0.9207488900191318,1940,6,cme_btc_basis_close_d1;btc_exchange_netflow_d1;btc_miner_to_exchange_flow_d1,exact_block_shapley_r2
+btc,BTC MVRV,0.8283297485332658,0.9207488900191318,1940,6,btc_mvrv_d1,exact_block_shapley_r2
