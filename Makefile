@@ -35,17 +35,19 @@ RUFF_PORTFOLIO_PATHS = \
 	tests/unit/test_portfolio_v2_2_pipeline.py \
 	tests/unit/test_optional_data_sources.py
 
-.PHONY: help setup ingest curate inventory validate pipeline test lint format figures portfolio-v2 portfolio-v2-1 portfolio-v2-2 optional-data verify clean
+.PHONY: help install setup ingest curate inventory validate pipeline test typecheck lint format figures portfolio portfolio-v2 portfolio-v2-1 portfolio-v2-2 optional-data verify clean
 
 help:
 	@echo "Targets:"
 	@echo "  setup          - create uv venv and install deps (dev extras)"
+	@echo "  install        - alias for setup"
 	@echo "  ingest         - run legacy data collection scripts"
 	@echo "  curate         - run the full frozen-panel pipeline"
 	@echo "  inventory      - rebuild Data/MASTER_DATA.{md,txt,csv}"
 	@echo "  validate       - run config/data unit checks"
 	@echo "  pipeline       - run scripts/run_full_pipeline.py"
 	@echo "  test           - run pytest"
+	@echo "  typecheck      - run mypy"
 	@echo "  lint           - run focused Ruff + mypy"
 	@echo "  format         - run ruff format on source/script/test trees"
 	@echo "  figures        - rebuild cached figure outputs"
@@ -58,6 +60,8 @@ help:
 
 setup:
 	uv sync --all-extras
+
+install: setup
 
 ingest:
 	uv run python tools/data_collection/fetch_fred.py
@@ -80,6 +84,9 @@ pipeline:
 test:
 	uv run pytest
 
+typecheck:
+	uv run mypy src/cqresearch
+
 lint:
 	uv run ruff check $(RUFF_PORTFOLIO_PATHS)
 	uv run mypy src/cqresearch
@@ -89,6 +96,8 @@ format:
 
 figures:
 	uv run python scripts/03_make_figures.py
+
+portfolio: portfolio-v2-1
 
 portfolio-v2:
 	uv run python scripts/run_portfolio_pipeline.py

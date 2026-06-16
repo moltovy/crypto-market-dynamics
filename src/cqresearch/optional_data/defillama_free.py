@@ -21,6 +21,12 @@ def defillama_protocol_tvl_url(protocol_slug: str) -> str:
     return f"{BASE_URL}/protocol/{quote(protocol_slug.strip())}"
 
 
+def build_tvl_url(protocol_slug: str) -> str:
+    """Compatibility alias for the optional-data sprint spec."""
+
+    return defillama_protocol_tvl_url(protocol_slug)
+
+
 def normalize_defillama_chains(payload: list[dict[str, Any]]) -> pd.DataFrame:
     """Normalize a DefiLlama chains response to a compact table."""
 
@@ -54,9 +60,38 @@ def normalize_defillama_protocol_tvl(payload: dict[str, Any]) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def normalize_chain_tvl_response(payload: list[dict[str, Any]]) -> pd.DataFrame:
+    """Compatibility alias for chain-level TVL payload normalization."""
+
+    return normalize_defillama_chains(payload)
+
+
+def normalize_stablecoin_response(payload: dict[str, Any]) -> pd.DataFrame:
+    """Normalize a compact DefiLlama stablecoin payload shape.
+
+    DefiLlama stablecoin endpoint shapes vary by route. This helper accepts the
+    common ``peggedAssets`` list and returns a source-tagged supply table.
+    """
+
+    rows = []
+    for item in payload.get("peggedAssets", []):
+        rows.append(
+            {
+                "source": "defillama",
+                "stablecoin": item.get("name") or item.get("symbol"),
+                "symbol": item.get("symbol"),
+                "circulating_usd": pd.to_numeric(item.get("circulating", {}).get("peggedUSD"), errors="coerce"),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
 __all__ = [
+    "build_tvl_url",
     "defillama_chains_url",
     "defillama_protocol_tvl_url",
+    "normalize_chain_tvl_response",
     "normalize_defillama_chains",
     "normalize_defillama_protocol_tvl",
+    "normalize_stablecoin_response",
 ]

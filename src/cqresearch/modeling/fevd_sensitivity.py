@@ -1,6 +1,8 @@
 """FEVD order-sensitivity diagnostics."""
 from __future__ import annotations
 
+from typing import Any
+
 import pandas as pd
 
 from cqresearch.modeling.var_fevd import fit_var_fevd
@@ -61,4 +63,23 @@ def summarize_fevd_sensitivity(results: pd.DataFrame) -> pd.DataFrame:
     return summary.sort_values("range", ascending=False)
 
 
-__all__ = ["run_fevd_order_sensitivity", "summarize_fevd_sensitivity"]
+def plot_order_sensitivity(summary: pd.DataFrame, ax: Any | None = None) -> Any:
+    """Plot the largest FEVD share ranges and return the matplotlib axis."""
+
+    import matplotlib.pyplot as plt
+
+    axis = ax if ax is not None else plt.subplots(figsize=(8, 4))[1]
+    if summary.empty:
+        axis.text(0.5, 0.5, "No FEVD sensitivity rows", ha="center", va="center")
+        axis.set_axis_off()
+        return axis
+    top = summary.head(12).copy()
+    top["pair"] = top["from"].astype(str) + " -> " + top["to"].astype(str)
+    axis.barh(top["pair"], top["range"])
+    axis.invert_yaxis()
+    axis.set_xlabel("Range in FEVD share")
+    axis.set_title("FEVD Order Sensitivity")
+    return axis
+
+
+__all__ = ["plot_order_sensitivity", "run_fevd_order_sensitivity", "summarize_fevd_sensitivity"]

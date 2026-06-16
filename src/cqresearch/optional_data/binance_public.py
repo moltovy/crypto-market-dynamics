@@ -31,6 +31,25 @@ def klines_url(
     return f"{BASE_URL}/klines?{urlencode(query)}"
 
 
+def build_klines_url(
+    symbol: str,
+    *,
+    interval: str = "1d",
+    limit: int = 1000,
+    start_time: int | None = None,
+    end_time: int | None = None,
+) -> str:
+    """Compatibility alias for the optional-data sprint spec."""
+
+    return klines_url(
+        symbol,
+        interval=interval,
+        limit=limit,
+        start_time=start_time,
+        end_time=end_time,
+    )
+
+
 def normalize_klines(payload: list[list[Any]], symbol: str, interval: str = "1d") -> pd.DataFrame:
     """Normalize Binance kline arrays to a typed OHLCV table."""
 
@@ -60,4 +79,17 @@ def normalize_klines(payload: list[list[Any]], symbol: str, interval: str = "1d"
     return frame.drop(columns=["ignore"])
 
 
-__all__ = ["klines_url", "normalize_klines"]
+def normalize_klines_response(
+    payload: list[list[Any]], symbol: str, interval: str = "1d"
+) -> pd.DataFrame:
+    """Compatibility alias for kline normalization."""
+
+    return normalize_klines(payload, symbol, interval)
+
+
+__all__ = [
+    "build_klines_url",
+    "klines_url",
+    "normalize_klines",
+    "normalize_klines_response",
+]

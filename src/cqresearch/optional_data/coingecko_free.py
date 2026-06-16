@@ -22,6 +22,23 @@ def coin_market_chart_url(
     return f"{BASE_URL}/coins/{coin_id.strip()}/market_chart?{query}"
 
 
+def build_market_chart_url(
+    coin_id: str,
+    *,
+    vs_currency: str = "usd",
+    days: str = "max",
+    interval: str = "daily",
+) -> str:
+    """Compatibility alias for the optional-data sprint spec."""
+
+    return coin_market_chart_url(
+        coin_id,
+        vs_currency=vs_currency,
+        days=days,
+        interval=interval,
+    )
+
+
 def _series_frame(values: list[list[float]], column: str) -> pd.DataFrame:
     frame = pd.DataFrame(values, columns=["timestamp_ms", column])
     frame["date"] = pd.to_datetime(frame["timestamp_ms"], unit="ms", utc=True).dt.date
@@ -40,4 +57,15 @@ def normalize_market_chart(payload: dict[str, Any], coin_id: str) -> pd.DataFram
     return out.sort_values("date").reset_index(drop=True)
 
 
-__all__ = ["coin_market_chart_url", "normalize_market_chart"]
+def normalize_market_chart_response(payload: dict[str, Any], coin_id: str) -> pd.DataFrame:
+    """Compatibility alias for market-chart normalization."""
+
+    return normalize_market_chart(payload, coin_id)
+
+
+__all__ = [
+    "build_market_chart_url",
+    "coin_market_chart_url",
+    "normalize_market_chart",
+    "normalize_market_chart_response",
+]

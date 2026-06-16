@@ -3,16 +3,24 @@ from __future__ import annotations
 import pandas as pd
 
 from cqresearch.optional_data import (
+    build_klines_url,
+    build_market_chart_url,
+    build_series_observations_url,
+    build_tvl_url,
     coin_market_chart_url,
     defillama_chains_url,
     defillama_protocol_tvl_url,
     fred_observations_url,
     klines_url,
+    normalize_chain_tvl_response,
     normalize_defillama_chains,
     normalize_defillama_protocol_tvl,
     normalize_fred_observations,
     normalize_klines,
+    normalize_klines_response,
     normalize_market_chart,
+    normalize_market_chart_response,
+    normalize_stablecoin_response,
     optional_source_registry,
 )
 
@@ -20,9 +28,13 @@ from cqresearch.optional_data import (
 def test_optional_url_builders_are_deterministic() -> None:
     assert defillama_chains_url() == "https://api.llama.fi/v2/chains"
     assert defillama_protocol_tvl_url("aave") == "https://api.llama.fi/protocol/aave"
+    assert build_tvl_url("aave") == "https://api.llama.fi/protocol/aave"
     assert "coins/bitcoin/market_chart" in coin_market_chart_url("bitcoin", days="365")
+    assert build_market_chart_url("bitcoin", days="365") == coin_market_chart_url("bitcoin", days="365")
     assert "symbol=BTCUSDT" in klines_url("btcusdt")
+    assert build_klines_url("btcusdt") == klines_url("btcusdt")
     assert "series_id=DGS10" in fred_observations_url("DGS10", observation_start="2020-01-01")
+    assert build_series_observations_url("DGS10").endswith("series_id=DGS10&file_type=json")
 
 
 def test_defillama_normalizers_use_static_payloads() -> None:
@@ -37,9 +49,14 @@ def test_defillama_normalizers_use_static_payloads() -> None:
     )
 
     assert chains.loc[0, "chain"] == "Ethereum"
+    assert normalize_chain_tvl_response([{"name": "Ethereum", "tvl": 1.0}]).loc[0, "chain"] == "Ethereum"
     assert float(chains.loc[0, "tvl_usd"]) == 10_000_000.0
     assert protocol.loc[0, "protocol"] == "aave"
     assert pd.notna(protocol.loc[0, "date"])
+    stable = normalize_stablecoin_response(
+        {"peggedAssets": [{"name": "Tether", "symbol": "USDT", "circulating": {"peggedUSD": 100.0}}]}
+    )
+    assert stable.loc[0, "symbol"] == "USDT"
 
 
 def test_coingecko_market_chart_normalizer_merges_series() -> None:
@@ -56,6 +73,7 @@ def test_coingecko_market_chart_normalizer_merges_series() -> None:
     assert out.loc[0, "coin_id"] == "bitcoin"
     assert float(out.loc[0, "price_usd"]) == 42_000.0
     assert float(out.loc[0, "volume_usd"]) == 20_000_000_000.0
+    assert normalize_market_chart_response({"prices": [[ts, 1.0]]}, "bitcoin").loc[0, "coin_id"] == "bitcoin"
 
 
 def test_binance_klines_normalizer_types_ohlcv() -> None:
@@ -82,6 +100,7 @@ def test_binance_klines_normalizer_types_ohlcv() -> None:
     assert out.loc[0, "symbol"] == "BTCUSDT"
     assert float(out.loc[0, "close"]) == 1.5
     assert "open_time" in out.columns
+    assert normalize_klines_response([], "btcusdt").empty
 
 
 def test_fred_normalizer_handles_missing_value_marker() -> None:
@@ -101,4 +120,4 @@ def test_optional_source_registry_documents_recommendations() -> None:
     assert {"source", "value", "overlap", "auth_rate_limit", "maintenance", "recommendation"}.issubset(
         registry.columns
     )
-    assert len(registry) == 4
+    assert len(registry) >= 5

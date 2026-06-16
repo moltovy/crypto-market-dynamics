@@ -32,6 +32,23 @@ def fred_observations_url(
     return f"{BASE_URL}/series/observations?{urlencode(query)}"
 
 
+def build_series_observations_url(
+    series_id: str,
+    *,
+    api_key: str | None = None,
+    observation_start: str | None = None,
+    observation_end: str | None = None,
+) -> str:
+    """Compatibility alias for the optional-data sprint spec."""
+
+    return fred_observations_url(
+        series_id,
+        api_key=api_key,
+        observation_start=observation_start,
+        observation_end=observation_end,
+    )
+
+
 def normalize_fred_observations(payload: dict[str, Any], series_id: str) -> pd.DataFrame:
     """Normalize a FRED observations payload."""
 
@@ -49,4 +66,8 @@ def normalize_fred_observations(payload: dict[str, Any], series_id: str) -> pd.D
     return pd.DataFrame(rows)
 
 
-__all__ = ["fred_observations_url", "normalize_fred_observations"]
+__all__ = [
+    "build_series_observations_url",
+    "fred_observations_url",
+    "normalize_fred_observations",
+]

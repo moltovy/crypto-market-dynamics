@@ -40,6 +40,14 @@ def optional_source_registry() -> pd.DataFrame:
             "maintenance": "Low",
             "recommendation": "Keep as optional refresh scaffolding; do not require for core releases.",
         },
+        {
+            "source": "SEC / public ETF filings",
+            "value": "Primary-source dates and language for ETF approvals, listings, and fund documents.",
+            "overlap": "Low with the numeric panel; useful for event-study documentation and date audits.",
+            "auth_rate_limit": "No paid key required for public filings; automated access should respect SEC fair-access guidance.",
+            "maintenance": "Low",
+            "recommendation": "Optional documentation/audit source, not a numeric core data dependency.",
+        },
     ]
     return pd.DataFrame(rows)
 

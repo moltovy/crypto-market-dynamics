@@ -68,6 +68,14 @@ require paid data.
 
 ## Portfolio Releases
 
+## Core Modules
+
+- Frozen multi-source panel construction and feature engineering.
+- HAC OLS, block partial R2, ablation, lead-lag, rolling correlation, VAR/FEVD,
+  event-study, PCA, Shapley R2, CUSUM, and robustness diagnostics.
+- Artifact orchestration through portfolio release scripts, manifests, model
+  cards, and verification diagnostics.
+
 ### v2.1 Main Release
 
 The v2.1 pipeline uses the frozen panel, writes a separate enhanced packet under
@@ -88,6 +96,13 @@ Expected outputs:
 - [`reports/portfolio_v2_1/figures/`](reports/portfolio_v2_1/figures/)
 - [`reports/portfolio_v2_1/tables/`](reports/portfolio_v2_1/tables/)
 - [`reports/portfolio_v2_1/manifest.json`](reports/portfolio_v2_1/manifest.json)
+
+### What v2.1 Adds
+
+v2.1 adds the main public analytics layer: block partial R2, BTC/ETH ablations,
+ETF-flow lead-lag diagnostics, rolling cross-asset correlations, stablecoin
+liquidity proxy analysis, BTC-native factor diagnostics, model cards, and a
+recruiter/interview-ready report packet.
 
 ### v2.2 Advanced Diagnostics
 
@@ -177,6 +192,17 @@ engineering, HAC OLS, block attribution, lead-lag regressions, rolling
 correlations, realized volatility, PCA, exact block Shapley R2, compact VAR/FEVD
 diagnostics, model cards, and public-facing quant communication.
 
+## What This Demonstrates By Role
+
+- Quant research: reduced-form factor diagnostics, attribution, robustness, and
+  regime analysis.
+- Crypto research: ETF-flow plumbing, stablecoin/TVL liquidity proxies, and
+  BTC-native valuation/flow-state variables.
+- Data engineering: multi-source curation, frozen panels, manifests, and tested
+  release pipelines.
+- Quant development: modular Python package design, one-command pipelines, CI,
+  model cards, and reproducible artifacts.
+
 ## Artifact Index
 
 Start at [`reports/artifact_index.md`](reports/artifact_index.md) for a compact
@@ -205,6 +231,16 @@ CoinGecko, Binance public klines, and FRED. It is not required by v2.1 or v2.2.
 - [`reports/optional_data/free_data_addon_plan.md`](reports/optional_data/free_data_addon_plan.md)
 - [`reports/optional_data/source_decision_table.md`](reports/optional_data/source_decision_table.md)
 - `uv run pytest tests/unit/test_optional_data_sources.py`
+
+## Limitations
+
+- Daily data cannot identify intraday mechanisms or trade-level liquidity.
+- ETF-flow, stablecoin, and native-factor outputs are reduced-form diagnostics,
+  not causal identification.
+- CUSUM is exploratory and does not replace full multi-break estimation.
+- v2.2 Shapley R2 depends on block definitions and the selected feature set.
+- Optional live/free data should be cache-versioned before becoming part of any
+  reproducible release.
 
 ## Method Notes
 
