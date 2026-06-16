@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from cqresearch.viz.design_system import COLORS  # noqa: E402
 
 FIGURES = ROOT / "outputs" / "figures"
+GALLERY = FIGURES / "gallery"
 V21 = ROOT / "archive" / "legacy_portfolio_releases" / "portfolio_v2_1" / "figures"
 V22 = ROOT / "archive" / "legacy_portfolio_releases" / "portfolio_v2_2" / "figures"
 
@@ -29,26 +30,25 @@ ORIGINAL_FIGURES: tuple[tuple[Path, str], ...] = (
 )
 
 FINAL_FIGURES: tuple[str, ...] = (
-    "F00_project_summary_card.png",
-    "F01_data_coverage.png",
-    "F02_btc_block_attribution.png",
-    "F03_btc_etf_lead_lag.png",
-    "F04_btc_rolling_correlations.png",
-    "F05_stablecoin_supply_tvl.png",
-    "F06_btc_native_dashboard.png",
-    "F07_connectedness.png",
-    "F08_robustness_grid.png",
-    "F09_key_results_cards.png",
-    "T00_key_results_table.png",
+    "F01_data_inventory.png",
+    "F02_btc_model_sensitivity.png",
+    "F03_etf_flow_lead_lag.png",
+    "F04_rolling_correlations.png",
+    "F05_liquidity_context.png",
+    "F06_connectedness_and_robustness.png",
 )
 
+GALLERY_FIGURES: tuple[str, ...] = (
+    "G01_native_state_detail.png",
+    "G02_full_robustness_grid.png",
+    "G03_fevd_matrix.png",
+)
 
 def _fonts() -> tuple[ImageFont.ImageFont, ImageFont.ImageFont]:
     try:
         return ImageFont.truetype("arial.ttf", 22), ImageFont.truetype("arial.ttf", 14)
     except Exception:
         return ImageFont.load_default(), ImageFont.load_default()
-
 
 def build_contact_sheet(
     items: list[tuple[Path, str]],
@@ -58,7 +58,6 @@ def build_contact_sheet(
     cols: int = 2,
 ) -> Path:
     """Create a dark thumbnail sheet from image paths."""
-
     output.parent.mkdir(parents=True, exist_ok=True)
     title_font, small_font = _fonts()
     thumb_w, thumb_h = 460, 259
@@ -95,7 +94,6 @@ def build_contact_sheet(
     canvas.save(output)
     return output
 
-
 def build_current_contact_sheet() -> Path:
     return build_contact_sheet(
         [(path, label) for path, label in ORIGINAL_FIGURES],
@@ -103,11 +101,10 @@ def build_current_contact_sheet() -> Path:
         subtitle="before redesign: archived diagnostic plots",
     )
 
-
 def build_final_gallery() -> Path:
     items = [(FIGURES / filename, filename.replace("_", " ").replace(".png", "")) for filename in FINAL_FIGURES]
+    items.extend([(GALLERY / filename, filename.replace("_", " ").replace(".png", "")) for filename in GALLERY_FIGURES])
     return build_contact_sheet(items, FIGURES / "visual_gallery.png", subtitle="final public visual system")
-
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -118,7 +115,6 @@ def main(argv: list[str] | None = None) -> int:
     if args.kind in {"final", "all"}:
         print(f"[ok] {build_final_gallery().relative_to(ROOT)}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

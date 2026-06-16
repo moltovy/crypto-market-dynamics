@@ -88,71 +88,57 @@ Main findings:
 
 ## Figures
 
-The public figures are rendered as dark institutional research cards from the
-canonical output tables. The full contact sheet is
-[`outputs/figures/visual_gallery.png`](outputs/figures/visual_gallery.png).
+The public figures are rendered as clean, data-dense institutional research charts from the canonical output tables. The full contact sheet is [`outputs/figures/visual_gallery.png`](outputs/figures/visual_gallery.png).
 
-### Data Coverage
+### Data Inventory
 
-![Data coverage](outputs/figures/F01_data_coverage.png)
+![Data coverage](outputs/figures/F01_data_inventory.png)
 
-The project uses a frozen daily panel from 2020 to 2026, combining crypto native metrics, macro data, and ETF flows.
+The project uses a frozen daily panel from 2020 to 2026, combining crypto native metrics, macro data, and ETF flows. The timeline shows coverage across source families.
 
 Source: [`T01_source_inventory.csv`](outputs/tables/T01_source_inventory.csv) and [`T02_panel_coverage.csv`](outputs/tables/T02_panel_coverage.csv) · Model card: [`factor_exposure.md`](outputs/model_cards/factor_exposure.md)
 
-### BTC Factor Attribution
+### BTC Model Sensitivity
 
-![BTC factor attribution](outputs/figures/F02_btc_block_attribution.png)
+![BTC Model Sensitivity](outputs/figures/F02_btc_model_sensitivity.png)
 
-Ablation and block-attribution diagnostics show how BTC explanatory power changes as macro, liquidity, institutional, and native variables enter the model. The visual separates native valuation-state information from macro/ETF interpretation. Note: This uses full-vs-reduced partial R², not Shapley values.
+Ablation diagnostics show how BTC explanatory power drops when the `BTC MVRV` valuation state is removed. The visual explicitly isolates native valuation-state R² drops from macro/liquidity interpretation.
 
 Source: [`T03_block_attribution.csv`](outputs/tables/T03_block_attribution.csv) · Model card: [`block_attribution.md`](outputs/model_cards/block_attribution.md)
 
 ### ETF Flow Lead-Lag
 
-![BTC ETF-flow lead-lag](outputs/figures/F03_btc_etf_lead_lag.png)
+![BTC ETF-flow lead-lag](outputs/figures/F03_etf_flow_lead_lag.png)
 
-This chart summarizes the lead-lag pattern between ETF-flow intensity and BTC returns. The strongest visual signal is contemporaneous; lagged relationships should be read as reduced-form association rather than predictive causality. Lag convention: `lag < 0` means flow leads return.
+This lollipop chart summarizes the HAC t-statistics for the lead-lag pattern between ETF-flow intensity and BTC returns. The strongest signal is contemporaneous (Lag 0); lagged relationships should be read as reduced-form association rather than predictive causality.
 
 Source: [`T04_etf_lead_lag.csv`](outputs/tables/T04_etf_lead_lag.csv) · Model card: [`etf_flow_lead_lag.md`](outputs/model_cards/etf_flow_lead_lag.md)
 
 ### Rolling Correlations
 
-![BTC rolling correlations](outputs/figures/F04_btc_rolling_correlations.png)
+![Rolling correlations](outputs/figures/F04_rolling_correlations.png)
 
-Rolling 180-day correlations illustrate regime variation between BTC and TradFi/Macro assets. These are descriptive co-movements across crypto beta, equity risk, and volatility regimes.
+Small multiples of 180-day rolling correlations illustrate regime variation between BTC and TradFi/Macro assets. These are descriptive co-movements across crypto beta, equity risk, and volatility regimes.
 
 Source: [`T05_rolling_correlations.csv`](outputs/tables/T05_rolling_correlations.csv) · Model card: [`rolling_correlations.md`](outputs/model_cards/rolling_correlations.md)
 
-### Liquidity And Native Factors
+### Liquidity Context
 
-![Stablecoin supply and TVL](outputs/figures/F05_stablecoin_supply_tvl.png)
+![Stablecoin supply and TVL](outputs/figures/F05_liquidity_context.png)
 
-Stablecoin supply and DeFi TVL are shown as indexed lines to provide liquidity context alongside 30-day realized volatility. These represent proxies for liquidity rather than identified funding shocks.
+Stablecoin supply and DeFi TVL are shown as log-scale index panels to provide liquidity context. These represent proxies for liquidity rather than identified funding shocks.
 
 Source: [`T06_stablecoin_liquidity.csv`](outputs/tables/T06_stablecoin_liquidity.csv) · Model card: [`stablecoin_liquidity.md`](outputs/model_cards/stablecoin_liquidity.md)
 
-![BTC-native dashboard](outputs/figures/F06_btc_native_dashboard.png)
+### Connectedness and Robustness
 
-Native factor states isolate MVRV valuation state from exchange, miner, and basis flows to avoid over-reading mechanical co-movement. The ablation bars and correlation matrix separate these drivers cleanly.
+![Connectedness and Robustness](outputs/figures/F06_connectedness_and_robustness.png)
 
-Source: [`T07_native_factor_ablation.csv`](outputs/tables/T07_native_factor_ablation.csv) · Model card: [`btc_native_factors.md`](outputs/model_cards/btc_native_factors.md)
+A side-by-side composite of total connectedness and model robustness. The rolling connectedness index summarizes VAR spillover structure, while the right panel contrasts R² stability across different rolling windows when MVRV is included versus excluded.
 
-### Connectedness And Robustness
+Source: [`T09_rolling_connectedness.csv`](outputs/tables/T09_rolling_connectedness.csv) and [`T10_robustness.csv`](outputs/tables/T10_robustness.csv)
 
-![Connectedness](outputs/figures/F07_connectedness.png)
-
-A compact matrix heatmap summarizes 10-day VAR/FEVD spillover structure. Note that FEVD connectedness outputs are highly sensitive to the Cholesky ordering used in the underlying VAR design.
-
-Source: [`T09_connectedness.csv`](outputs/tables/T09_connectedness.csv) · Model card: [`connectedness.md`](outputs/model_cards/connectedness.md)
-
-![Robustness](outputs/figures/F08_robustness_grid.png)
-
-The robustness grid shows model sensitivity across variations in windows, HAC lags, and the inclusion of MVRV. It emphasizes that model fit is a descriptive sensitivity output rather than an absolute truth.
-
-Source: [`T10_robustness.csv`](outputs/tables/T10_robustness.csv) · Model card: [`robustness.md`](outputs/model_cards/robustness.md)
-
-*Key results tables and supplementary visual cards are available in the [`outputs/figures/`](outputs/figures/) directory.*
+*Supplementary technical figures (e.g. correlation matrices, robustness grids) are available in the [`outputs/figures/gallery/`](outputs/figures/gallery/) directory.*
 
 ## Reproduce
 
