@@ -36,4 +36,8 @@ untouched before checkpointing.
 
 ## Commits Created
 
-To be filled after checkpoint commits are created.
+- `ace93e4 feat(portfolio): add v2.1 analytics expansion pipeline`
+- `1541d0b docs(portfolio): add v2 and v2.1 release packets`
+- `433a070 docs(readme): surface portfolio v2.1 analytics gallery`
+
+`Instructions.md` remains untracked by design.
