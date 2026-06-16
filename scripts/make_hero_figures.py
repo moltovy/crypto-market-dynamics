@@ -11,7 +11,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from cqresearch.viz.design_system import COLORS, HERO_SIZE
+from cqresearch.analysis.feature_strength import BLOCK_MAP
+from cqresearch.viz.design_system import COLORS, FACTOR_COLORS, HERO_SIZE
 from cqresearch.viz.theme import apply_institutional_mpl_theme
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -102,8 +103,7 @@ def render_f01() -> list[Path]:
     _light_axis(ax1)
 
     # Panel B: ΔR² from removing MVRV
-    colors_b = [COLORS["btc"] if v > 0.7 else COLORS.get("neutral", "#64748B")
-                for v in t25["delta_r2"]]
+    colors_b = [COLORS["btc"]] * len(t25)
     ax2.barh(x, t25["delta_r2"], color=colors_b, height=0.5)
     for i, v in enumerate(t25["delta_r2"]):
         ax2.text(v + 0.01, i, f"{v:.3f}", va="center", fontsize=9, color=COLORS["text"])
@@ -149,14 +149,23 @@ def render_f02() -> list[Path]:
     y_pos = np.arange(len(t19))
     colors = []
     for _, row in t19.iterrows():
-        r2 = row["r2"]
         mid = row["model_id"]
-        if mid in ("M6_plus_mvrv", "M7_mvrv_only"):
-            colors.append(COLORS.get("native", "#7C3AED"))
-        elif r2 > 0.5:
-            colors.append(COLORS["btc"])
+        if mid == "M0_intercept":
+            colors.append(COLORS["neutral"])
+        elif mid == "M1_macro":
+            colors.append(COLORS["macro"])
+        elif mid == "M2_macro_tradfi":
+            colors.append(COLORS["gold"])
+        elif mid == "M3_macro_tradfi_liquidity":
+            colors.append(COLORS["liquidity"])
+        elif mid == "M4_plus_sentiment":
+            colors.append(COLORS["neutral"])
+        elif mid in ("M5_plus_native_ex_mvrv", "M8_native_ex_mvrv_only"):
+            colors.append("#C084FC")  # Native flow
+        elif mid in ("M6_plus_mvrv", "M7_mvrv_only"):
+            colors.append(COLORS["native"])  # MVRV valuation
         else:
-            colors.append(COLORS.get("neutral", "#64748B"))
+            colors.append(COLORS["neutral"])
 
     ax.barh(y_pos, t19["r2"], color=colors, height=0.6)
     for i, (r2, _n) in enumerate(zip(t19["r2"], t19["n"], strict=False)):
@@ -189,9 +198,8 @@ def render_f03() -> list[Path]:
                  fontweight="bold", color=COLORS["text"], y=0.95)
 
     # Panel A: Absolute correlation
-    colors_a = [COLORS.get("macro", "#2563EB") if abs(c) > 0.1
-                else COLORS.get("neutral", "#64748B")
-                for c in t15["correlation"]]
+    colors_a = [FACTOR_COLORS.get(BLOCK_MAP.get(f, "Unknown"), COLORS["neutral"])
+                for f in t15["feature"]]
     ax1.barh(range(len(t15)), t15["abs_correlation"], color=colors_a, height=0.6)
     ax1.set_yticks(range(len(t15)))
     clean_names = [f.replace("_d1", " Δ").replace("_ret", "").replace("_", " ").title()
@@ -288,7 +296,7 @@ def render_f05() -> list[Path]:
             if not np.isnan(mat[i, j]):
                 color = "white" if abs(mat[i, j]) > 0.5 else "black"
                 ax.text(j, i, f"{mat[i, j]:.2f}", ha="center", va="center",
-                        fontsize=7, color=color)
+                        fontsize=7, color=color, fontweight="bold")
 
     plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04, label="Correlation")
     fig.tight_layout(rect=[0.02, 0.02, 0.98, 0.95])
