@@ -18,8 +18,11 @@ into tables, figures, model cards, and recruiter-friendly portfolio packets.
 - **What it does not claim:** causal proof that ETFs caused a structural break.
   ETF-flow results are framed as association, exposure, lead-lag evidence, and
   market-plumbing diagnostics.
-- **Where to start:** run `python scripts/run_portfolio_v2_1_pipeline.py` and
+- **Where to start:** run `uv run python scripts/run_portfolio_v2_1_pipeline.py` and
   open [`reports/portfolio_v2_1/executive_summary.md`](reports/portfolio_v2_1/executive_summary.md).
+- **Advanced extension:** v2.2 adds PCA, exact block Shapley R2, CUSUM,
+  FEVD-order sensitivity, rolling connectedness, and robustness-grid diagnostics
+  under [`reports/portfolio_v2_2/`](reports/portfolio_v2_2/).
 - **Interview layer:** start with
   [`reports/portfolio_showcase/interview_guide.md`](reports/portfolio_showcase/interview_guide.md)
   and [`reports/portfolio_showcase/figure_gallery.md`](reports/portfolio_showcase/figure_gallery.md).
@@ -30,6 +33,7 @@ into tables, figures, model cards, and recruiter-friendly portfolio packets.
 uv sync --all-extras
 uv run pytest
 uv run python scripts/run_portfolio_v2_1_pipeline.py
+uv run python scripts/run_portfolio_v2_2_pipeline.py
 ```
 
 For the historical research pipeline:
@@ -49,17 +53,22 @@ require paid data.
 | `Data/` | Frozen curated CSV data, documented by `Data/MASTER_DATA.md` and `Data/MASTER_DATA.csv`. |
 | `config/` | Calendars, events, factor blocks, curation snapshots, and path constants. |
 | `src/cqresearch/` | Reusable package for data loading, feature construction, modeling, and visualization helpers. |
-| `scripts/` | Reproducible orchestration scripts, including `run_portfolio_pipeline.py` and `run_portfolio_v2_1_pipeline.py`. |
+| `scripts/` | Reproducible orchestration scripts, including `run_portfolio_pipeline.py`, `run_portfolio_v2_1_pipeline.py`, and `run_portfolio_v2_2_pipeline.py`. |
 | `reports/panels/` | Frozen master panel metadata and generated parquet panels. |
 | `reports/tables/` | Dated model and robustness outputs. |
 | `reports/figures/` | Dated visual outputs from the analysis pipeline. |
 | `reports/portfolio_v2/` | Stable baseline portfolio packet. |
-| `reports/portfolio_v2_1/` | Enhanced analytics packet with block partial R^2, ablations, lead-lag labs, rolling correlations, stablecoin liquidity, native factors, figures, reports, model cards, and manifest. |
+| `reports/portfolio_v2_1/` | Main polished analytics packet with block partial R^2, ablations, lead-lag labs, rolling correlations, stablecoin liquidity, native factors, figures, reports, model cards, and manifest. |
+| `reports/portfolio_v2_2/` | Advanced diagnostics extension with PCA blocks, exact block Shapley R2, CUSUM, FEVD-order sensitivity, rolling connectedness, robustness grid, reports, model cards, and manifest. |
 | `reports/portfolio_showcase/` | Interview, recruiter, and role-specific public-facing showcase docs. |
+| `reports/optional_data/` | Optional free-data extension notes and source decision table. |
+| `optional_data/` | Optional source scaffolding docs; not required for core reproduction. |
 | `docs/specs/` | Research, data, methods, feature, and portfolio specifications. |
 | `tests/` | Unit tests for config, fixtures, imports, and portfolio pipeline helpers. |
 
-## Portfolio v2.1 Output
+## Portfolio Releases
+
+### v2.1 Main Release
 
 The v2.1 pipeline uses the frozen panel, writes a separate enhanced packet under
 `reports/portfolio_v2_1/`, and leaves `Data/` untouched.
@@ -79,6 +88,29 @@ Expected outputs:
 - [`reports/portfolio_v2_1/figures/`](reports/portfolio_v2_1/figures/)
 - [`reports/portfolio_v2_1/tables/`](reports/portfolio_v2_1/tables/)
 - [`reports/portfolio_v2_1/manifest.json`](reports/portfolio_v2_1/manifest.json)
+
+### v2.2 Advanced Diagnostics
+
+v2.2 is an extension packet, not a replacement for the v2.1 public portfolio
+release. It adds advanced diagnostics under `reports/portfolio_v2_2/` and
+keeps all outputs reduced-form.
+
+```powershell
+uv run python scripts/run_portfolio_v2_2_pipeline.py
+```
+
+Key outputs:
+
+- [`reports/portfolio_v2_2/executive_summary.md`](reports/portfolio_v2_2/executive_summary.md)
+- [`reports/portfolio_v2_2/technical_report.md`](reports/portfolio_v2_2/technical_report.md)
+- [`reports/portfolio_v2_2/advanced_methods_summary.md`](reports/portfolio_v2_2/advanced_methods_summary.md)
+- [`reports/portfolio_v2_2/data_atlas.md`](reports/portfolio_v2_2/data_atlas.md)
+- [`reports/portfolio_v2_2/model_cards/`](reports/portfolio_v2_2/model_cards/)
+- [`reports/portfolio_v2_2/figures/`](reports/portfolio_v2_2/figures/)
+- [`reports/portfolio_v2_2/tables/`](reports/portfolio_v2_2/tables/)
+- [`reports/portfolio_v2_2/manifest.json`](reports/portfolio_v2_2/manifest.json)
+
+### Public Showcase
 
 Showcase outputs:
 
@@ -115,6 +147,14 @@ Showcase outputs:
 - [Stablecoin supply and TVL](reports/portfolio_v2_1/figures/F40_stablecoin_supply_and_tvl.png)
 - [BTC native z-score dashboard](reports/portfolio_v2_1/figures/F50_btc_native_zscore_dashboard.png)
 
+### Advanced Diagnostics
+
+- [PCA factor trajectories](reports/portfolio_v2_2/figures/F71_pca_factor_trajectories.png)
+- [BTC rolling exact Shapley R2](reports/portfolio_v2_2/figures/F72_btc_shapley_r2_stack.png)
+- [ETH rolling exact Shapley R2](reports/portfolio_v2_2/figures/F73_eth_shapley_r2_stack.png)
+- [Rolling VAR/FEVD connectedness](reports/portfolio_v2_2/figures/F77_rolling_connectedness.png)
+- [BTC robustness grid](reports/portfolio_v2_2/figures/F78_robustness_grid_heatmap.png)
+
 ### Connectedness And Events
 
 - [Compact VAR/FEVD connectedness heatmap](reports/portfolio_v2_1/figures/F60_baseline_fevd_compact_heatmap.png)
@@ -134,8 +174,14 @@ Showcase outputs:
 
 Python data engineering, reproducible artifact pipelines, stationary feature
 engineering, HAC OLS, block attribution, lead-lag regressions, rolling
-correlations, realized volatility, model cards, and public-facing quant
-communication.
+correlations, realized volatility, PCA, exact block Shapley R2, compact VAR/FEVD
+diagnostics, model cards, and public-facing quant communication.
+
+## Artifact Index
+
+Start at [`reports/artifact_index.md`](reports/artifact_index.md) for a compact
+map of the release packets, figures, tables, model cards, showcase docs, and
+verification artifacts.
 
 ## Data Refresh
 
@@ -149,9 +195,23 @@ make inventory
 make validate
 ```
 
+## Optional Free-Data Extensions
+
+The optional data layer is scaffolding only. It adds URL builders, payload
+normalizers, offline scripts, tests, and source decision notes for DefiLlama,
+CoinGecko, Binance public klines, and FRED. It is not required by v2.1 or v2.2.
+
+- [`optional_data/README.md`](optional_data/README.md)
+- [`reports/optional_data/free_data_addon_plan.md`](reports/optional_data/free_data_addon_plan.md)
+- [`reports/optional_data/source_decision_table.md`](reports/optional_data/source_decision_table.md)
+- `uv run pytest tests/unit/test_optional_data_sources.py`
+
 ## Method Notes
 
-- Rolling attribution is **drop-one marginal R^2**, not Shapley/Owen.
+- Baseline and v2.1 rolling attribution is **drop-one marginal R^2**, not
+  Shapley/Owen.
+- v2.2 implements and labels **exact block Shapley R2** separately; it is still
+  predictive attribution, not causal proof.
 - Structural break diagnostics are **Chow tests and single-break sup-F sweeps**,
   not a full Bai-Perron multiple-break estimator.
 - ETF-flow intensity is scaled as daily USD ETF flow divided by prior-day USD
