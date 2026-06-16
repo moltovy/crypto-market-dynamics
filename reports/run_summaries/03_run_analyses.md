@@ -1,6 +1,6 @@
-# Analysis run — 2026-04-19 19:53 UTC
+# Analysis run — 2026-06-16 01:24 UTC
 
-Outputs: `reports/tables/2026-04-19/`
+Outputs: `reports/tables/2026-06-16/`
 
 ## 1. Static OLS (pre vs post ETF)
 
@@ -13,7 +13,7 @@ See `static_ols_pre_post_etf.csv`. Headline R² (full/pre/post):
 - ETH / pre_etf: R²=0.173, N=1010
 - ETH / post_etf: R²=0.214, N=549
 
-## 2. Rolling OLS with partial R² — see `rolling_ols_*_180d.csv`
+## 2. Rolling OLS with drop-one marginal R^2 (not Shapley/Owen) - see `rolling_ols_*_180d.csv`
 
 ## 3. Structural-break tests
 

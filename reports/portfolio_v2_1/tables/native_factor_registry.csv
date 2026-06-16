@@ -1,0 +1,5 @@
+group,feature,available,non_missing,interpretation,portfolio_note
+market_structure_basis,cme_btc_basis_close_d1,True,1942,BTC futures basis or market-structure state.,Reduced-form input; not a standalone trading signal.
+exchange_flow,btc_exchange_netflow_d1,True,2292,Exchange netflow proxy; descriptive flow state.,Reduced-form input; not a standalone trading signal.
+miner_flow,btc_miner_to_exchange_flow_d1,True,2292,Miner-to-exchange flow proxy; descriptive supply pressure state.,Reduced-form input; not a standalone trading signal.
+valuation_state,btc_mvrv_d1,True,2292,MVRV valuation-state change; can mechanically co-move with price.,Reduced-form input; not a standalone trading signal.

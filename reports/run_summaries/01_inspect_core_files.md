@@ -1,4 +1,4 @@
-# Core file inspection — 2026-04-18 09:50 UTC
+# Core file inspection — 2026-06-16 01:19 UTC
 
 Scope: files the master panel consumes for the v0.1 analyses.
 
