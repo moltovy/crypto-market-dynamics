@@ -20,6 +20,9 @@ into tables, figures, model cards, and recruiter-friendly portfolio packets.
   market-plumbing diagnostics.
 - **Where to start:** run `python scripts/run_portfolio_v2_1_pipeline.py` and
   open [`reports/portfolio_v2_1/executive_summary.md`](reports/portfolio_v2_1/executive_summary.md).
+- **Interview layer:** start with
+  [`reports/portfolio_showcase/interview_guide.md`](reports/portfolio_showcase/interview_guide.md)
+  and [`reports/portfolio_showcase/figure_gallery.md`](reports/portfolio_showcase/figure_gallery.md).
 
 ## Quick Start
 
@@ -52,6 +55,7 @@ require paid data.
 | `reports/figures/` | Dated visual outputs from the analysis pipeline. |
 | `reports/portfolio_v2/` | Stable baseline portfolio packet. |
 | `reports/portfolio_v2_1/` | Enhanced analytics packet with block partial R^2, ablations, lead-lag labs, rolling correlations, stablecoin liquidity, native factors, figures, reports, model cards, and manifest. |
+| `reports/portfolio_showcase/` | Interview, recruiter, and role-specific public-facing showcase docs. |
 | `docs/specs/` | Research, data, methods, feature, and portfolio specifications. |
 | `tests/` | Unit tests for config, fixtures, imports, and portfolio pipeline helpers. |
 
@@ -75,6 +79,18 @@ Expected outputs:
 - [`reports/portfolio_v2_1/figures/`](reports/portfolio_v2_1/figures/)
 - [`reports/portfolio_v2_1/tables/`](reports/portfolio_v2_1/tables/)
 - [`reports/portfolio_v2_1/manifest.json`](reports/portfolio_v2_1/manifest.json)
+
+Showcase outputs:
+
+- [`reports/portfolio_showcase/README_SHOWCASE.md`](reports/portfolio_showcase/README_SHOWCASE.md)
+- [`reports/portfolio_showcase/interview_guide.md`](reports/portfolio_showcase/interview_guide.md)
+- [`reports/portfolio_showcase/project_walkthrough.md`](reports/portfolio_showcase/project_walkthrough.md)
+- [`reports/portfolio_showcase/figure_gallery.md`](reports/portfolio_showcase/figure_gallery.md)
+- [`reports/portfolio_showcase/recruiter_summary.md`](reports/portfolio_showcase/recruiter_summary.md)
+- [`reports/portfolio_showcase/quant_research_summary.md`](reports/portfolio_showcase/quant_research_summary.md)
+- [`reports/portfolio_showcase/crypto_research_summary.md`](reports/portfolio_showcase/crypto_research_summary.md)
+- [`reports/portfolio_showcase/data_engineering_summary.md`](reports/portfolio_showcase/data_engineering_summary.md)
+- [`reports/portfolio_showcase/quant_dev_summary.md`](reports/portfolio_showcase/quant_dev_summary.md)
 
 ## Hero Figures
 
@@ -112,6 +128,7 @@ Expected outputs:
 - How stablecoin supply and TVL can be used as liquidity proxies without
   overselling them as identified shocks.
 - Why MVRV is separated from non-MVRV BTC-native variables.
+- How the codebase would be productionized for a research desk.
 
 ## Key Technical Skills Demonstrated
 
