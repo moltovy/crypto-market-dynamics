@@ -1,16 +1,8 @@
 # Tables
 
-CSV tables are the canonical machine-readable outputs. `key_results.md` and
-`key_results.html` provide a compact public presentation layer for README and
-dashboard review.
+CSV tables are the canonical machine-readable outputs. `T11_results_at_a_glance.md` provides a compact public presentation layer for the README review.
 
-## Featured
-
-- `key_results.md`
-- `key_results.html`
-- `T00_key_results_table.png` in `outputs/figures/`
-
-## Canonical CSVs
+## Canonical CSVs and MDs
 
 - `T01_source_inventory.csv`
 - `T02_panel_coverage.csv`
@@ -27,3 +19,21 @@ dashboard review.
 - `T09_connectedness.csv`
 - `T09_rolling_connectedness.csv`
 - `T10_robustness.csv`
+- `T11_results_at_a_glance.md`
+- `T12_regime_definitions.csv`
+- `T13_factor_dictionary.md`
+- `T13_factor_dictionary.csv`
+- `T14_feature_strength_btc_full.csv`
+- `T15_feature_strength_btc_ex_mvrv.csv`
+- `T16_feature_strength_eth.csv`
+- `T17_feature_strength_by_regime.csv`
+- `T18_block_strength_by_regime.csv`
+- `T19_same_support_ablation_btc.csv`
+- `T20_same_support_ablation_eth.csv`
+- `T21_top_correlations_btc.csv`
+- `T22_top_correlations_eth.csv`
+- `T23_core_correlation_matrix.csv`
+- `T24_pre_post_correlation_delta.csv`
+- `T25_mvrv_sensitivity_by_regime.csv`
+- `T26_etf_era_feature_strength.csv`
+- `T27_rolling_feature_rank_stability.csv`
