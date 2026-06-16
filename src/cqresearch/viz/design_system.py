@@ -6,26 +6,26 @@ from dataclasses import dataclass
 from datetime import date
 
 COLORS: dict[str, str] = {
-    "bg": "#080B12",
-    "surface": "#0F172A",
-    "surface2": "#111827",
-    "grid": "#243044",
-    "axis": "#334155",
-    "text": "#E5E7EB",
-    "muted": "#94A3B8",
-    "faint": "#64748B",
+    "bg": "#FAFAF7",
+    "surface": "#FFFFFF",
+    "surface2": "#F3F4F6",
+    "grid": "#D9DEE7",
+    "axis": "#E5E7EB",
+    "text": "#111827",
+    "muted": "#6B7280",
+    "faint": "#9CA3AF",
     "btc": "#F7931A",
     "eth": "#627EEA",
-    "macro": "#60A5FA",
-    "institutional": "#2DD4BF",
-    "liquidity": "#22C55E",
-    "stablecoin": "#10B981",
-    "native": "#A78BFA",
-    "risk": "#EF4444",
-    "gold": "#FBBF24",
-    "neutral": "#94A3B8",
-    "positive": "#22C55E",
-    "negative": "#EF4444",
+    "macro": "#2563EB",
+    "institutional": "#0F766E",
+    "liquidity": "#16A34A",
+    "stablecoin": "#059669",
+    "native": "#7C3AED",
+    "risk": "#DC2626",
+    "gold": "#D97706",
+    "neutral": "#6B7280",
+    "positive": "#16A34A",
+    "negative": "#DC2626",
     "white": "#FFFFFF",
 }
 
@@ -70,6 +70,8 @@ THIN_LINE = 0.9
 MARKER_SIZE = 28
 PANEL_RADIUS = 0.018
 
+TEXT_DENSITY = "minimal"
+
 
 @dataclass(frozen=True)
 class FigureMeta:
@@ -85,77 +87,77 @@ class FigureMeta:
 FIGURE_SET: tuple[FigureMeta, ...] = (
     FigureMeta(
         "F00_project_summary_card.png",
-        "Crypto Market Factor Lab summary",
+        "Project Pipeline",
         "outputs/tables/T02_panel_coverage.csv",
         "outputs/model_cards/factor_exposure.md",
-        "public artifact overview",
+        "pipeline diagram",
     ),
     FigureMeta(
         "F01_data_coverage.png",
-        "Frozen BTC/ETH multi-source panel",
+        "Data Coverage",
         "outputs/tables/T01_source_inventory.csv",
         "outputs/model_cards/factor_exposure.md",
         "source inventory coverage",
     ),
     FigureMeta(
         "F02_btc_block_attribution.png",
-        "BTC factor attribution",
+        "BTC Factor Attribution",
         "outputs/tables/T03_block_attribution.csv",
         "outputs/model_cards/block_attribution.md",
         "full-vs-reduced block partial R2",
     ),
     FigureMeta(
         "F03_btc_etf_lead_lag.png",
-        "BTC ETF-flow lead-lag",
+        "ETF Flow Lead-Lag",
         "outputs/tables/T04_etf_lead_lag.csv",
         "outputs/model_cards/etf_flow_lead_lag.md",
         "HAC lead-lag association grid",
     ),
     FigureMeta(
         "F04_btc_rolling_correlations.png",
-        "Cross-asset co-movement",
+        "Rolling Correlations",
         "outputs/tables/T05_correlation_regime.csv",
         "outputs/model_cards/rolling_correlations.md",
         "180-day rolling correlations",
     ),
     FigureMeta(
         "F05_stablecoin_supply_tvl.png",
-        "Stablecoin and DeFi liquidity context",
+        "Stablecoins and TVL",
         "outputs/tables/T06_stablecoin_liquidity.csv",
         "outputs/model_cards/stablecoin_liquidity.md",
         "liquidity proxy diagnostics",
     ),
     FigureMeta(
         "F06_btc_native_dashboard.png",
-        "BTC-native factor dashboard",
+        "BTC Native State",
         "outputs/tables/T07_native_factor_ablation.csv",
         "outputs/model_cards/btc_native_factors.md",
         "native-factor ablation and correlation",
     ),
     FigureMeta(
         "F07_connectedness.png",
-        "BTC/ETH/TradFi connectedness",
+        "Connectedness",
         "outputs/tables/T09_connectedness.csv",
         "outputs/model_cards/connectedness.md",
         "VAR/FEVD and rolling connectedness",
     ),
     FigureMeta(
         "F08_robustness_grid.png",
-        "BTC robustness grid",
+        "Robustness Grid",
         "outputs/tables/T10_robustness.csv",
         "outputs/model_cards/robustness.md",
         "window/HAC/winsorization sensitivity",
     ),
     FigureMeta(
         "F09_key_results_cards.png",
-        "Key results cards",
+        "Key Results",
         "outputs/tables/key_results.md",
         "outputs/model_cards/factor_exposure.md",
         "summary research cards",
     ),
     FigureMeta(
         "T00_key_results_table.png",
-        "Key results table card",
+        "Key Results Table",
         "outputs/tables/key_results.md",
         "outputs/model_cards/factor_exposure.md",
         "styled public table",

@@ -12,7 +12,7 @@ from cqresearch.viz.design_system import COLORS, EXPORT_DPI, FONT_FAMILY, MONO_F
 
 
 def apply_institutional_mpl_theme() -> None:
-    """Apply the dark institutional Matplotlib theme used for public figures."""
+    """Apply the institutional Matplotlib theme used for public figures."""
 
     mpl.rcParams.update(
         {
@@ -126,7 +126,7 @@ def style_axis(ax: matplotlib.axes.Axes, *, title: str | None = None, subtitle: 
 
 
 def style_legend(ax: matplotlib.axes.Axes, *, ncol: int = 3, loc: str = "upper left") -> None:
-    """Apply compact dark-theme legend styling."""
+    """Apply compact institutional legend styling."""
 
     legend = ax.legend(loc=loc, ncol=ncol, frameon=False)
     if legend is None:

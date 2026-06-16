@@ -1,22 +1,22 @@
 # Visual Quality Check
 
-Generated at: 2026-06-16T18:04:08.633635+00:00
+Generated at: 2026-06-16T19:04:26.041744+00:00
 
 ## Final Figures
 
 | Figure | PNG | SVG | Dimensions | Size KB | Dark theme |
 |---|---:|---:|---:|---:|---:|
-| F00_project_summary_card.png | True | True | 1600x900 | 108.5 | True |
-| F01_data_coverage.png | True | True | 1600x900 | 106.0 | True |
-| F02_btc_block_attribution.png | True | True | 1600x900 | 126.2 | True |
-| F03_btc_etf_lead_lag.png | True | True | 1600x900 | 75.2 | True |
-| F04_btc_rolling_correlations.png | True | True | 1600x900 | 215.5 | True |
-| F05_stablecoin_supply_tvl.png | True | True | 1600x900 | 182.1 | True |
-| F06_btc_native_dashboard.png | True | True | 1600x900 | 129.0 | True |
-| F07_connectedness.png | True | True | 1600x900 | 134.5 | True |
-| F08_robustness_grid.png | True | True | 1600x900 | 77.1 | True |
-| F09_key_results_cards.png | True | True | 1600x900 | 128.6 | True |
-| T00_key_results_table.png | True | True | 1600x900 | 130.4 | True |
+| F00_project_summary_card.png | True | True | 1600x900 | 21.6 | False |
+| F01_data_coverage.png | True | True | 1600x900 | 68.2 | False |
+| F02_btc_block_attribution.png | True | True | 1600x900 | 96.7 | False |
+| F03_btc_etf_lead_lag.png | True | True | 1600x900 | 39.1 | False |
+| F04_btc_rolling_correlations.png | True | True | 1600x900 | 190.6 | False |
+| F05_stablecoin_supply_tvl.png | True | True | 1600x900 | 153.0 | False |
+| F06_btc_native_dashboard.png | True | True | 1600x900 | 91.6 | False |
+| F07_connectedness.png | True | True | 1600x900 | 100.1 | False |
+| F08_robustness_grid.png | True | True | 1600x900 | 42.5 | False |
+| F09_key_results_cards.png | True | True | 1600x900 | 72.6 | False |
+| T00_key_results_table.png | True | True | 1600x900 | 77.5 | False |
 
 ## README Link Rules
 
