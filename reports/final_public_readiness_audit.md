@@ -2,8 +2,8 @@
 
 ## Verdict
 
-**Ready for remote push and PR creation after this verification update is
-committed.** The portfolio branch now has a polished v2.1 main release, a v2.2
+**Locally PR-ready; remote push requires a GitHub token refresh with `workflow`
+scope.** The portfolio branch now has a polished v2.1 main release, a v2.2
 advanced diagnostics extension, GitHub-facing showcase docs, optional free-data
 scaffolding, CI/release engineering, and reproducibility checks that leave raw
 `Data/` untouched.
@@ -11,7 +11,7 @@ scaffolding, CI/release engineering, and reproducibility checks that leave raw
 ## Branch And Commit Summary
 
 - Branch: `portfolio_v2`
-- Latest verified commit before this audit refresh: `2d42d54`
+- Latest verified commit before this audit refresh: `9a02bd4`
 - Last local verification refresh: `2026-06-16T11:46:26.5360740-05:00`
 - Local prompt files handled outside the repo: `Instructions.md` and
   `Instructions P2.md` are excluded through `.git/info/exclude`.
@@ -27,6 +27,17 @@ scaffolding, CI/release engineering, and reproducibility checks that leave raw
   - `91e87e8 docs: finalize public portfolio presentation`
   - `ffde97b docs: add portfolio PR summary`
   - `2d42d54 chore(portfolio): close instructions compliance gaps`
+  - `9a02bd4 docs: update final release verification`
+
+## Remote And PR Status
+
+| Item | Status | Notes |
+|---|---:|---|
+| `git push -u origin portfolio_v2` | BLOCKED | GitHub rejected workflow updates because the current OAuth token lacks `workflow` scope. |
+| `git ls-remote --heads origin portfolio_v2` | NOT PRESENT | No remote branch was visible after the blocked push. |
+| `gh auth status` | AUTHENTICATED | Active scopes: `gist`, `read:org`, `repo`; missing `workflow`. |
+| PR creation | PENDING | Requires branch push first. Manual instructions are in `reports/manual_pr_instructions.md`. |
+| Remote CI | PENDING | Requires branch push/PR first. Manual instructions are in `reports/manual_ci_check_instructions.md`. |
 
 ## Packet Presence
 
@@ -38,6 +49,9 @@ scaffolding, CI/release engineering, and reproducibility checks that leave raw
 | `reports/portfolio_showcase/` | PASS | GitHub-facing showcase, figure gallery, walkthrough, and reviewer navigation docs present. |
 | `reports/optional_data/` | PASS | Optional source decision docs and registry output present. |
 | `reports/artifact_index.md` | PASS | Central artifact map added. |
+| `reports/manual_push_instructions.md` | PASS | Documents workflow-scope blocker and exact push path. |
+| `reports/manual_pr_instructions.md` | PASS | Documents CLI/browser PR creation. |
+| `reports/manual_ci_check_instructions.md` | PASS | Documents remote CI checks and failure triage. |
 
 ## Verification Results
 
@@ -89,6 +103,9 @@ scaffolding, CI/release engineering, and reproducibility checks that leave raw
   `portfolio-v2-2`, `optional-data`, `lint`, and `verify`.
 - `.github/pull_request_template.md` and `docs/release_checklist.md` document
   reviewer guardrails.
+- Branch push is currently blocked only by local GitHub token scope, not by
+  repository content. Refresh the token with `gh auth refresh -h github.com -s
+  workflow`, then rerun `git push -u origin portfolio_v2`.
 
 ## Caveats
 

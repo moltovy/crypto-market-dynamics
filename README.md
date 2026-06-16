@@ -213,6 +213,9 @@ verification artifacts.
 - [`reports/pr_summary_portfolio_v2.md`](reports/pr_summary_portfolio_v2.md)
 - [`reports/pr_review_package.md`](reports/pr_review_package.md)
 - [`reports/release_notes_portfolio_v2.md`](reports/release_notes_portfolio_v2.md)
+- [`reports/manual_push_instructions.md`](reports/manual_push_instructions.md)
+- [`reports/manual_pr_instructions.md`](reports/manual_pr_instructions.md)
+- [`reports/manual_ci_check_instructions.md`](reports/manual_ci_check_instructions.md)
 
 ## Data Refresh
 

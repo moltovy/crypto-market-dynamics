@@ -81,6 +81,9 @@ uv run ruff check scripts/run_portfolio_pipeline.py scripts/run_portfolio_v2_1_p
 | [`pr_summary_portfolio_v2.md`](pr_summary_portfolio_v2.md) | PR-ready summary, verification notes, and reviewer checklist. |
 | [`pr_review_package.md`](pr_review_package.md) | Concise reviewer navigation package. |
 | [`release_notes_portfolio_v2.md`](release_notes_portfolio_v2.md) | Draft GitHub release notes and suggested tag. |
+| [`manual_push_instructions.md`](manual_push_instructions.md) | Exact commands for resolving the workflow-scope push blocker. |
+| [`manual_pr_instructions.md`](manual_pr_instructions.md) | Exact CLI/browser commands for opening the PR after push. |
+| [`manual_ci_check_instructions.md`](manual_ci_check_instructions.md) | Exact commands for checking remote CI after PR creation. |
 
 ## Guardrail Summary
 

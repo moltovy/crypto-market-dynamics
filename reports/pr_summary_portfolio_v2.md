@@ -14,6 +14,19 @@ free-data scaffolding, and CI/release engineering.
 v2.1 is the main polished public release. v2.2 is the advanced diagnostics
 extension for deeper quant discussion.
 
+## Publication Status
+
+Local release checks are complete. Initial push was blocked because the active
+GitHub OAuth token lacked `workflow` scope for `.github/workflows/ci.yml`.
+Refresh auth with:
+
+```powershell
+gh auth refresh -h github.com -s workflow
+git push -u origin portfolio_v2
+```
+
+Then open the PR from `portfolio_v2` into `main`.
+
 ## Major Features
 
 - Portfolio v2 baseline packet under `reports/portfolio_v2/`.
