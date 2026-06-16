@@ -105,7 +105,7 @@ def static_ols(feat: pd.DataFrame, asset: str, *, calendar: str = "crypto7") -> 
 
 
 # ---------------------------------------------------------------------------
-# 2. Rolling OLS with partial R²
+# 2. Rolling OLS with drop-one marginal R^2
 # ---------------------------------------------------------------------------
 def rolling_analysis(feat: pd.DataFrame, asset: str, window: int = 180) -> pd.DataFrame:
     regressors = MACRO + INSTITUTIONAL + LIQUIDITY + SENT + (BTC_NATIVE if asset == "btc" else ETH_NATIVE)
@@ -267,7 +267,10 @@ def main() -> None:
     for _, r in head.iterrows():
         lines.append(f"- {r['asset'].upper()} / {r['sample']}: R²={r['r2']:.3f}, N={r['n']}")
 
-    lines.append("\n## 2. Rolling OLS with partial R² — see `rolling_ols_*_180d.csv`\n")
+    lines.append(
+        "\n## 2. Rolling OLS with drop-one marginal R^2 "
+        "(not Shapley/Owen) - see `rolling_ols_*_180d.csv`\n"
+    )
 
     lines.append("## 3. Structural-break tests\n")
     lines.append("| asset | Chow F @ ETF date | Chow p | supF | argmax date | placebo p |")

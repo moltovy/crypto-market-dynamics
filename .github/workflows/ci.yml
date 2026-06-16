@@ -2,20 +2,63 @@ name: CI
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, master, portfolio_v2]
   pull_request:
 
 jobs:
-  test:
+  quality:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -e ".[dev]"
+          python-version: "3.12"
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install dependencies with uv
+        run: uv sync --all-extras
+
       - name: Pytest
-        run: pytest -q
+        run: uv run pytest
+
+      - name: Mypy
+        run: uv run mypy src/cqresearch
+
+      - name: Focused Ruff
+        run: |
+          uv run ruff check \
+            scripts/run_portfolio_pipeline.py \
+            scripts/run_portfolio_v2_1_pipeline.py \
+            scripts/run_portfolio_v2_2_pipeline.py \
+            scripts/optional_data \
+            src/cqresearch/analysis/native_factors.py \
+            src/cqresearch/analysis/portfolio_v2_1.py \
+            src/cqresearch/analysis/portfolio_v2_2.py \
+            src/cqresearch/features/volatility.py \
+            src/cqresearch/modeling/partial_r2.py \
+            src/cqresearch/modeling/ablation.py \
+            src/cqresearch/modeling/lead_lag.py \
+            src/cqresearch/modeling/pca_blocks.py \
+            src/cqresearch/modeling/shapley_r2.py \
+            src/cqresearch/modeling/cusum.py \
+            src/cqresearch/modeling/fevd_sensitivity.py \
+            src/cqresearch/modeling/rolling_connectedness.py \
+            src/cqresearch/modeling/robustness_grid.py \
+            src/cqresearch/optional_data \
+            tests/unit/test_partial_r2.py \
+            tests/unit/test_lead_lag.py \
+            tests/unit/test_ablation.py \
+            tests/unit/test_volatility.py \
+            tests/unit/test_pca_blocks.py \
+            tests/unit/test_shapley_r2.py \
+            tests/unit/test_cusum.py \
+            tests/unit/test_fevd_sensitivity.py \
+            tests/unit/test_rolling_connectedness.py \
+            tests/unit/test_robustness_grid.py \
+            tests/unit/test_portfolio_v2_1_pipeline.py \
+            tests/unit/test_portfolio_v2_2_pipeline.py \
+            tests/unit/test_optional_data_sources.py
