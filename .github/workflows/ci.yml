@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main, master, portfolio_v2]
+    branches: [main, master]
   pull_request:
 
 jobs:
@@ -31,6 +31,8 @@ jobs:
       - name: Focused Ruff
         run: |
           uv run ruff check \
+            scripts/export_outputs.py \
+            scripts/run_all.py \
             scripts/run_portfolio_pipeline.py \
             scripts/run_portfolio_v2_1_pipeline.py \
             scripts/run_portfolio_v2_2_pipeline.py \

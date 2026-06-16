@@ -1,0 +1,37 @@
+name: Public Output Smoke
+
+on:
+  workflow_dispatch:
+
+jobs:
+  public-output-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install dependencies with uv
+        run: uv sync --all-extras
+
+      - name: Export canonical outputs
+        run: uv run python scripts/run_all.py
+
+      - name: Confirm Data is untouched
+        run: |
+          if [ -n "$(git status --short -- Data)" ]; then
+            git status --short -- Data
+            exit 1
+          fi
+
+      - name: Upload canonical outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: canonical-outputs
+          path: outputs

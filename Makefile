@@ -3,6 +3,8 @@
 # (for example, `choco install make`), or run the equivalent commands directly.
 
 RUFF_PORTFOLIO_PATHS = \
+	scripts/export_outputs.py \
+	scripts/run_all.py \
 	scripts/run_portfolio_pipeline.py \
 	scripts/run_portfolio_v2_1_pipeline.py \
 	scripts/run_portfolio_v2_2_pipeline.py \
@@ -35,7 +37,7 @@ RUFF_PORTFOLIO_PATHS = \
 	tests/unit/test_portfolio_v2_2_pipeline.py \
 	tests/unit/test_optional_data_sources.py
 
-.PHONY: help install setup ingest curate inventory validate pipeline test typecheck lint format figures portfolio portfolio-v2 portfolio-v2-1 portfolio-v2-2 optional-data verify clean
+.PHONY: help install setup ingest curate inventory validate pipeline test typecheck lint format figures outputs portfolio portfolio-v2 portfolio-v2-1 portfolio-v2-2 optional-data verify clean
 
 help:
 	@echo "Targets:"
@@ -51,9 +53,10 @@ help:
 	@echo "  lint           - run focused Ruff + mypy"
 	@echo "  format         - run ruff format on source/script/test trees"
 	@echo "  figures        - rebuild cached figure outputs"
-	@echo "  portfolio-v2   - build baseline portfolio packet"
-	@echo "  portfolio-v2-1 - build v2.1 portfolio packet"
-	@echo "  portfolio-v2-2 - build v2.2 advanced diagnostics packet"
+	@echo "  outputs        - export canonical public artifact packet"
+	@echo "  portfolio-v2   - legacy: build baseline portfolio packet"
+	@echo "  portfolio-v2-1 - legacy: build enhanced portfolio packet"
+	@echo "  portfolio-v2-2 - legacy: build advanced diagnostics packet"
 	@echo "  optional-data  - verify optional free-data scaffolding"
 	@echo "  verify         - run public-readiness verification targets"
 	@echo "  clean          - remove caches and build artifacts"
@@ -97,7 +100,10 @@ format:
 figures:
 	uv run python scripts/03_make_figures.py
 
-portfolio: portfolio-v2-1
+outputs:
+	uv run python scripts/run_all.py
+
+portfolio: outputs
 
 portfolio-v2:
 	uv run python scripts/run_portfolio_pipeline.py
@@ -112,7 +118,7 @@ optional-data:
 	uv run pytest tests/unit/test_optional_data_sources.py
 	uv run ruff check src/cqresearch/optional_data scripts/optional_data tests/unit/test_optional_data_sources.py
 
-verify: test lint portfolio-v2-1 portfolio-v2-2 optional-data
+verify: test lint outputs optional-data
 	git status --short -- Data
 
 clean:

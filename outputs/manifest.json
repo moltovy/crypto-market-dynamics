@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-06-16T17:28:49.598639+00:00",
-  "git_commit": "70bab5c",
+  "generated_at_utc": "2026-06-16T17:33:25.396218+00:00",
+  "git_commit": "d8a80b8",
   "artifact_root": "outputs",
   "panel": {
     "start": "2020-01-01",
@@ -123,6 +123,10 @@
     {
       "source": "generated canonical narrative",
       "output": "outputs/report/limitations.md"
+    },
+    {
+      "source": "generated canonical narrative",
+      "output": "outputs/report/reorganization_summary.md"
     },
     {
       "source": "generated canonical narrative",
