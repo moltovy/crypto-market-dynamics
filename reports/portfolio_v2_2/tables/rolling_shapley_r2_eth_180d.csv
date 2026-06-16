@@ -1,0 +1,231 @@
+asset,date,window,step,block,shapley_r2,full_r2,n,n_blocks,variables,method
+eth,2021-09-04,180,30,Macro,0.033573724787028254,0.14531032633271868,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2021-09-04,180,30,TradFi,0.04123772359433785,0.14531032633271868,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2021-09-04,180,30,Liquidity,0.039143370130950254,0.14531032633271868,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2021-09-04,180,30,Sentiment,0.01488669766939864,0.14531032633271868,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2021-09-04,180,30,ETH Native,0.01646881015100369,0.14531032633271868,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2021-10-09,180,30,Macro,0.05489095237957079,0.22238957830488992,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2021-10-09,180,30,TradFi,0.056696360931312875,0.22238957830488992,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2021-10-09,180,30,Liquidity,0.08887615741876394,0.22238957830488992,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2021-10-09,180,30,Sentiment,0.018654849377996493,0.22238957830488992,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2021-10-09,180,30,ETH Native,0.0032712581972458355,0.22238957830488992,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2021-11-11,180,30,Macro,0.06287825046734359,0.22637248709920688,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2021-11-11,180,30,TradFi,0.0565719917266986,0.22637248709920688,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2021-11-11,180,30,Liquidity,0.08086133187035964,0.22637248709920688,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2021-11-11,180,30,Sentiment,0.021033464812750285,0.22637248709920688,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2021-11-11,180,30,ETH Native,0.00502744822205478,0.22637248709920688,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2021-12-22,180,30,Macro,0.06636779843085411,0.2621712501058503,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2021-12-22,180,30,TradFi,0.056887706215145654,0.2621712501058503,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2021-12-22,180,30,Liquidity,0.09340252130943674,0.2621712501058503,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2021-12-22,180,30,Sentiment,0.04288039631394466,0.2621712501058503,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2021-12-22,180,30,ETH Native,0.0026328278364691703,0.2621712501058503,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2022-01-26,180,30,Macro,0.12930523107112873,0.3200301013729071,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2022-01-26,180,30,TradFi,0.1020618904804676,0.3200301013729071,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2022-01-26,180,30,Liquidity,0.05727028070503264,0.3200301013729071,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2022-01-26,180,30,Sentiment,0.02464277590228529,0.3200301013729071,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2022-01-26,180,30,ETH Native,0.006749923213992834,0.3200301013729071,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2022-03-17,180,30,Macro,0.13826252589663557,0.3045464028282131,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2022-03-17,180,30,TradFi,0.1164391405555856,0.3045464028282131,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2022-03-17,180,30,Liquidity,0.03541592625553311,0.3045464028282131,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2022-03-17,180,30,Sentiment,0.009422886351090804,0.3045464028282131,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2022-03-17,180,30,ETH Native,0.005005923769368,0.3045464028282131,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2022-04-21,180,30,Macro,0.1580033578663925,0.3358994703008199,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2022-04-21,180,30,TradFi,0.14191405876902966,0.3358994703008199,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2022-04-21,180,30,Liquidity,0.02428351113735674,0.3358994703008199,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2022-04-21,180,30,Sentiment,0.008087540913984765,0.3358994703008199,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2022-04-21,180,30,ETH Native,0.003611001614056227,0.3358994703008199,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2022-05-28,180,30,Macro,0.1517154199799604,0.31481946596116017,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2022-05-28,180,30,TradFi,0.15559953328256992,0.31481946596116017,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2022-05-28,180,30,Liquidity,0.003999311286739412,0.31481946596116017,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2022-05-28,180,30,Sentiment,0.003095076012948012,0.31481946596116017,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2022-05-28,180,30,ETH Native,0.0004101253989424237,0.31481946596116017,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2022-07-04,180,30,Macro,0.14630838302497945,0.3488984826580823,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2022-07-04,180,30,TradFi,0.1837700634457992,0.3488984826580823,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2022-07-04,180,30,Liquidity,0.00880765303342219,0.3488984826580823,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2022-07-04,180,30,Sentiment,0.005537546424851612,0.3488984826580823,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2022-07-04,180,30,ETH Native,0.004474836729029865,0.3488984826580823,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2022-08-03,180,30,Macro,0.14108527709140767,0.3368611178495178,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2022-08-03,180,30,TradFi,0.18090082796442208,0.3368611178495178,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2022-08-03,180,30,Liquidity,0.008800318700732928,0.3368611178495178,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2022-08-03,180,30,Sentiment,0.004828449764659672,0.3368611178495178,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2022-08-03,180,30,ETH Native,0.0012462443282954634,0.3368611178495178,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2022-09-20,180,30,Macro,0.1405997692343036,0.3401095015475265,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2022-09-20,180,30,TradFi,0.19168078085554371,0.3401095015475265,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2022-09-20,180,30,Liquidity,0.005425370380007736,0.3401095015475265,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2022-09-20,180,30,Sentiment,0.0015615096201681221,0.3401095015475265,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2022-09-20,180,30,ETH Native,0.0008420714575033349,0.3401095015475265,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2022-11-04,180,30,Macro,0.14764273098349714,0.3254312635476361,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2022-11-04,180,30,TradFi,0.16511978545244044,0.3254312635476361,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2022-11-04,180,30,Liquidity,0.007729187726150799,0.3254312635476361,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2022-11-04,180,30,Sentiment,0.004571149616739179,0.3254312635476361,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2022-11-04,180,30,ETH Native,0.0003684097688085253,0.3254312635476361,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2023-01-15,180,30,Macro,0.139218705296208,0.3145697810337603,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2023-01-15,180,30,TradFi,0.1606600189403056,0.3145697810337603,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2023-01-15,180,30,Liquidity,0.012765989123152396,0.3145697810337603,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2023-01-15,180,30,Sentiment,0.0009540275057159228,0.3145697810337603,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2023-01-15,180,30,ETH Native,0.0009710401683783954,0.3145697810337603,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2023-02-14,180,30,Macro,0.1543681753032032,0.3404013492758925,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2023-02-14,180,30,TradFi,0.1649064807003563,0.3404013492758925,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2023-02-14,180,30,Liquidity,0.019421790583258873,0.3404013492758925,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2023-02-14,180,30,Sentiment,0.0011085270149614821,0.3404013492758925,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2023-02-14,180,30,ETH Native,0.0005963756741126814,0.3404013492758925,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2023-03-21,180,30,Macro,0.13032370131407825,0.2832654861135394,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2023-03-21,180,30,TradFi,0.13303697504227446,0.2832654861135394,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2023-03-21,180,30,Liquidity,0.01767059249820242,0.2832654861135394,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2023-03-21,180,30,Sentiment,0.0006936602041009803,0.2832654861135394,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2023-03-21,180,30,ETH Native,0.0015405570548832812,0.2832654861135394,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2023-04-27,180,30,Macro,0.14699323991080013,0.3261625612425809,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2023-04-27,180,30,TradFi,0.15152091259357917,0.3261625612425809,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2023-04-27,180,30,Liquidity,0.021011675898587587,0.3261625612425809,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2023-04-27,180,30,Sentiment,0.002882113150977034,0.3261625612425809,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2023-04-27,180,30,ETH Native,0.0037546196886370014,0.3261625612425809,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2023-06-01,180,30,Macro,0.10941072333633048,0.2625198866362711,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2023-06-01,180,30,TradFi,0.11336792353892194,0.2625198866362711,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2023-06-01,180,30,Liquidity,0.025620895778493573,0.2625198866362711,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2023-06-01,180,30,Sentiment,0.003671269471962939,0.2625198866362711,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2023-06-01,180,30,ETH Native,0.010449074510562206,0.2625198866362711,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2023-07-05,180,30,Macro,0.08564660527189256,0.21971982408477264,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2023-07-05,180,30,TradFi,0.10232044041269232,0.21971982408477264,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2023-07-05,180,30,Liquidity,0.009911282153013122,0.21971982408477264,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2023-07-05,180,30,Sentiment,0.004388147314281709,0.21971982408477264,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2023-07-05,180,30,ETH Native,0.017453348932892916,0.21971982408477264,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2023-08-07,180,30,Macro,0.05243156311681319,0.1480533938609253,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2023-08-07,180,30,TradFi,0.06634208185781693,0.1480533938609253,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2023-08-07,180,30,Liquidity,0.01531986794708159,0.1480533938609253,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2023-08-07,180,30,Sentiment,0.002236609680394142,0.1480533938609253,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2023-08-07,180,30,ETH Native,0.011723271258819465,0.1480533938609253,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2023-09-18,180,30,Macro,0.05943736257520952,0.12402042687883241,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2023-09-18,180,30,TradFi,0.044149477656553,0.12402042687883241,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2023-09-18,180,30,Liquidity,0.0018132684307649882,0.12402042687883241,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2023-09-18,180,30,Sentiment,0.0008835029352511457,0.12402042687883241,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2023-09-18,180,30,ETH Native,0.017736815281053753,0.12402042687883241,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2023-10-27,180,30,Macro,0.059401644562190783,0.1058882044980134,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2023-10-27,180,30,TradFi,0.039939782972328496,0.1058882044980134,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2023-10-27,180,30,Liquidity,0.0007242852641923723,0.1058882044980134,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2023-10-27,180,30,Sentiment,0.00017502989982991676,0.1058882044980134,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2023-10-27,180,30,ETH Native,0.005647461799471842,0.1058882044980134,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2023-12-01,180,30,Macro,0.02887580634384542,0.053413169170785646,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2023-12-01,180,30,TradFi,0.009226845699352504,0.053413169170785646,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2023-12-01,180,30,Liquidity,0.006059290636561641,0.053413169170785646,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2023-12-01,180,30,Sentiment,0.0009223929269464582,0.053413169170785646,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2023-12-01,180,30,ETH Native,0.008328833564079624,0.053413169170785646,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2024-01-09,180,30,Macro,0.017716243490462212,0.061793297332443986,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2024-01-09,180,30,TradFi,0.023585861351436706,0.061793297332443986,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2024-01-09,180,30,Liquidity,0.005002943076436959,0.061793297332443986,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2024-01-09,180,30,Sentiment,0.0008851072442333889,0.061793297332443986,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2024-01-09,180,30,ETH Native,0.014603142169874718,0.061793297332443986,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2024-02-12,180,30,Macro,0.035826686178985406,0.09319743044571116,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2024-02-12,180,30,TradFi,0.03087547259411002,0.09319743044571116,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2024-02-12,180,30,Liquidity,0.011450810153139354,0.09319743044571116,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2024-02-12,180,30,Sentiment,0.0002484599643967503,0.09319743044571116,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2024-02-12,180,30,ETH Native,0.014796001555079633,0.09319743044571116,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2024-03-20,180,30,Macro,0.029429083578522846,0.1072726815599484,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2024-03-20,180,30,TradFi,0.03379386530662995,0.1072726815599484,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2024-03-20,180,30,Liquidity,0.023190016404454915,0.1072726815599484,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2024-03-20,180,30,Sentiment,0.004176447839630775,0.1072726815599484,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2024-03-20,180,30,ETH Native,0.01668326843070991,0.1072726815599484,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2024-04-19,180,30,Macro,0.05448433476968541,0.11240635469563853,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2024-04-19,180,30,TradFi,0.01903338038137046,0.11240635469563853,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2024-04-19,180,30,Liquidity,0.023261648251569737,0.11240635469563853,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2024-04-19,180,30,Sentiment,0.004903128494525136,0.11240635469563853,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2024-04-19,180,30,ETH Native,0.010723862798487799,0.11240635469563853,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2024-05-26,180,30,Macro,0.04938109813039426,0.11343698175335148,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2024-05-26,180,30,TradFi,0.022065773109188665,0.11343698175335148,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2024-05-26,180,30,Liquidity,0.02866001436864306,0.11343698175335148,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2024-05-26,180,30,Sentiment,0.007246188182007551,0.11343698175335148,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2024-05-26,180,30,ETH Native,0.0060839079631179425,0.11343698175335148,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2024-06-28,180,30,Macro,0.05038576591208121,0.13292620062365157,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2024-06-28,180,30,TradFi,0.05393113074460472,0.13292620062365157,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2024-06-28,180,30,Liquidity,0.01809347667616051,0.13292620062365157,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2024-06-28,180,30,Sentiment,0.00451884585041523,0.13292620062365157,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2024-06-28,180,30,ETH Native,0.0059969814403899105,0.13292620062365157,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2024-08-01,180,30,Macro,0.04035474235873098,0.08096797458949889,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2024-08-01,180,30,TradFi,0.02739750713672445,0.08096797458949889,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2024-08-01,180,30,Liquidity,0.008617982833452347,0.08096797458949889,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2024-08-01,180,30,Sentiment,0.0024334517217258845,0.08096797458949889,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2024-08-01,180,30,ETH Native,0.0021642905388652325,0.08096797458949889,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2024-09-03,180,30,Macro,0.075004893186532,0.1738881705358284,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2024-09-03,180,30,TradFi,0.07790491845779945,0.1738881705358284,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2024-09-03,180,30,Liquidity,0.004445194677752468,0.1738881705358284,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2024-09-03,180,30,Sentiment,0.01548281888391715,0.1738881705358284,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2024-09-03,180,30,ETH Native,0.0010503453298273385,0.1738881705358284,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2024-10-05,180,30,Macro,0.09229044231066182,0.20068415896208214,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2024-10-05,180,30,TradFi,0.0956733096202102,0.20068415896208214,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2024-10-05,180,30,Liquidity,0.003319891796520997,0.20068415896208214,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2024-10-05,180,30,Sentiment,0.003442686465855806,0.20068415896208214,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2024-10-05,180,30,ETH Native,0.005957828768833308,0.20068415896208214,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2024-11-04,180,30,Macro,0.0997212144063736,0.24572483083503138,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2024-11-04,180,30,TradFi,0.13291529241761754,0.24572483083503138,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2024-11-04,180,30,Liquidity,0.0024924728951554844,0.24572483083503138,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2024-11-04,180,30,Sentiment,0.0015906295119888613,0.24572483083503138,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2024-11-04,180,30,ETH Native,0.009005221603895833,0.24572483083503138,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2024-12-04,180,30,Macro,0.09501010476129775,0.28052034009717786,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2024-12-04,180,30,TradFi,0.15351064128710418,0.28052034009717786,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2024-12-04,180,30,Liquidity,0.022971404712088434,0.28052034009717786,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2024-12-04,180,30,Sentiment,0.006778950015909184,0.28052034009717786,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2024-12-04,180,30,ETH Native,0.0022492393207783215,0.28052034009717786,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2025-01-06,180,30,Macro,0.09630357457553818,0.30986765958602325,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2025-01-06,180,30,TradFi,0.17001837784676166,0.30986765958602325,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2025-01-06,180,30,Liquidity,0.030428896144371484,0.30986765958602325,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2025-01-06,180,30,Sentiment,0.00942869810474883,0.30986765958602325,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2025-01-06,180,30,ETH Native,0.0036881129146031423,0.30986765958602325,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2025-02-07,180,30,Macro,0.09829204237554337,0.31322248093236715,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2025-02-07,180,30,TradFi,0.1786781977497734,0.31322248093236715,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2025-02-07,180,30,Liquidity,0.01657417016344534,0.31322248093236715,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2025-02-07,180,30,Sentiment,0.016743331995343214,0.31322248093236715,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2025-02-07,180,30,ETH Native,0.0029347386482618146,0.31322248093236715,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2025-03-16,180,30,Macro,0.08297950374592271,0.21508904783101512,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2025-03-16,180,30,TradFi,0.11622275152067575,0.21508904783101512,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2025-03-16,180,30,Liquidity,0.010818121792886331,0.21508904783101512,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2025-03-16,180,30,Sentiment,0.004610271779285834,0.21508904783101512,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2025-03-16,180,30,ETH Native,0.0004583989922445297,0.21508904783101512,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2025-04-19,180,30,Macro,0.07383705415630096,0.1842779220479266,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2025-04-19,180,30,TradFi,0.08666585427899562,0.1842779220479266,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2025-04-19,180,30,Liquidity,0.01088424273749876,0.1842779220479266,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2025-04-19,180,30,Sentiment,0.01171589079962325,0.1842779220479266,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2025-04-19,180,30,ETH Native,0.0011748800755080205,0.1842779220479266,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2025-05-31,180,30,Macro,0.0633981629139506,0.17384144380765043,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2025-05-31,180,30,TradFi,0.0898404622024356,0.17384144380765043,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2025-05-31,180,30,Liquidity,0.009598377892746712,0.17384144380765043,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2025-05-31,180,30,Sentiment,0.010434591112060555,0.17384144380765043,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2025-05-31,180,30,ETH Native,0.0005698496864569563,0.17384144380765043,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2025-07-05,180,30,Macro,0.06813421056298778,0.18922874695894443,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2025-07-05,180,30,TradFi,0.11436204882028841,0.18922874695894443,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2025-07-05,180,30,Liquidity,0.00216254692830671,0.18922874695894443,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2025-07-05,180,30,Sentiment,0.0024022704096610887,0.18922874695894443,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2025-07-05,180,30,ETH Native,0.002167670237700429,0.18922874695894443,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2025-08-11,180,30,Macro,0.04962175043829345,0.1343750716799026,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2025-08-11,180,30,TradFi,0.0740378996138259,0.1343750716799026,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2025-08-11,180,30,Liquidity,0.0018398412541621263,0.1343750716799026,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2025-08-11,180,30,Sentiment,0.0016381868483793713,0.1343750716799026,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2025-08-11,180,30,ETH Native,0.0072373935252417285,0.1343750716799026,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2025-09-25,180,30,Macro,0.09354354943338099,0.18703653638390982,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2025-09-25,180,30,TradFi,0.08252577938862315,0.18703653638390982,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2025-09-25,180,30,Liquidity,0.0033423659789163108,0.18703653638390982,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2025-09-25,180,30,Sentiment,0.0007260346461057722,0.18703653638390982,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2025-09-25,180,30,ETH Native,0.006898806936883583,0.18703653638390982,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2025-10-25,180,30,Macro,0.1138483764850811,0.22942206485902905,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2025-10-25,180,30,TradFi,0.10177721997918285,0.22942206485902905,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2025-10-25,180,30,Liquidity,0.010056879551082401,0.22942206485902905,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2025-10-25,180,30,Sentiment,0.003407771453230104,0.22942206485902905,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2025-10-25,180,30,ETH Native,0.0003318173904526156,0.22942206485902905,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2025-11-26,180,30,Macro,0.15957066879518203,0.3295120887400559,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2025-11-26,180,30,TradFi,0.14467412132048815,0.3295120887400559,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2025-11-26,180,30,Liquidity,0.013243287676176769,0.3295120887400559,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2025-11-26,180,30,Sentiment,0.011537288789561891,0.3295120887400559,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2025-11-26,180,30,ETH Native,0.0004867221586470497,0.3295120887400559,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2026-01-03,180,30,Macro,0.13586466671155226,0.31498621629535273,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2026-01-03,180,30,TradFi,0.1553476624884072,0.31498621629535273,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2026-01-03,180,30,Liquidity,0.011049137343705804,0.31498621629535273,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2026-01-03,180,30,Sentiment,0.0075812262153032856,0.31498621629535273,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2026-01-03,180,30,ETH Native,0.005143523536384156,0.31498621629535273,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2026-02-09,180,30,Macro,0.15188558572128177,0.3696819047275919,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2026-02-09,180,30,TradFi,0.19323459091522835,0.3696819047275919,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2026-02-09,180,30,Liquidity,0.008794982417588245,0.3696819047275919,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2026-02-09,180,30,Sentiment,0.012673901545767462,0.3696819047275919,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2026-02-09,180,30,ETH Native,0.00309284412772605,0.3696819047275919,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2
+eth,2026-03-13,180,30,Macro,0.13334994884403706,0.3633071781135222,180,5,DGS10_d1;DGS2_d1;VIXCLS_d1;DTWEXBGS_d1;DFF_d1,exact_block_shapley_r2
+eth,2026-03-13,180,30,TradFi,0.18784272950863698,0.3633071781135222,180,5,spy_ret;qqq_ret;gld_ret,exact_block_shapley_r2
+eth,2026-03-13,180,30,Liquidity,0.026710626198601792,0.3633071781135222,180,5,defi_tvl_usd_ret;stables_total_usd_ret,exact_block_shapley_r2
+eth,2026-03-13,180,30,Sentiment,0.015218556878266929,0.3633071781135222,180,5,fng_value_d1,exact_block_shapley_r2
+eth,2026-03-13,180,30,ETH Native,0.000185316683979477,0.3633071781135222,180,5,cme_eth_basis_close_d1,exact_block_shapley_r2

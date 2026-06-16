@@ -1,0 +1,3 @@
+n,max_abs_cusum,bound_5pct,crossed_5pct,method,asset,controls
+2291,1.227214459354563,1.36,False,exploratory_standardized_residual_cusum,btc,spy_ret;VIXCLS_d1;DGS10_d1;stables_total_usd_ret
+2291,1.5503922683785203,1.36,True,exploratory_standardized_residual_cusum,eth,spy_ret;VIXCLS_d1;DGS10_d1;stables_total_usd_ret
