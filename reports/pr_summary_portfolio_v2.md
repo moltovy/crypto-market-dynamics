@@ -8,7 +8,7 @@ Portfolio v2.1/v2.2 public-readiness release
 
 This branch turns the original research repo into **Crypto Market Factor Lab**,
 a portfolio-grade BTC/ETH factor analytics system with frozen-data
-reproducibility, polished release packets, public showcase docs, optional
+reproducibility, polished release packets, GitHub-facing showcase docs, optional
 free-data scaffolding, and CI/release engineering.
 
 v2.1 is the main polished public release. v2.2 is the advanced diagnostics
@@ -19,13 +19,13 @@ extension for deeper quant discussion.
 - Portfolio v2 baseline packet under `reports/portfolio_v2/`.
 - Portfolio v2.1 packet under `reports/portfolio_v2_1/` with:
   - executive summary, analytics summary, technical report, data atlas,
-    resume bullets, manifest, verification diagnostics, and model cards
+    manifest, verification diagnostics, and model cards
   - block partial R2, ablations, ETF/stablecoin lead-lag labs, rolling
     correlations, stablecoin liquidity diagnostics, BTC-native factor lab
   - figures F10-F13, F20-F25, F30-F33, F40-F44, F50-F52, plus baseline copies
-- Public showcase layer under `reports/portfolio_showcase/` with interview,
-  recruiter, role-specific, figure-gallery, walkthrough, limitations, LinkedIn,
-  and pinned-repo docs.
+- Public showcase layer under `reports/portfolio_showcase/` with GitHub-facing
+  navigation, figure gallery, project walkthrough, limitations, and
+  role-oriented technical summaries.
 - Portfolio v2.2 packet under `reports/portfolio_v2_2/` with:
   - PCA block factors
   - exact block Shapley R2 and stepped rolling Shapley
@@ -66,15 +66,16 @@ extension for deeper quant discussion.
 | Focused Ruff pass from `Makefile` | PASS |
 | `uv run python scripts/run_portfolio_v2_1_pipeline.py` | PASS |
 | `uv run python scripts/run_portfolio_v2_2_pipeline.py` | PASS |
-| `uv run pytest tests/unit/test_optional_data_sources.py` | PASS |
+| `uv run pytest tests/unit/test_optional_data_sources.py` | PASS, 6 passed |
 | README/artifact local link audit | PASS |
 | v2.1/v2.2 manifest field audit | PASS |
 | v2.1/v2.2 model-card section audit | PASS |
 | `git status --short -- Data` | PASS, no output |
 
-Repo-wide `uv run ruff check .` is intentionally not a blocking gate yet. It
-currently reports legacy notebook/tooling/config lint issues; focused Ruff
-passes for the maintainable portfolio and optional-data surfaces.
+Broad `uv run ruff check src/cqresearch scripts tests` is intentionally not a
+blocking gate yet. It currently reports 78 legacy findings in older scripts,
+older core modules, and legacy tests; focused Ruff passes for the maintainable
+portfolio and optional-data surfaces.
 
 ## Data Proof
 

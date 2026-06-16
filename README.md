@@ -8,7 +8,7 @@
 This repository is positioned as a portfolio-grade crypto factor analytics
 system built around frozen data and reproducible release pipelines. Curated
 crypto, macro, ETF-flow, stablecoin, DeFi, and on-chain data are transformed
-into tables, figures, model cards, and recruiter-friendly portfolio packets.
+into tables, figures, model cards, and GitHub-ready release packets.
 
 ## First 60 Seconds
 
@@ -23,8 +23,9 @@ into tables, figures, model cards, and recruiter-friendly portfolio packets.
 - **Advanced extension:** v2.2 adds PCA, exact block Shapley R2, CUSUM,
   FEVD-order sensitivity, rolling connectedness, and robustness-grid diagnostics
   under [`reports/portfolio_v2_2/`](reports/portfolio_v2_2/).
-- **Interview layer:** start with
-  [`reports/portfolio_showcase/interview_guide.md`](reports/portfolio_showcase/interview_guide.md)
+- **GitHub review layer:** start with
+  [`reports/artifact_index.md`](reports/artifact_index.md),
+  [`reports/portfolio_showcase/README_SHOWCASE.md`](reports/portfolio_showcase/README_SHOWCASE.md),
   and [`reports/portfolio_showcase/figure_gallery.md`](reports/portfolio_showcase/figure_gallery.md).
 
 ## Quick Start
@@ -60,7 +61,7 @@ require paid data.
 | `reports/portfolio_v2/` | Stable baseline portfolio packet. |
 | `reports/portfolio_v2_1/` | Main polished analytics packet with block partial R^2, ablations, lead-lag labs, rolling correlations, stablecoin liquidity, native factors, figures, reports, model cards, and manifest. |
 | `reports/portfolio_v2_2/` | Advanced diagnostics extension with PCA blocks, exact block Shapley R2, CUSUM, FEVD-order sensitivity, rolling connectedness, robustness grid, reports, model cards, and manifest. |
-| `reports/portfolio_showcase/` | Interview, recruiter, and role-specific public-facing showcase docs. |
+| `reports/portfolio_showcase/` | GitHub-facing showcase, figure gallery, project walkthrough, and reviewer navigation docs. |
 | `reports/optional_data/` | Optional free-data extension notes and source decision table. |
 | `optional_data/` | Optional source scaffolding docs; not required for core reproduction. |
 | `docs/specs/` | Research, data, methods, feature, and portfolio specifications. |
@@ -91,7 +92,6 @@ Expected outputs:
 - [`reports/portfolio_v2_1/technical_report.md`](reports/portfolio_v2_1/technical_report.md)
 - [`reports/portfolio_v2_1/analytics_summary.md`](reports/portfolio_v2_1/analytics_summary.md)
 - [`reports/portfolio_v2_1/data_atlas.md`](reports/portfolio_v2_1/data_atlas.md)
-- [`reports/portfolio_v2_1/resume_bullets.md`](reports/portfolio_v2_1/resume_bullets.md)
 - [`reports/portfolio_v2_1/model_cards/`](reports/portfolio_v2_1/model_cards/)
 - [`reports/portfolio_v2_1/figures/`](reports/portfolio_v2_1/figures/)
 - [`reports/portfolio_v2_1/tables/`](reports/portfolio_v2_1/tables/)
@@ -102,7 +102,7 @@ Expected outputs:
 v2.1 adds the main public analytics layer: block partial R2, BTC/ETH ablations,
 ETF-flow lead-lag diagnostics, rolling cross-asset correlations, stablecoin
 liquidity proxy analysis, BTC-native factor diagnostics, model cards, and a
-recruiter/interview-ready report packet.
+public report packet.
 
 ### v2.2 Advanced Diagnostics
 
@@ -130,10 +130,8 @@ Key outputs:
 Showcase outputs:
 
 - [`reports/portfolio_showcase/README_SHOWCASE.md`](reports/portfolio_showcase/README_SHOWCASE.md)
-- [`reports/portfolio_showcase/interview_guide.md`](reports/portfolio_showcase/interview_guide.md)
 - [`reports/portfolio_showcase/project_walkthrough.md`](reports/portfolio_showcase/project_walkthrough.md)
 - [`reports/portfolio_showcase/figure_gallery.md`](reports/portfolio_showcase/figure_gallery.md)
-- [`reports/portfolio_showcase/recruiter_summary.md`](reports/portfolio_showcase/recruiter_summary.md)
 - [`reports/portfolio_showcase/quant_research_summary.md`](reports/portfolio_showcase/quant_research_summary.md)
 - [`reports/portfolio_showcase/crypto_research_summary.md`](reports/portfolio_showcase/crypto_research_summary.md)
 - [`reports/portfolio_showcase/data_engineering_summary.md`](reports/portfolio_showcase/data_engineering_summary.md)
@@ -175,7 +173,7 @@ Showcase outputs:
 - [Compact VAR/FEVD connectedness heatmap](reports/portfolio_v2_1/figures/F60_baseline_fevd_compact_heatmap.png)
 - [Event-study CARs](reports/portfolio_v2_1/figures/F61_baseline_event_study_cars.png)
 
-## Interview Discussion Points
+## Review Discussion Points
 
 - Why full-vs-reduced block partial R^2 is useful, and why it is not
   Shapley/Owen attribution.
@@ -208,6 +206,13 @@ diagnostics, model cards, and public-facing quant communication.
 Start at [`reports/artifact_index.md`](reports/artifact_index.md) for a compact
 map of the release packets, figures, tables, model cards, showcase docs, and
 verification artifacts.
+
+## Release Candidate Docs
+
+- [`reports/final_public_readiness_audit.md`](reports/final_public_readiness_audit.md)
+- [`reports/pr_summary_portfolio_v2.md`](reports/pr_summary_portfolio_v2.md)
+- [`reports/pr_review_package.md`](reports/pr_review_package.md)
+- [`reports/release_notes_portfolio_v2.md`](reports/release_notes_portfolio_v2.md)
 
 ## Data Refresh
 

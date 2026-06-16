@@ -2,24 +2,31 @@
 
 ## Verdict
 
-**Ready to open a PR after the final PR summary commit.** The portfolio branch
-now has a polished v2.1 main release, a v2.2 advanced diagnostics extension,
-public showcase docs, optional free-data scaffolding, CI/release engineering,
-and reproducibility checks that leave raw `Data/` untouched.
+**Ready for remote push and PR creation after this verification update is
+committed.** The portfolio branch now has a polished v2.1 main release, a v2.2
+advanced diagnostics extension, GitHub-facing showcase docs, optional free-data
+scaffolding, CI/release engineering, and reproducibility checks that leave raw
+`Data/` untouched.
 
 ## Branch And Commit Summary
 
 - Branch: `portfolio_v2`
-- Latest commit before this audit file was written: `ad0f4f2`
+- Latest verified commit before this audit refresh: `2d42d54`
+- Last local verification refresh: `2026-06-16T11:46:26.5360740-05:00`
+- Local prompt files handled outside the repo: `Instructions.md` and
+  `Instructions P2.md` are excluded through `.git/info/exclude`.
 - Continuation sprint commits reviewed:
   - `ace93e4 feat(portfolio): add v2.1 analytics expansion pipeline`
   - `1541d0b docs(portfolio): add v2 and v2.1 release packets`
   - `433a070 docs(readme): surface portfolio v2.1 analytics gallery`
   - `a8229e7 chore(portfolio): harden v2.1 release packet`
-  - `141e30a docs(showcase): add interview and portfolio showcase layer`
+  - `141e30a docs(showcase): add portfolio showcase layer`
   - `962f310 feat(portfolio): add v2.2 advanced quant diagnostics`
   - `e21bbe9 feat(optional-data): scaffold free data extension layer`
   - `ad0f4f2 ci: add portfolio verification and release checklist`
+  - `91e87e8 docs: finalize public portfolio presentation`
+  - `ffde97b docs: add portfolio PR summary`
+  - `2d42d54 chore(portfolio): close instructions compliance gaps`
 
 ## Packet Presence
 
@@ -28,7 +35,7 @@ and reproducibility checks that leave raw `Data/` untouched.
 | `reports/portfolio_v2/` | PASS | Baseline packet preserved. |
 | `reports/portfolio_v2_1/` | PASS | Main polished release; regenerated successfully. |
 | `reports/portfolio_v2_2/` | PASS | Advanced diagnostics extension; regenerated successfully. |
-| `reports/portfolio_showcase/` | PASS | Interview, recruiter, and role-specific docs present. |
+| `reports/portfolio_showcase/` | PASS | GitHub-facing showcase, figure gallery, walkthrough, and reviewer navigation docs present. |
 | `reports/optional_data/` | PASS | Optional source decision docs and registry output present. |
 | `reports/artifact_index.md` | PASS | Central artifact map added. |
 
@@ -38,15 +45,16 @@ and reproducibility checks that leave raw `Data/` untouched.
 |---|---:|---|
 | `uv run pytest` | PASS | 43 passed |
 | `uv run mypy src/cqresearch` | PASS | Success: no issues in 37 source files |
-| Focused Ruff pass from `Makefile` | PASS | All checks passed on portfolio/optional-data paths |
+| Focused Ruff on maintained portfolio/optional-data paths | PASS | All checks passed |
 | `uv run python scripts/run_portfolio_v2_1_pipeline.py` | PASS | Generated 27 tables, 25 figures, 7 report/diagnostic docs, 9 model cards |
 | `uv run python scripts/run_portfolio_v2_2_pipeline.py` | PASS | Generated 14 tables, 9 figures, 7 report/diagnostic docs, 6 model cards |
+| `uv run pytest tests/unit/test_optional_data_sources.py` | PASS | 6 passed |
 | README + artifact-index link check | PASS | All local links resolve |
 | v2.1/v2.2 manifest field check | PASS | Required fields present; table/figure counts recorded |
 | v2.1/v2.2 model-card section check | PASS | Required sections present |
 | `git status --short -- Data` | PASS | No output; raw data untouched |
-| `make lint` | NOT RUN | GNU Make is not installed in this PowerShell environment; underlying commands passed |
-| `uv run ruff check .` | DOCUMENTED FAIL | 189 legacy notebook/tooling/config lint findings; focused Ruff is the enforced clean surface |
+| `uv run ruff check src/cqresearch scripts tests` | DOCUMENTED FAIL | 78 legacy findings in older scripts/core/test files outside the new maintained portfolio surface |
+| `make lint` | NOT RUN | GNU Make is not installed in this PowerShell environment; underlying commands passed directly |
 
 ## Known Warnings
 
@@ -54,9 +62,9 @@ and reproducibility checks that leave raw `Data/` untouched.
   warnings from frozen feature transforms with non-positive inputs.
 - v2.2 emits statsmodels `No frequency information was provided` warnings in
   VAR/FEVD windows; the pipeline completes and writes expected outputs.
-- Repo-wide Ruff still fails on pre-existing notebooks, legacy curation tools,
-  and broad style rules. This was intentionally kept out of scope; CI uses a
-  focused maintainable path list.
+- Broad Ruff over `src/cqresearch scripts tests` still fails on pre-existing
+  legacy scripts, older core modules, and legacy test style. This was
+  intentionally kept out of scope; CI uses a focused maintainable path list.
 
 ## Guardrail Audit
 
@@ -85,7 +93,7 @@ and reproducibility checks that leave raw `Data/` untouched.
 ## Caveats
 
 - v2.2 is advanced diagnostics, not the main public portfolio release. Lead with
-  v2.1 in recruiter/interview contexts and use v2.2 to discuss quant depth.
+  v2.1 in the README and PR narrative; use v2.2 as the advanced-method appendix.
 - Exact Shapley R2 is predictive attribution over the chosen block design, not
   causal identification.
 - CUSUM is exploratory residual diagnostics, not full Bai-Perron.

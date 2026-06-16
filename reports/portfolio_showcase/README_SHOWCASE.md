@@ -57,7 +57,7 @@ uv run mypy src/cqresearch
 uv run python scripts/run_portfolio_v2_1_pipeline.py
 ```
 
-## What I Would Discuss In Interviews
+## Reviewer Discussion Points
 
 - How the frozen panel prevents reproducibility drift.
 - Why ETF-flow intensity is scaled by prior-day market cap.
@@ -71,5 +71,4 @@ uv run python scripts/run_portfolio_v2_1_pipeline.py
 - [Technical report](../portfolio_v2_1/technical_report.md)
 - [Analytics summary](../portfolio_v2_1/analytics_summary.md)
 - [Data atlas](../portfolio_v2_1/data_atlas.md)
-- [Interview guide](interview_guide.md)
 - [Figure gallery](figure_gallery.md)
