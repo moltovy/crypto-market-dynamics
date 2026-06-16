@@ -2,24 +2,58 @@
 
 > A reproducible Python analytics system for BTC/ETH factor regimes, ETF-flow
 > market plumbing, stablecoin liquidity, cross-asset connectedness, and
-> crypto-native market structure using a frozen 2020-2026 multi-source panel.
+> crypto-native market structure using a frozen 2020–2026 multi-source panel.
 
-![Crypto Market Factor Lab summary](outputs/figures/F00_project_summary_card.png)
+## Results at a Glance
 
-## Overview
+BTC daily-return models are extremely sensitive to MVRV-style valuation state.
+In the current daily linear setup, `btc_mvrv_d1` has correlation ≈ 0.955 with
+`btc_ret`, and removing MVRV from the full model drops R² from 0.921 to 0.146.
+This is not surprising — MVRV is a close proxy for price-level variation — but
+it dominates all other blocks by an order of magnitude.
 
-Crypto Market Factor Lab converts curated crypto, macro, ETF-flow, DeFi,
-stablecoin, sentiment, and on-chain data into a reproducible BTC/ETH research
-panel and a set of reduced-form analytics modules.
+We report both full and ex-MVRV models because MVRV is a valuation-state
+variable highly correlated with BTC returns, not a clean exogenous factor.
 
-The project is designed as a clean GitHub research system: one canonical output
-packet, one reproducible command path, explicit model cards, and clear
-interpretation guardrails. It does not claim that ETF flows caused BTC or ETH
-returns. ETF-flow results are treated as association, exposure, lead-lag, and
-market-plumbing diagnostics.
+| Diagnostic | Value | Source |
+|---|---:|---|
+| BTC full-model R² | 0.921 | [T03](outputs/tables/T03_block_attribution.csv) |
+| BTC R² without MVRV | 0.146 | [T03](outputs/tables/T03_block_attribution.csv) |
+| BTC MVRV-only standalone R² | 0.915 | [T19](outputs/tables/T19_same_support_ablation_btc.csv) |
+| BTC native-ex-MVRV standalone R² | 0.004 | [T19](outputs/tables/T19_same_support_ablation_btc.csv) |
+| BTC–MVRV correlation | 0.955 | [T21](outputs/tables/T21_top_correlations_btc.csv) |
+| ETF-flow lag 0 HAC t-stat | 10.22 | [T04](outputs/tables/T04_etf_lead_lag.csv) |
+| BTC Chow test p-value (ETF date) | 0.624 | [T08](outputs/tables/T08_structural_breaks.csv) |
+| Mean VAR connectedness index | 39.3% | [T09](outputs/tables/T09_rolling_connectedness.csv) |
 
-All public artifacts live in [`outputs/`](outputs/), including the generated
-static dashboard at [`outputs/dashboard/index.html`](outputs/dashboard/index.html).
+ETF-flow intensity has strong same-day association with BTC returns
+(lag 0 t = 10.22), but daily data cannot identify causal flow impact. The
+evidence is framed as market-plumbing and lead-lag diagnostics.
+
+Non-MVRV native variables, macro, TradFi, and liquidity blocks each contribute
+ΔR² < 0.01 in the full model. In the ex-MVRV specification, macro and TradFi
+blocks become the largest contributors, but ex-MVRV model R² remains low
+(~0.15).
+
+### MVRV Dominance Across Regimes
+
+MVRV dominance persists across all time windows but varies in magnitude:
+
+| Regime | Full R² | Ex-MVRV R² | MVRV-only R² | ΔR² |
+|---|---:|---:|---:|---:|
+| Full 2020–2026 | 0.921 | 0.146 | 0.915 | 0.775 |
+| Pre-BTC ETF | 0.904 | 0.146 | 0.897 | 0.759 |
+| Post-BTC ETF | 0.971 | 0.168 | 0.968 | 0.803 |
+| 2024 | 0.980 | 0.164 | 0.978 | 0.816 |
+| 2025 | 0.987 | 0.220 | 0.985 | 0.766 |
+| 2026 YTD | 0.978 | 0.429 | 0.967 | 0.549 |
+
+Source: [T25_mvrv_sensitivity_by_regime.csv](outputs/tables/T25_mvrv_sensitivity_by_regime.csv) — all models on same-support samples.
+
+The trend shows weakening MVRV dominance in 2026 YTD (ΔR² = 0.549) as
+ex-MVRV factors gain explanatory power (R² = 0.429). This could reflect
+changing market structure post-ETF institutionalization or sample-size effects
+in a short window.
 
 ## Data
 
@@ -46,104 +80,141 @@ existing scripts.
 - Feature engineering for returns, differences, ETF-flow intensity, realized
   volatility, and BTC-native variables.
 - HAC OLS for reduced-form BTC/ETH factor exposure.
-- Full-vs-reduced block partial R2 for factor-block attribution.
+- Full-vs-reduced block partial R² for factor-block attribution.
+- Same-support nested ablation (all models on identical non-missing rows).
+- Regime-stratified feature-strength metrics (correlation, HAC t-stat,
+  drop-one ΔR², standardized betas) across full, pre/post ETF, yearly, and
+  volatility regimes.
 - ETF-flow and stablecoin lead-lag regressions with explicit lag convention.
 - Rolling cross-asset correlations and pre/post event deltas.
 - Stablecoin supply and DeFi TVL liquidity proxy diagnostics.
 - BTC-native factor registry, correlations, and ablations.
 - Chow tests and single-break sup-F scans for structural-break diagnostics.
 - VAR/FEVD connectedness and event-study diagnostics.
-- Advanced diagnostics: PCA blocks, exact block Shapley R2, exploratory CUSUM,
-  FEVD-order sensitivity, rolling connectedness, and robustness grids.
+- Model robustness grids across window, HAC lag, winsorization, and calendar.
 
 Method details live in [`docs/methodology/`](docs/methodology/).
 
-## Key Results
+## Key Result Tables
 
-| Question | Diagnostic | Output |
-|---|---|---|
-| Which factor blocks matter? | Block attribution and ablation | [`T03_block_attribution.csv`](outputs/tables/T03_block_attribution.csv) |
-| Do ETF flows line up with returns? | ETF lead-lag grid | [`T04_etf_lead_lag.csv`](outputs/tables/T04_etf_lead_lag.csv) |
-| How do correlations evolve? | Rolling and pre/post correlation diagnostics | [`T05_correlation_regime.csv`](outputs/tables/T05_correlation_regime.csv) |
-| What does liquidity look like? | Stablecoin and TVL proxies | [`T06_stablecoin_liquidity.csv`](outputs/tables/T06_stablecoin_liquidity.csv) |
-| How do BTC-native variables behave? | Native registry and ablation | [`T07_native_factor_ablation.csv`](outputs/tables/T07_native_factor_ablation.csv) |
-| Are there regime breaks? | Chow and single-break sup-F | [`T08_structural_breaks.csv`](outputs/tables/T08_structural_breaks.csv) |
-| How connected are BTC, ETH, and TradFi variables? | VAR/FEVD connectedness | [`T09_connectedness.csv`](outputs/tables/T09_connectedness.csv) |
-| Are results robust to modeling choices? | Sensitivity grid | [`T10_robustness.csv`](outputs/tables/T10_robustness.csv) |
-
-Main findings:
-
-1. BTC full-stack fit is heavily influenced by native valuation and flow-state
-   variables, especially MVRV-style valuation state.
-2. ETF-flow intensity has strong same-day association, but daily data cannot
-   identify causal flow impact.
-3. Rolling correlations show time-varying BTC/ETH integration with TradFi and
-   volatility variables.
-4. Stablecoin supply and TVL are useful liquidity context, not identified
-   liquidity shocks.
-5. Structural-break diagnostics are Chow and single-break sup-F diagnostics,
-   not full multi-break identification.
-6. Advanced attribution and robustness diagnostics are available in the
-   methodology appendix and model cards.
+| Table | Description |
+|---|---|
+| [T11](outputs/tables/T11_results_at_a_glance.md) | Results at a glance summary |
+| [T03](outputs/tables/T03_block_attribution.csv) | Block attribution and ablation |
+| [T04](outputs/tables/T04_etf_lead_lag.csv) | ETF lead-lag grid |
+| [T05](outputs/tables/T05_correlation_regime.csv) | Rolling and pre/post correlation diagnostics |
+| [T06](outputs/tables/T06_stablecoin_liquidity.csv) | Stablecoin and TVL proxies |
+| [T07](outputs/tables/T07_native_factor_ablation.csv) | Native registry and ablation |
+| [T08](outputs/tables/T08_structural_breaks.csv) | Chow and single-break sup-F |
+| [T09](outputs/tables/T09_connectedness.csv) | VAR/FEVD connectedness |
+| [T10](outputs/tables/T10_robustness.csv) | Sensitivity grid |
+| [T12](outputs/tables/T12_regime_definitions.csv) | Regime definitions and sample sizes |
+| [T13](outputs/tables/T13_factor_dictionary.csv) | Factor dictionary |
+| [T14](outputs/tables/T14_feature_strength_btc_full.csv) | BTC full-model feature strength |
+| [T15](outputs/tables/T15_feature_strength_btc_ex_mvrv.csv) | BTC ex-MVRV feature strength |
+| [T16](outputs/tables/T16_feature_strength_eth.csv) | ETH feature strength |
+| [T17](outputs/tables/T17_feature_strength_by_regime.csv) | Feature strength × regime cross-tab |
+| [T18](outputs/tables/T18_block_strength_by_regime.csv) | Block-level R² by regime |
+| [T19](outputs/tables/T19_same_support_ablation_btc.csv) | Same-support BTC ablation |
+| [T20](outputs/tables/T20_same_support_ablation_eth.csv) | Same-support ETH ablation |
+| [T21](outputs/tables/T21_top_correlations_btc.csv) | Top BTC correlations |
+| [T22](outputs/tables/T22_top_correlations_eth.csv) | Top ETH correlations |
+| [T23](outputs/tables/T23_core_correlation_matrix.csv) | Core correlation matrix |
+| [T24](outputs/tables/T24_pre_post_correlation_delta.csv) | Pre/post correlation deltas |
+| [T25](outputs/tables/T25_mvrv_sensitivity_by_regime.csv) | MVRV sensitivity by regime |
+| [T26](outputs/tables/T26_etf_era_feature_strength.csv) | ETF-era feature strength |
+| [T27](outputs/tables/T27_rolling_feature_rank_stability.csv) | Rolling feature rankings |
 
 ## Figures
 
-The public figures are rendered as clean, data-dense institutional research charts from the canonical output tables. The full contact sheet is [`outputs/figures/visual_gallery.png`](outputs/figures/visual_gallery.png).
+### MVRV Sensitivity by Regime
 
-### Data Inventory
+![MVRV sensitivity by regime](outputs/figures/F01_mvrv_sensitivity_by_regime.png)
 
-![Data coverage](outputs/figures/F01_data_inventory.png)
+Panel A shows standalone model R² for three specifications (full with MVRV,
+MVRV-only, ex-MVRV) across time regimes. Panel B shows the ΔR² from removing
+MVRV — the incremental contribution of the MVRV block. MVRV dominance persists
+across all regimes but weakens in 2026 YTD.
 
-The project uses a frozen daily panel from 2020 to 2026, combining crypto native metrics, macro data, and ETF flows. The timeline shows coverage across source families.
+Source: [T25_mvrv_sensitivity_by_regime.csv](outputs/tables/T25_mvrv_sensitivity_by_regime.csv)
 
-Source: [`T01_source_inventory.csv`](outputs/tables/T01_source_inventory.csv) and [`T02_panel_coverage.csv`](outputs/tables/T02_panel_coverage.csv) · Model card: [`factor_exposure.md`](outputs/model_cards/factor_exposure.md)
+### Same-Support Model Ablation
 
-### BTC Model Sensitivity
+![Same-support BTC ablation](outputs/figures/F02_same_support_ablation.png)
 
-![BTC Model Sensitivity](outputs/figures/F02_btc_model_sensitivity.png)
+Nested model ablation where every model is estimated on the same set of 1,940
+non-missing rows. The R² jump from M5 (+ native-ex-MVRV, R² = 0.146) to M6
+(+ MVRV, R² = 0.921) confirms MVRV as the dominant explanatory variable.
+MVRV-only achieves R² = 0.915, close to the full model.
 
-Ablation diagnostics show how BTC explanatory power drops when the `BTC MVRV` valuation state is removed. The visual explicitly isolates native valuation-state R² drops from macro/liquidity interpretation.
+Source: [T19_same_support_ablation_btc.csv](outputs/tables/T19_same_support_ablation_btc.csv)
 
-Source: [`T03_block_attribution.csv`](outputs/tables/T03_block_attribution.csv) · Model card: [`block_attribution.md`](outputs/model_cards/block_attribution.md)
+### BTC Feature Strength (ex-MVRV)
+
+![BTC feature strength ex-MVRV](outputs/figures/F03_btc_ex_mvrv_strength.png)
+
+Which features matter once MVRV is excluded? Panel A shows absolute correlation,
+Panel B shows multivariate HAC t-statistics. The t = 2 threshold highlights
+statistically significant contributors in the ex-MVRV specification.
+
+Source: [T15_feature_strength_btc_ex_mvrv.csv](outputs/tables/T15_feature_strength_btc_ex_mvrv.csv)
 
 ### ETF Flow Lead-Lag
 
-![BTC ETF-flow lead-lag](outputs/figures/F03_etf_flow_lead_lag.png)
+![ETF flow lead-lag](outputs/figures/F04_etf_flow_lead_lag.png)
 
-This lollipop chart summarizes the HAC t-statistics for the lead-lag pattern between ETF-flow intensity and BTC returns. The strongest signal is contemporaneous (Lag 0); lagged relationships should be read as reduced-form association rather than predictive causality.
+HAC t-statistics for the lead-lag pattern between ETF-flow intensity and BTC
+returns. The strongest signal is contemporaneous (lag 0, t = 10.22). Lagged
+relationships are reduced-form association, not predictive causality.
 
-Source: [`T04_etf_lead_lag.csv`](outputs/tables/T04_etf_lead_lag.csv) · Model card: [`etf_flow_lead_lag.md`](outputs/model_cards/etf_flow_lead_lag.md)
+Source: [T04_etf_lead_lag.csv](outputs/tables/T04_etf_lead_lag.csv)
+
+### Core Correlation Matrix
+
+![Core correlation matrix](outputs/figures/F05_core_correlation_matrix.png)
+
+Pairwise correlations among core features. The BTC–MVRV correlation (0.955)
+dominates all other entries. BTC–SPY and BTC–QQQ correlations reflect
+time-varying crypto-equity integration.
+
+Source: [T23_core_correlation_matrix.csv](outputs/tables/T23_core_correlation_matrix.csv)
 
 ### Rolling Correlations
 
-![Rolling correlations](outputs/figures/F04_rolling_correlations.png)
+![Rolling correlations](outputs/figures/F06_rolling_correlations.png)
 
-Small multiples of 180-day rolling correlations illustrate regime variation between BTC and TradFi/Macro assets. These are descriptive co-movements across crypto beta, equity risk, and volatility regimes.
+Small multiples of 180-day rolling correlations illustrate regime variation
+between BTC and TradFi/Macro assets. These are descriptive co-movements
+across crypto beta, equity risk, and volatility regimes.
 
-Source: [`T05_rolling_correlations.csv`](outputs/tables/T05_rolling_correlations.csv) · Model card: [`rolling_correlations.md`](outputs/model_cards/rolling_correlations.md)
+Source: [T05_rolling_correlations.csv](outputs/tables/T05_rolling_correlations.csv)
 
-### Liquidity Context
+### Feature Strength by Regime
 
-![Stablecoin supply and TVL](outputs/figures/F05_liquidity_context.png)
+![Feature strength heatmap](outputs/figures/F07_feature_strength_heatmap.png)
 
-Stablecoin supply and DeFi TVL are shown as log-scale index panels to provide liquidity context. These represent proxies for liquidity rather than identified funding shocks.
+Multivariate HAC t-statistics for the ex-MVRV model across time and volatility
+regimes. Color intensity shows where specific features become stronger or
+weaker across different market conditions.
 
-Source: [`T06_stablecoin_liquidity.csv`](outputs/tables/T06_stablecoin_liquidity.csv) · Model card: [`stablecoin_liquidity.md`](outputs/model_cards/stablecoin_liquidity.md)
+Source: [T17_feature_strength_by_regime.csv](outputs/tables/T17_feature_strength_by_regime.csv)
 
 ### Connectedness and Robustness
 
-![Connectedness and Robustness](outputs/figures/F06_connectedness_and_robustness.png)
+![Connectedness and robustness](outputs/figures/F08_connectedness_robustness.png)
 
-A side-by-side composite of total connectedness and model robustness. The rolling connectedness index summarizes VAR spillover structure, while the right panel contrasts R² stability across different rolling windows when MVRV is included versus excluded.
+Left: Rolling VAR/FEVD connectedness index. Right: Model R² with and without
+MVRV across different estimation windows — robustness confirmation.
 
-Source: [`T09_rolling_connectedness.csv`](outputs/tables/T09_rolling_connectedness.csv) and [`T10_robustness.csv`](outputs/tables/T10_robustness.csv)
+Source: [T09_rolling_connectedness.csv](outputs/tables/T09_rolling_connectedness.csv) and [T10_robustness.csv](outputs/tables/T10_robustness.csv)
 
-*Supplementary technical figures (e.g. correlation matrices, robustness grids) are available in the [`outputs/figures/gallery/`](outputs/figures/gallery/) directory.*
+*Supplementary figures (native state detail, liquidity context) are in [`outputs/figures/gallery/`](outputs/figures/gallery/).*
 
 ## Reproduce
 
 ```powershell
 uv sync --all-extras
+uv run python scripts/06_feature_strength.py
 uv run python scripts/make_hero_figures.py
 uv run pytest
 uv run mypy src/cqresearch
@@ -169,6 +240,7 @@ archive/               retained provenance, not the public workflow
 - Figures: [`outputs/figures/`](outputs/figures/)
 - Tables: [`outputs/tables/`](outputs/tables/)
 - Model cards: [`outputs/model_cards/`](outputs/model_cards/)
+- Dashboard: [`outputs/dashboard/index.html`](outputs/dashboard/index.html)
 - Manifest: [`outputs/manifest.json`](outputs/manifest.json)
 
 ## Limitations
@@ -176,6 +248,9 @@ archive/               retained provenance, not the public workflow
 - Daily data cannot identify intraday mechanisms or order flow.
 - ETF-flow, stablecoin, and native-factor outputs are reduced-form diagnostics,
   not causal identification.
+- MVRV is a valuation-state variable highly correlated with BTC returns. Its
+  dominance in the full model reflects near-price co-movement, not an
+  independent explanatory factor.
 - Stablecoin supply and TVL are proxies, not proven liquidity shocks.
 - Structural-break diagnostics use Chow and single-break sup-F tests, not full
   Bai-Perron multiple-break estimation.
@@ -184,7 +259,7 @@ archive/               retained provenance, not the public workflow
 - Frozen data makes the project reproducible, but it is not a live market
   monitor.
 
-## Data And License Notes
+## Data and License Notes
 
 Code and generated artifacts are organized for reproducible research review.
 External datasets and third-party references retain their upstream terms. See
