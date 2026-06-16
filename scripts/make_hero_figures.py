@@ -98,7 +98,6 @@ def render_f01() -> list[Path]:
     ax1.set_yticklabels(t25["label"], fontsize=9)
     ax1.set_xlabel("R²", fontsize=10)
     ax1.set_title("A. Standalone Model R²", fontsize=11, color=COLORS["text"], loc="left")
-    ax1.legend(loc="lower right", fontsize=8, frameon=False)
     ax1.set_xlim(0, 1.05)
     _light_axis(ax1)
 
@@ -115,7 +114,11 @@ def render_f01() -> list[Path]:
     ax2.set_xlim(0, 1.0)
     _light_axis(ax2)
 
-    fig.tight_layout(rect=[0.02, 0.02, 0.98, 0.90])
+    # Add figure-level legend at the bottom center to prevent overlapping chart bars
+    handles, labels = ax1.get_legend_handles_labels()
+    fig.legend(handles, labels, loc="lower center", ncol=3, frameon=False, fontsize=9, bbox_to_anchor=(0.5, 0.02))
+
+    fig.tight_layout(rect=[0.02, 0.08, 0.98, 0.90])
     return save_fig(fig, "F01_mvrv_sensitivity_by_regime.png")
 
 
