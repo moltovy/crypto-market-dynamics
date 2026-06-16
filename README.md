@@ -129,7 +129,7 @@ Method details live in [`docs/methodology/`](docs/methodology/).
 
 ### MVRV Sensitivity by Regime
 
-![MVRV sensitivity by regime](outputs/figures/F01_mvrv_sensitivity_by_regime.png)
+![MVRV sensitivity by regime](outputs/figures/F01_mvrv_sensitivity_by_regime_v2.png)
 
 Panel A shows standalone model R² for three specifications (full with MVRV,
 MVRV-only, ex-MVRV) across time regimes. Panel B shows the ΔR² from removing

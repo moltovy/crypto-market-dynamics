@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-06-16T21:35:51.646329+00:00",
-  "git_commit": "c622d24",
+  "generated_at_utc": "2026-06-16T21:40:26.014655+00:00",
+  "git_commit": "5a04b1f",
   "artifact_root": "outputs",
   "figure_bundle": {
     "style": "institutional_dark_research_cards",
@@ -26,11 +26,11 @@
   "figures": [
     {
       "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F01_mvrv_sensitivity_by_regime.png"
+      "output": "outputs/figures/F01_mvrv_sensitivity_by_regime_v2.png"
     },
     {
       "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F01_mvrv_sensitivity_by_regime.svg"
+      "output": "outputs/figures/F01_mvrv_sensitivity_by_regime_v2.svg"
     },
     {
       "source": "generated from canonical output tables and archived supplemental tables",

@@ -119,7 +119,7 @@ def render_f01() -> list[Path]:
     fig.legend(handles, labels, loc="lower center", ncol=3, frameon=False, fontsize=9, bbox_to_anchor=(0.5, 0.02))
 
     fig.tight_layout(rect=[0.02, 0.08, 0.98, 0.90])
-    return save_fig(fig, "F01_mvrv_sensitivity_by_regime.png")
+    return save_fig(fig, "F01_mvrv_sensitivity_by_regime_v2.png")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -504,7 +504,7 @@ def render_g02() -> list[Path]:
 
 def write_dashboard() -> list[Path]:
     figures = [
-        "F01_mvrv_sensitivity_by_regime.png",
+        "F01_mvrv_sensitivity_by_regime_v2.png",
         "F02_same_support_ablation.png",
         "F03_btc_ex_mvrv_strength.png",
         "F04_etf_flow_lead_lag.png",

@@ -13,7 +13,7 @@
 
 ## Figures
 
-- `figures/F01_mvrv_sensitivity_by_regime.png`
+- `figures/F01_mvrv_sensitivity_by_regime_v2.png`
 - `figures/F02_same_support_ablation.png`
 - `figures/F03_btc_ex_mvrv_strength.png`
 - `figures/F04_etf_flow_lead_lag.png`
