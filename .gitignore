@@ -48,7 +48,6 @@ reports/panels/*.parquet
 reports/panels/**/*.parquet
 
 # Ad-hoc exports
-outputs/
 tmp/
 *.tmp
 
@@ -57,6 +56,5 @@ tmp/
 *.pem
 secrets/
 
-# --- Local archives / third-party reference dumps (keep out of GitHub)
-archive/
+# --- Third-party reference dumps (keep out of GitHub)
 references/
