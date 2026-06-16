@@ -1,51 +1,38 @@
-# Data Spec — Sources, Calendar, Panel Contract
+# Data Spec - Legacy Draft
 
-> Skeleton. Owned by the Data Lead. Fill in during Sprint 1 alongside agent 01 (data cleaning).
+> **Legacy warning:** this v0.1 data spec is retained for provenance only.
+> The current portfolio v2 data contract is summarized in
+> [`feature_registry.md`](./feature_registry.md) and the generated
+> `reports/portfolio_v2/data_atlas.md`.
 
-**Status:** DRAFT — v0.1 (2026-04-18)
-**Canonical plan:** [`project_research_plan.md`](../../project_research_plan.md) §6, §11.1-§11.2
-
----
+**Status:** LEGACY DRAFT - v0.1 (2026-04-18)
 
 ## 1. Sources
-- CryptoQuant: on-chain BTC/ETH/USDC/USDT/WBTC (addresses, derivatives, flows, fees, supply, transactions). Files under `Data/CryptoQuant/`.
-- FRED: macro (rates, credit, vol, FX, policy, stress). Files under `Data/FRED/`.
-- DefiLlama: TVL, chain metrics, stablecoin mcaps, RWA, ETFs, DATs. Files under `Data/DefiLlama/`.
-- Farside: BTC/ETH/SOL spot-ETF flows. Files under `Data/Farside ETF Data/`.
-- AlternativeMe: Fear & Greed. Files under `Data/AlternativeMe/`.
-- Artemis: chain metrics (optional). Files under `Data/Artemis/`.
-- Tradingview: CME futures, price candles. Files under `Data/Tradingview/`.
+
+- CryptoQuant: on-chain BTC/ETH/USDC/USDT/WBTC files under `Data/CryptoQuant/`.
+- FRED: macro rates, credit, volatility, FX, policy, and stress files under
+  `Data/FRED/`.
+- DefiLlama: TVL, chain metrics, stablecoin market caps, RWA, ETF, and DAT files
+  under `Data/DefiLlama/`.
+- Farside: BTC/ETH/SOL spot-ETF flow files under `Data/Farside ETF Data/`.
+- AlternativeMe: Fear & Greed under `Data/AlternativeMe/`.
+- Artemis: chain, ETF, perpetuals, DEX, lending, stablecoin, and RWA exports.
+- TradingView: CME futures, price candles, DXY, and related market files.
 
 ## 2. Calendar
-- Default: `calendar_daily` (UTC, 7-day). See `config/calendars.yml`.
-- TradFi alignment: `market_trading_daily` (NYSE). Used when joining macro/FRED with CME futures.
 
-## 3. Factor-block composition
-Canonical: `config/factor_blocks.yml`. Any drift between `factor_blocks.yml` and `Data/MASTER_DATA.md` is a P0 bug for agent 01.
+- Default master calendar: UTC daily crypto-7 calendar.
+- TradFi alignment: business-day source series are aligned onto the daily panel
+  according to `config/calendars.yml`.
 
-## 4. Panel contract
-- `reports/panels/master_daily.parquet` — index = `date` (UTC, daily), columns = feature name + `<feature>__status`.
-- `reports/panels/master_daily_columns.md` — machine-readable catalog: feature, source file, unit, block, imputation rule, date range, pct_null.
+## 3. Current Portfolio Contract
 
-## 5. Aggregation rules
-- BTC vs WBTC: NEVER sum. WBTC goes in its own column tagged `btc_ecosystem: wrapped_on_eth`.
-- ETH L1 vs L2: NEVER sum as "users". Emit three columns: `eth_l1_only`, `eth_l2_sum`, `eth_l2_share_of_broad`.
-- Stablecoin mcap: sum only within `stable_category` (USDT, USDC, other). See `Data/CryptoQuant/USDC/...` and `Data/DefiLlama/Stablecoins/`.
+Portfolio v2 uses the frozen master panel documented by
+`reports/panels/master_daily_meta.json`, `reports/panels/master_daily_coverage.csv`,
+and `Data/MASTER_DATA.csv`. It does not require live data refreshes or paid data.
 
-## 6. Missingness taxonomy
-Every feature column emits a parallel `<feature>__status ∈ {ok, stale, structural, missing}`.
-- **ok**: value observed today and no flag triggered.
-- **stale**: value unchanged for > 3 consecutive days where variance > 0 historically.
-- **structural**: observation not yet possible (e.g. ETF flow before 2024-01-11).
-- **missing**: data provider outage (ETL retry recommended).
+## 4. Historical Design Notes
 
-## 7. Units
-- Prices in USD unless suffixed.
-- Percents as decimals (0.05 not 5.0). Columns ending `_pct` or `_bps` state the unit.
-- Flows in USD (positive = inflow to the labelled entity).
-
-## 8. Snapshot dates (pinned)
-See `config/curation_snapshots.yml`. Panels built from a snapshot are tagged in the filename: `master_daily__<snapshot>.parquet`.
-
-## 9. Open issues (to be populated by agent 01)
-- …
+Earlier notes about parallel `<feature>__status` columns and richer feature
+catalogs were design goals, not current portfolio output claims. Any future
+implementation should update `feature_registry.md` and the generated data atlas.
