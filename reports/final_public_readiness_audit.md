@@ -11,7 +11,7 @@ scaffolding, CI/release engineering, and reproducibility checks that leave raw
 ## Branch And Commit Summary
 
 - Branch: `portfolio_v2`
-- Latest verified commit before this audit refresh: `9a02bd4`
+- Local release status: current through this audit update.
 - Last local verification refresh: `2026-06-16T11:46:26.5360740-05:00`
 - Local prompt files handled outside the repo: `Instructions.md` and
   `Instructions P2.md` are excluded through `.git/info/exclude`.
@@ -28,6 +28,7 @@ scaffolding, CI/release engineering, and reproducibility checks that leave raw
   - `ffde97b docs: add portfolio PR summary`
   - `2d42d54 chore(portfolio): close instructions compliance gaps`
   - `9a02bd4 docs: update final release verification`
+  - `f6e42d1 docs: add manual release instructions`
 
 ## Remote And PR Status
 
