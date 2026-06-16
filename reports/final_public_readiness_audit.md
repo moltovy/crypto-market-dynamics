@@ -2,17 +2,17 @@
 
 ## Verdict
 
-**Locally PR-ready; remote push requires a GitHub token refresh with `workflow`
-scope.** The portfolio branch now has a polished v2.1 main release, a v2.2
-advanced diagnostics extension, GitHub-facing showcase docs, optional free-data
-scaffolding, CI/release engineering, and reproducibility checks that leave raw
-`Data/` untouched.
+**PR-ready and remote CI passing.** The portfolio branch now has a polished
+v2.1 main release, a v2.2 advanced diagnostics extension, GitHub-facing
+showcase docs, optional free-data scaffolding, CI/release engineering, and
+reproducibility checks that leave raw `Data/` untouched.
 
 ## Branch And Commit Summary
 
 - Branch: `portfolio_v2`
 - Local release status: current through this audit update.
 - Last local verification refresh: `2026-06-16T11:46:26.5360740-05:00`
+- Remote PR/CI refresh: `2026-06-16T11:56:00.2281117-05:00`
 - Local prompt files handled outside the repo: `Instructions.md` and
   `Instructions P2.md` are excluded through `.git/info/exclude`.
 - Continuation sprint commits reviewed:
@@ -34,11 +34,11 @@ scaffolding, CI/release engineering, and reproducibility checks that leave raw
 
 | Item | Status | Notes |
 |---|---:|---|
-| `git push -u origin portfolio_v2` | BLOCKED | GitHub rejected workflow updates because the current OAuth token lacks `workflow` scope. |
-| `git ls-remote --heads origin portfolio_v2` | NOT PRESENT | No remote branch was visible after the blocked push. |
-| `gh auth status` | AUTHENTICATED | Active scopes: `gist`, `read:org`, `repo`; missing `workflow`. |
-| PR creation | PENDING | Requires branch push first. Manual instructions are in `reports/manual_pr_instructions.md`. |
-| Remote CI | PENDING | Requires branch push/PR first. Manual instructions are in `reports/manual_ci_check_instructions.md`. |
+| `git push -u origin portfolio_v2` | PASS | Remote branch exists at `27e81d5` before this PR-status update. |
+| `git ls-remote --heads origin portfolio_v2` | PASS | Returned `refs/heads/portfolio_v2`. |
+| PR creation | PASS | PR #1: `https://github.com/moltovy/Crypto-Research-Paper-Data-Factors-Analysis-/pull/1`. |
+| PR mergeability | PASS | `gh pr view portfolio_v2` reports `MERGEABLE` and non-draft. |
+| Remote CI | PASS | `gh pr checks portfolio_v2` reports both `quality` checks passing. |
 
 ## Packet Presence
 
@@ -104,9 +104,7 @@ scaffolding, CI/release engineering, and reproducibility checks that leave raw
   `portfolio-v2-2`, `optional-data`, `lint`, and `verify`.
 - `.github/pull_request_template.md` and `docs/release_checklist.md` document
   reviewer guardrails.
-- Branch push is currently blocked only by local GitHub token scope, not by
-  repository content. Refresh the token with `gh auth refresh -h github.com -s
-  workflow`, then rerun `git push -u origin portfolio_v2`.
+- PR #1 is open and remote CI quality checks are passing.
 
 ## Caveats
 

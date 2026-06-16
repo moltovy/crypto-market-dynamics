@@ -16,16 +16,14 @@ extension for deeper quant discussion.
 
 ## Publication Status
 
-Local release checks are complete. Initial push was blocked because the active
-GitHub OAuth token lacked `workflow` scope for `.github/workflows/ci.yml`.
-Refresh auth with:
+PR #1 is open and remote CI is passing:
 
-```powershell
-gh auth refresh -h github.com -s workflow
-git push -u origin portfolio_v2
+```text
+https://github.com/moltovy/Crypto-Research-Paper-Data-Factors-Analysis-/pull/1
 ```
 
-Then open the PR from `portfolio_v2` into `main`.
+`gh pr view portfolio_v2` reports the PR as mergeable and non-draft.
+`gh pr checks portfolio_v2` reports both `quality` checks passing.
 
 ## Major Features
 
