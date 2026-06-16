@@ -1,7 +1,7 @@
 [project]
 name = "cqresearch"
 version = "0.1.0"
-description = "CryptoQuant Research — BTC/ETH factor-block evolution around the 2024 spot-ETF structural break."
+description = "Crypto Market Factor Lab - reproducible BTC/ETH factor, ETF-flow, liquidity, and native-market analytics."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
@@ -24,6 +24,7 @@ dependencies = [
     "pyyaml>=6.0",
     "tqdm>=4.66",
     "pypdf>=4.3",
+    "tabulate>=0.9",
 ]
 
 [project.optional-dependencies]
@@ -35,6 +36,7 @@ dev = [
     "nbstripout>=0.7",
     "pre-commit>=3.8",
     "ipykernel>=6.29",
+    "types-PyYAML>=6.0",
 ]
 
 [build-system]
