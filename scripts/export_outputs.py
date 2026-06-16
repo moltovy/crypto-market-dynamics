@@ -14,7 +14,6 @@ import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUTS = ROOT / "outputs"
 PANEL_META = {"start": "2020-01-01", "end": "2026-04-11", "n_rows": 2293, "n_cols": 63}
