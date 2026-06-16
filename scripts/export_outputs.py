@@ -14,6 +14,8 @@ import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
 
+from scripts.make_hero_figures import render_all_figures
+
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUTS = ROOT / "outputs"
 PANEL_META = {"start": "2020-01-01", "end": "2026-04-11", "n_rows": 2293, "n_cols": 63}
@@ -290,6 +292,19 @@ archive/
 - Structural-break diagnostics remain Chow plus single-break sup-F, not full
   Bai-Perron.
 - Advanced attribution is labeled separately from block partial R2.
+
+## Verification
+
+- `uv run python scripts/make_hero_figures.py` -> PASS, regenerated F00-F09,
+  T00, SVGs, contact sheets, visual reports, and static dashboard.
+- `uv run python scripts/run_all.py` -> PASS, exported canonical outputs.
+- `uv run pytest` -> PASS, 45 passed.
+- `uv run mypy src/cqresearch` -> PASS, no issues in 42 source files.
+- Focused Ruff on maintained visual/public paths -> PASS.
+- `uv run ruff check src/cqresearch scripts tests` -> DOCUMENTED LEGACY FAIL,
+  76 findings in older research scripts/core style rules outside this sprint.
+- Markdown link audit across README and visual QA docs -> PASS.
+- `git status --short -- Data` -> PASS, no output.
 """,
     }
 
@@ -313,6 +328,7 @@ Lab. Historical release packets and internal planning material live under
 
 ## Figures
 
+- `figures/F00_project_summary_card.png`
 - `figures/F01_data_coverage.png`
 - `figures/F02_btc_block_attribution.png`
 - `figures/F03_btc_etf_lead_lag.png`
@@ -321,19 +337,40 @@ Lab. Historical release packets and internal planning material live under
 - `figures/F06_btc_native_dashboard.png`
 - `figures/F07_connectedness.png`
 - `figures/F08_robustness_grid.png`
+- `figures/F09_key_results_cards.png`
+- `figures/T00_key_results_table.png`
+- `figures/visual_gallery.png`
 
 ## Tables
 
+- `tables/README.md`
+- `tables/key_results.md`
+- `tables/key_results.html`
 - `tables/T01_source_inventory.csv`
 - `tables/T02_panel_coverage.csv`
 - `tables/T03_block_attribution.csv`
+- `tables/T03_rolling_block_partial_r2_btc_180d.csv`
 - `tables/T04_etf_lead_lag.csv`
 - `tables/T05_correlation_regime.csv`
+- `tables/T05_rolling_correlations.csv`
 - `tables/T06_stablecoin_liquidity.csv`
 - `tables/T07_native_factor_ablation.csv`
+- `tables/T07_native_factor_registry.csv`
+- `tables/T07_btc_native_correlations.csv`
 - `tables/T08_structural_breaks.csv`
 - `tables/T09_connectedness.csv`
+- `tables/T09_rolling_connectedness.csv`
 - `tables/T10_robustness.csv`
+
+## Dashboard
+
+- `dashboard/index.html`
+- `dashboard/README.md`
+
+## Visual QA
+
+- `report/visual_audit.md`
+- `report/visual_quality_check.md`
 
 ## Reproduce
 
@@ -354,18 +391,20 @@ def export_reports() -> list[dict[str, str]]:
     return outputs
 
 
-def export_figures(v21: Path, v22: Path) -> list[dict[str, str]]:
-    mappings = [
-        (v21 / "figures" / "F62_baseline_data_coverage.png", "F01_data_coverage.png"),
-        (v21 / "figures" / "F10_btc_block_partial_r2_heatmap.png", "F02_btc_block_attribution.png"),
-        (v21 / "figures" / "F22_btc_etf_lead_lag_heatmap.png", "F03_btc_etf_lead_lag.png"),
-        (v21 / "figures" / "F30_btc_rolling_correlations_180d.png", "F04_btc_rolling_correlations.png"),
-        (v21 / "figures" / "F40_stablecoin_supply_and_tvl.png", "F05_stablecoin_supply_tvl.png"),
-        (v21 / "figures" / "F50_btc_native_zscore_dashboard.png", "F06_btc_native_dashboard.png"),
-        (v22 / "figures" / "F77_rolling_connectedness.png", "F07_connectedness.png"),
-        (v22 / "figures" / "F78_robustness_grid_heatmap.png", "F08_robustness_grid.png"),
+def export_figures() -> list[dict[str, str]]:
+    rendered = render_all_figures()
+    figure_paths = [
+        path
+        for path in rendered
+        if path.is_relative_to(OUTPUTS / "figures") and path.suffix.lower() in {".png", ".svg"}
     ]
-    return [copy_file(src, OUTPUTS / "figures" / dst) for src, dst in mappings]
+    return [
+        {
+            "source": "generated from canonical output tables and archived supplemental tables",
+            "output": rel(path),
+        }
+        for path in sorted(figure_paths)
+    ]
 
 
 def export_tables(v21: Path, v22: Path) -> list[dict[str, object]]:
@@ -409,6 +448,26 @@ def export_tables(v21: Path, v22: Path) -> list[dict[str, object]]:
         copy_file(
             v21 / "tables" / "baseline_fevd_10d_compact.csv",
             OUTPUTS / "tables" / "T09_connectedness.csv",
+        ),
+        copy_file(
+            v21 / "tables" / "rolling_block_partial_r2_btc_180d.csv",
+            OUTPUTS / "tables" / "T03_rolling_block_partial_r2_btc_180d.csv",
+        ),
+        copy_file(
+            v21 / "tables" / "rolling_correlations.csv",
+            OUTPUTS / "tables" / "T05_rolling_correlations.csv",
+        ),
+        copy_file(
+            v21 / "tables" / "native_factor_registry.csv",
+            OUTPUTS / "tables" / "T07_native_factor_registry.csv",
+        ),
+        copy_file(
+            v21 / "tables" / "btc_native_correlations.csv",
+            OUTPUTS / "tables" / "T07_btc_native_correlations.csv",
+        ),
+        copy_file(
+            v22 / "tables" / "rolling_connectedness.csv",
+            OUTPUTS / "tables" / "T09_rolling_connectedness.csv",
         ),
         copy_file(v22 / "tables" / "robustness_grid.csv", OUTPUTS / "tables" / "T10_robustness.csv"),
     ]
@@ -471,6 +530,12 @@ def write_manifest(
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "git_commit": git_commit(),
         "artifact_root": "outputs",
+        "figure_bundle": {
+            "style": "institutional_dark_research_cards",
+            "generated_from": "canonical output tables plus archived supplemental tables",
+            "export_formats": ["png", "svg"],
+            "dashboard": "outputs/dashboard/index.html",
+        },
         "panel": PANEL_META,
         "commands_to_reproduce": [
             "uv sync --all-extras",
@@ -482,6 +547,10 @@ def write_manifest(
         "tables": tables,
         "reports": reports,
         "model_cards": model_cards,
+        "dashboard": [
+            {"source": "generated static dashboard", "output": "outputs/dashboard/index.html"},
+            {"source": "generated static dashboard", "output": "outputs/dashboard/README.md"},
+        ],
         "data_catalog": data_catalog,
         "guardrails": [
             "Data/ is not modified by the canonical export pipeline.",
@@ -503,10 +572,23 @@ def main() -> int:
         (OUTPUTS / subdir).mkdir(parents=True, exist_ok=True)
 
     reports = export_reports()
-    figures = export_figures(v21, v22)
     tables = export_tables(v21, v22)
     model_cards = export_model_cards(v21, v22)
     data_catalog = export_data_catalog()
+    figures = export_figures()
+    reports.extend(
+        [
+            {"source": "generated visual QA narrative", "output": "outputs/report/visual_audit.md"},
+            {"source": "generated visual QA narrative", "output": "outputs/report/visual_quality_check.md"},
+        ]
+    )
+    tables.extend(
+        [
+            {"source": "generated key-results presentation table", "output": "outputs/tables/README.md"},
+            {"source": "generated key-results presentation table", "output": "outputs/tables/key_results.md"},
+            {"source": "generated key-results presentation table", "output": "outputs/tables/key_results.html"},
+        ]
+    )
     write_manifest(figures, tables, reports, model_cards, data_catalog)
 
     print("[ok] canonical outputs exported")

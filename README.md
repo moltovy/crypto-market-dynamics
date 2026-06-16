@@ -4,6 +4,8 @@
 > market plumbing, stablecoin liquidity, cross-asset connectedness, and
 > crypto-native market structure using a frozen 2020-2026 multi-source panel.
 
+![Crypto Market Factor Lab summary](outputs/figures/F00_project_summary_card.png)
+
 ## Overview
 
 Crypto Market Factor Lab converts curated crypto, macro, ETF-flow, DeFi,
@@ -16,7 +18,8 @@ interpretation guardrails. It does not claim that ETF flows caused BTC or ETH
 returns. ETF-flow results are treated as association, exposure, lead-lag, and
 market-plumbing diagnostics.
 
-All public artifacts live in [`outputs/`](outputs/).
+All public artifacts live in [`outputs/`](outputs/), including the generated
+static dashboard at [`outputs/dashboard/index.html`](outputs/dashboard/index.html).
 
 ## Data
 
@@ -85,42 +88,79 @@ Main findings:
 
 ## Figures
 
+The public figures are rendered as dark institutional research cards from the
+canonical output tables. The full contact sheet is
+[`outputs/figures/visual_gallery.png`](outputs/figures/visual_gallery.png).
+
 ### Data Coverage
 
-![Data coverage](outputs/figures/F01_data_coverage.png)
+![Frozen BTC/ETH multi-source panel](outputs/figures/F01_data_coverage.png)
 
-### BTC Block Attribution
+Source: [`T01_source_inventory.csv`](outputs/tables/T01_source_inventory.csv) and
+[`T02_panel_coverage.csv`](outputs/tables/T02_panel_coverage.csv). Model card:
+[`factor_exposure.md`](outputs/model_cards/factor_exposure.md).
 
-![BTC block attribution](outputs/figures/F02_btc_block_attribution.png)
+### BTC Factor Attribution
+
+![BTC factor attribution](outputs/figures/F02_btc_block_attribution.png)
+
+Source: [`T03_block_attribution.csv`](outputs/tables/T03_block_attribution.csv)
+and [`T03_rolling_block_partial_r2_btc_180d.csv`](outputs/tables/T03_rolling_block_partial_r2_btc_180d.csv).
+Model card: [`block_attribution.md`](outputs/model_cards/block_attribution.md).
 
 ### ETF Flow Lead-Lag
 
-![ETF lead-lag](outputs/figures/F03_btc_etf_lead_lag.png)
+![BTC ETF-flow lead-lag](outputs/figures/F03_btc_etf_lead_lag.png)
+
+Source: [`T04_etf_lead_lag.csv`](outputs/tables/T04_etf_lead_lag.csv). Model
+card: [`etf_flow_lead_lag.md`](outputs/model_cards/etf_flow_lead_lag.md).
+Lag convention: `lag < 0` means flow is shifted earlier and leads the target
+return. This is association, not causality.
 
 ### Rolling Correlations
 
-![Rolling correlations](outputs/figures/F04_btc_rolling_correlations.png)
+![BTC rolling correlations](outputs/figures/F04_btc_rolling_correlations.png)
 
-### Stablecoin Supply And TVL
+Source: [`T05_rolling_correlations.csv`](outputs/tables/T05_rolling_correlations.csv)
+and [`T05_correlation_regime.csv`](outputs/tables/T05_correlation_regime.csv).
+Model card: [`rolling_correlations.md`](outputs/model_cards/rolling_correlations.md).
+
+### Liquidity And Native Factors
 
 ![Stablecoin supply and TVL](outputs/figures/F05_stablecoin_supply_tvl.png)
 
-### BTC-Native Dashboard
+Source: [`T06_stablecoin_liquidity.csv`](outputs/tables/T06_stablecoin_liquidity.csv).
+Model card: [`stablecoin_liquidity.md`](outputs/model_cards/stablecoin_liquidity.md).
 
 ![BTC-native dashboard](outputs/figures/F06_btc_native_dashboard.png)
 
-### Connectedness
+Source: [`T07_native_factor_ablation.csv`](outputs/tables/T07_native_factor_ablation.csv)
+and [`T07_btc_native_correlations.csv`](outputs/tables/T07_btc_native_correlations.csv).
+Model card: [`btc_native_factors.md`](outputs/model_cards/btc_native_factors.md).
+
+### Connectedness And Robustness
 
 ![Connectedness](outputs/figures/F07_connectedness.png)
 
-### Robustness
+Source: [`T09_connectedness.csv`](outputs/tables/T09_connectedness.csv) and
+[`T09_rolling_connectedness.csv`](outputs/tables/T09_rolling_connectedness.csv).
+Model card: [`connectedness.md`](outputs/model_cards/connectedness.md).
 
 ![Robustness](outputs/figures/F08_robustness_grid.png)
+
+Source: [`T10_robustness.csv`](outputs/tables/T10_robustness.csv). Model card:
+[`robustness.md`](outputs/model_cards/robustness.md).
+
+The compact result-card view is
+[`F09_key_results_cards.png`](outputs/figures/F09_key_results_cards.png), and
+the styled table card is
+[`T00_key_results_table.png`](outputs/figures/T00_key_results_table.png).
 
 ## Reproduce
 
 ```powershell
 uv sync --all-extras
+uv run python scripts/make_hero_figures.py
 uv run pytest
 uv run mypy src/cqresearch
 uv run python scripts/run_all.py

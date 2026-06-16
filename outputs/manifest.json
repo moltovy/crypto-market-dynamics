@@ -1,7 +1,16 @@
 {
-  "generated_at_utc": "2026-06-16T17:34:13.220078+00:00",
-  "git_commit": "7edadb7",
+  "generated_at_utc": "2026-06-16T18:04:08.636633+00:00",
+  "git_commit": "228ae52",
   "artifact_root": "outputs",
+  "figure_bundle": {
+    "style": "institutional_dark_research_cards",
+    "generated_from": "canonical output tables plus archived supplemental tables",
+    "export_formats": [
+      "png",
+      "svg"
+    ],
+    "dashboard": "outputs/dashboard/index.html"
+  },
   "panel": {
     "start": "2020-01-01",
     "end": "2026-04-11",
@@ -16,36 +25,96 @@
   ],
   "figures": [
     {
-      "source": "archived_release_artifact/figures/F62_baseline_data_coverage.png",
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/F00_project_summary_card.png"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/F00_project_summary_card.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
       "output": "outputs/figures/F01_data_coverage.png"
     },
     {
-      "source": "archived_release_artifact/figures/F10_btc_block_partial_r2_heatmap.png",
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/F01_data_coverage.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
       "output": "outputs/figures/F02_btc_block_attribution.png"
     },
     {
-      "source": "archived_release_artifact/figures/F22_btc_etf_lead_lag_heatmap.png",
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/F02_btc_block_attribution.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
       "output": "outputs/figures/F03_btc_etf_lead_lag.png"
     },
     {
-      "source": "archived_release_artifact/figures/F30_btc_rolling_correlations_180d.png",
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/F03_btc_etf_lead_lag.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
       "output": "outputs/figures/F04_btc_rolling_correlations.png"
     },
     {
-      "source": "archived_release_artifact/figures/F40_stablecoin_supply_and_tvl.png",
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/F04_btc_rolling_correlations.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
       "output": "outputs/figures/F05_stablecoin_supply_tvl.png"
     },
     {
-      "source": "archived_release_artifact/figures/F50_btc_native_zscore_dashboard.png",
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/F05_stablecoin_supply_tvl.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
       "output": "outputs/figures/F06_btc_native_dashboard.png"
     },
     {
-      "source": "archived_release_artifact/figures/F77_rolling_connectedness.png",
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/F06_btc_native_dashboard.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
       "output": "outputs/figures/F07_connectedness.png"
     },
     {
-      "source": "archived_release_artifact/figures/F78_robustness_grid_heatmap.png",
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/F07_connectedness.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
       "output": "outputs/figures/F08_robustness_grid.png"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/F08_robustness_grid.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/F09_key_results_cards.png"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/F09_key_results_cards.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/T00_key_results_table.png"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/T00_key_results_table.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/visual_gallery.png"
     }
   ],
   "tables": [
@@ -99,8 +168,40 @@
       "output": "outputs/tables/T09_connectedness.csv"
     },
     {
+      "source": "archived_release_artifact/tables/rolling_block_partial_r2_btc_180d.csv",
+      "output": "outputs/tables/T03_rolling_block_partial_r2_btc_180d.csv"
+    },
+    {
+      "source": "archived_release_artifact/tables/rolling_correlations.csv",
+      "output": "outputs/tables/T05_rolling_correlations.csv"
+    },
+    {
+      "source": "archived_release_artifact/tables/native_factor_registry.csv",
+      "output": "outputs/tables/T07_native_factor_registry.csv"
+    },
+    {
+      "source": "archived_release_artifact/tables/btc_native_correlations.csv",
+      "output": "outputs/tables/T07_btc_native_correlations.csv"
+    },
+    {
+      "source": "archived_release_artifact/tables/rolling_connectedness.csv",
+      "output": "outputs/tables/T09_rolling_connectedness.csv"
+    },
+    {
       "source": "archived_release_artifact/tables/robustness_grid.csv",
       "output": "outputs/tables/T10_robustness.csv"
+    },
+    {
+      "source": "generated key-results presentation table",
+      "output": "outputs/tables/README.md"
+    },
+    {
+      "source": "generated key-results presentation table",
+      "output": "outputs/tables/key_results.md"
+    },
+    {
+      "source": "generated key-results presentation table",
+      "output": "outputs/tables/key_results.html"
     }
   ],
   "reports": [
@@ -131,6 +232,14 @@
     {
       "source": "generated canonical narrative",
       "output": "outputs/README.md"
+    },
+    {
+      "source": "generated visual QA narrative",
+      "output": "outputs/report/visual_audit.md"
+    },
+    {
+      "source": "generated visual QA narrative",
+      "output": "outputs/report/visual_quality_check.md"
     }
   ],
   "model_cards": [
@@ -173,6 +282,16 @@
     {
       "source": "archived_release_artifact/model_cards/robustness_grid.md",
       "output": "outputs/model_cards/robustness.md"
+    }
+  ],
+  "dashboard": [
+    {
+      "source": "generated static dashboard",
+      "output": "outputs/dashboard/index.html"
+    },
+    {
+      "source": "generated static dashboard",
+      "output": "outputs/dashboard/README.md"
     }
   ],
   "data_catalog": [

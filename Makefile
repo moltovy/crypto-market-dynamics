@@ -5,10 +5,13 @@
 RUFF_PORTFOLIO_PATHS = \
 	scripts/export_outputs.py \
 	scripts/run_all.py \
+	scripts/make_hero_figures.py \
+	scripts/build_visual_gallery.py \
 	scripts/run_portfolio_pipeline.py \
 	scripts/run_portfolio_v2_1_pipeline.py \
 	scripts/run_portfolio_v2_2_pipeline.py \
 	scripts/optional_data \
+	src/cqresearch/viz \
 	src/cqresearch/analysis/native_factors.py \
 	src/cqresearch/analysis/portfolio_v2_1.py \
 	src/cqresearch/analysis/portfolio_v2_2.py \
@@ -35,9 +38,10 @@ RUFF_PORTFOLIO_PATHS = \
 	tests/unit/test_robustness_grid.py \
 	tests/unit/test_portfolio_v2_1_pipeline.py \
 	tests/unit/test_portfolio_v2_2_pipeline.py \
-	tests/unit/test_optional_data_sources.py
+	tests/unit/test_optional_data_sources.py \
+	tests/unit/test_visual_outputs.py
 
-.PHONY: help install setup ingest curate inventory validate pipeline test typecheck lint format figures outputs portfolio portfolio-v2 portfolio-v2-1 portfolio-v2-2 optional-data verify clean
+.PHONY: help install setup ingest curate inventory validate pipeline test typecheck lint format figures visuals outputs portfolio portfolio-v2 portfolio-v2-1 portfolio-v2-2 optional-data verify clean
 
 help:
 	@echo "Targets:"
@@ -52,7 +56,8 @@ help:
 	@echo "  typecheck      - run mypy"
 	@echo "  lint           - run focused Ruff + mypy"
 	@echo "  format         - run ruff format on source/script/test trees"
-	@echo "  figures        - rebuild cached figure outputs"
+	@echo "  figures        - rebuild public hero figures"
+	@echo "  visuals        - alias for figures"
 	@echo "  outputs        - export canonical public artifact packet"
 	@echo "  portfolio-v2   - legacy: build baseline portfolio packet"
 	@echo "  portfolio-v2-1 - legacy: build enhanced portfolio packet"
@@ -98,7 +103,9 @@ format:
 	uv run ruff format src scripts tests
 
 figures:
-	uv run python scripts/03_make_figures.py
+	uv run python scripts/make_hero_figures.py
+
+visuals: figures
 
 outputs:
 	uv run python scripts/run_all.py
