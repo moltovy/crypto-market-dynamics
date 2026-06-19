@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-06-19T01:27:32.831359+00:00",
-  "git_commit": "406c427",
+  "generated_at_utc": "2026-06-19T01:43:52.761734+00:00",
+  "git_commit": "e528b4c",
   "artifact_root": "outputs",
   "figure_bundle": {
     "style": "institutional_dark_research_cards",
@@ -369,7 +369,7 @@
     "Historical release packets and manager notes are archived outside the public surface."
   ],
   "market_structure": {
-    "generated_at_utc": "2026-06-19T01:31:09.984630+00:00",
+    "generated_at_utc": "2026-06-19T01:43:55.791243+00:00",
     "source_table_bundle_date": "2026-06-18",
     "figure_bundle_start": "F30",
     "table_bundle_start": "T28",
@@ -409,12 +409,11 @@
     ],
     "skipped": [
       "Binance liquidity top100 skipped because no spot kline cache exists.",
-      "CMC Fear & Greed skipped because CMC_API_KEY/cache is unavailable; AlternativeMe baseline used.",
       "Historical market-cap top100 skipped because no point-in-time source is available."
     ],
     "guardrails": [
       "Binance top100 is exchange-liquidity based, not market-cap based.",
-      "CMC Fear & Greed is skipped without CMC_API_KEY.",
+      "CMC live fetch requires CMC_API_KEY; cached CMC history is included when present.",
       "Raw API payloads stay in data_cache/ and are not committed.",
       "No API keys are written to outputs or manifests."
     ]

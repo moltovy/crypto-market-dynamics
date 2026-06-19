@@ -18,7 +18,7 @@ Binance, and CoinMarketCap while preserving the frozen dataset.
 |---|---|---|
 | DefiLlama | TVL, stablecoins, DeFi activity, RWA/DAT context | Free endpoints public; Pro endpoints optional |
 | Binance | Spot/futures exchange-liquidity, funding, premium context | Public endpoints |
-| CoinMarketCap | Optional Fear & Greed history | `CMC_API_KEY` |
+| CoinMarketCap | Optional Fear & Greed history | `CMC_API_KEY` for live refresh; cache-only rebuild after fetch |
 | AlternativeMe | Tracked baseline Fear & Greed history | None |
 
 ## Guardrails

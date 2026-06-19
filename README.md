@@ -301,8 +301,9 @@ archive/               retained provenance, not the public workflow
 - Frozen data makes the project reproducible, but it is not a live market
   monitor.
 - Binance top100 is exchange-liquidity based, not market-cap based.
-- CoinMarketCap Fear & Greed requires `CMC_API_KEY`; without it the public build
-  uses the tracked AlternativeMe sentiment series and records the CMC gap.
+- CoinMarketCap Fear & Greed live refresh requires `CMC_API_KEY`; cached CMC
+  history is included when present, otherwise AlternativeMe remains the
+  tracked sentiment baseline.
 
 ## Data and License Notes
 

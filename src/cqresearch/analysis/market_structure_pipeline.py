@@ -161,7 +161,7 @@ Contains public Binance exchange-info, kline, funding, and liquidity-rank summar
             dirs["cmc"] / "README.md",
             """# CoinMarketCap Market-Structure Curated Layer
 
-Contains CMC Fear & Greed normalized history only when `CMC_API_KEY` is available and cached. Without a key, the public output falls back to the tracked AlternativeMe Fear & Greed series and records the CMC gap.
+Contains CMC Fear & Greed normalized history when a local cache exists. Live refreshes require `CMC_API_KEY`; public output falls back to the tracked AlternativeMe series only when no CMC cache is present.
 """,
         ),
     ]
@@ -567,6 +567,8 @@ def write_reports(
     rows = int(feature_panel["rows"].sum()) if not feature_panel.empty else 0
     key_required = endpoint_rows[endpoint_rows["requires_key_env"].astype(str) != ""] if "requires_key_env" in endpoint_rows else pd.DataFrame()
     key_available = int(key_required["key_available"].sum()) if "key_available" in key_required else 0
+    cmc_path = project_root / "Data" / "MarketStructure" / "CoinMarketCap" / "cmc_fear_greed__daily.csv"
+    cmc_rows = len(pd.read_csv(cmc_path)) if cmc_path.exists() else 0
     return [
         write_text(
             report_dir / "market_evolution_thesis.md",
@@ -587,7 +589,7 @@ Raw optional payloads are stored in gitignored `data_cache/{defillama,binance,co
 
 Point-in-time market-cap top100 universes require point-in-time market-cap source data. The pipeline refuses to backfill a historical top100 from a current list. Binance top100 outputs are labeled as exchange-liquidity ranks based on rolling quote volume.
 
-CMC Fear & Greed uses the official `v3/fear-and-greed/historical` client when `CMC_API_KEY` is available. Without that key, the tracked AlternativeMe series remains the baseline sentiment source.
+CMC Fear & Greed uses the official `v3/fear-and-greed/historical` client when `CMC_API_KEY` is available. Once cached, the normalized CMC history can be rebuilt without the key. If no CMC cache exists, the tracked AlternativeMe series remains the baseline sentiment source.
 """,
         ),
         write_text(
@@ -618,7 +620,7 @@ Curated source files live under `Data/MarketStructure/`. Existing frozen data un
 - Binance does not provide historical market-cap rankings, so the Binance universe is liquidity-ranked only.
 - Current order-book and ticker endpoints are snapshots and are not used as historical depth.
 - Stablecoin supply and TVL are proxies, not proven causal drivers.
-- CMC Fear & Greed is unavailable unless `CMC_API_KEY` is configured.
+- CMC Fear & Greed live refresh requires `CMC_API_KEY`; cached history is included when present.
 """,
         ),
         write_text(
@@ -628,6 +630,8 @@ Curated source files live under `Data/MarketStructure/`. Existing frozen data un
 Endpoint rows audited: {len(endpoint_rows)}
 
 Optional key-gated endpoints available now: {key_available}/{len(key_required)}
+
+Cached CMC Fear & Greed rows available: {cmc_rows}
 
 Skipped outputs:
 {chr(10).join(f"- {item}" for item in skipped) if skipped else "- None"}
@@ -791,7 +795,7 @@ Tables:
 Guardrails:
 
 - Binance top100 is exchange-liquidity based, not historical market-cap rank.
-- CMC Fear & Greed is skipped unless `CMC_API_KEY` is available.
+- CMC live fetch requires `CMC_API_KEY`; cached CMC history is included when present.
 - Raw source responses stay in gitignored `data_cache/`.
 """
     return write_text(path, text + "\n" + section)
@@ -819,7 +823,7 @@ def patch_outputs_manifest(project_root: Path, output_files: list[Path], skipped
         "skipped": skipped,
         "guardrails": [
             "Binance top100 is exchange-liquidity based, not market-cap based.",
-            "CMC Fear & Greed is skipped without CMC_API_KEY.",
+            "CMC live fetch requires CMC_API_KEY; cached CMC history is included when present.",
             "Raw API payloads stay in data_cache/ and are not committed.",
             "No API keys are written to outputs or manifests.",
         ],
