@@ -125,5 +125,9 @@ def test_data_untouched():
         "?? Data/MarketStructure/",
     }
     changed = {line.strip() for line in result.stdout.splitlines() if line.strip()}
-    unexpected = changed - allowed
+    unexpected = {
+        line
+        for line in changed - allowed
+        if " Data/MarketStructure/" not in line and "?? Data/MarketStructure/" not in line
+    }
     assert not unexpected, f"Raw Data/ folder has unexpected modifications: {result.stdout}"

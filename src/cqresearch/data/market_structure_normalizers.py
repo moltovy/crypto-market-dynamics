@@ -151,10 +151,16 @@ def normalize_cmc_fear_greed(payload: dict[str, Any]) -> pd.DataFrame:
 
     rows = []
     for item in payload.get("data", []):
+        timestamp = item.get("timestamp")
+        numeric_timestamp = pd.to_numeric(timestamp, errors="coerce")
+        if pd.notna(numeric_timestamp):
+            date_value = pd.to_datetime(numeric_timestamp, unit="s", utc=True).date()
+        else:
+            date_value = pd.to_datetime(timestamp, utc=True).date()
         rows.append(
             {
                 "source": "coinmarketcap",
-                "date": pd.to_datetime(item.get("timestamp"), utc=True).date(),
+                "date": date_value,
                 "fng_value": pd.to_numeric(item.get("value"), errors="coerce"),
                 "fng_classification": item.get("value_classification"),
             }

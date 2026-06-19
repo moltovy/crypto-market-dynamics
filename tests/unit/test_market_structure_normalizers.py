@@ -30,9 +30,15 @@ def test_market_structure_normalizers_use_static_payloads() -> None:
     assert stable.loc[0, "symbol"] == "USDT"
 
     cmc = normalize_cmc_fear_greed(
-        {"data": [{"timestamp": "2024-09-02T12:00:00.000Z", "value": 50, "value_classification": "Neutral"}]}
+        {
+            "data": [
+                {"timestamp": "2024-09-02T12:00:00.000Z", "value": 50, "value_classification": "Neutral"},
+                {"timestamp": 1_695_340_800, "value": 35, "value_classification": "Fear"},
+            ]
+        }
     )
     assert cmc.loc[0, "source"] == "coinmarketcap"
+    assert len(cmc) == 2
 
     alt = normalize_alternative_me_fear_greed(
         pd.DataFrame({"date": ["2024-01-01"], "fng_value": [42], "fng_classification": ["Fear"]})

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
 import requests  # type: ignore[import-untyped]
@@ -177,3 +178,56 @@ def manifest_rows_from_results(results: list[FetchResult]) -> list[dict[str, Any
     """Convert fetch results to serializable manifest rows."""
 
     return [result.as_dict() for result in results]
+
+
+def fetch_cmc_fear_greed_history(
+    spec: EndpointSpec,
+    layout: CacheLayout,
+    *,
+    dry_run: bool = False,
+    cache_only: bool = False,
+    limit: int = 500,
+    max_pages: int = 20,
+    secrets: list[str] | None = None,
+) -> list[FetchResult]:
+    """Fetch CMC Fear & Greed history using offset pagination.
+
+    CoinMarketCap caps the historical endpoint at 500 records per request. The
+    API uses ``start`` as a 1-indexed offset, so cached page datasets are named
+    ``fear_greed_historical_start_<offset>``.
+    """
+
+    results: list[FetchResult] = []
+    start = int(spec.params.get("start", 1) or 1)
+    for _ in range(max_pages):
+        page_spec = EndpointSpec(
+            source=spec.source,
+            dataset=f"{spec.dataset}_start_{start}",
+            url=spec.url,
+            method=spec.method,
+            params={**spec.params, "start": start, "limit": min(limit, 500)},
+            headers=spec.headers,
+            requires_key_env=spec.requires_key_env,
+            tier=spec.tier,
+            frequency=spec.frequency,
+            notes=spec.notes,
+        )
+        result = fetch_json_spec(
+            page_spec,
+            layout,
+            dry_run=dry_run,
+            cache_only=cache_only,
+            secrets=secrets,
+        )
+        results.append(result)
+        if result.status not in {"fetched", "cache_hit"}:
+            break
+        try:
+            payload = read_json(Path(result.cache_path))
+            page_len = len(payload.get("data", [])) if isinstance(payload, dict) else 0
+        except Exception:
+            page_len = 0
+        if dry_run or cache_only or page_len < min(limit, 500):
+            break
+        start += page_len
+    return results

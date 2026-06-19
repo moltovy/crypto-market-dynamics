@@ -14,7 +14,10 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from cqresearch.data.market_structure_cache import CacheLayout  # noqa: E402
-from cqresearch.data.market_structure_clients import fetch_many  # noqa: E402
+from cqresearch.data.market_structure_clients import (  # noqa: E402
+    fetch_cmc_fear_greed_history,
+    fetch_many,
+)
 from cqresearch.data.market_structure_endpoints import (  # noqa: E402
     binance_specs,
     cmc_specs,
@@ -52,13 +55,29 @@ def main() -> int:
     core_symbols = [item.strip().upper() for item in args.core_symbols.split(",") if item.strip()]
     layout = CacheLayout.from_env(ROOT)
     secrets = [os.getenv("DEFILLAMA_API_KEY", ""), os.getenv("CMC_API_KEY", "")]
-    results = fetch_many(
-        selected_specs(args.source, core_symbols),
-        layout,
-        dry_run=args.dry_run,
-        cache_only=args.cache_only,
-        secrets=secrets,
-    )
+    specs = selected_specs(args.source, core_symbols)
+    results = []
+    for spec in specs:
+        if spec.source == "coinmarketcap" and spec.dataset == "fear_greed_historical":
+            results.extend(
+                fetch_cmc_fear_greed_history(
+                    spec,
+                    layout,
+                    dry_run=args.dry_run,
+                    cache_only=args.cache_only,
+                    secrets=secrets,
+                )
+            )
+        else:
+            results.extend(
+                fetch_many(
+                    [spec],
+                    layout,
+                    dry_run=args.dry_run,
+                    cache_only=args.cache_only,
+                    secrets=secrets,
+                )
+            )
     frame = pd.DataFrame([result.as_dict() for result in results])
     print(frame[["source", "dataset", "status", "message"]].to_string(index=False))
     return 0

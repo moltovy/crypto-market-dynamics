@@ -113,5 +113,5 @@ Tables:
 Guardrails:
 
 - Binance top100 is exchange-liquidity based, not historical market-cap rank.
-- CMC Fear & Greed is skipped unless `CMC_API_KEY` is available.
+- CMC live fetch requires `CMC_API_KEY`; cached CMC history is included when present.
 - Raw source responses stay in gitignored `data_cache/`.
