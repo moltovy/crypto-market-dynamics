@@ -36,6 +36,14 @@ secondary_candidates:
   - id: yen_carry_unwind_2024
     date: 2024-08-05
     description: Yen-carry unwind; global vol spike.
+  - id: sec_generic_etp_listing_standards_2025
+    date: 2025-09-17
+    description: SEC approves generic listing standards for commodity-based trust shares, including crypto asset commodity ETP context.
+    source: SEC press release 2025-121, published 2025-09-17.
+  - id: crypto_liquidation_tariff_shock_2025
+    date: 2025-10-10
+    description: Reported crypto liquidation shock around US-China tariff escalation; reference stress episode.
+    source: Market reports around 2025-10-10 tariff/liquidation shock.
 
 # Halvings (for Sample B BTC long-history)
 halvings:

@@ -80,6 +80,7 @@ The additive market-structure layer integrates tracked DefiLlama/AlternativeMe/T
 
 Reports:
 
+- `report/altseason_rotation_lab.md`
 - `report/market_evolution_thesis.md`
 - `report/market_structure_modeling_thesis.md`
 - `report/market_structure_methodology.md`
@@ -107,6 +108,12 @@ Figures:
 - `figures/F45_market_structure_composition_shift.png`
 - `figures/F46_market_structure_turnover_by_phase.png`
 - `figures/F47_market_structure_modeling_dashboard.png`
+- `figures/F48_altseason_breadth.png`
+- `figures/F49_constituent_return_indexes.png`
+- `figures/F50_return_dispersion.png`
+- `figures/F51_rolling_beta_to_btc.png`
+- `figures/F52_event_response_top50.png`
+- `figures/F53_rotation_dashboard.png`
 
 Tables:
 
@@ -134,10 +141,20 @@ Tables:
 - `tables/T49_market_structure_composition_shift.csv`
 - `tables/T50_market_structure_turnover_by_phase.csv`
 - `tables/T51_market_structure_modeling_summary.md`
+- `tables/T52_constituent_daily_ohlcv.csv`
+- `tables/T53_altseason_breadth.csv`
+- `tables/T54_constituent_return_indexes.csv`
+- `tables/T55_return_dispersion.csv`
+- `tables/T56_rolling_beta_to_btc_eth.csv`
+- `tables/T57_category_rotation_returns.csv`
+- `tables/T58_event_response_top50.csv`
+- `tables/T59_constituent_data_gap_report.csv`
+- `tables/T60_altseason_rotation_summary.md`
 
 Guardrails:
 
 - Binance top100 is exchange-liquidity based, not historical market-cap rank.
 - CMC live fetch requires `CMC_API_KEY`; cached CMC history is included when present.
 - Monthly universe snapshots support composition and turnover analysis, not daily performance or event-return claims.
+- Daily constituent diagnostics are a current top50 ex-stablecoin sample, not a point-in-time top100 panel.
 - Raw source responses stay in gitignored `data_cache/`.
