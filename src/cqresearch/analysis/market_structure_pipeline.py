@@ -68,6 +68,7 @@ def ensure_dirs(project_root: Path) -> dict[str, Path]:
         "defillama": data_root / "DefiLlama",
         "binance": data_root / "Binance",
         "cmc": data_root / "CoinMarketCap",
+        "sentiment": data_root / "Sentiment",
         "registry": data_root / "SourceRegistry",
         "outputs": project_root / "outputs",
         "tables": project_root / "outputs" / "tables",
@@ -164,13 +165,20 @@ Contains public Binance exchange-info, kline, funding, and liquidity-rank summar
 Contains CMC Fear & Greed normalized history when a local cache exists. Live refreshes require `CMC_API_KEY`; public output falls back to the tracked AlternativeMe series only when no CMC cache is present.
 """,
         ),
+        write_text(
+            dirs["sentiment"] / "README.md",
+            """# Sentiment Curated Layer
+
+Contains the transparent Fear & Greed blend and source-overlap diagnostics. The blended file uses AlternativeMe before 2023-06-29 and CoinMarketCap from 2023-06-29 onward, with a `source` column preserved on every row.
+""",
+        ),
     ]
     return written
 
 
 def source_registry(project_root: Path) -> pd.DataFrame:
     defillama_count = len(list((project_root / "Data" / "DefiLlama").rglob("*.csv")))
-    ms_count = len(list((project_root / "Data" / "MarketStructure").rglob("*.csv")))
+    binance_count = len(list((project_root / "Data" / "MarketStructure" / "Binance").rglob("*.csv")))
     return pd.DataFrame(
         [
             {
@@ -184,7 +192,7 @@ def source_registry(project_root: Path) -> pd.DataFrame:
             {
                 "source": "Binance",
                 "role": "CEX spot/futures liquidity, quote volume, funding and premium regimes",
-                "tracked_files": ms_count,
+                "tracked_files": binance_count,
                 "auth_required": "no",
                 "storage_policy": "raw cache in data_cache/binance; curated summaries in Data/MarketStructure/Binance",
                 "status": "optional_public_fetch_or_cache",
@@ -229,6 +237,7 @@ def normalize_cache_to_curated(project_root: Path = ROOT, *, cache_only: bool = 
     written.extend(normalize_defillama_cache(layout, dirs["defillama"], skipped))
     written.extend(normalize_binance_cache(layout, dirs["binance"], skipped))
     written.extend(normalize_cmc_cache(layout, dirs["cmc"], skipped))
+    written.extend(write_sentiment_blend_files(project_root, dirs["sentiment"], skipped))
 
     status_rows = [{"status": "cache_only", "detail": "No network calls were made."}] if cache_only else []
     status_rows.extend({"status": "skipped", "detail": item} for item in skipped)
@@ -329,6 +338,172 @@ def normalize_cmc_cache(layout: CacheLayout, out_dir: Path, skipped: list[str]) 
     frames = [normalize_cmc_fear_greed(payload) for _, payload in payloads]
     out = pd.concat(frames, ignore_index=True).drop_duplicates(subset=["date"]).sort_values("date")
     written.append(write_csv(out_dir / "cmc_fear_greed__daily.csv", out))
+    return written
+
+
+def load_alt_and_cmc_fear_greed(project_root: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Load AlternativeMe and curated CMC Fear & Greed frames."""
+
+    alt_path = project_root / "Data" / "AlternativeMe" / "fear_greed_index__daily.csv"
+    cmc_path = project_root / "Data" / "MarketStructure" / "CoinMarketCap" / "cmc_fear_greed__daily.csv"
+    alt = pd.DataFrame(columns=["date", "alt_value", "alt_classification"])
+    cmc = pd.DataFrame(columns=["date", "cmc_value", "cmc_classification"])
+    if alt_path.exists():
+        alt = pd.read_csv(alt_path, parse_dates=["date"]).rename(
+            columns={"fng_value": "alt_value", "fng_classification": "alt_classification"}
+        )
+    if cmc_path.exists():
+        cmc = pd.read_csv(cmc_path, parse_dates=["date"]).rename(
+            columns={"fng_value": "cmc_value", "fng_classification": "cmc_classification"}
+        )
+    return alt[["date", "alt_value", "alt_classification"]], cmc[
+        ["date", "cmc_value", "cmc_classification"]
+    ]
+
+
+def sentiment_overlap_diagnostics(project_root: Path) -> pd.DataFrame:
+    """Return daily overlap diagnostics between AlternativeMe and CMC."""
+
+    alt, cmc = load_alt_and_cmc_fear_greed(project_root)
+    if alt.empty or cmc.empty:
+        return pd.DataFrame(
+            columns=[
+                "date",
+                "alt_value",
+                "cmc_value",
+                "diff_cmc_minus_alt",
+                "abs_diff",
+                "alt_classification",
+                "cmc_classification",
+                "same_classification",
+            ]
+        )
+    merged = alt.merge(cmc, on="date", how="inner")
+    merged["diff_cmc_minus_alt"] = merged["cmc_value"] - merged["alt_value"]
+    merged["abs_diff"] = merged["diff_cmc_minus_alt"].abs()
+    merged["same_classification"] = (
+        merged["alt_classification"].astype(str).str.lower().str.strip()
+        == merged["cmc_classification"].astype(str).str.lower().str.strip()
+    )
+    merged["date"] = merged["date"].dt.date
+    return merged[
+        [
+            "date",
+            "alt_value",
+            "cmc_value",
+            "diff_cmc_minus_alt",
+            "abs_diff",
+            "alt_classification",
+            "cmc_classification",
+            "same_classification",
+        ]
+    ].sort_values("date")
+
+
+def sentiment_overlap_summary(project_root: Path, *, splice_date: str = "2023-06-29") -> pd.DataFrame:
+    """Summarize AlternativeMe vs CMC overlap and splice risk."""
+
+    overlap = sentiment_overlap_diagnostics(project_root)
+    alt, cmc = load_alt_and_cmc_fear_greed(project_root)
+    rows: list[dict[str, object]] = []
+    if overlap.empty:
+        return pd.DataFrame(
+            [{"metric": "overlap_rows", "value": 0, "note": "CMC or AlternativeMe data unavailable."}]
+        )
+
+    def add(metric: str, value: object, note: str = "") -> None:
+        rows.append({"metric": metric, "value": value, "note": note})
+
+    add("overlap_rows", len(overlap))
+    add("overlap_start", str(overlap["date"].min()))
+    add("overlap_end", str(overlap["date"].max()))
+    add("pearson_correlation", round(float(overlap[["alt_value", "cmc_value"]].corr().iloc[0, 1]), 4))
+    add("mean_diff_cmc_minus_alt", round(float(overlap["diff_cmc_minus_alt"].mean()), 4))
+    add("median_diff_cmc_minus_alt", round(float(overlap["diff_cmc_minus_alt"].median()), 4))
+    add("mean_abs_diff", round(float(overlap["abs_diff"].mean()), 4))
+    add("median_abs_diff", round(float(overlap["abs_diff"].median()), 4))
+    add("p90_abs_diff", round(float(overlap["abs_diff"].quantile(0.90)), 4))
+    add("max_abs_diff", round(float(overlap["abs_diff"].max()), 4))
+    add("share_abs_diff_le_5", round(float((overlap["abs_diff"] <= 5).mean()), 4))
+    add("share_abs_diff_le_10", round(float((overlap["abs_diff"] <= 10).mean()), 4))
+    add("classification_match_rate", round(float(overlap["same_classification"].mean()), 4))
+
+    splice = pd.Timestamp(splice_date)
+    if not alt.empty and not cmc.empty:
+        prev_alt = alt.loc[alt["date"] == splice - pd.Timedelta(days=1), "alt_value"]
+        first_cmc = cmc.loc[cmc["date"] == splice, "cmc_value"]
+        same_day_alt = alt.loc[alt["date"] == splice, "alt_value"]
+        if not prev_alt.empty and not first_cmc.empty:
+            add(
+                "splice_jump_alt_prev_day_to_cmc_start",
+                round(float(first_cmc.iloc[0] - prev_alt.iloc[0]), 4),
+                f"AlternativeMe {(splice - pd.Timedelta(days=1)).date()} to CMC {splice.date()}",
+            )
+        if not same_day_alt.empty and not first_cmc.empty:
+            add(
+                "same_day_cmc_minus_alt_on_splice_date",
+                round(float(first_cmc.iloc[0] - same_day_alt.iloc[0]), 4),
+            )
+        alt_last_date = alt["date"].max()
+        cmc_next = cmc.loc[cmc["date"] == alt_last_date + pd.Timedelta(days=1), "cmc_value"]
+        alt_last = alt.loc[alt["date"] == alt_last_date, "alt_value"]
+        if not alt_last.empty and not cmc_next.empty:
+            add(
+                "jump_if_alt_used_until_its_end_then_cmc",
+                round(float(cmc_next.iloc[0] - alt_last.iloc[0]), 4),
+                "Shows why switching at CMC start is cleaner than waiting until AlternativeMe ends.",
+            )
+    add(
+        "recommendation",
+        "acceptable_with_source_flag",
+        "Use as a coverage blend, not as proof the vendors are identical.",
+    )
+    return pd.DataFrame(rows)
+
+
+def build_blended_fear_greed(project_root: Path, *, splice_date: str = "2023-06-29") -> pd.DataFrame:
+    """Blend AlternativeMe before CMC starts and CMC after the splice date."""
+
+    alt, cmc = load_alt_and_cmc_fear_greed(project_root)
+    if alt.empty or cmc.empty:
+        return pd.DataFrame(
+            columns=["date", "fng_value", "fng_classification", "source", "splice_rule", "is_post_splice"]
+        )
+    splice = pd.Timestamp(splice_date)
+    alt_part = alt[alt["date"] < splice].rename(
+        columns={"alt_value": "fng_value", "alt_classification": "fng_classification"}
+    )
+    alt_part["source"] = "alternative_me"
+    cmc_part = cmc[cmc["date"] >= splice].rename(
+        columns={"cmc_value": "fng_value", "cmc_classification": "fng_classification"}
+    )
+    cmc_part["source"] = "coinmarketcap"
+    blended = pd.concat(
+        [
+            alt_part[["date", "fng_value", "fng_classification", "source"]],
+            cmc_part[["date", "fng_value", "fng_classification", "source"]],
+        ],
+        ignore_index=True,
+    ).sort_values("date")
+    blended["splice_rule"] = f"alternative_me_before_{splice_date}__coinmarketcap_from_{splice_date}"
+    blended["is_post_splice"] = blended["date"] >= splice
+    blended["date"] = blended["date"].dt.date
+    return blended[["date", "fng_value", "fng_classification", "source", "splice_rule", "is_post_splice"]]
+
+
+def write_sentiment_blend_files(project_root: Path, out_dir: Path, skipped: list[str]) -> list[Path]:
+    """Write the curated blended Fear & Greed file and overlap diagnostics."""
+
+    written: list[Path] = []
+    blended = build_blended_fear_greed(project_root)
+    overlap = sentiment_overlap_diagnostics(project_root)
+    summary = sentiment_overlap_summary(project_root)
+    if blended.empty:
+        skipped.append("Fear & Greed blend skipped because CMC or AlternativeMe data is unavailable.")
+        return written
+    written.append(write_csv(out_dir / "fear_greed_altme_pre_cmc_post__daily.csv", blended))
+    written.append(write_csv(out_dir / "fear_greed_source_overlap__daily.csv", overlap))
+    written.append(write_csv(out_dir / "fear_greed_source_overlap_summary.csv", summary))
     return written
 
 
@@ -536,6 +711,15 @@ def build_outputs(project_root: Path = ROOT) -> MarketStructureBuildResult:
     if not (project_root / "Data" / "MarketStructure" / "CoinMarketCap" / "cmc_fear_greed__daily.csv").exists():
         skipped.append("CMC Fear & Greed skipped because CMC_API_KEY/cache is unavailable; AlternativeMe baseline used.")
     output_files.append(write_csv(dirs["tables"] / "T31_sentiment_comparison.csv", sentiment))
+    sentiment_dir = project_root / "Data" / "MarketStructure" / "Sentiment"
+    blend_path = sentiment_dir / "fear_greed_altme_pre_cmc_post__daily.csv"
+    overlap_summary_path = sentiment_dir / "fear_greed_source_overlap_summary.csv"
+    if blend_path.exists():
+        output_files.append(write_csv(dirs["tables"] / "T38_fear_greed_blended_daily.csv", pd.read_csv(blend_path)))
+    if overlap_summary_path.exists():
+        output_files.append(
+            write_csv(dirs["tables"] / "T39_fear_greed_source_overlap_summary.csv", pd.read_csv(overlap_summary_path))
+        )
     stablecoin_tvl = stablecoin_tvl_regimes(project_root)
     output_files.append(write_csv(dirs["tables"] / "T32_stablecoin_tvl_regimes.csv", stablecoin_tvl))
     activity = cex_dex_activity(project_root)
@@ -548,6 +732,23 @@ def build_outputs(project_root: Path = ROOT) -> MarketStructureBuildResult:
     skipped.append("Historical market-cap top100 skipped because no point-in-time source is available.")
     output_files.append(write_csv(dirs["tables"] / "T36_market_cap_top100_gap.csv", gap))
     feature_panel = feature_panel_summary(sentiment, stablecoin_tvl, activity, ranks)
+    if blend_path.exists():
+        blend_rows = len(pd.read_csv(blend_path))
+        feature_panel = pd.concat(
+            [
+                feature_panel,
+                pd.DataFrame(
+                    [
+                        {
+                            "feature_family": "fear_greed_blended_altme_pre_cmc_post",
+                            "rows": blend_rows,
+                            "status": "available",
+                        }
+                    ]
+                ),
+            ],
+            ignore_index=True,
+        )
     output_files.append(write_csv(dirs["tables"] / "T37_market_structure_feature_panel.csv", feature_panel))
 
     output_files.extend(write_reports(project_root, feature_panel, endpoint_rows, skipped))
@@ -608,6 +809,8 @@ Primary public tables:
 - `T35_rwa_dat_growth.csv`
 - `T36_market_cap_top100_gap.csv`
 - `T37_market_structure_feature_panel.csv`
+- `T38_fear_greed_blended_daily.csv`
+- `T39_fear_greed_source_overlap_summary.csv`
 
 Curated source files live under `Data/MarketStructure/`. Existing frozen data under `Data/DefiLlama`, `Data/AlternativeMe`, and `Data/Tradingview` remains unchanged.
 """,
@@ -791,6 +994,8 @@ Tables:
 - `tables/T35_rwa_dat_growth.csv`
 - `tables/T36_market_cap_top100_gap.csv`
 - `tables/T37_market_structure_feature_panel.csv`
+- `tables/T38_fear_greed_blended_daily.csv`
+- `tables/T39_fear_greed_source_overlap_summary.csv`
 
 Guardrails:
 
