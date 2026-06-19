@@ -24,6 +24,7 @@ CLEAN_RISK_EXCLUDED_CLASSES = STABLE_LIKE_CLASSES | {
     "wrapped_assets",
     "lst_restaking",
     "tokenized_commodities",
+    "tokenized_rwa",
     "bridged_duplicates",
 }
 
@@ -81,6 +82,8 @@ COLUMN_ALIASES = {
         "mcaprank",
         "rank",
     ],
+    "token_id": ["token_id", "tokenid", "asset_id", "assetid", "defillama_id", "defillamaid"],
+    "coingecko_id": ["coingecko_id", "coingeckoid", "cg_id", "cgid"],
 }
 
 
@@ -134,6 +137,8 @@ def normalize_defillama_monthly_universe(
     name_col = _optional_column(raw, "asset_name")
     price_col = _optional_column(raw, "price_usd")
     rank_col = _optional_column(raw, "source_rank_full_market")
+    token_col = _optional_column(raw, "token_id")
+    coingecko_col = _optional_column(raw, "coingecko_id")
 
     out = pd.DataFrame(
         {
@@ -144,6 +149,10 @@ def normalize_defillama_monthly_universe(
     )
     out["asset_name"] = raw[name_col].astype(str).str.strip() if name_col else out["symbol"]
     out["price_usd"] = pd.to_numeric(raw[price_col], errors="coerce") if price_col else pd.NA
+    out["token_id"] = raw[token_col].astype(str).str.strip() if token_col else ""
+    out["coingecko_id"] = raw[coingecko_col].astype(str).str.strip() if coingecko_col else ""
+    out["asset_key"] = out["coingecko_id"].where(out["coingecko_id"].ne(""), out["token_id"])
+    out["asset_key"] = out["asset_key"].where(out["asset_key"].ne(""), out["symbol"])
     if rank_col:
         out["source_rank_full_market"] = pd.to_numeric(raw[rank_col], errors="coerce")
         if out["source_rank_full_market"].isna().any():
@@ -154,8 +163,8 @@ def normalize_defillama_monthly_universe(
     out = out.dropna(subset=["snapshot_date", "symbol", "market_cap_usd"])
     if (out["market_cap_usd"] <= 0).any():
         raise UniverseValidationError("market_cap_usd must be positive and non-null for every row.")
-    if out.duplicated(["snapshot_date", "symbol"]).any():
-        raise UniverseValidationError("Monthly universe contains duplicate symbol/date rows.")
+    if out.duplicated(["snapshot_date", "asset_key"]).any():
+        raise UniverseValidationError("Monthly universe contains duplicate asset-key/date rows.")
 
     snapshots = sorted(out["snapshot_date"].unique())
     if len(snapshots) != expected_snapshots:
@@ -204,6 +213,9 @@ def normalize_defillama_monthly_universe(
         "source",
         "snapshot_date",
         "month",
+        "asset_key",
+        "token_id",
+        "coingecko_id",
         "symbol",
         "asset_name",
         "price_usd",
@@ -322,7 +334,12 @@ def classify_market_universe(universe: pd.DataFrame, overrides: dict[str, set[st
     if universe.empty:
         return pd.DataFrame()
     out = universe.copy()
-    out["asset_class"] = out["symbol"].map(lambda value: classify_asset(str(value), overrides))
+    if "asset_key" not in out:
+        out["asset_key"] = out["symbol"]
+    out["asset_class"] = out.apply(
+        lambda row: classify_universe_asset(str(row["symbol"]), str(row.get("asset_name", "")), overrides),
+        axis=1,
+    )
     out["in_full_top100"] = out["rank_full_market"] <= 100
     ex_stable = _rerank_monthly(out[~out["asset_class"].isin(STABLE_LIKE_CLASSES)], "rank_ex_stable")
     clean_risk = _rerank_monthly(
@@ -330,18 +347,41 @@ def classify_market_universe(universe: pd.DataFrame, overrides: dict[str, set[st
         "rank_clean_risk",
     )
     out = out.merge(
-        ex_stable[["snapshot_date", "symbol", "rank_ex_stable"]],
-        on=["snapshot_date", "symbol"],
+        ex_stable[["snapshot_date", "asset_key", "rank_ex_stable"]],
+        on=["snapshot_date", "asset_key"],
         how="left",
     )
     out = out.merge(
-        clean_risk[["snapshot_date", "symbol", "rank_clean_risk"]],
-        on=["snapshot_date", "symbol"],
+        clean_risk[["snapshot_date", "asset_key", "rank_clean_risk"]],
+        on=["snapshot_date", "asset_key"],
         how="left",
     )
     out["in_ex_stable_top100"] = out["rank_ex_stable"].le(100).fillna(False)
     out["in_clean_risk_top100"] = out["rank_clean_risk"].le(100).fillna(False)
     return out.sort_values(["snapshot_date", "rank_full_market"]).reset_index(drop=True)
+
+
+def classify_universe_asset(symbol: str, asset_name: str, overrides: dict[str, set[str]]) -> str:
+    """Classify a universe asset using symbol overrides plus productized-name hints."""
+
+    symbol_token = symbol.upper().strip()
+    name_token = asset_name.upper().strip()
+    override_class = classify_asset(symbol_token, overrides)
+    if override_class not in {"base_assets", "risk_assets"}:
+        return override_class
+    if "STAKED" in name_token or "RESTAKED" in name_token or symbol_token in {"RSETH", "WEETH"}:
+        return "lst_restaking"
+    if (
+        "WRAPPED" in name_token
+        or (symbol_token.startswith("W") and len(symbol_token) > 3)
+        or symbol_token in {"AWETH", "BTCT", "CLBTC"}
+    ):
+        return "wrapped_assets"
+    if "USD" in name_token and ("YIELD" in name_token or "LIQUIDITY FUND" in name_token):
+        return "stable_yield_tokens"
+    if symbol_token.startswith("USD") or symbol_token.endswith("USD") or " USD" in name_token:
+        return "stablecoins"
+    return override_class
 
 
 def _rerank_monthly(frame: pd.DataFrame, rank_col: str) -> pd.DataFrame:
@@ -358,6 +398,9 @@ def clean_risk_top100(universe: pd.DataFrame) -> pd.DataFrame:
     cols = [
         "snapshot_date",
         "month",
+        "asset_key",
+        "token_id",
+        "coingecko_id",
         "symbol",
         "asset_name",
         "asset_class",
@@ -398,7 +441,7 @@ def market_structure_composition(universe: pd.DataFrame) -> pd.DataFrame:
         )
     grouped = (
         combined.groupby(["snapshot_date", "month", "universe_type", "asset_class"], as_index=False)
-        .agg(asset_count=("symbol", "nunique"), market_cap_usd=("market_cap_usd", "sum"))
+        .agg(asset_count=("asset_key", "nunique"), market_cap_usd=("market_cap_usd", "sum"))
         .sort_values(["snapshot_date", "universe_type", "asset_class"])
     )
     totals = grouped.groupby(["snapshot_date", "universe_type"])["market_cap_usd"].transform("sum")
@@ -426,29 +469,29 @@ def rank_turnover(universe: pd.DataFrame) -> pd.DataFrame:
     ]
     rows: list[dict[str, Any]] = []
     for universe_type, flag_col, rank_col in specs:
-        prev_symbols: set[str] = set()
+        prev_assets: set[str] = set()
         prev_ranks: dict[str, float] = {}
         subset = universe[universe[flag_col]].copy()
         for snapshot_date, group in subset.groupby("snapshot_date", sort=True):
-            current_symbols = set(group["symbol"])
-            current_ranks = dict(zip(group["symbol"], group[rank_col], strict=False))
-            continuing = current_symbols & prev_symbols
+            current_assets = set(group["asset_key"])
+            current_ranks = dict(zip(group["asset_key"], group[rank_col], strict=False))
+            continuing = current_assets & prev_assets
             rank_changes = [
-                abs(float(current_ranks[symbol]) - float(prev_ranks[symbol])) for symbol in continuing
+                abs(float(current_ranks[asset]) - float(prev_ranks[asset])) for asset in continuing
             ]
             rows.append(
                 {
                     "snapshot_date": snapshot_date,
                     "month": group["month"].iloc[0],
                     "universe_type": universe_type,
-                    "entrants": len(current_symbols - prev_symbols),
-                    "exits": len(prev_symbols - current_symbols),
+                    "entrants": len(current_assets - prev_assets),
+                    "exits": len(prev_assets - current_assets),
                     "continuing_assets": len(continuing),
                     "avg_abs_rank_change": sum(rank_changes) / len(rank_changes) if rank_changes else pd.NA,
                     "median_abs_rank_change": pd.Series(rank_changes).median() if rank_changes else pd.NA,
                 }
             )
-            prev_symbols = current_symbols
+            prev_assets = current_assets
             prev_ranks = current_ranks
     return pd.DataFrame(rows)
 

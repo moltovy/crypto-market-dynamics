@@ -150,10 +150,16 @@ Method details live in [`docs/methodology/`](docs/methodology/).
 | [T31](outputs/tables/T31_sentiment_comparison.csv) | AlternativeMe and optional CMC Fear & Greed |
 | [T32](outputs/tables/T32_stablecoin_tvl_regimes.csv) | Stablecoin/TVL liquidity regimes |
 | [T33](outputs/tables/T33_cex_dex_activity.csv) | CEX/DEX activity context |
-| [T36](outputs/tables/T36_market_cap_top100_gap.csv) | Market-cap top100 gap guardrail |
+| [T36](outputs/tables/T36_market_cap_top100_gap.csv) | Market-cap universe availability guardrail |
 | [T37](outputs/tables/T37_market_structure_feature_panel.csv) | Market-structure feature availability summary |
 | [T38](outputs/tables/T38_fear_greed_blended_daily.csv) | Blended Fear & Greed series with source flags |
 | [T39](outputs/tables/T39_fear_greed_source_overlap_summary.csv) | AlternativeMe vs CMC overlap diagnostics |
+| [T40](outputs/tables/T40_crypto_universe_monthly.csv) | Point-in-time monthly top200 market-cap universe |
+| [T41](outputs/tables/T41_clean_risk_top100_monthly.csv) | Internally rebuilt clean-risk top100 |
+| [T42](outputs/tables/T42_market_structure_composition.csv) | Full/ex-stable/clean-risk composition |
+| [T43](outputs/tables/T43_rank_turnover.csv) | Monthly entries, exits, and rank movement |
+| [T44](outputs/tables/T44_cycle_phase_market_structure.csv) | Cycle/ETF phase composition |
+| [T45](outputs/tables/T45_market_evolution_summary.md) | Market evolution summary |
 
 ## Figures
 
@@ -246,8 +252,16 @@ Source: [T09_rolling_connectedness.csv](outputs/tables/T09_rolling_connectedness
 
 The extension surfaces source coverage, sentiment, stablecoin/TVL regimes,
 CEX/DEX activity, BTC dominance cycle markers, RWA/DAT context, Binance
-liquidity-rank availability, and explicit data gaps. The market-cap top100 gap
-is deliberate: the repo does not backfill historical ranks from a current list.
+liquidity-rank availability, and a point-in-time monthly market-cap universe.
+The universe is based on 78 monthly top200 snapshots from January 2020 through
+the partial June 16, 2026 snapshot.
+
+![Market evolution dashboard](outputs/figures/F42_market_evolution_dashboard.png)
+
+Latest monthly-universe readout: BTC plus ETH are 65.3% of full top100 market
+cap, the top10 are 87.6%, stable/synthetic/stable-yield assets are 13.8%, and
+the clean-risk asset share is 82.3%. Latest clean-risk top100 turnover is 5
+entrants and 5 exits.
 
 Key figures:
 
@@ -257,6 +271,11 @@ Key figures:
 - [F34 Binance liquidity universe](outputs/figures/F34_binance_liquidity_universe.png)
 - [F35 BTC dominance cycle overlay](outputs/figures/F35_btc_dominance_cycle_overlay.png)
 - [F37 market-cap top100 gap](outputs/figures/F37_market_cap_top100_gap.png)
+- [F38 market-structure composition](outputs/figures/F38_market_structure_composition.png)
+- [F39 top100 concentration](outputs/figures/F39_top100_concentration.png)
+- [F40 rank turnover](outputs/figures/F40_rank_turnover.png)
+- [F41 cycle-phase market structure](outputs/figures/F41_cycle_phase_market_structure.png)
+- [F42 market evolution dashboard](outputs/figures/F42_market_evolution_dashboard.png)
 
 ## Reproduce
 

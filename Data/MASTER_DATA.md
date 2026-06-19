@@ -593,6 +593,7 @@ Tracked normalized market-structure summaries. Raw API payloads stay in gitignor
 | Relative path | Topic | Rows | Freq |
 | --- | --- | ---: | --- |
 | `MarketStructure/CoinMarketCap/cmc_fear_greed__daily.csv` | Cmc Fear Greed  Daily | 1086 | daily |
+| `MarketStructure/DefiLlama/crypto_universe_monthly_2020_2026.csv` | Crypto Universe Monthly 2020 2026 | 15600 | monthly |
 | `MarketStructure/DefiLlama/defillama_existing_inventory.csv` | Defillama Existing Inventory | 44 | snapshot |
 | `MarketStructure/Sentiment/fear_greed_altme_pre_cmc_post__daily.csv` | Fear Greed Altme Pre Cmc Post  Daily | 3057 | daily |
 | `MarketStructure/Sentiment/fear_greed_source_overlap__daily.csv` | Fear Greed Source Overlap  Daily | 1023 | daily |

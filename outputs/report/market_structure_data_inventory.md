@@ -14,6 +14,11 @@ Primary public tables:
 - `T37_market_structure_feature_panel.csv`
 - `T38_fear_greed_blended_daily.csv`
 - `T39_fear_greed_source_overlap_summary.csv`
-
+- `T40_crypto_universe_monthly.csv`
+- `T41_clean_risk_top100_monthly.csv`
+- `T42_market_structure_composition.csv`
+- `T43_rank_turnover.csv`
+- `T44_cycle_phase_market_structure.csv`
+- `T45_market_evolution_summary.md`
 
 Curated source files live under `Data/MarketStructure/`. Existing frozen data under `Data/DefiLlama`, `Data/AlternativeMe`, and `Data/Tradingview` remains unchanged.

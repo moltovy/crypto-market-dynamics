@@ -1,2 +1,2 @@
 dataset,status,reason,guardrail
-market_cap_top100,skipped,No point-in-time top100 market-cap source is available; current top100 backfill is disallowed.,do_not_current_top100_backfill
+market_cap_top100,available,Point-in-time monthly market-cap universe source is present.,do_not_current_top100_backfill
