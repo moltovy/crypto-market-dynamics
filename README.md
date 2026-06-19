@@ -75,6 +75,18 @@ The clean catalog entry point is [`docs/data/catalog/`](docs/data/catalog/).
 The historical source-data tree remains under `Data/` for compatibility with
 existing scripts.
 
+### Market-Structure Extension
+
+The additive market-structure layer under [`Data/MarketStructure/`](Data/MarketStructure/)
+and [`outputs/`](outputs/) integrates tracked DefiLlama, AlternativeMe, and
+TradingView context with optional DefiLlama, Binance, and CoinMarketCap cache.
+It runs without API keys by writing explicit skip diagnostics. Raw API payloads
+and large pulls stay in gitignored `data_cache/`.
+
+Binance outputs are labeled as exchange-liquidity ranks based on rolling quote
+volume. They are not market-cap ranks. Historical market-cap top100 output is
+skipped unless point-in-time market-cap snapshots are provided.
+
 ## Methodology
 
 - Feature engineering for returns, differences, ETF-flow intensity, realized
@@ -124,6 +136,14 @@ Method details live in [`docs/methodology/`](docs/methodology/).
 | [T25](outputs/tables/T25_mvrv_sensitivity_by_regime.csv) | MVRV sensitivity by regime |
 | [T26](outputs/tables/T26_etf_era_feature_strength.csv) | ETF-era feature strength |
 | [T27](outputs/tables/T27_rolling_feature_rank_stability.csv) | Rolling feature rankings |
+| [T28](outputs/tables/T28_market_structure_source_capabilities.csv) | Market-structure source capability audit |
+| [T29](outputs/tables/T29_asset_classification.csv) | Internal asset classification |
+| [T30](outputs/tables/T30_binance_liquidity_top100.csv) | Binance exchange-liquidity universe |
+| [T31](outputs/tables/T31_sentiment_comparison.csv) | AlternativeMe and optional CMC Fear & Greed |
+| [T32](outputs/tables/T32_stablecoin_tvl_regimes.csv) | Stablecoin/TVL liquidity regimes |
+| [T33](outputs/tables/T33_cex_dex_activity.csv) | CEX/DEX activity context |
+| [T36](outputs/tables/T36_market_cap_top100_gap.csv) | Market-cap top100 gap guardrail |
+| [T37](outputs/tables/T37_market_structure_feature_panel.csv) | Market-structure feature availability summary |
 
 ## Figures
 
@@ -210,6 +230,24 @@ Source: [T09_rolling_connectedness.csv](outputs/tables/T09_rolling_connectedness
 
 *Supplementary figures (native state detail, liquidity context) are in [`outputs/figures/gallery/`](outputs/figures/gallery/).*
 
+### Market-Structure Dashboard
+
+![Market-structure dashboard](outputs/figures/F30_market_structure_dashboard.png)
+
+The extension surfaces source coverage, sentiment, stablecoin/TVL regimes,
+CEX/DEX activity, BTC dominance cycle markers, RWA/DAT context, Binance
+liquidity-rank availability, and explicit data gaps. The market-cap top100 gap
+is deliberate: the repo does not backfill historical ranks from a current list.
+
+Key figures:
+
+- [F31 stablecoin/TVL regimes](outputs/figures/F31_stablecoin_tvl_regimes.png)
+- [F32 sentiment comparison](outputs/figures/F32_sentiment_comparison.png)
+- [F33 CEX/DEX activity](outputs/figures/F33_cex_dex_activity.png)
+- [F34 Binance liquidity universe](outputs/figures/F34_binance_liquidity_universe.png)
+- [F35 BTC dominance cycle overlay](outputs/figures/F35_btc_dominance_cycle_overlay.png)
+- [F37 market-cap top100 gap](outputs/figures/F37_market_cap_top100_gap.png)
+
 ## Reproduce
 
 ```powershell
@@ -218,6 +256,10 @@ uv run python scripts/06_feature_strength.py
 uv run python scripts/make_hero_figures.py
 uv run pytest
 uv run mypy src/cqresearch
+uv run python scripts/audit_market_structure_endpoints.py --dry-run
+uv run python scripts/fetch_market_structure_raw.py --cache-only
+uv run python scripts/normalize_market_structure_cache.py --cache-only
+uv run python scripts/build_market_structure_outputs.py
 uv run python scripts/run_all.py
 ```
 
@@ -258,6 +300,9 @@ archive/               retained provenance, not the public workflow
   set.
 - Frozen data makes the project reproducible, but it is not a live market
   monitor.
+- Binance top100 is exchange-liquidity based, not market-cap based.
+- CoinMarketCap Fear & Greed requires `CMC_API_KEY`; without it the public build
+  uses the tracked AlternativeMe sentiment series and records the CMC gap.
 
 ## Data and License Notes
 

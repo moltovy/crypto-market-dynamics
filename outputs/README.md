@@ -73,3 +73,45 @@ uv run pytest
 uv run mypy src/cqresearch
 uv run python scripts/run_all.py
 ```
+
+## Market-Structure Extension
+
+The additive market-structure layer integrates tracked DefiLlama/AlternativeMe/TradingView context with optional DefiLlama, Binance, and CoinMarketCap cache. It does not require API keys for the public build.
+
+Reports:
+
+- `report/market_evolution_thesis.md`
+- `report/market_structure_methodology.md`
+- `report/market_structure_data_inventory.md`
+- `report/market_structure_limitations.md`
+- `report/market_structure_fetch_diagnostics.md`
+
+Figures:
+
+- `figures/F30_market_structure_dashboard.png`
+- `figures/F31_stablecoin_tvl_regimes.png`
+- `figures/F32_sentiment_comparison.png`
+- `figures/F33_cex_dex_activity.png`
+- `figures/F34_binance_liquidity_universe.png`
+- `figures/F35_btc_dominance_cycle_overlay.png`
+- `figures/F36_rwa_dat_growth.png`
+- `figures/F37_market_cap_top100_gap.png`
+
+Tables:
+
+- `tables/T28_market_structure_source_capabilities.csv`
+- `tables/T29_asset_classification.csv`
+- `tables/T30_binance_liquidity_top100.csv`
+- `tables/T31_sentiment_comparison.csv`
+- `tables/T32_stablecoin_tvl_regimes.csv`
+- `tables/T33_cex_dex_activity.csv`
+- `tables/T34_btc_cycle_overlay.csv`
+- `tables/T35_rwa_dat_growth.csv`
+- `tables/T36_market_cap_top100_gap.csv`
+- `tables/T37_market_structure_feature_panel.csv`
+
+Guardrails:
+
+- Binance top100 is exchange-liquidity based, not historical market-cap rank.
+- CMC Fear & Greed is skipped unless `CMC_API_KEY` is available.
+- Raw source responses stay in gitignored `data_cache/`.

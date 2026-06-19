@@ -1,0 +1,40 @@
+stablecoins:
+  - USDT
+  - USDC
+  - FDUSD
+  - BUSD
+  - DAI
+  - TUSD
+  - USDE
+  - USDP
+  - PYUSD
+wrapped_assets:
+  - WBTC
+  - WETH
+  - WBETH
+  - CBETH
+  - RETH
+  - STETH
+tokenized_commodities:
+  - PAXG
+  - XAUT
+base_assets:
+  - BTC
+  - ETH
+  - SOL
+  - BNB
+  - XRP
+  - ADA
+  - AVAX
+  - LINK
+lst_restaking:
+  - LDO
+  - RPL
+  - EIGEN
+  - ETHFI
+risk_assets:
+  - DOGE
+  - SHIB
+  - PEPE
+  - WIF
+  - BONK

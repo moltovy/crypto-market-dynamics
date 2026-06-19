@@ -1,0 +1,50 @@
+source: binance
+raw_cache: data_cache/binance
+curated_root: Data/MarketStructure/Binance
+policy:
+  auth: public endpoints require no key.
+  storage: raw responses and wide pulls stay in data_cache; normalized liquidity summaries may be tracked.
+  market_cap: Binance does not provide historical market-cap rankings; liquidity ranks must be labeled exchange-liquidity rank.
+defaults:
+  quote_assets: [USDT, USDC, FDUSD, BUSD]
+  core_symbols: [BTCUSDT, ETHUSDT]
+  kline_interval: 1d
+  liquidity_window_days: 30
+  liquidity_top_n: 100
+datasets:
+  - id: spot_exchange_info
+    endpoint: https://api.binance.com/api/v3/exchangeInfo
+    frequency: snapshot
+  - id: spot_daily_klines
+    endpoint: https://api.binance.com/api/v3/klines
+    frequency: daily
+  - id: spot_24h_tickers
+    endpoint: https://api.binance.com/api/v3/ticker/24hr
+    frequency: snapshot
+  - id: spot_book_tickers
+    endpoint: https://api.binance.com/api/v3/ticker/bookTicker
+    frequency: snapshot
+  - id: spot_order_book_snapshot
+    endpoint: https://api.binance.com/api/v3/depth
+    frequency: snapshot
+  - id: usd_m_futures_exchange_info
+    endpoint: https://fapi.binance.com/fapi/v1/exchangeInfo
+    frequency: snapshot
+  - id: usd_m_futures_klines
+    endpoint: https://fapi.binance.com/fapi/v1/klines
+    frequency: daily
+  - id: usd_m_funding_rate
+    endpoint: https://fapi.binance.com/fapi/v1/fundingRate
+    frequency: 8h
+  - id: usd_m_mark_price_klines
+    endpoint: https://fapi.binance.com/fapi/v1/markPriceKlines
+    frequency: daily
+  - id: usd_m_index_price_klines
+    endpoint: https://fapi.binance.com/fapi/v1/indexPriceKlines
+    frequency: daily
+  - id: usd_m_premium_index_klines
+    endpoint: https://fapi.binance.com/fapi/v1/premiumIndexKlines
+    frequency: daily
+  - id: usd_m_continuous_contract_klines
+    endpoint: https://fapi.binance.com/fapi/v1/continuousKlines
+    frequency: daily

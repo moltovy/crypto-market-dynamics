@@ -585,3 +585,14 @@ The same information (plus column lists and SHA-256) is in `Data/MASTER_DATA.csv
 For **LLM / chat attachments** (e.g. Perplexity Pro deep research), prefer `Data/MASTER_DATA.txt`: same inventory as this file, UTF-8 plain text with a short usage preamble — avoids PDF/DOCX extraction issues.
 
 _Auto-generated on 2026-04-19 by `tools/data_curation/06_build_inventory.py`._
+
+## MarketStructure Extension
+
+Tracked normalized market-structure summaries. Raw API payloads stay in gitignored `data_cache/`; these files are release-ready CSVs under `Data/MarketStructure/`.
+
+| Relative path | Topic | Rows | Freq |
+| --- | --- | ---: | --- |
+| `MarketStructure/DefiLlama/defillama_existing_inventory.csv` | Defillama Existing Inventory | 44 | snapshot |
+| `MarketStructure/SourceRegistry/market_structure_cache_status.csv` | Market Structure Cache Status | 5 | snapshot |
+| `MarketStructure/SourceRegistry/market_structure_endpoint_capabilities.csv` | Market Structure Endpoint Capabilities | 25 | snapshot |
+| `MarketStructure/SourceRegistry/market_structure_source_registry.csv` | Market Structure Source Registry | 4 | snapshot |

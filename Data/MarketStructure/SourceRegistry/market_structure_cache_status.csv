@@ -1,0 +1,6 @@
+status,detail
+cache_only,No network calls were made.
+skipped,DefiLlama chains_current cache unavailable.
+skipped,Binance spot_exchange_info cache unavailable.
+skipped,Binance spot daily kline cache unavailable; liquidity top100 not generated.
+skipped,CMC Fear & Greed cache unavailable; AlternativeMe remains the tracked sentiment baseline.

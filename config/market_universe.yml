@@ -1,0 +1,18 @@
+market_structure:
+  start_date: 2020-01-01
+  end_date: 2026-06-18
+  public_tables_start_at: T28
+  public_figures_start_at: F30
+  universe_rules:
+    point_in_time_market_cap_required: true
+    do_not_backfill_current_top100: true
+    binance_liquidity_rank_label: Binance exchange-liquidity top100
+  binance:
+    quote_assets: [USDT, USDC, FDUSD, BUSD]
+    liquidity_top_n: 100
+    rolling_quote_volume_days: 30
+  events:
+    btc_etf_start: 2024-01-11
+    eth_etf_start: 2024-07-23
+    btc_halving_2020: 2020-05-11
+    btc_halving_2024: 2024-04-20
