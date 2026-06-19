@@ -81,6 +81,7 @@ The additive market-structure layer integrates tracked DefiLlama/AlternativeMe/T
 Reports:
 
 - `report/market_evolution_thesis.md`
+- `report/market_structure_modeling_thesis.md`
 - `report/market_structure_methodology.md`
 - `report/market_structure_data_inventory.md`
 - `report/market_structure_limitations.md`
@@ -101,6 +102,11 @@ Figures:
 - `figures/F40_rank_turnover.png`
 - `figures/F41_cycle_phase_market_structure.png`
 - `figures/F42_market_evolution_dashboard.png`
+- `figures/F43_market_structure_monthly_features.png`
+- `figures/F44_market_structure_return_regimes.png`
+- `figures/F45_market_structure_composition_shift.png`
+- `figures/F46_market_structure_turnover_by_phase.png`
+- `figures/F47_market_structure_modeling_dashboard.png`
 
 Tables:
 
@@ -122,6 +128,12 @@ Tables:
 - `tables/T43_rank_turnover.csv`
 - `tables/T44_cycle_phase_market_structure.csv`
 - `tables/T45_market_evolution_summary.md`
+- `tables/T46_market_structure_monthly_features.csv`
+- `tables/T47_market_structure_daily_context.csv`
+- `tables/T48_market_structure_return_regimes.csv`
+- `tables/T49_market_structure_composition_shift.csv`
+- `tables/T50_market_structure_turnover_by_phase.csv`
+- `tables/T51_market_structure_modeling_summary.md`
 
 Guardrails:
 

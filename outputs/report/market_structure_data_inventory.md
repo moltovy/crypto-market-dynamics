@@ -20,5 +20,11 @@ Primary public tables:
 - `T43_rank_turnover.csv`
 - `T44_cycle_phase_market_structure.csv`
 - `T45_market_evolution_summary.md`
+- `T46_market_structure_monthly_features.csv`
+- `T47_market_structure_daily_context.csv`
+- `T48_market_structure_return_regimes.csv`
+- `T49_market_structure_composition_shift.csv`
+- `T50_market_structure_turnover_by_phase.csv`
+- `T51_market_structure_modeling_summary.md`
 
 Curated source files live under `Data/MarketStructure/`. Existing frozen data under `Data/DefiLlama`, `Data/AlternativeMe`, and `Data/Tradingview` remains unchanged.
