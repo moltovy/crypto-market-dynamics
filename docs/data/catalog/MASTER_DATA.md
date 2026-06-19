@@ -594,6 +594,9 @@ Tracked normalized market-structure summaries. Raw API payloads stay in gitignor
 | --- | --- | ---: | --- |
 | `MarketStructure/CoinMarketCap/cmc_fear_greed__daily.csv` | Cmc Fear Greed  Daily | 1086 | daily |
 | `MarketStructure/DefiLlama/defillama_existing_inventory.csv` | Defillama Existing Inventory | 44 | snapshot |
+| `MarketStructure/Sentiment/fear_greed_altme_pre_cmc_post__daily.csv` | Fear Greed Altme Pre Cmc Post  Daily | 3057 | daily |
+| `MarketStructure/Sentiment/fear_greed_source_overlap__daily.csv` | Fear Greed Source Overlap  Daily | 1023 | daily |
+| `MarketStructure/Sentiment/fear_greed_source_overlap_summary.csv` | Fear Greed Source Overlap Summary | 17 | snapshot |
 | `MarketStructure/SourceRegistry/market_structure_cache_status.csv` | Market Structure Cache Status | 4 | snapshot |
 | `MarketStructure/SourceRegistry/market_structure_endpoint_capabilities.csv` | Market Structure Endpoint Capabilities | 25 | snapshot |
 | `MarketStructure/SourceRegistry/market_structure_source_registry.csv` | Market Structure Source Registry | 4 | snapshot |

@@ -97,6 +97,7 @@ Figures:
 - `figures/F36_rwa_dat_growth.png`
 - `figures/F37_market_cap_top100_gap.png`
 
+
 Tables:
 
 - `tables/T28_market_structure_source_capabilities.csv`
@@ -112,8 +113,10 @@ Tables:
 - `tables/T38_fear_greed_blended_daily.csv`
 - `tables/T39_fear_greed_source_overlap_summary.csv`
 
+
 Guardrails:
 
 - Binance top100 is exchange-liquidity based, not historical market-cap rank.
 - CMC live fetch requires `CMC_API_KEY`; cached CMC history is included when present.
+- Monthly universe snapshots support composition and turnover analysis, not daily performance or event-return claims.
 - Raw source responses stay in gitignored `data_cache/`.
