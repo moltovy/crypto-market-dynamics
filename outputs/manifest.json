@@ -369,7 +369,7 @@
     "Historical release packets and manager notes are archived outside the public surface."
   ],
   "market_structure": {
-    "generated_at_utc": "2026-06-19T05:03:20.921795+00:00",
+    "generated_at_utc": "2026-06-19T05:52:23.024516+00:00",
     "source_table_bundle_date": "2026-06-19",
     "figure_bundle_start": "F30",
     "table_bundle_start": "T28",
@@ -449,6 +449,7 @@
       "outputs/figures/F51_rolling_beta_to_btc.png",
       "outputs/figures/F52_event_response_top50.png",
       "outputs/figures/F53_rotation_dashboard.png",
+      "outputs/report/visualization_quality_audit.md",
       "outputs/README.md"
     ],
     "skipped": [

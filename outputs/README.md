@@ -88,6 +88,7 @@ Reports:
 - `report/market_structure_limitations.md`
 - `report/market_structure_fetch_diagnostics.md`
 - `report/market_structure_next_data_needed.md`
+- `report/visualization_quality_audit.md`
 
 Figures:
 

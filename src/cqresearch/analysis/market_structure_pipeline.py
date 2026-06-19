@@ -10,14 +10,18 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import textwrap
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
+import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
-from matplotlib.ticker import PercentFormatter
+import seaborn as sns
+from matplotlib.ticker import FuncFormatter, PercentFormatter
 
 from cqresearch.analysis.asset_classification import (
     classification_summary,
@@ -59,7 +63,7 @@ from cqresearch.data.market_structure_normalizers import (
     normalize_defillama_overview,
     normalize_defillama_stablecoins,
 )
-from cqresearch.viz.design_system import COLORS, HERO_SIZE
+from cqresearch.viz.design_system import HERO_SIZE
 from cqresearch.viz.theme import apply_institutional_mpl_theme
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -1225,6 +1229,9 @@ def build_outputs(project_root: Path = ROOT) -> MarketStructureBuildResult:
 
     output_files.extend(write_reports(project_root, feature_panel, endpoint_rows, skipped))
     output_files.extend(render_market_structure_figures(project_root))
+    visual_audit_path = project_root / "outputs" / "report" / "visualization_quality_audit.md"
+    if visual_audit_path.exists():
+        output_files.append(visual_audit_path)
     output_files.append(update_outputs_readme(project_root))
     output_files.append(patch_outputs_manifest(project_root, output_files, skipped))
     return MarketStructureBuildResult(curated_files=[], output_files=output_files, skipped=skipped)
@@ -1401,12 +1408,388 @@ No API keys are written to public outputs. Raw payloads, when fetched, remain in
     ]
 
 
-def _style_axis(ax: plt.Axes) -> None:
-    ax.set_facecolor(COLORS["bg"])
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
-    ax.grid(axis="y", color=COLORS["grid"], alpha=0.35)
-    ax.tick_params(colors=COLORS["text"], labelsize=8)
+CHART_COLORS: dict[str, str] = {
+    "surface": "#FCFCFD",
+    "panel": "#FFFFFF",
+    "ink": "#1F2430",
+    "muted": "#6F768A",
+    "grid": "#E6E8F0",
+    "axis": "#D7DBE7",
+    "blue": "#5477C4",
+    "blue_light": "#A3BEFA",
+    "gold": "#B8A037",
+    "gold_light": "#FFE15B",
+    "orange": "#CC6F47",
+    "orange_light": "#F0986E",
+    "olive": "#71B436",
+    "olive_light": "#A3D576",
+    "pink": "#BD569B",
+    "pink_light": "#F390CA",
+    "teal": "#0F766E",
+    "teal_light": "#5FB8AE",
+    "neutral": "#7A828F",
+    "neutral_light": "#C5CAD3",
+}
+
+COMPOSITION_PALETTE: dict[str, str] = {
+    "Base assets": CHART_COLORS["orange_light"],
+    "Risk assets": CHART_COLORS["blue"],
+    "Stable-like": CHART_COLORS["olive"],
+    "Productized/wrapped": CHART_COLORS["pink"],
+}
+
+COMPOSITION_GROUPS: dict[str, str] = {
+    "base_assets": "Base assets",
+    "risk_assets": "Risk assets",
+    "stablecoins": "Stable-like",
+    "synthetic_stables": "Stable-like",
+    "bridged_stables": "Stable-like",
+    "stable_yield_tokens": "Stable-like",
+    "lst_restaking": "Productized/wrapped",
+    "wrapped_assets": "Productized/wrapped",
+    "tokenized_commodities": "Productized/wrapped",
+    "tokenized_rwa": "Productized/wrapped",
+}
+
+PHASE_ORDER = {
+    "pre_2020_halving": 0,
+    "post_2020_halving": 1,
+    "btc_etf_era_pre_2024_halving": 2,
+    "post_2024_halving_pre_eth_etf": 3,
+    "eth_etf_era": 4,
+}
+
+
+def _chart_theme() -> None:
+    apply_institutional_mpl_theme()
+    sns.set_theme(
+        style="whitegrid",
+        rc={
+            "figure.facecolor": CHART_COLORS["surface"],
+            "savefig.facecolor": CHART_COLORS["surface"],
+            "axes.facecolor": CHART_COLORS["panel"],
+            "axes.edgecolor": CHART_COLORS["axis"],
+            "axes.labelcolor": CHART_COLORS["muted"],
+            "text.color": CHART_COLORS["ink"],
+            "xtick.color": CHART_COLORS["ink"],
+            "ytick.color": CHART_COLORS["ink"],
+            "grid.color": CHART_COLORS["grid"],
+            "grid.linewidth": 0.8,
+            "font.family": "sans-serif",
+            "font.sans-serif": ["Inter", "Segoe UI", "DejaVu Sans", "Arial", "sans-serif"],
+        },
+    )
+
+
+def _style_axis(ax: plt.Axes, *, grid_axis: Literal["both", "x", "y"] = "y") -> None:
+    ax.set_facecolor(CHART_COLORS["panel"])
+    for side in ("top", "right"):
+        ax.spines[side].set_visible(False)
+    for side in ("left", "bottom"):
+        ax.spines[side].set_visible(True)
+        ax.spines[side].set_color(CHART_COLORS["axis"])
+        ax.spines[side].set_linewidth(0.8)
+    ax.grid(False)
+    ax.grid(axis=grid_axis, color=CHART_COLORS["grid"], alpha=0.72, linewidth=0.8)
+    ax.tick_params(colors=CHART_COLORS["ink"], labelsize=8, length=0)
+
+
+def _add_header(
+    fig: plt.Figure,
+    ax: plt.Axes,
+    title: str,
+    subtitle: str,
+    *,
+    top: float = 0.84,
+) -> None:
+    title = textwrap.fill(title.strip(), width=78, break_long_words=False)
+    subtitle = textwrap.fill(subtitle.strip(), width=118, break_long_words=False)
+    fig.subplots_adjust(top=top)
+    left = ax.get_position().x0
+    fig.text(
+        left,
+        0.985,
+        title,
+        ha="left",
+        va="top",
+        fontsize=13,
+        fontweight="semibold",
+        color=CHART_COLORS["ink"],
+        linespacing=1.05,
+    )
+    fig.text(
+        left,
+        0.93,
+        subtitle,
+        ha="left",
+        va="top",
+        fontsize=9,
+        color=CHART_COLORS["muted"],
+        linespacing=1.15,
+    )
+
+
+def _add_dashboard_header(fig: plt.Figure, title: str, subtitle: str) -> None:
+    title = textwrap.fill(title.strip(), width=88, break_long_words=False)
+    subtitle = textwrap.fill(subtitle.strip(), width=136, break_long_words=False)
+    fig.text(
+        0.06,
+        0.985,
+        title,
+        ha="left",
+        va="top",
+        fontsize=14,
+        fontweight="semibold",
+        color=CHART_COLORS["ink"],
+    )
+    fig.text(
+        0.06,
+        0.952,
+        subtitle,
+        ha="left",
+        va="top",
+        fontsize=9,
+        color=CHART_COLORS["muted"],
+    )
+
+
+def _panel_title(ax: plt.Axes, title: str, subtitle: str | None = None) -> None:
+    ax.text(
+        0,
+        1.05 if subtitle else 1.025,
+        title,
+        transform=ax.transAxes,
+        ha="left",
+        va="bottom",
+        fontsize=10,
+        fontweight="semibold",
+        color=CHART_COLORS["ink"],
+    )
+    if subtitle:
+        ax.text(
+            0,
+            1.01,
+            subtitle,
+            transform=ax.transAxes,
+            ha="left",
+            va="bottom",
+            fontsize=7.5,
+            color=CHART_COLORS["muted"],
+        )
+
+
+def _format_date_axis(ax: plt.Axes, *, max_ticks: int = 6) -> None:
+    xmin, xmax = ax.get_xlim()
+    if not (np.isfinite(xmin) and np.isfinite(xmax)):
+        return
+    start = mdates.num2date(min(xmin, xmax))
+    end = mdates.num2date(max(xmin, xmax))
+    span_years = max((end - start).days / 365.25, 0)
+    if span_years >= 2:
+        base = max(1, int(np.ceil(span_years / max(max_ticks - 1, 1))))
+        ax.xaxis.set_major_locator(mdates.YearLocator(base=base))
+        ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
+    else:
+        locator = mdates.AutoDateLocator(minticks=3, maxticks=max(max_ticks, 5))
+        ax.xaxis.set_major_locator(locator)
+        ax.xaxis.set_major_formatter(mdates.ConciseDateFormatter(locator))
+    ax.tick_params(axis="x", labelrotation=0)
+
+
+def _format_usd(value: float, _pos: int | None = None) -> str:
+    value = float(value)
+    if abs(value) >= 1e12:
+        return f"${value / 1e12:.1f}T"
+    if abs(value) >= 1e9:
+        return f"${value / 1e9:.0f}B"
+    if abs(value) >= 1e6:
+        return f"${value / 1e6:.0f}M"
+    if abs(value) >= 1e3:
+        return f"${value / 1e3:.0f}K"
+    return f"${value:.0f}"
+
+
+def _format_count(value: float) -> str:
+    value = float(value)
+    if abs(value) >= 1_000_000:
+        return f"{value / 1_000_000:.1f}M"
+    if abs(value) >= 1_000:
+        return f"{value / 1_000:.1f}K"
+    return f"{value:.0f}"
+
+
+def _legend_top(ax: plt.Axes, *, ncol: int = 4, x: float = 0.0, y: float = 1.02) -> None:
+    legend = ax.legend(
+        loc="lower left",
+        bbox_to_anchor=(x, y),
+        frameon=False,
+        ncol=ncol,
+        borderaxespad=0,
+        handlelength=1.8,
+        columnspacing=1.4,
+    )
+    if legend:
+        for text in legend.get_texts():
+            text.set_color(CHART_COLORS["ink"])
+            text.set_fontsize(8)
+
+
+def _annotate_last(
+    ax: plt.Axes,
+    x: pd.Series,
+    y: pd.Series,
+    label: str,
+    color: str,
+    *,
+    dy: int = 0,
+) -> None:
+    mask = x.notna() & y.notna()
+    if not mask.any():
+        return
+    ax.annotate(
+        label,
+        xy=(x[mask].iloc[-1], y[mask].iloc[-1]),
+        xytext=(8, dy),
+        textcoords="offset points",
+        ha="left",
+        va="center",
+        fontsize=8,
+        color=color,
+    )
+
+
+def _label_bars(
+    ax: plt.Axes,
+    bars: Any,
+    *,
+    formatter: Any = _format_count,
+    pad: float | None = None,
+) -> None:
+    x_min, x_max = ax.get_xlim()
+    x_pad = pad if pad is not None else (x_max - x_min) * 0.012
+    for bar in bars:
+        width = float(bar.get_width())
+        if not np.isfinite(width):
+            continue
+        x = width + x_pad if width >= 0 else width - x_pad
+        ha = "left" if width >= 0 else "right"
+        ax.text(
+            x,
+            bar.get_y() + bar.get_height() / 2,
+            formatter(width),
+            va="center",
+            ha=ha,
+            fontsize=8,
+            color=CHART_COLORS["ink"],
+        )
+
+
+def _readable_feature_family(value: object) -> str:
+    labels = {
+        "current_top50_exploratory_cohort_diagnostics": "Current-top50 exploratory daily lab",
+        "monthly_market_structure_daily_context": "Monthly PIT context joined to BTC/ETH",
+        "fear_greed_blended_altme_pre_cmc_post": "Blended Fear & Greed",
+        "market_cap_top100": "Monthly PIT market-cap universe",
+        "binance_liquidity_top100": "Binance liquidity ranks",
+        "cex_dex_activity": "CEX/DEX activity",
+        "stablecoin_tvl_regime": "Stablecoin/TVL regimes",
+        "sentiment": "Source sentiment comparison",
+    }
+    return labels.get(str(value), str(value).replace("_", " ").title())
+
+
+def _readable_metric(value: object) -> str:
+    text = str(value)
+    replacements = {
+        "btc_eth_share_full_top100": "BTC+ETH share",
+        "top10_share_full_top100": "Top10 share",
+        "stable_like_share_full_top100": "Stable-like share",
+        "productized_share_full_top100": "Productized/wrapped share",
+        "clean_risk_share_full_top100": "Clean-risk share",
+        "clean_risk_entrants": "Clean-risk entrants",
+        "clean_risk_exits": "Clean-risk exits",
+    }
+    return replacements.get(text, text.replace("_full_top100", "").replace("_", " ").title())
+
+
+def _phase_label(value: object) -> str:
+    labels = {
+        "pre_2020_halving": "Pre-2020 halving",
+        "post_2020_halving": "Post-2020 halving",
+        "btc_etf_era_pre_2024_halving": "BTC ETF era, pre-2024 halving",
+        "post_2024_halving_pre_eth_etf": "Post-2024 halving, pre-ETH ETF",
+        "eth_etf_era": "ETH ETF era",
+    }
+    return labels.get(str(value), str(value).replace("_", " ").title())
+
+
+def _phase_sort_key(value: object) -> int:
+    return PHASE_ORDER.get(str(value), 99)
+
+
+def _simplify_composition(frame: pd.DataFrame) -> pd.DataFrame:
+    if frame.empty:
+        return pd.DataFrame()
+    renamed = frame.rename(columns={col: COMPOSITION_GROUPS.get(str(col), "Productized/wrapped") for col in frame.columns})
+    simplified = renamed.T.groupby(level=0).sum().T
+    ordered = [label for label in COMPOSITION_PALETTE if label in simplified.columns]
+    return simplified[ordered].fillna(0)
+
+
+def _status_card(
+    ax: plt.Axes,
+    *,
+    title: str,
+    status: str,
+    message: str,
+    note: str | None = None,
+) -> None:
+    ax.axis("off")
+    status_clean = str(status).replace("_", " ").upper()
+    status_color = CHART_COLORS["blue"] if status_clean == "AVAILABLE" else CHART_COLORS["orange"]
+    ax.text(
+        0.03,
+        0.78,
+        title,
+        transform=ax.transAxes,
+        ha="left",
+        va="top",
+        fontsize=18,
+        fontweight="semibold",
+        color=CHART_COLORS["ink"],
+    )
+    ax.text(
+        0.03,
+        0.56,
+        status_clean,
+        transform=ax.transAxes,
+        ha="left",
+        va="top",
+        fontsize=28,
+        fontweight="bold",
+        color=status_color,
+    )
+    ax.text(
+        0.03,
+        0.38,
+        textwrap.fill(message, 92, break_long_words=False),
+        transform=ax.transAxes,
+        ha="left",
+        va="top",
+        fontsize=10,
+        color=CHART_COLORS["muted"],
+    )
+    if note:
+        ax.text(
+            0.03,
+            0.17,
+            textwrap.fill(note, 96, break_long_words=False),
+            transform=ax.transAxes,
+            ha="left",
+            va="top",
+            fontsize=9,
+            color=CHART_COLORS["muted"],
+        )
 
 
 def save_fig(fig: plt.Figure, path: Path) -> Path:
@@ -1416,161 +1799,263 @@ def save_fig(fig: plt.Figure, path: Path) -> Path:
     return path
 
 
-def _phase_label(value: object) -> str:
-    return str(value).replace("_", "\n")
-
-
 def render_market_structure_figures(project_root: Path) -> list[Path]:
     tables = project_root / "outputs" / "tables"
     figures = project_root / "outputs" / "figures"
-    apply_institutional_mpl_theme()
+    _chart_theme()
     written: list[Path] = []
 
     feature_panel = pd.read_csv(tables / "T37_market_structure_feature_panel.csv")
-    fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
-    ax.barh(feature_panel["feature_family"], feature_panel["rows"], color=COLORS["institutional"])
-    ax.set_title("Market-Structure Extension Coverage", color=COLORS["text"], fontweight="bold")
-    ax.set_xlabel("Rows in public tables")
+    fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
+    if not feature_panel.empty:
+        footprint = feature_panel.copy()
+        footprint["label"] = footprint["feature_family"].map(_readable_feature_family)
+        footprint["rows_num"] = pd.to_numeric(footprint["rows"], errors="coerce").fillna(0)
+        footprint["plot_rows"] = footprint["rows_num"].clip(lower=1)
+        footprint = footprint.sort_values("plot_rows", ascending=True)
+        colors = [
+            CHART_COLORS["neutral_light"] if str(status).startswith("skipped") else CHART_COLORS["teal"]
+            for status in footprint["status"]
+        ]
+        bars = ax.barh(
+            footprint["label"],
+            footprint["plot_rows"],
+            color=colors,
+            edgecolor=CHART_COLORS["teal"],
+            linewidth=0.8,
+        )
+        if footprint["plot_rows"].max() / max(footprint["plot_rows"].min(), 1) > 50:
+            ax.set_xscale("log")
+            ax.set_xlim(1, footprint["plot_rows"].max() * 1.9)
+        for bar, rows, status in zip(bars, footprint["rows_num"], footprint["status"], strict=False):
+            label = "skipped" if rows <= 0 else _format_count(rows)
+            ax.text(
+                bar.get_width() * (1.08 if ax.get_xscale() == "log" else 1.01),
+                bar.get_y() + bar.get_height() / 2,
+                label,
+                va="center",
+                ha="left",
+                fontsize=8,
+                color=CHART_COLORS["muted"] if str(status).startswith("skipped") else CHART_COLORS["ink"],
+            )
+    ax.set_xlabel("Rows in tracked public tables (log scale when needed)")
     _style_axis(ax)
+    _add_header(
+        fig,
+        ax,
+        "Public market-structure data footprint",
+        "Tracked output rows by source family; skipped sources are shown explicitly instead of hidden.",
+    )
     written.append(save_fig(fig, figures / "F30_market_structure_dashboard.png"))
 
     st = pd.read_csv(tables / "T32_stablecoin_tvl_regimes.csv", parse_dates=["date"])
-    fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+    fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
     if not st.empty:
-        ax.plot(st["date"], st["defi_tvl_usd"], label="DeFi TVL", color=COLORS["eth"])
+        ax.plot(
+            st["date"],
+            st["defi_tvl_usd"],
+            label="DeFi TVL",
+            color=CHART_COLORS["blue"],
+            linewidth=1.4,
+        )
         ax.plot(
             st["date"],
             st["stablecoins_mcap_usd"],
             label="Stablecoin mcap",
-            color=COLORS["stablecoin"],
+            color=CHART_COLORS["teal"],
+            linewidth=1.4,
+        )
+        _annotate_last(ax, st["date"], st["defi_tvl_usd"], "DeFi TVL", CHART_COLORS["blue"], dy=-10)
+        _annotate_last(
+            ax,
+            st["date"],
+            st["stablecoins_mcap_usd"],
+            "Stablecoin mcap",
+            CHART_COLORS["teal"],
+            dy=9,
         )
         ax.set_yscale("log")
-    ax.set_title("Stablecoins and TVL Regimes", color=COLORS["text"], fontweight="bold")
-    ax.legend(frameon=False)
+        ax.yaxis.set_major_formatter(FuncFormatter(_format_usd))
+        _format_date_axis(ax)
+    ax.set_ylabel("USD, log scale")
     _style_axis(ax)
+    _add_header(
+        fig,
+        ax,
+        "Stablecoin supply and DeFi TVL moved on different paths after 2022",
+        "Monthly/periodic public source series in USD; log scale preserves early-cycle movement without flattening the ETF era.",
+    )
     written.append(save_fig(fig, figures / "F31_stablecoin_tvl_regimes.png"))
 
     sent = pd.read_csv(tables / "T31_sentiment_comparison.csv", parse_dates=["date"])
-    fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+    fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
     for source, data in sent.groupby("source"):
-        ax.plot(data["date"], data["fng_value"], label=source, linewidth=1.2)
+        data = data.sort_values("date").copy()
+        data["fng_14d"] = data["fng_value"].rolling(14, min_periods=3).mean()
+        label = "Alternative.me" if source == "alternative_me" else "CoinMarketCap"
+        color = CHART_COLORS["blue"] if source == "alternative_me" else CHART_COLORS["orange"]
+        ax.plot(data["date"], data["fng_14d"], label=label, linewidth=1.2, color=color)
+        _annotate_last(ax, data["date"], data["fng_14d"], label, color)
     ax.set_ylim(0, 100)
-    ax.set_title("Fear & Greed Sentiment Comparison", color=COLORS["text"], fontweight="bold")
-    ax.legend(frameon=False)
+    ax.axhspan(0, 25, color=CHART_COLORS["blue_light"], alpha=0.12, linewidth=0)
+    ax.axhspan(75, 100, color=CHART_COLORS["orange_light"], alpha=0.10, linewidth=0)
+    ax.set_ylabel("Fear & Greed index")
+    _format_date_axis(ax)
     _style_axis(ax)
+    _add_header(
+        fig,
+        ax,
+        "Fear & Greed sources broadly agree in the overlap window",
+        "14-day rolling mean of daily values; shaded bands mark extreme fear/greed zones for context.",
+    )
     written.append(save_fig(fig, figures / "F32_sentiment_comparison.png"))
 
     activity = pd.read_csv(tables / "T33_cex_dex_activity.csv", parse_dates=["date"])
-    fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+    fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
     for metric, data in activity.groupby("metric"):
-        ax.plot(data["date"], data["value"].abs(), label=metric, linewidth=1.2)
+        data = data.sort_values("date").copy()
+        color = CHART_COLORS["blue"] if metric == "cex_net_inflows_usd" else CHART_COLORS["orange"]
+        label = "CEX net inflows" if metric == "cex_net_inflows_usd" else "DEX volume"
+        ax.plot(data["date"], data["value"].abs(), label=label, linewidth=1.2, color=color)
+        _annotate_last(ax, data["date"], data["value"].abs(), label, color)
     ax.set_yscale("log")
-    ax.set_title("CEX and DEX Activity Context", color=COLORS["text"], fontweight="bold")
-    ax.legend(frameon=False)
+    ax.yaxis.set_major_formatter(FuncFormatter(_format_usd))
+    ax.set_ylabel("USD, log scale")
+    _format_date_axis(ax)
     _style_axis(ax)
+    _add_header(
+        fig,
+        ax,
+        "DEX volume is long-running; CEX net-flow coverage is newer and sparser",
+        "Absolute USD values on a log scale; this is source-coverage context, not a same-grain activity index.",
+    )
     written.append(save_fig(fig, figures / "F33_cex_dex_activity.png"))
 
     ranks = pd.read_csv(tables / "T30_binance_liquidity_top100.csv")
-    fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+    fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
     if (
         "rolling_quote_volume_usd" in ranks
         and pd.to_numeric(ranks["rolling_quote_volume_usd"], errors="coerce").notna().any()
     ):
         latest_month = ranks["month"].dropna().iloc[-1]
-        latest = ranks[ranks["month"] == latest_month].head(20)
-        ax.barh(
+        latest = ranks[ranks["month"] == latest_month].head(20).iloc[::-1]
+        bars = ax.barh(
             latest["symbol"],
             pd.to_numeric(latest["rolling_quote_volume_usd"], errors="coerce"),
-            color=COLORS["btc"],
+            color=CHART_COLORS["orange_light"],
+            edgecolor=CHART_COLORS["orange"],
+            linewidth=0.8,
+        )
+        ax.xaxis.set_major_formatter(FuncFormatter(_format_usd))
+        _label_bars(ax, bars, formatter=_format_usd)
+        ax.set_xlabel("Rolling quote volume")
+        _style_axis(ax)
+        _add_header(
+            fig,
+            ax,
+            "Binance liquidity rank is exchange-volume based",
+            f"Top active symbols for {latest_month}; explicitly not a market-cap ranking.",
         )
     else:
-        ax.text(
-            0.5,
-            0.5,
-            "No Binance kline cache\nliquidity ranks skipped",
-            ha="center",
-            va="center",
-            color=COLORS["muted"],
-            transform=ax.transAxes,
+        _status_card(
+            ax,
+            title="Binance exchange-liquidity universe",
+            status=str(ranks.get("status", pd.Series(["skipped_no_kline_cache"])).iloc[0]),
+            message="No Binance kline cache is present, so rolling exchange-liquidity ranks are skipped.",
+            note="Guardrail: Binance ranks are liquidity-based, not historical market-cap top100 membership.",
         )
-        ax.set_xticks([])
-        ax.set_yticks([])
-    ax.set_title("Binance Exchange-Liquidity Universe", color=COLORS["text"], fontweight="bold")
-    _style_axis(ax)
     written.append(save_fig(fig, figures / "F34_binance_liquidity_universe.png"))
 
     cycle = pd.read_csv(tables / "T34_btc_cycle_overlay.csv", parse_dates=["date"])
-    fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+    fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
     if not cycle.empty:
-        ax.plot(cycle["date"], cycle["btc_dominance_close"], color=COLORS["btc"], linewidth=1.2)
-        for date_str, label in [
+        ax.plot(
+            cycle["date"],
+            cycle["btc_dominance_close"],
+            color=CHART_COLORS["orange"],
+            linewidth=1.15,
+        )
+        ymax = cycle["btc_dominance_close"].max()
+        for idx, (date_str, label) in enumerate([
             ("2020-05-11", "2020 halving"),
             ("2024-01-11", "BTC ETF"),
             ("2024-04-20", "2024 halving"),
             ("2024-07-23", "ETH ETF"),
-        ]:
-            ax.axvline(pd.Timestamp(date_str), color=COLORS["neutral"], linewidth=0.8, alpha=0.5)
+        ]):
+            date = pd.Timestamp(date_str)
+            ax.axvline(date, color=CHART_COLORS["neutral"], linewidth=0.8, alpha=0.65)
             ax.text(
-                pd.Timestamp(date_str),
-                ax.get_ylim()[1],
+                date,
+                ymax - (idx % 2) * 6,
                 label,
                 rotation=90,
                 va="top",
                 fontsize=7,
-                color=COLORS["muted"],
+                color=CHART_COLORS["muted"],
             )
-    ax.set_title("BTC Dominance With Cycle Markers", color=COLORS["text"], fontweight="bold")
+        ax.yaxis.set_major_formatter(PercentFormatter(100))
+        ax.set_ylabel("BTC dominance")
+        _format_date_axis(ax)
     _style_axis(ax)
+    _add_header(
+        fig,
+        ax,
+        "BTC dominance marks the cycle backdrop for market-structure snapshots",
+        "TradingView BTC dominance close with halving and spot-ETF markers.",
+    )
     written.append(save_fig(fig, figures / "F35_btc_dominance_cycle_overlay.png"))
 
     rwa = pd.read_csv(tables / "T35_rwa_dat_growth.csv", parse_dates=["date"])
-    fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
-    for metric, data in rwa.groupby("metric"):
-        ax.plot(data["date"], data["value"], label=metric, marker="o", linewidth=1.2)
-    ax.set_title("RWA and DAT Growth Context", color=COLORS["text"], fontweight="bold")
-    handles, _ = ax.get_legend_handles_labels()
-    if handles:
-        ax.legend(frameon=False)
+    fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
+    ax2: plt.Axes | None = None
+    if not rwa.empty:
+        for metric, data in rwa.groupby("metric"):
+            data = data.sort_values("date")
+            if metric == "rwa_onchain_mcap_usd":
+                ax.plot(
+                    data["date"],
+                    data["value"],
+                    label="RWA on-chain mcap",
+                    color=CHART_COLORS["orange"],
+                    linewidth=1.2,
+                )
+                _annotate_last(ax, data["date"], data["value"], "RWA mcap", CHART_COLORS["orange"])
+            else:
+                ax2 = ax.twinx() if ax2 is None else ax2
+                ax2.scatter(
+                    data["date"],
+                    data["value"],
+                    label="DAT institutions",
+                    color=CHART_COLORS["blue"],
+                    edgecolors=CHART_COLORS["ink"],
+                    linewidths=0.5,
+                    s=36,
+                    zorder=4,
+                )
+                ax2.set_ylabel("DAT institution count", color=CHART_COLORS["muted"])
+                ax2.tick_params(colors=CHART_COLORS["muted"], labelsize=8, length=0)
+                ax2.grid(False)
+                ax2.spines["right"].set_visible(False)
+        ax.yaxis.set_major_formatter(FuncFormatter(_format_usd))
+        ax.set_ylabel("RWA market cap")
+        _format_date_axis(ax)
     _style_axis(ax)
+    _add_header(
+        fig,
+        ax,
+        "RWA market cap growth is visible; DAT coverage remains sparse",
+        "RWA values use USD scale; DAT is shown separately as a count so unlike units are not blended.",
+    )
     written.append(save_fig(fig, figures / "F36_rwa_dat_growth.png"))
 
     gap = pd.read_csv(tables / "T36_market_cap_top100_gap.csv")
-    fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
-    ax.axis("off")
-    ax.text(
-        0.02,
-        0.75,
-        "Market-Cap Top100",
-        color=COLORS["text"],
-        fontsize=18,
-        fontweight="bold",
-        transform=ax.transAxes,
-    )
-    ax.text(
-        0.02,
-        0.55,
-        str(gap.loc[0, "status"]).upper(),
-        color=COLORS["risk"],
-        fontsize=28,
-        fontweight="bold",
-        transform=ax.transAxes,
-    )
-    ax.text(
-        0.02,
-        0.36,
-        str(gap.loc[0, "reason"]),
-        color=COLORS["muted"],
-        fontsize=11,
-        wrap=True,
-        transform=ax.transAxes,
-    )
-    ax.text(
-        0.02,
-        0.18,
-        "Guardrail: no current-top100 historical backfill.",
-        color=COLORS["muted"],
-        fontsize=10,
-        transform=ax.transAxes,
+    fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
+    _status_card(
+        ax,
+        title="Monthly point-in-time market-cap universe",
+        status=str(gap.loc[0, "status"]),
+        message=str(gap.loc[0, "reason"]),
+        note="Guardrail: no current-top100 historical backfill. Monthly snapshots support composition and turnover, not daily return breadth.",
     )
     written.append(save_fig(fig, figures / "F37_market_cap_top100_gap.png"))
 
@@ -1588,16 +2073,6 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
         composition = pd.read_csv(composition_path, parse_dates=["snapshot_date"])
         turnover = pd.read_csv(turnover_path, parse_dates=["snapshot_date"])
         cycle_phase = pd.read_csv(cycle_path)
-        palette = [
-            COLORS["btc"],
-            COLORS["eth"],
-            COLORS["stablecoin"],
-            COLORS["institutional"],
-            COLORS["liquidity"],
-            COLORS["gold"],
-            COLORS["native"],
-            COLORS["neutral"],
-        ]
 
         full_comp = composition[composition["universe_type"] == "full_top100"]
         pivot = (
@@ -1611,23 +2086,38 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
             .sort_index()
             .clip(lower=0)
         )
-        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
-        if not pivot.empty:
+        simple_pivot = _simplify_composition(pivot)
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
+        if not simple_pivot.empty:
             ax.stackplot(
-                pivot.index,
-                [pivot[col] for col in pivot.columns],
-                labels=list(pivot.columns),
-                colors=palette[: len(pivot.columns)],
-                alpha=0.9,
+                simple_pivot.index,
+                [simple_pivot[col] for col in simple_pivot.columns],
+                labels=list(simple_pivot.columns),
+                colors=[COMPOSITION_PALETTE[col] for col in simple_pivot.columns],
+                alpha=0.94,
+                linewidth=0,
             )
-            ax.legend(frameon=False, fontsize=7, ncol=2, loc="upper left")
+            cumulative = simple_pivot.cumsum(axis=1)
+            for col in simple_pivot.columns[:-1]:
+                ax.plot(
+                    cumulative.index,
+                    cumulative[col],
+                    color=CHART_COLORS["panel"],
+                    linewidth=0.8,
+                    alpha=0.9,
+                )
             ax.set_ylim(0, 1)
             ax.yaxis.set_major_formatter(PercentFormatter(1.0))
-        ax.set_title(
-            "Full Top100 Market-Structure Composition", color=COLORS["text"], fontweight="bold"
-        )
+            _format_date_axis(ax)
+            _legend_top(ax, ncol=4, y=1.03)
         ax.set_ylabel("Market-cap share")
         _style_axis(ax)
+        _add_header(
+            fig,
+            ax,
+            "Monthly PIT top100 composition is mostly base assets, with risk share cycling",
+            "Point-in-time monthly market-cap snapshots grouped into four readable classes; shares sum to 100%.",
+        )
         written.append(save_fig(fig, figures / "F38_market_structure_composition.png"))
 
         full_top100 = universe[universe["in_full_top100"]].copy()
@@ -1646,50 +2136,87 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
                 }
             )
         concentration = pd.DataFrame(concentration_rows)
-        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
         if not concentration.empty:
             ax.plot(
                 concentration["snapshot_date"],
                 concentration["top10_share"],
                 label="Top10 share",
-                color=COLORS["btc"],
+                color=CHART_COLORS["orange"],
+                linewidth=1.25,
             )
             ax.plot(
                 concentration["snapshot_date"],
                 concentration["btc_eth_share"],
                 label="BTC+ETH share",
-                color=COLORS["eth"],
+                color=CHART_COLORS["blue"],
+                linewidth=1.25,
+            )
+            _annotate_last(
+                ax,
+                concentration["snapshot_date"],
+                concentration["top10_share"],
+                "Top10",
+                CHART_COLORS["orange"],
+            )
+            _annotate_last(
+                ax,
+                concentration["snapshot_date"],
+                concentration["btc_eth_share"],
+                "BTC+ETH",
+                CHART_COLORS["blue"],
+                dy=-8,
             )
             ax.set_ylim(0, 1)
             ax.yaxis.set_major_formatter(PercentFormatter(1.0))
-            ax.legend(frameon=False)
-        ax.set_title("Top100 Concentration", color=COLORS["text"], fontweight="bold")
+            _format_date_axis(ax)
         ax.set_ylabel("Share of top100 market cap")
         _style_axis(ax)
+        _add_header(
+            fig,
+            ax,
+            "Top10 concentration stayed high while BTC+ETH share cycled",
+            "Monthly PIT top100 market-cap share; the lines are descriptive concentration diagnostics.",
+        )
         written.append(save_fig(fig, figures / "F39_top100_concentration.png"))
 
         clean_turnover = turnover[turnover["universe_type"] == "clean_risk_top100"]
         plot_turnover = clean_turnover[
             pd.to_numeric(clean_turnover["continuing_assets"], errors="coerce") > 0
         ]
-        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
         if not plot_turnover.empty:
-            ax.plot(
+            bar_width_days = 18
+            ax.bar(
                 plot_turnover["snapshot_date"],
                 plot_turnover["entrants"],
                 label="Entrants",
-                color=COLORS["positive"],
+                color=CHART_COLORS["blue_light"],
+                edgecolor=CHART_COLORS["blue"],
+                linewidth=0.6,
+                width=bar_width_days,
             )
-            ax.plot(
+            ax.bar(
                 plot_turnover["snapshot_date"],
-                plot_turnover["exits"],
+                -plot_turnover["exits"],
                 label="Exits",
-                color=COLORS["negative"],
+                color=CHART_COLORS["orange_light"],
+                edgecolor=CHART_COLORS["orange"],
+                linewidth=0.6,
+                width=bar_width_days,
             )
-            ax.legend(frameon=False)
-        ax.set_title("Clean-Risk Top100 Rank Turnover", color=COLORS["text"], fontweight="bold")
-        ax.set_ylabel("Assets")
+            ax.axhline(0, color=CHART_COLORS["ink"], linewidth=0.8)
+            ax.yaxis.set_major_formatter(FuncFormatter(lambda value, _pos: f"{abs(value):.0f}"))
+            _format_date_axis(ax)
+            _legend_top(ax, ncol=2, y=1.03)
+        ax.set_ylabel("Assets entering/exiting")
         _style_axis(ax)
+        _add_header(
+            fig,
+            ax,
+            "Clean-risk top100 turnover comes in bursts, not a smooth churn rate",
+            "Monthly entrants are above zero and exits below zero; the first snapshot is omitted from turnover lines.",
+        )
         written.append(save_fig(fig, figures / "F40_rank_turnover.png"))
 
         phase_full = cycle_phase[cycle_phase["universe_type"] == "full_top100"]
@@ -1700,95 +2227,159 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
             aggfunc="sum",
             fill_value=0,
         )
-        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
-        if not phase_pivot.empty:
-            phase_pivot.plot(
-                kind="bar",
-                stacked=True,
-                ax=ax,
-                color=palette[: len(phase_pivot.columns)],
-                width=0.78,
-            )
-            ax.legend(frameon=False, fontsize=7, ncol=2)
-            ax.set_ylim(0, 1)
-            ax.yaxis.set_major_formatter(PercentFormatter(1.0))
-            ax.set_xticklabels(
-                [_phase_label(label.get_text()) for label in ax.get_xticklabels()],
-                rotation=0,
-                ha="center",
-            )
-        ax.set_title("Cycle-Phase Market Structure", color=COLORS["text"], fontweight="bold")
-        ax.set_ylabel("Mean market-cap share")
-        _style_axis(ax)
+        simple_phase = _simplify_composition(phase_pivot)
+        simple_phase = simple_phase.loc[
+            sorted(simple_phase.index, key=_phase_sort_key)
+        ] if not simple_phase.empty else simple_phase
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
+        if not simple_phase.empty:
+            left = np.zeros(len(simple_phase))
+            y = np.arange(len(simple_phase))
+            for col in simple_phase.columns:
+                values = simple_phase[col].to_numpy()
+                ax.barh(
+                    y,
+                    values,
+                    left=left,
+                    label=col,
+                    color=COMPOSITION_PALETTE[col],
+                    edgecolor=CHART_COLORS["panel"],
+                    linewidth=0.8,
+                )
+                left += values
+            ax.set_yticks(y, [_phase_label(value) for value in simple_phase.index])
+            ax.set_xlim(0, 1)
+            ax.xaxis.set_major_formatter(PercentFormatter(1.0))
+            _legend_top(ax, ncol=4, y=1.03)
+        ax.set_xlabel("Mean market-cap share")
+        _style_axis(ax, grid_axis="x")
+        _add_header(
+            fig,
+            ax,
+            "Cycle phases differ more in risk/stable mix than in top-level concentration",
+            "Average monthly PIT top100 composition by cycle/ETF phase; labels are descriptive regime buckets.",
+        )
         written.append(save_fig(fig, figures / "F41_cycle_phase_market_structure.png"))
 
-        fig, axes = plt.subplots(2, 2, figsize=(12, 8), facecolor=COLORS["bg"])
+        fig, axes = plt.subplots(2, 2, figsize=(13, 8.2), facecolor=CHART_COLORS["surface"])
         axes = axes.flatten()
-        if not pivot.empty:
+        if not simple_pivot.empty:
             axes[0].stackplot(
-                pivot.index,
-                [pivot[col] for col in pivot.columns],
-                labels=list(pivot.columns),
-                colors=palette[: len(pivot.columns)],
-                alpha=0.9,
+                simple_pivot.index,
+                [simple_pivot[col] for col in simple_pivot.columns],
+                labels=list(simple_pivot.columns),
+                colors=[COMPOSITION_PALETTE[col] for col in simple_pivot.columns],
+                alpha=0.94,
+                linewidth=0,
             )
             axes[0].set_ylim(0, 1)
             axes[0].yaxis.set_major_formatter(PercentFormatter(1.0))
-            axes[0].legend(frameon=False, fontsize=7, ncol=2, loc="upper left")
-        axes[0].set_title("Composition", color=COLORS["text"], fontweight="bold")
+            _format_date_axis(axes[0], max_ticks=5)
+        _panel_title(axes[0], "Composition", "Monthly PIT top100, four grouped classes")
         if not concentration.empty:
             axes[1].plot(
                 concentration["snapshot_date"],
                 concentration["top10_share"],
-                color=COLORS["btc"],
-                label="Top10",
+                color=CHART_COLORS["orange"],
+                linewidth=1.1,
+            )
+            _annotate_last(
+                axes[1],
+                concentration["snapshot_date"],
+                concentration["top10_share"],
+                "Top10",
+                CHART_COLORS["orange"],
+                dy=8,
             )
             axes[1].plot(
                 concentration["snapshot_date"],
                 concentration["btc_eth_share"],
-                color=COLORS["eth"],
-                label="BTC+ETH",
+                color=CHART_COLORS["blue"],
+                linewidth=1.1,
+            )
+            _annotate_last(
+                axes[1],
+                concentration["snapshot_date"],
+                concentration["btc_eth_share"],
+                "BTC+ETH",
+                CHART_COLORS["blue"],
+                dy=-8,
             )
             axes[1].set_ylim(0, 1)
+            axes[1].margins(x=0.08)
             axes[1].yaxis.set_major_formatter(PercentFormatter(1.0))
-            axes[1].legend(frameon=False, fontsize=7)
-        axes[1].set_title("Concentration", color=COLORS["text"], fontweight="bold")
+            _format_date_axis(axes[1], max_ticks=5)
+        _panel_title(axes[1], "Concentration", "Top10 and BTC+ETH shares")
         if not plot_turnover.empty:
             axes[2].bar(
                 plot_turnover["snapshot_date"],
                 plot_turnover["entrants"],
-                color=COLORS["positive"],
+                color=CHART_COLORS["blue_light"],
+                edgecolor=CHART_COLORS["blue"],
+                linewidth=0.5,
                 label="Entrants",
+                width=18,
             )
             axes[2].bar(
                 plot_turnover["snapshot_date"],
                 -plot_turnover["exits"],
-                color=COLORS["negative"],
+                color=CHART_COLORS["orange_light"],
+                edgecolor=CHART_COLORS["orange"],
+                linewidth=0.5,
                 label="Exits",
+                width=18,
             )
-            axes[2].legend(frameon=False, fontsize=7)
-        axes[2].set_title("Turnover", color=COLORS["text"], fontweight="bold")
-        if not phase_pivot.empty:
-            phase_pivot.plot(
-                kind="bar",
-                stacked=True,
-                ax=axes[3],
-                color=palette[: len(phase_pivot.columns)],
-                legend=False,
+            axes[2].axhline(0, color=CHART_COLORS["ink"], linewidth=0.8)
+            axes[2].yaxis.set_major_formatter(FuncFormatter(lambda value, _pos: f"{abs(value):.0f}"))
+            _format_date_axis(axes[2], max_ticks=5)
+            axes[2].text(
+                0.02,
+                0.95,
+                "Entrants",
+                transform=axes[2].transAxes,
+                ha="left",
+                va="top",
+                fontsize=7.5,
+                color=CHART_COLORS["blue"],
             )
-            axes[3].set_ylim(0, 1)
-            axes[3].yaxis.set_major_formatter(PercentFormatter(1.0))
-            axes[3].set_xticklabels(
-                [_phase_label(label.get_text()) for label in axes[3].get_xticklabels()],
-                rotation=0,
-                ha="center",
-                fontsize=7,
+            axes[2].text(
+                0.02,
+                0.88,
+                "Exits",
+                transform=axes[2].transAxes,
+                ha="left",
+                va="top",
+                fontsize=7.5,
+                color=CHART_COLORS["orange"],
             )
-        axes[3].set_title("Cycle Phases", color=COLORS["text"], fontweight="bold")
+        _panel_title(axes[2], "Turnover", "Clean-risk monthly entrants/exits")
+        if not simple_phase.empty:
+            left = np.zeros(len(simple_phase))
+            y = np.arange(len(simple_phase))
+            for col in simple_phase.columns:
+                values = simple_phase[col].to_numpy()
+                axes[3].barh(
+                    y,
+                    values,
+                    left=left,
+                    color=COMPOSITION_PALETTE[col],
+                    edgecolor=CHART_COLORS["panel"],
+                    linewidth=0.6,
+                    label=col,
+                )
+                left += values
+            axes[3].set_yticks(y, [_phase_label(value) for value in simple_phase.index], fontsize=7)
+            axes[3].set_xlim(0, 1)
+            axes[3].xaxis.set_major_formatter(PercentFormatter(1.0))
+        _panel_title(axes[3], "Cycle phases", "Mean composition by phase")
         for axis in axes:
             _style_axis(axis)
-        fig.suptitle("Market Evolution Dashboard", color=COLORS["text"], fontweight="bold")
-        fig.tight_layout()
+        _add_dashboard_header(
+            fig,
+            "Market evolution dashboard",
+            "The monthly point-in-time universe supports structure, concentration, and turnover diagnostics; daily performance still requires PIT constituent OHLCV.",
+        )
+        fig.subplots_adjust(top=0.88, left=0.08, right=0.97, hspace=0.38, wspace=0.28)
         written.append(save_fig(fig, figures / "F42_market_evolution_dashboard.png"))
 
         monthly_path = tables / "T46_market_structure_monthly_features.csv"
@@ -1807,25 +2398,47 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
             phase_turnover = pd.read_csv(phase_turnover_path)
 
             share_cols = [
-                ("btc_eth_share_full_top100", "BTC+ETH", COLORS["btc"]),
-                ("top10_share_full_top100", "Top10", COLORS["eth"]),
-                ("stable_like_share_full_top100", "Stable-like", COLORS["stablecoin"]),
-                ("productized_share_full_top100", "Productized", COLORS["institutional"]),
-                ("clean_risk_share_full_top100", "Clean risk", COLORS["liquidity"]),
+                ("btc_eth_share_full_top100", "BTC+ETH", CHART_COLORS["orange"]),
+                ("top10_share_full_top100", "Top10", CHART_COLORS["blue"]),
+                ("clean_risk_share_full_top100", "Clean risk", CHART_COLORS["teal"]),
+                ("stable_like_share_full_top100", "Stable-like", CHART_COLORS["olive"]),
+                ("productized_share_full_top100", "Productized/wrapped", CHART_COLORS["pink"]),
             ]
-            fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
-            for col, label, color in share_cols:
-                ax.plot(
-                    monthly["snapshot_date"], monthly[col], label=label, color=color, linewidth=1.6
-                )
-            ax.set_ylim(0, 1)
-            ax.yaxis.set_major_formatter(PercentFormatter(1.0))
-            ax.set_title(
-                "Monthly Market-Structure Feature Layer", color=COLORS["text"], fontweight="bold"
+            fig, axes_ms = plt.subplots(
+                2,
+                1,
+                figsize=(10, 6.4),
+                facecolor=CHART_COLORS["surface"],
+                sharex=True,
+                gridspec_kw={"height_ratios": [1.25, 0.85]},
             )
-            ax.set_ylabel("Share of full top100 market cap")
-            ax.legend(frameon=False, fontsize=8, ncol=3, loc="upper left")
-            _style_axis(ax)
+            high_ax, low_ax = axes_ms
+            for col, label, color in share_cols[:3]:
+                high_ax.plot(
+                    monthly["snapshot_date"], monthly[col], label=label, color=color, linewidth=1.25
+                )
+                _annotate_last(high_ax, monthly["snapshot_date"], monthly[col], label, color)
+            for col, label, color in share_cols[3:]:
+                low_ax.plot(
+                    monthly["snapshot_date"], monthly[col], label=label, color=color, linewidth=1.25
+                )
+                _annotate_last(low_ax, monthly["snapshot_date"], monthly[col], label, color)
+            for axis in axes_ms:
+                axis.yaxis.set_major_formatter(PercentFormatter(1.0))
+                _style_axis(axis)
+            high_ax.set_ylim(0.45, 1.0)
+            low_ax.set_ylim(0, max(0.20, monthly[[col for col, _, _ in share_cols[3:]]].max().max() * 1.35))
+            low_ax.set_ylabel("Smaller shares")
+            high_ax.set_ylabel("Large shares")
+            _format_date_axis(low_ax)
+            _add_header(
+                fig,
+                high_ax,
+                "Monthly market-structure context splits high-share and small-share signals",
+                "Monthly PIT top100 context features; separated axes keep stable-like/productized shares visible without distorting concentration lines.",
+                top=0.86,
+            )
+            fig.subplots_adjust(hspace=0.18)
             written.append(save_fig(fig, figures / "F43_market_structure_monthly_features.png"))
 
             focused = regimes[
@@ -1836,146 +2449,161 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
                 )
                 & (regimes["asset"].isin(["BTC", "ETH"]))
             ].copy()
-            fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+            fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
             if not focused.empty:
                 focused["label"] = (
-                    focused["feature"]
-                    .str.replace("_share_full_top100", "", regex=False)
-                    .str.replace("_", " ")
-                    + " / "
-                    + focused["bucket"].astype(str)
-                    + " / "
+                    focused["feature"].map(_readable_metric)
+                    + " | "
+                    + focused["bucket"].astype(str).str.title()
+                    + " | "
                     + focused["asset"]
                 )
                 focused = focused.sort_values("mean_return_1d")
                 colors = [
-                    COLORS["eth"] if asset == "ETH" else COLORS["btc"] for asset in focused["asset"]
+                    CHART_COLORS["blue"] if asset == "ETH" else CHART_COLORS["orange"]
+                    for asset in focused["asset"]
                 ]
-                ax.barh(focused["label"], focused["mean_return_1d"], color=colors)
-                ax.axvline(0, color=COLORS["axis"], linewidth=0.8)
+                bars = ax.barh(
+                    focused["label"],
+                    focused["mean_return_1d"],
+                    color=colors,
+                    edgecolor=CHART_COLORS["ink"],
+                    linewidth=0.4,
+                )
+                ax.axvline(0, color=CHART_COLORS["ink"], linewidth=0.8)
                 ax.xaxis.set_major_formatter(PercentFormatter(1.0))
-            ax.set_title(
-                "BTC/ETH Returns by Lagged Monthly Context Bucket",
-                color=COLORS["text"],
-                fontweight="bold",
-            )
+                _label_bars(ax, bars, formatter=lambda value: f"{value:+.2%}")
             ax.set_xlabel("Mean daily return")
-            _style_axis(ax)
+            _style_axis(ax, grid_axis="x")
+            _add_header(
+                fig,
+                ax,
+                "Lagged monthly structure buckets line up with different BTC/ETH return profiles",
+                "Descriptive same-day return distribution by prior monthly context bucket; no causal interpretation.",
+            )
             written.append(save_fig(fig, figures / "F44_market_structure_return_regimes.png"))
 
-            fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+            fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
             if not shift.empty:
                 plot_shift = shift.dropna(subset=["delta"]).copy()
-                plot_shift["label"] = (
-                    plot_shift["metric"]
-                    .str.replace("_full_top100", "", regex=False)
-                    .str.replace("_", " ")
-                )
+                plot_shift["label"] = plot_shift["metric"].map(_readable_metric)
                 plot_shift = plot_shift.sort_values("delta")
                 colors = [
-                    COLORS["liquidity"] if value >= 0 else COLORS["gold"]
+                    CHART_COLORS["blue_light"] if value >= 0 else CHART_COLORS["orange_light"]
                     for value in plot_shift["delta"]
                 ]
-                ax.barh(plot_shift["label"], plot_shift["delta"], color=colors)
-                ax.axvline(0, color=COLORS["axis"], linewidth=0.8)
+                edge_colors = [
+                    CHART_COLORS["blue"] if value >= 0 else CHART_COLORS["orange"]
+                    for value in plot_shift["delta"]
+                ]
+                bars = ax.barh(plot_shift["label"], plot_shift["delta"], color=colors, edgecolor=edge_colors)
+                ax.axvline(0, color=CHART_COLORS["ink"], linewidth=0.8)
                 ax.xaxis.set_major_formatter(PercentFormatter(1.0))
-            ax.set_title(
-                "ETF-Era Market-Structure Composition Shift",
-                color=COLORS["text"],
-                fontweight="bold",
+                _label_bars(ax, bars, formatter=lambda value: f"{value:+.1%}")
+            ax.set_xlabel("Post-BTC ETF mean minus pre-BTC ETF mean")
+            _style_axis(ax, grid_axis="x")
+            _add_header(
+                fig,
+                ax,
+                "ETF-era composition shifted toward concentration and productized exposure",
+                "Difference in monthly PIT top100 mean shares before versus after BTC spot ETF trading began.",
             )
-            ax.set_xlabel("Post BTC ETF mean minus pre BTC ETF mean")
-            _style_axis(ax)
             written.append(save_fig(fig, figures / "F45_market_structure_composition_shift.png"))
 
-            fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+            fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
             if not phase_turnover.empty:
                 phase_plot = phase_turnover.copy()
-                x = range(len(phase_plot))
-                ax.bar(
-                    [idx - 0.18 for idx in x],
+                phase_plot = phase_plot.sort_values("cycle_phase", key=lambda s: s.map(_phase_sort_key))
+                phase_plot["label"] = phase_plot["cycle_phase"].map(_phase_label)
+                y = np.arange(len(phase_plot))
+                bars_in = ax.barh(
+                    y + 0.18,
                     phase_plot["mean_clean_risk_entrants"],
-                    width=0.36,
+                    height=0.34,
                     label="Entrants",
-                    color=COLORS["positive"],
+                    color=CHART_COLORS["blue_light"],
+                    edgecolor=CHART_COLORS["blue"],
+                    linewidth=0.8,
                 )
-                ax.bar(
-                    [idx + 0.18 for idx in x],
+                bars_out = ax.barh(
+                    y - 0.18,
                     phase_plot["mean_clean_risk_exits"],
-                    width=0.36,
+                    height=0.34,
                     label="Exits",
-                    color=COLORS["negative"],
+                    color=CHART_COLORS["orange_light"],
+                    edgecolor=CHART_COLORS["orange"],
+                    linewidth=0.8,
                 )
-                ax.set_xticks(list(x))
-                ax.set_xticklabels(
-                    [_phase_label(value) for value in phase_plot["cycle_phase"]],
-                    rotation=0,
-                    fontsize=7,
-                )
-                ax.legend(frameon=False, fontsize=8)
-            ax.set_title(
-                "Clean-Risk Top100 Turnover by Cycle/ETF Phase",
-                color=COLORS["text"],
-                fontweight="bold",
+                ax.set_yticks(y, phase_plot["label"])
+                _label_bars(ax, bars_in, formatter=lambda value: f"{value:.1f}")
+                _label_bars(ax, bars_out, formatter=lambda value: f"{value:.1f}")
+                _legend_top(ax, ncol=2, y=1.03)
+            ax.set_xlabel("Mean assets per monthly snapshot")
+            _style_axis(ax, grid_axis="x")
+            _add_header(
+                fig,
+                ax,
+                "Turnover was largest in the short pre-2020-halving sample",
+                "Clean-risk top100 entrants and exits by cycle/ETF phase; compare phases with snapshot counts in T50.",
             )
-            ax.set_ylabel("Mean assets per snapshot")
-            _style_axis(ax)
             written.append(save_fig(fig, figures / "F46_market_structure_turnover_by_phase.png"))
 
-            fig, axes = plt.subplots(2, 2, figsize=(12, 8), facecolor=COLORS["bg"])
+            fig, axes = plt.subplots(2, 2, figsize=(13, 8.2), facecolor=CHART_COLORS["surface"])
             axes = axes.flatten()
-            for col, label, color in share_cols[:4]:
-                axes[0].plot(
-                    monthly["snapshot_date"], monthly[col], label=label, color=color, linewidth=1.35
-                )
+            for col, label, color in share_cols[:3]:
+                axes[0].plot(monthly["snapshot_date"], monthly[col], label=label, color=color, linewidth=1.1)
+                _annotate_last(axes[0], monthly["snapshot_date"], monthly[col], label, color)
             axes[0].set_ylim(0, 1)
+            axes[0].margins(x=0.08)
             axes[0].yaxis.set_major_formatter(PercentFormatter(1.0))
-            axes[0].legend(frameon=False, fontsize=7, ncol=2)
-            axes[0].set_title("Monthly context features", color=COLORS["text"], fontweight="bold")
+            _format_date_axis(axes[0], max_ticks=5)
+            _panel_title(axes[0], "Monthly context", "Large-share structure features")
             if not focused.empty:
                 short = focused[focused["feature"] == "top10_share_full_top100"].sort_values(
                     "mean_return_1d"
                 )
-                short_colors = [
-                    COLORS["eth"] if asset == "ETH" else COLORS["btc"] for asset in short["asset"]
-                ]
-                axes[1].barh(
+                short_colors = [CHART_COLORS["blue"] if asset == "ETH" else CHART_COLORS["orange"] for asset in short["asset"]]
+                bars = axes[1].barh(
                     short["bucket"] + " / " + short["asset"],
                     short["mean_return_1d"],
                     color=short_colors,
                 )
-                axes[1].axvline(0, color=COLORS["axis"], linewidth=0.8)
+                axes[1].axvline(0, color=CHART_COLORS["ink"], linewidth=0.8)
                 axes[1].xaxis.set_major_formatter(PercentFormatter(1.0))
-            axes[1].set_title("Return buckets", color=COLORS["text"], fontweight="bold")
+                _label_bars(axes[1], bars, formatter=lambda value: f"{value:+.2%}")
+            _panel_title(axes[1], "Return buckets", "Mean daily return by top10-share bucket")
             if not shift.empty:
-                plot_shift = shift.dropna(subset=["delta"]).sort_values("delta")
+                plot_shift = shift.dropna(subset=["delta"]).copy()
+                plot_shift["label"] = plot_shift["metric"].map(_readable_metric)
+                plot_shift = plot_shift.sort_values("delta")
                 shift_colors = [
-                    COLORS["liquidity"] if value >= 0 else COLORS["gold"]
+                    CHART_COLORS["blue_light"] if value >= 0 else CHART_COLORS["orange_light"]
                     for value in plot_shift["delta"]
                 ]
-                axes[2].barh(
-                    plot_shift["metric"]
-                    .str.replace("_full_top100", "", regex=False)
-                    .str.replace("_", " "),
-                    plot_shift["delta"],
-                    color=shift_colors,
-                )
-                axes[2].axvline(0, color=COLORS["axis"], linewidth=0.8)
+                shift_edges = [CHART_COLORS["blue"] if value >= 0 else CHART_COLORS["orange"] for value in plot_shift["delta"]]
+                bars = axes[2].barh(plot_shift["label"], plot_shift["delta"], color=shift_colors, edgecolor=shift_edges)
+                axes[2].axvline(0, color=CHART_COLORS["ink"], linewidth=0.8)
                 axes[2].xaxis.set_major_formatter(PercentFormatter(1.0))
-            axes[2].set_title("ETF-era deltas", color=COLORS["text"], fontweight="bold")
+                _label_bars(axes[2], bars, formatter=lambda value: f"{value:+.1%}")
+            _panel_title(axes[2], "ETF-era deltas", "Post-BTC ETF minus pre-BTC ETF")
             if not phase_turnover.empty:
-                axes[3].barh(
-                    phase_turnover["cycle_phase"].map(_phase_label),
-                    phase_turnover["mean_clean_risk_entrants"],
-                    color=COLORS["positive"],
+                phase_plot = phase_turnover.sort_values("cycle_phase", key=lambda s: s.map(_phase_sort_key))
+                bars = axes[3].barh(
+                    phase_plot["cycle_phase"].map(_phase_label),
+                    phase_plot["mean_clean_risk_entrants"],
+                    color=CHART_COLORS["blue_light"],
+                    edgecolor=CHART_COLORS["blue"],
                 )
-            axes[3].set_title("Clean-risk entrants", color=COLORS["text"], fontweight="bold")
+                _label_bars(axes[3], bars, formatter=lambda value: f"{value:.1f}")
+            _panel_title(axes[3], "Clean-risk entrants", "Mean assets per snapshot")
             for axis in axes:
                 _style_axis(axis)
-            fig.suptitle(
-                "Market-Structure Modeling Dashboard", color=COLORS["text"], fontweight="bold"
+            _add_dashboard_header(
+                fig,
+                "Market-structure modeling dashboard",
+                "Lagged monthly universe context is useful for descriptive regime diagnostics, not causal attribution.",
             )
-            fig.tight_layout()
+            fig.subplots_adjust(top=0.88, left=0.10, right=0.97, hspace=0.42, wspace=0.34)
             written.append(save_fig(fig, figures / "F47_market_structure_modeling_dashboard.png"))
 
     breadth_path = tables / "T53_altseason_breadth.csv"
@@ -1996,83 +2624,155 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
         beta = pd.read_csv(beta_path, parse_dates=["date"])
         events = pd.read_csv(events_path)
 
-        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
         if not breadth.empty:
-            ax.plot(
-                breadth["date"],
-                breadth["share_risk_beating_btc_90d"],
-                color=COLORS["liquidity"],
-                linewidth=1.6,
-                label="Risk sample beating BTC",
+            breadth_plot = breadth.sort_values("date").copy()
+            breadth_plot["breadth_14d"] = (
+                breadth_plot["share_risk_beating_btc_90d"].rolling(14, min_periods=3).mean()
             )
-            ax.axhline(0.70, color=COLORS["positive"], linestyle="--", linewidth=1, alpha=0.7)
-            ax.axhline(0.30, color=COLORS["gold"], linestyle="--", linewidth=1, alpha=0.7)
-            ax.set_ylim(0, 1)
-            ax.yaxis.set_major_formatter(PercentFormatter(1.0))
-            ax.legend(frameon=False, fontsize=8)
-        ax.set_title(
-            "Current-Top50 Exploratory Breadth",
-            color=COLORS["text"],
-            fontweight="bold",
-        )
-        ax.set_ylabel("Share beating BTC over 90 days")
+            ax.axhspan(0.70, 1.00, color=CHART_COLORS["olive_light"], alpha=0.13, zorder=0)
+            ax.axhspan(0.00, 0.30, color=CHART_COLORS["orange_light"], alpha=0.12, zorder=0)
+            ax.plot(
+                breadth_plot["date"],
+                breadth_plot["share_risk_beating_btc_90d"],
+                color=CHART_COLORS["blue_light"],
+                linewidth=0.8,
+                alpha=0.28,
+                label="Daily reading",
+            )
+            ax.plot(
+                breadth_plot["date"],
+                breadth_plot["breadth_14d"],
+                color=CHART_COLORS["teal"],
+                linewidth=2.0,
+                label="14-day mean",
+            )
+            ax.axhline(0.70, color=CHART_COLORS["olive"], linestyle="--", linewidth=1.0)
+            ax.axhline(0.30, color=CHART_COLORS["orange"], linestyle="--", linewidth=1.0)
+            ax.text(
+                1.002,
+                0.70,
+                "70% broad outperformance",
+                transform=ax.get_yaxis_transform(),
+                ha="left",
+                va="center",
+                fontsize=7.5,
+                color=CHART_COLORS["olive"],
+                clip_on=False,
+            )
+            ax.text(
+                1.002,
+                0.30,
+                "30% BTC-dominant",
+                transform=ax.get_yaxis_transform(),
+                ha="left",
+                va="center",
+                fontsize=7.5,
+                color=CHART_COLORS["orange"],
+                clip_on=False,
+            )
+            _annotate_last(
+                ax,
+                breadth_plot["date"],
+                breadth_plot["breadth_14d"],
+                "14-day mean",
+                CHART_COLORS["teal"],
+            )
+        ax.set_ylim(0, 1)
+        ax.set_ylabel("Share beating BTC over trailing 90 days")
+        ax.yaxis.set_major_formatter(PercentFormatter(1.0))
+        ax.margins(x=0.04)
+        _format_date_axis(ax)
         _style_axis(ax)
+        _add_header(
+            fig,
+            ax,
+            "Current-cohort breadth improved in bursts, not persistently",
+            "Exploratory current-top50 cohort. Line shows the 14-day mean of the share of clean-risk constituents beating BTC over trailing 90 days; this is survivorship-biased, not a point-in-time top100 backtest.",
+        )
         written.append(save_fig(fig, figures / "F48_altseason_breadth.png"))
 
-        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
         if not indexes.empty:
+            index_offsets = {
+                "btc": 8,
+                "eth": -8,
+                "top50_ex_btc_eth": 0,
+                "top10_ex_btc_eth": -16,
+            }
             for universe, label, color in [
-                ("btc", "BTC", COLORS["btc"]),
-                ("eth", "ETH", COLORS["eth"]),
-                ("top50_ex_btc_eth", "Top50 ex BTC/ETH", COLORS["liquidity"]),
-                ("top10_ex_btc_eth", "Top10 ex BTC/ETH", COLORS["institutional"]),
+                ("btc", "BTC", CHART_COLORS["orange"]),
+                ("eth", "ETH", CHART_COLORS["blue"]),
+                ("top50_ex_btc_eth", "Top50 ex BTC/ETH", CHART_COLORS["teal"]),
+                ("top10_ex_btc_eth", "Top10 ex BTC/ETH", CHART_COLORS["pink"]),
             ]:
-                series = indexes[indexes["universe"] == universe]
+                series = indexes[indexes["universe"] == universe].sort_values("date")
                 if not series.empty:
                     ax.plot(
                         series["date"],
                         series["cumulative_index"],
-                        label=label,
                         color=color,
-                        linewidth=1.35,
+                        linewidth=1.55,
+                    )
+                    _annotate_last(
+                        ax,
+                        series["date"],
+                        series["cumulative_index"],
+                        label,
+                        color,
+                        dy=index_offsets[universe],
                     )
             ax.set_yscale("log")
-            ax.legend(frameon=False, fontsize=8)
-        ax.set_title("Current-Cohort Rotation Indexes", color=COLORS["text"], fontweight="bold")
-        ax.set_ylabel("Cumulative index, log scale")
+            ax.yaxis.set_major_formatter(FuncFormatter(lambda value, _pos: f"{value:,.0f}"))
+        ax.set_ylabel("Cumulative index, base 100, log scale")
+        ax.margins(x=0.07)
+        _format_date_axis(ax)
         _style_axis(ax)
+        _add_header(
+            fig,
+            ax,
+            "Current-cohort rotation indexes show relative path dependence",
+            "Daily equal-weight indexes rebased to 100. The cohort is current-top50 and exploratory, so use this as a diagnostics view rather than survivorship-free historical performance evidence.",
+        )
         written.append(save_fig(fig, figures / "F49_constituent_return_indexes.png"))
 
-        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
         if not dispersion.empty:
+            dispersion_plot = dispersion.sort_values("date").copy()
+            for column in ["p10_return_1d", "p90_return_1d", "median_return_1d"]:
+                dispersion_plot[f"{column}_7d"] = (
+                    dispersion_plot[column].rolling(7, min_periods=3).mean()
+                )
             ax.fill_between(
-                dispersion["date"],
-                dispersion["p10_return_1d"],
-                dispersion["p90_return_1d"],
-                color=COLORS["eth"],
-                alpha=0.18,
-                label="P10-P90 daily return range",
+                dispersion_plot["date"],
+                dispersion_plot["p10_return_1d_7d"],
+                dispersion_plot["p90_return_1d_7d"],
+                color=CHART_COLORS["blue_light"],
+                alpha=0.24,
+                label="P10-P90 range, 7-day mean",
             )
             ax.plot(
-                dispersion["date"],
-                dispersion["median_return_1d"],
-                color=COLORS["btc"],
-                linewidth=1.2,
-                label="Median",
+                dispersion_plot["date"],
+                dispersion_plot["median_return_1d_7d"],
+                color=CHART_COLORS["orange"],
+                linewidth=1.7,
+                label="Median, 7-day mean",
             )
-            ax.axhline(0, color=COLORS["axis"], linewidth=0.8)
-            ax.yaxis.set_major_formatter(PercentFormatter(1.0))
-            ax.legend(frameon=False, fontsize=8)
-        ax.set_title(
-            "Current-Cohort Daily Return Dispersion",
-            color=COLORS["text"],
-            fontweight="bold",
-        )
-        ax.set_ylabel("Clean-risk ex BTC/ETH daily returns")
+            ax.axhline(0, color=CHART_COLORS["ink"], linewidth=0.8)
+            _legend_top(ax, ncol=2, y=1.01)
+        ax.set_ylabel("Daily return")
+        ax.yaxis.set_major_formatter(PercentFormatter(1.0))
+        _format_date_axis(ax)
         _style_axis(ax)
+        _add_header(
+            fig,
+            ax,
+            "Return dispersion widens during stress and rotation windows",
+            "Seven-day smoothed P10-P90 band for clean-risk current-cohort daily returns. Smoothing suppresses single-day spikes while preserving regime-level dispersion.",
+        )
         written.append(save_fig(fig, figures / "F50_return_dispersion.png"))
 
-        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
         if not beta.empty:
             plot_beta = beta[
                 (beta["window_days"] == 180)
@@ -2082,28 +2782,46 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
                         ["top50_ex_btc_eth", "top10_ex_btc_eth", "clean_risk_ex_btc_eth"]
                     )
                 )
-            ]
+            ].copy()
             for universe, label, color in [
-                ("top50_ex_btc_eth", "Top50 ex BTC/ETH", COLORS["liquidity"]),
-                ("top10_ex_btc_eth", "Top10 ex BTC/ETH", COLORS["institutional"]),
-                ("clean_risk_ex_btc_eth", "Clean risk ex BTC/ETH", COLORS["native"]),
+                ("top50_ex_btc_eth", "Top50 ex BTC/ETH", CHART_COLORS["teal"]),
+                ("top10_ex_btc_eth", "Top10 ex BTC/ETH", CHART_COLORS["pink"]),
+                ("clean_risk_ex_btc_eth", "Clean risk ex BTC/ETH", CHART_COLORS["blue"]),
             ]:
-                series = plot_beta[plot_beta["universe"] == universe]
+                series = plot_beta[plot_beta["universe"] == universe].sort_values("date")
                 if not series.empty:
-                    ax.plot(series["date"], series["beta"], label=label, color=color, linewidth=1.2)
-            ax.axhline(1, color=COLORS["axis"], linewidth=0.8, linestyle="--")
-            ax.legend(frameon=False, fontsize=8)
-        ax.set_title("Rolling Beta to BTC", color=COLORS["text"], fontweight="bold")
+                    ax.plot(series["date"], series["beta"], color=color, linewidth=1.35)
+                    _annotate_last(ax, series["date"], series["beta"], label, color)
+            ax.axhline(1, color=CHART_COLORS["ink"], linewidth=0.8, linestyle="--")
+            ax.text(
+                1.002,
+                1,
+                "1.0 BTC beta",
+                transform=ax.get_yaxis_transform(),
+                ha="left",
+                va="center",
+                fontsize=7.5,
+                color=CHART_COLORS["muted"],
+                clip_on=False,
+            )
         ax.set_ylabel("180-day beta")
+        ax.margins(x=0.08)
+        _format_date_axis(ax)
         _style_axis(ax)
+        _add_header(
+            fig,
+            ax,
+            "Current-cohort beta stayed BTC-sensitive",
+            "Rolling 180-day beta to BTC for equal-weight current-cohort baskets. This is a sensitivity diagnostic, not a causal exposure estimate.",
+        )
         written.append(save_fig(fig, figures / "F51_rolling_beta_to_btc.png"))
 
-        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=CHART_COLORS["surface"])
         if not events.empty:
             event_plot = events[
                 (events["window_days"] == 10) & (events["universe"] == "top50_ex_btc_eth")
             ].copy()
-            event_plot = event_plot.dropna(subset=["post_window_return"]).tail(10)
+            event_plot = event_plot.dropna(subset=["post_window_return"])
             if not event_plot.empty:
                 label_map = {
                     "btc_spot_etf_launch": "BTC ETF launch",
@@ -2122,79 +2840,139 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
                     .map(label_map)
                     .fillna(event_plot["event_id"].astype(str).str.replace("_", " "))
                 )
+                event_plot = event_plot.sort_values("post_window_return")
                 colors = [
-                    COLORS["liquidity"] if value >= 0 else COLORS["gold"]
+                    CHART_COLORS["blue_light"] if value >= 0 else CHART_COLORS["orange_light"]
                     for value in event_plot["post_window_return"]
                 ]
-                ax.barh(event_plot["label"], event_plot["post_window_return"], color=colors)
-                ax.axvline(0, color=COLORS["axis"], linewidth=0.8)
+                edge_colors = [
+                    CHART_COLORS["blue"] if value >= 0 else CHART_COLORS["orange"]
+                    for value in event_plot["post_window_return"]
+                ]
+                bars = ax.barh(
+                    event_plot["label"],
+                    event_plot["post_window_return"],
+                    color=colors,
+                    edgecolor=edge_colors,
+                )
+                max_abs = float(event_plot["post_window_return"].abs().max())
+                if max_abs > 0:
+                    ax.set_xlim(-max_abs * 1.24, max_abs * 1.24)
+                _label_bars(ax, bars, formatter=lambda value: f"{value:+.0%}")
+                ax.axvline(0, color=CHART_COLORS["ink"], linewidth=0.8)
                 ax.xaxis.set_major_formatter(PercentFormatter(1.0))
-        ax.set_title(
-            "Event Response: Current Top50 ex BTC/ETH",
-            color=COLORS["text"],
-            fontweight="bold",
-        )
         ax.set_xlabel("Post-event 10-day return")
         _style_axis(ax)
+        _add_header(
+            fig,
+            ax,
+            "Event-window responses are mixed across macro and crypto shocks",
+            "Ten-day post-event returns for the current-top50 ex BTC/ETH basket. The chart is descriptive and event-aligned; it does not identify causes.",
+        )
         written.append(save_fig(fig, figures / "F52_event_response_top50.png"))
 
-        fig, axes = plt.subplots(2, 2, figsize=(12, 8), facecolor=COLORS["bg"])
+        fig, axes = plt.subplots(2, 2, figsize=(12.8, 8.2), facecolor=CHART_COLORS["surface"])
         axes = axes.flatten()
+        fig.subplots_adjust(top=0.86, hspace=0.44, wspace=0.24)
+        _add_dashboard_header(
+            fig,
+            "Current-cohort rotation dashboard",
+            "Exploratory current-top50 diagnostics only. These views are useful for visual triage, but the cohort is survivorship-biased and is not a point-in-time altseason backtest.",
+        )
         if not breadth.empty:
-            axes[0].plot(
-                breadth["date"],
-                breadth["share_risk_beating_btc_90d"],
-                color=COLORS["liquidity"],
-                linewidth=1.3,
+            breadth_plot = breadth.sort_values("date").copy()
+            breadth_plot["breadth_14d"] = (
+                breadth_plot["share_risk_beating_btc_90d"].rolling(14, min_periods=3).mean()
             )
-            axes[0].axhline(0.70, color=COLORS["positive"], linestyle="--", linewidth=0.9)
+            axes[0].plot(
+                breadth_plot["date"],
+                breadth_plot["share_risk_beating_btc_90d"],
+                color=CHART_COLORS["blue_light"],
+                linewidth=0.7,
+                alpha=0.22,
+            )
+            axes[0].plot(
+                breadth_plot["date"],
+                breadth_plot["breadth_14d"],
+                color=CHART_COLORS["teal"],
+                linewidth=1.7,
+            )
+            axes[0].axhline(0.70, color=CHART_COLORS["olive"], linestyle="--", linewidth=0.8)
+            axes[0].axhline(0.30, color=CHART_COLORS["orange"], linestyle="--", linewidth=0.8)
             axes[0].set_ylim(0, 1)
             axes[0].yaxis.set_major_formatter(PercentFormatter(1.0))
-        axes[0].set_title("90-day breadth", color=COLORS["text"], fontweight="bold")
+            _format_date_axis(axes[0], max_ticks=4)
+        _panel_title(axes[0], "90-day breadth", "Share beating BTC, 14-day mean")
         if not indexes.empty:
+            rotation_offsets = {"btc": 8, "eth": -10, "top50_ex_btc_eth": 0}
             for universe, label, color in [
-                ("btc", "BTC", COLORS["btc"]),
-                ("eth", "ETH", COLORS["eth"]),
-                ("top50_ex_btc_eth", "Top50 ex BTC/ETH", COLORS["liquidity"]),
+                ("btc", "BTC", CHART_COLORS["orange"]),
+                ("eth", "ETH", CHART_COLORS["blue"]),
+                ("top50_ex_btc_eth", "Top50 ex BTC/ETH", CHART_COLORS["teal"]),
             ]:
-                series = indexes[indexes["universe"] == universe]
+                series = indexes[indexes["universe"] == universe].sort_values("date")
                 if not series.empty:
                     axes[1].plot(
                         series["date"],
                         series["cumulative_index"],
                         label=label,
                         color=color,
-                        linewidth=1.1,
+                        linewidth=1.2,
+                    )
+                    _annotate_last(
+                        axes[1],
+                        series["date"],
+                        series["cumulative_index"],
+                        label,
+                        color,
+                        dy=rotation_offsets[universe],
                     )
             axes[1].set_yscale("log")
-            axes[1].legend(frameon=False, fontsize=7)
-        axes[1].set_title("Rotation indexes", color=COLORS["text"], fontweight="bold")
+            axes[1].yaxis.set_major_formatter(FuncFormatter(lambda value, _pos: f"{value:,.0f}"))
+            axes[1].margins(x=0.10)
+            _format_date_axis(axes[1], max_ticks=4)
+        _panel_title(axes[1], "Rotation indexes", "Base 100, log scale")
         if not dispersion.empty:
+            dispersion_plot = dispersion.sort_values("date").copy()
+            dispersion_plot["dispersion_30d"] = (
+                dispersion_plot["dispersion_1d_p90_minus_p10"].rolling(30, min_periods=7).mean()
+            )
             axes[2].plot(
-                dispersion["date"],
-                dispersion["dispersion_1d_p90_minus_p10"],
-                color=COLORS["eth"],
-                linewidth=1.1,
+                dispersion_plot["date"],
+                dispersion_plot["dispersion_30d"],
+                color=CHART_COLORS["pink"],
+                linewidth=1.4,
             )
             axes[2].yaxis.set_major_formatter(PercentFormatter(1.0))
-        axes[2].set_title("Daily dispersion", color=COLORS["text"], fontweight="bold")
+            _format_date_axis(axes[2], max_ticks=4)
+        _panel_title(axes[2], "Return dispersion", "P90-P10 daily return range, 30-day mean")
         if not beta.empty:
             series = beta[
                 (beta["window_days"] == 180)
                 & (beta["benchmark"] == "btc")
                 & (beta["universe"] == "top50_ex_btc_eth")
-            ]
-            axes[3].plot(series["date"], series["beta"], color=COLORS["btc"], linewidth=1.1)
-            axes[3].axhline(1, color=COLORS["axis"], linestyle="--", linewidth=0.8)
-        axes[3].set_title("Top50 beta to BTC", color=COLORS["text"], fontweight="bold")
+            ].sort_values("date")
+            axes[3].plot(
+                series["date"],
+                series["beta"],
+                color=CHART_COLORS["orange"],
+                linewidth=1.4,
+            )
+            axes[3].axhline(1, color=CHART_COLORS["ink"], linestyle="--", linewidth=0.8)
+            axes[3].text(
+                0.02,
+                1.02,
+                "1.0 BTC beta",
+                transform=axes[3].get_yaxis_transform(),
+                ha="left",
+                va="bottom",
+                fontsize=7,
+                color=CHART_COLORS["muted"],
+            )
+            _format_date_axis(axes[3], max_ticks=4)
+        _panel_title(axes[3], "Top50 beta to BTC", "180-day rolling sensitivity")
         for axis in axes:
             _style_axis(axis)
-        fig.suptitle(
-            "Current-Top50 Exploratory Rotation Dashboard",
-            color=COLORS["text"],
-            fontweight="bold",
-        )
-        fig.tight_layout()
         written.append(save_fig(fig, figures / "F53_rotation_dashboard.png"))
 
     return written
@@ -2275,6 +3053,7 @@ Reports:
 - `report/market_structure_limitations.md`
 - `report/market_structure_fetch_diagnostics.md`
 - `report/market_structure_next_data_needed.md`
+- `report/visualization_quality_audit.md`
 
 Figures:
 
