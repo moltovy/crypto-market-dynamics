@@ -5,3 +5,4 @@
 - Current order-book and ticker endpoints are snapshots and are not used as historical depth.
 - Stablecoin supply and TVL are proxies, not proven causal drivers.
 - CMC Fear & Greed live refresh requires `CMC_API_KEY`; cached history is included when present.
+- Monthly market-cap snapshots support structure/composition diagnostics only; daily OHLCV is required for altseason performance, breadth, volatility, beta, drawdown, dispersion, and event-return analysis.

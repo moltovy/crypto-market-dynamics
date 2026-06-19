@@ -87,6 +87,14 @@ Binance outputs are labeled as exchange-liquidity ranks based on rolling quote
 volume. They are not market-cap ranks. Historical market-cap top100 output is
 skipped unless point-in-time market-cap snapshots are provided.
 
+The repo supports a local DefiLlama monthly top200 universe at
+`data_cache/defillama/crypto_universe_monthly_2020_2026.csv`. When supplied and
+ingested, it builds full, ex-stable, and clean-risk top100 market-cap universes
+with internal classification overrides. Monthly snapshots support composition,
+concentration, rank-turnover, and cycle-phase structure; daily OHLCV is still
+required for returns, breadth, volatility, beta, drawdowns, dispersion, and
+event-return analysis.
+
 ## Methodology
 
 - Feature engineering for returns, differences, ETF-flow intensity, realized
@@ -260,6 +268,7 @@ uv run pytest
 uv run mypy src/cqresearch
 uv run python scripts/audit_market_structure_endpoints.py --dry-run
 uv run python scripts/fetch_market_structure_raw.py --cache-only
+uv run python scripts/ingest_defillama_monthly_universe.py
 uv run python scripts/normalize_market_structure_cache.py --cache-only
 uv run python scripts/build_market_structure_outputs.py
 uv run python scripts/run_all.py

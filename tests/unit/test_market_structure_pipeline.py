@@ -10,6 +10,10 @@ from cqresearch.analysis.market_structure_pipeline import (
     normalize_cache_to_curated,
     sentiment_overlap_summary,
 )
+from cqresearch.analysis.market_universe import (
+    MONTHLY_UNIVERSE_CURATED,
+    normalize_defillama_monthly_universe,
+)
 
 
 def _seed_project(root: Path) -> None:
@@ -114,3 +118,57 @@ def test_fear_greed_blend_uses_altme_before_cmc_start(tmp_path) -> None:
     assert float(summary["splice_jump_alt_prev_day_to_cmc_start"]) == -3
     assert float(summary["same_day_cmc_minus_alt_on_splice_date"]) == 5
     assert summary["recommendation"] == "acceptable_with_source_flag"
+
+
+def test_market_structure_outputs_include_monthly_universe_when_normalized(tmp_path) -> None:
+    _seed_project(tmp_path)
+    (tmp_path / "config").mkdir()
+    (tmp_path / "config" / "asset_classification_overrides.yml").write_text(
+        """
+stablecoins: [USDT]
+wrapped_assets: [WBTC]
+lst_restaking: [STETH]
+tokenized_commodities: [PAXG]
+base_assets: [BTC, ETH, SOL]
+""".strip()
+        + "\n",
+        encoding="utf-8",
+    )
+    raw = pd.DataFrame(
+        [
+            ["2024-01-31", "BTC", "Bitcoin", 1000, 1],
+            ["2024-01-31", "ETH", "Ethereum", 900, 2],
+            ["2024-01-31", "USDT", "Tether", 800, 3],
+            ["2024-01-31", "WBTC", "Wrapped BTC", 700, 4],
+            ["2024-01-31", "STETH", "Staked ETH", 600, 5],
+            ["2024-01-31", "PAXG", "Pax Gold", 500, 6],
+            ["2024-01-31", "DOGE", "Dogecoin", 400, 7],
+            ["2024-01-31", "SOL", "Solana", 300, 8],
+            ["2024-02-16", "BTC", "Bitcoin", 1100, 1],
+            ["2024-02-16", "ETH", "Ethereum", 950, 2],
+            ["2024-02-16", "USDT", "Tether", 850, 3],
+            ["2024-02-16", "WBTC", "Wrapped BTC", 750, 4],
+            ["2024-02-16", "STETH", "Staked ETH", 650, 5],
+            ["2024-02-16", "PAXG", "Pax Gold", 550, 6],
+            ["2024-02-16", "ADA", "Cardano", 450, 7],
+            ["2024-02-16", "DOGE", "Dogecoin", 350, 8],
+        ],
+        columns=["date", "symbol", "name", "market_cap_usd", "rank"],
+    )
+    normalized = normalize_defillama_monthly_universe(
+        raw,
+        expected_snapshots=2,
+        rows_per_snapshot=8,
+        partial_month_date="2024-02-16",
+    )
+    out_path = tmp_path / MONTHLY_UNIVERSE_CURATED
+    out_path.parent.mkdir(parents=True)
+    normalized.to_csv(out_path, index=False)
+
+    build_outputs(tmp_path)
+
+    gap = pd.read_csv(tmp_path / "outputs" / "tables" / "T36_market_cap_top100_gap.csv")
+    assert gap.loc[0, "status"] == "available"
+    assert (tmp_path / "outputs" / "tables" / "T40_crypto_universe_monthly.csv").exists()
+    assert (tmp_path / "outputs" / "tables" / "T45_market_evolution_summary.md").exists()
+    assert (tmp_path / "outputs" / "figures" / "F38_market_structure_composition.png").exists()

@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-06-19T01:43:52.761734+00:00",
-  "git_commit": "e528b4c",
+  "generated_at_utc": "2026-06-19T03:06:12.116201+00:00",
+  "git_commit": "9a35c12",
   "artifact_root": "outputs",
   "figure_bundle": {
     "style": "institutional_dark_research_cards",
@@ -369,7 +369,7 @@
     "Historical release packets and manager notes are archived outside the public surface."
   ],
   "market_structure": {
-    "generated_at_utc": "2026-06-19T02:01:54.581876+00:00",
+    "generated_at_utc": "2026-06-19T03:06:15.464093+00:00",
     "source_table_bundle_date": "2026-06-18",
     "figure_bundle_start": "F30",
     "table_bundle_start": "T28",
@@ -377,6 +377,7 @@
       "uv run python scripts/audit_market_structure_endpoints.py --dry-run",
       "uv run python scripts/fetch_market_structure_raw.py --dry-run",
       "uv run python scripts/fetch_market_structure_raw.py --cache-only",
+      "uv run python scripts/ingest_defillama_monthly_universe.py",
       "uv run python scripts/normalize_market_structure_cache.py --cache-only",
       "uv run python scripts/build_market_structure_outputs.py"
     ],
@@ -416,6 +417,7 @@
     "guardrails": [
       "Binance top100 is exchange-liquidity based, not market-cap based.",
       "CMC live fetch requires CMC_API_KEY; cached CMC history is included when present.",
+      "Monthly point-in-time universes support composition and turnover, not daily return-performance claims.",
       "Raw API payloads stay in data_cache/ and are not committed.",
       "No API keys are written to outputs or manifests."
     ]

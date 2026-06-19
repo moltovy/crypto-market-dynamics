@@ -24,8 +24,15 @@ from cqresearch.analysis.asset_classification import (
     load_classification_overrides,
 )
 from cqresearch.analysis.market_universe import (
+    MONTHLY_UNIVERSE_CURATED,
     build_binance_liquidity_ranks,
+    classify_market_universe,
+    clean_risk_top100,
+    cycle_phase_market_structure,
     market_cap_top100_gap_report,
+    market_evolution_summary,
+    market_structure_composition,
+    rank_turnover,
 )
 from cqresearch.data.market_structure_cache import CacheLayout, read_json, utc_now_iso
 from cqresearch.data.market_structure_endpoints import all_endpoint_specs, endpoint_audit_rows
@@ -44,6 +51,7 @@ from cqresearch.viz.design_system import COLORS, HERO_SIZE
 from cqresearch.viz.theme import apply_institutional_mpl_theme
 
 ROOT = Path(__file__).resolve().parents[3]
+plt.switch_backend("Agg")
 
 
 @dataclass(frozen=True)
@@ -149,6 +157,8 @@ This subtree is additive to the frozen research database. Existing source files 
             """# DefiLlama Market-Structure Curated Layer
 
 Contains endpoint capability files and normalized public summaries derived from local DefiLlama cache when available. Pro-only datasets are skipped unless `DEFILLAMA_API_KEY` and plan access are present at runtime.
+
+The optional `crypto_universe_monthly_2020_2026.csv` file is a local point-in-time monthly top200 market-cap universe. It is ingested from `data_cache/defillama/` only after validation and supports composition, concentration, clean-risk universe, rank-turnover, and cycle-phase structure diagnostics.
 """,
         ),
         write_text(
@@ -643,18 +653,78 @@ def btc_cycle_overlay(project_root: Path) -> pd.DataFrame:
     return out.dropna()
 
 
+def load_monthly_market_universe(project_root: Path, overrides: dict[str, set[str]]) -> pd.DataFrame:
+    """Load the normalized monthly point-in-time market-cap universe when present."""
+
+    path = project_root / MONTHLY_UNIVERSE_CURATED
+    if not path.exists():
+        return pd.DataFrame()
+    frame = pd.read_csv(path, parse_dates=["snapshot_date"])
+    frame["snapshot_date"] = frame["snapshot_date"].dt.date
+    return classify_market_universe(frame, overrides)
+
+
+def write_market_cap_universe_outputs(
+    dirs: dict[str, Path],
+    universe: pd.DataFrame,
+) -> list[Path]:
+    """Write market-cap universe tables when a point-in-time source exists."""
+
+    if universe.empty:
+        return []
+    output_files: list[Path] = []
+    clean_risk = clean_risk_top100(universe)
+    composition = market_structure_composition(universe)
+    turnover = rank_turnover(universe)
+    cycle_phase = cycle_phase_market_structure(composition)
+    summary = market_evolution_summary(universe, composition, turnover)
+    output_files.append(write_csv(dirs["tables"] / "T40_crypto_universe_monthly.csv", universe))
+    output_files.append(write_csv(dirs["tables"] / "T41_clean_risk_top100_monthly.csv", clean_risk))
+    output_files.append(write_csv(dirs["tables"] / "T42_market_structure_composition.csv", composition))
+    output_files.append(write_csv(dirs["tables"] / "T43_rank_turnover.csv", turnover))
+    output_files.append(write_csv(dirs["tables"] / "T44_cycle_phase_market_structure.csv", cycle_phase))
+    output_files.append(write_text(dirs["tables"] / "T45_market_evolution_summary.md", summary))
+    return output_files
+
+
+def remove_market_cap_universe_outputs(project_root: Path) -> None:
+    """Remove stale market-cap universe outputs when the source is unavailable."""
+
+    for relpath in [
+        "outputs/tables/T40_crypto_universe_monthly.csv",
+        "outputs/tables/T41_clean_risk_top100_monthly.csv",
+        "outputs/tables/T42_market_structure_composition.csv",
+        "outputs/tables/T43_rank_turnover.csv",
+        "outputs/tables/T44_cycle_phase_market_structure.csv",
+        "outputs/tables/T45_market_evolution_summary.md",
+        "outputs/figures/F38_market_structure_composition.png",
+        "outputs/figures/F39_top100_concentration.png",
+        "outputs/figures/F40_rank_turnover.png",
+        "outputs/figures/F41_cycle_phase_market_structure.png",
+        "outputs/figures/F42_market_evolution_dashboard.png",
+    ]:
+        path = project_root / relpath
+        if path.exists():
+            path.unlink()
+
+
 def feature_panel_summary(
     sentiment: pd.DataFrame,
     stablecoin_tvl: pd.DataFrame,
     activity: pd.DataFrame,
     ranks: pd.DataFrame,
+    market_cap_top100_rows: int = 0,
 ) -> pd.DataFrame:
+    market_status = "available" if market_cap_top100_rows else "skipped_no_point_in_time_source"
+    ranks_skipped = "status" in ranks and ranks["status"].astype(str).str.startswith("skipped").all()
+    rank_rows = 0 if ranks.empty or ranks_skipped else len(ranks)
+    rank_status = "available" if rank_rows else "skipped_no_kline_cache"
     rows = [
         {"feature_family": "sentiment", "rows": len(sentiment), "status": "available" if len(sentiment) else "missing"},
         {"feature_family": "stablecoin_tvl_regime", "rows": len(stablecoin_tvl), "status": "available" if len(stablecoin_tvl) else "missing"},
         {"feature_family": "cex_dex_activity", "rows": len(activity), "status": "available" if len(activity) else "missing"},
-        {"feature_family": "binance_liquidity_top100", "rows": len(ranks), "status": "available" if len(ranks) else "skipped_no_kline_cache"},
-        {"feature_family": "market_cap_top100", "rows": 0, "status": "skipped_no_point_in_time_source"},
+        {"feature_family": "binance_liquidity_top100", "rows": rank_rows, "status": rank_status},
+        {"feature_family": "market_cap_top100", "rows": market_cap_top100_rows, "status": market_status},
     ]
     return pd.DataFrame(rows)
 
@@ -728,10 +798,24 @@ def build_outputs(project_root: Path = ROOT) -> MarketStructureBuildResult:
     output_files.append(write_csv(dirs["tables"] / "T34_btc_cycle_overlay.csv", cycle))
     rwa_dat = rwa_dat_growth(project_root)
     output_files.append(write_csv(dirs["tables"] / "T35_rwa_dat_growth.csv", rwa_dat))
-    gap = market_cap_top100_gap_report(False)
-    skipped.append("Historical market-cap top100 skipped because no point-in-time source is available.")
+
+    market_universe = load_monthly_market_universe(project_root, overrides)
+    has_market_universe = not market_universe.empty
+    gap = market_cap_top100_gap_report(has_market_universe)
+    if has_market_universe:
+        output_files.extend(write_market_cap_universe_outputs(dirs, market_universe))
+    else:
+        remove_market_cap_universe_outputs(project_root)
+        skipped.append("Historical market-cap top100 skipped because no point-in-time source is available.")
     output_files.append(write_csv(dirs["tables"] / "T36_market_cap_top100_gap.csv", gap))
-    feature_panel = feature_panel_summary(sentiment, stablecoin_tvl, activity, ranks)
+    market_cap_top100_rows = int(market_universe["in_full_top100"].sum()) if has_market_universe else 0
+    feature_panel = feature_panel_summary(
+        sentiment,
+        stablecoin_tvl,
+        activity,
+        ranks,
+        market_cap_top100_rows,
+    )
     if blend_path.exists():
         blend_rows = len(pd.read_csv(blend_path))
         feature_panel = pd.concat(
@@ -770,6 +854,23 @@ def write_reports(
     key_available = int(key_required["key_available"].sum()) if "key_available" in key_required else 0
     cmc_path = project_root / "Data" / "MarketStructure" / "CoinMarketCap" / "cmc_fear_greed__daily.csv"
     cmc_rows = len(pd.read_csv(cmc_path)) if cmc_path.exists() else 0
+    market_row = feature_panel[feature_panel["feature_family"] == "market_cap_top100"]
+    market_universe_available = not market_row.empty and str(market_row["status"].iloc[0]) == "available"
+    market_universe_note = (
+        "The local DefiLlama monthly point-in-time top200 universe is integrated for market-cap composition, concentration, clean-risk top100 construction, rank turnover, and cycle/ETF phase structure."
+        if market_universe_available
+        else "Point-in-time market-cap universe outputs remain skipped until `data_cache/defillama/crypto_universe_monthly_2020_2026.csv` is supplied and ingested."
+    )
+    market_table_lines = (
+        "\n- `T40_crypto_universe_monthly.csv`"
+        "\n- `T41_clean_risk_top100_monthly.csv`"
+        "\n- `T42_market_structure_composition.csv`"
+        "\n- `T43_rank_turnover.csv`"
+        "\n- `T44_cycle_phase_market_structure.csv`"
+        "\n- `T45_market_evolution_summary.md`"
+        if market_universe_available
+        else ""
+    )
     return [
         write_text(
             report_dir / "market_evolution_thesis.md",
@@ -778,6 +879,10 @@ def write_reports(
 The market-structure extension adds a public, reduced-form context layer around the factor lab: DeFi TVL, stablecoin supply, CEX/DEX activity, sentiment, BTC dominance/cycle markers, RWA/DAT growth, and optional Binance liquidity ranks.
 
 The release is designed to work without paid/live data. It uses the frozen tracked dataset first and enriches from `data_cache/` only when optional DefiLlama, Binance, or CoinMarketCap cache is available. Generated feature rows across the public market-structure tables: {rows}.
+
+{market_universe_note}
+
+Monthly snapshots support composition, concentration, rank turnover, and cycle-phase structure. Daily OHLCV is still required for returns, breadth, volatility, beta, drawdowns, dispersion, and event-response analysis.
 
 Interpretation stays descriptive. Binance ranks are exchange-liquidity ranks, stablecoin/TVL variables are liquidity proxies, and ETF-flow language remains contemporaneous association rather than causal identification.
 """,
@@ -790,12 +895,14 @@ Raw optional payloads are stored in gitignored `data_cache/{defillama,binance,co
 
 Point-in-time market-cap top100 universes require point-in-time market-cap source data. The pipeline refuses to backfill a historical top100 from a current list. Binance top100 outputs are labeled as exchange-liquidity ranks based on rolling quote volume.
 
+When `data_cache/defillama/crypto_universe_monthly_2020_2026.csv` is present, `scripts/ingest_defillama_monthly_universe.py` validates and normalizes it into `Data/MarketStructure/DefiLlama/`. The build then constructs full, ex-stable, and clean-risk top100 universes using internal classifications rather than upstream risk labels.
+
 CMC Fear & Greed uses the official `v3/fear-and-greed/historical` client when `CMC_API_KEY` is available. Once cached, the normalized CMC history can be rebuilt without the key. If no CMC cache exists, the tracked AlternativeMe series remains the baseline sentiment source.
 """,
         ),
         write_text(
             report_dir / "market_structure_data_inventory.md",
-            """# Market-Structure Data Inventory
+            f"""# Market-Structure Data Inventory
 
 Primary public tables:
 
@@ -811,6 +918,7 @@ Primary public tables:
 - `T37_market_structure_feature_panel.csv`
 - `T38_fear_greed_blended_daily.csv`
 - `T39_fear_greed_source_overlap_summary.csv`
+{market_table_lines}
 
 Curated source files live under `Data/MarketStructure/`. Existing frozen data under `Data/DefiLlama`, `Data/AlternativeMe`, and `Data/Tradingview` remains unchanged.
 """,
@@ -824,6 +932,7 @@ Curated source files live under `Data/MarketStructure/`. Existing frozen data un
 - Current order-book and ticker endpoints are snapshots and are not used as historical depth.
 - Stablecoin supply and TVL are proxies, not proven causal drivers.
 - CMC Fear & Greed live refresh requires `CMC_API_KEY`; cached history is included when present.
+- Monthly market-cap snapshots support structure/composition diagnostics only; daily OHLCV is required for altseason performance, breadth, volatility, beta, drawdown, dispersion, and event-return analysis.
 """,
         ),
         write_text(
@@ -950,6 +1059,141 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
     ax.text(0.02, 0.18, "Guardrail: no current-top100 historical backfill.", color=COLORS["muted"], fontsize=10, transform=ax.transAxes)
     written.append(save_fig(fig, figures / "F37_market_cap_top100_gap.png"))
 
+    universe_path = tables / "T40_crypto_universe_monthly.csv"
+    composition_path = tables / "T42_market_structure_composition.csv"
+    turnover_path = tables / "T43_rank_turnover.csv"
+    cycle_path = tables / "T44_cycle_phase_market_structure.csv"
+    if universe_path.exists() and composition_path.exists() and turnover_path.exists() and cycle_path.exists():
+        universe = pd.read_csv(universe_path, parse_dates=["snapshot_date"])
+        composition = pd.read_csv(composition_path, parse_dates=["snapshot_date"])
+        turnover = pd.read_csv(turnover_path, parse_dates=["snapshot_date"])
+        cycle_phase = pd.read_csv(cycle_path)
+        palette = [
+            COLORS["btc"],
+            COLORS["eth"],
+            COLORS["stablecoin"],
+            COLORS["institutional"],
+            COLORS["liquidity"],
+            COLORS["gold"],
+            COLORS["native"],
+            COLORS["neutral"],
+        ]
+
+        full_comp = composition[composition["universe_type"] == "full_top100"]
+        pivot = (
+            full_comp.pivot_table(
+                index="snapshot_date",
+                columns="asset_class",
+                values="market_cap_share",
+                aggfunc="sum",
+                fill_value=0,
+            )
+            .sort_index()
+            .clip(lower=0)
+        )
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+        if not pivot.empty:
+            ax.stackplot(
+                pivot.index,
+                [pivot[col] for col in pivot.columns],
+                labels=list(pivot.columns),
+                colors=palette[: len(pivot.columns)],
+                alpha=0.9,
+            )
+            ax.legend(frameon=False, fontsize=7, ncol=2, loc="upper left")
+            ax.set_ylim(0, 1)
+        ax.set_title("Full Top100 Market-Structure Composition", color=COLORS["text"], fontweight="bold")
+        ax.set_ylabel("Market-cap share")
+        _style_axis(ax)
+        written.append(save_fig(fig, figures / "F38_market_structure_composition.png"))
+
+        full_top100 = universe[universe["in_full_top100"]].copy()
+        concentration_rows = []
+        for snapshot_date, group in full_top100.groupby("snapshot_date"):
+            total = group["market_cap_usd"].sum()
+            top10_share = group.nsmallest(10, "rank_full_market")["market_cap_usd"].sum() / total
+            btc_eth_share = group[group["symbol"].isin(["BTC", "ETH"])]["market_cap_usd"].sum() / total
+            concentration_rows.append(
+                {
+                    "snapshot_date": snapshot_date,
+                    "top10_share": top10_share,
+                    "btc_eth_share": btc_eth_share,
+                }
+            )
+        concentration = pd.DataFrame(concentration_rows)
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+        if not concentration.empty:
+            ax.plot(concentration["snapshot_date"], concentration["top10_share"], label="Top10 share", color=COLORS["btc"])
+            ax.plot(concentration["snapshot_date"], concentration["btc_eth_share"], label="BTC+ETH share", color=COLORS["eth"])
+            ax.set_ylim(0, 1)
+            ax.legend(frameon=False)
+        ax.set_title("Top100 Concentration", color=COLORS["text"], fontweight="bold")
+        ax.set_ylabel("Share of top100 market cap")
+        _style_axis(ax)
+        written.append(save_fig(fig, figures / "F39_top100_concentration.png"))
+
+        clean_turnover = turnover[turnover["universe_type"] == "clean_risk_top100"]
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+        if not clean_turnover.empty:
+            ax.plot(clean_turnover["snapshot_date"], clean_turnover["entrants"], label="Entrants", color=COLORS["positive"])
+            ax.plot(clean_turnover["snapshot_date"], clean_turnover["exits"], label="Exits", color=COLORS["negative"])
+            ax.legend(frameon=False)
+        ax.set_title("Clean-Risk Top100 Rank Turnover", color=COLORS["text"], fontweight="bold")
+        ax.set_ylabel("Assets")
+        _style_axis(ax)
+        written.append(save_fig(fig, figures / "F40_rank_turnover.png"))
+
+        phase_full = cycle_phase[cycle_phase["universe_type"] == "full_top100"]
+        phase_pivot = phase_full.pivot_table(
+            index="cycle_phase",
+            columns="asset_class",
+            values="mean_market_cap_share",
+            aggfunc="sum",
+            fill_value=0,
+        )
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+        if not phase_pivot.empty:
+            phase_pivot.plot(kind="bar", stacked=True, ax=ax, color=palette[: len(phase_pivot.columns)], width=0.78)
+            ax.legend(frameon=False, fontsize=7, ncol=2)
+            ax.set_ylim(0, 1)
+        ax.set_title("Cycle-Phase Market Structure", color=COLORS["text"], fontweight="bold")
+        ax.set_ylabel("Mean market-cap share")
+        _style_axis(ax)
+        written.append(save_fig(fig, figures / "F41_cycle_phase_market_structure.png"))
+
+        fig, axes = plt.subplots(2, 2, figsize=(12, 8), facecolor=COLORS["bg"])
+        axes = axes.flatten()
+        if not pivot.empty:
+            axes[0].stackplot(
+                pivot.index,
+                [pivot[col] for col in pivot.columns],
+                labels=list(pivot.columns),
+                colors=palette[: len(pivot.columns)],
+                alpha=0.9,
+            )
+            axes[0].set_ylim(0, 1)
+        axes[0].set_title("Composition", color=COLORS["text"], fontweight="bold")
+        if not concentration.empty:
+            axes[1].plot(concentration["snapshot_date"], concentration["top10_share"], color=COLORS["btc"], label="Top10")
+            axes[1].plot(concentration["snapshot_date"], concentration["btc_eth_share"], color=COLORS["eth"], label="BTC+ETH")
+            axes[1].set_ylim(0, 1)
+            axes[1].legend(frameon=False, fontsize=7)
+        axes[1].set_title("Concentration", color=COLORS["text"], fontweight="bold")
+        if not clean_turnover.empty:
+            axes[2].bar(clean_turnover["snapshot_date"], clean_turnover["entrants"], color=COLORS["positive"], label="Entrants")
+            axes[2].bar(clean_turnover["snapshot_date"], -clean_turnover["exits"], color=COLORS["negative"], label="Exits")
+            axes[2].legend(frameon=False, fontsize=7)
+        axes[2].set_title("Turnover", color=COLORS["text"], fontweight="bold")
+        if not phase_pivot.empty:
+            phase_pivot.plot(kind="bar", stacked=True, ax=axes[3], color=palette[: len(phase_pivot.columns)], legend=False)
+            axes[3].set_ylim(0, 1)
+        axes[3].set_title("Cycle Phases", color=COLORS["text"], fontweight="bold")
+        for axis in axes:
+            _style_axis(axis)
+        fig.suptitle("Market Evolution Dashboard", color=COLORS["text"], fontweight="bold")
+        fig.tight_layout()
+        written.append(save_fig(fig, figures / "F42_market_evolution_dashboard.png"))
+
     return written
 
 
@@ -960,6 +1204,27 @@ def update_outputs_readme(project_root: Path) -> Path:
     text = path.read_text(encoding="utf-8") if path.exists() else "# Canonical Outputs\n"
     marker = "\n## Market-Structure Extension\n"
     text = text.split(marker, 1)[0].rstrip()
+    figures = project_root / "outputs" / "figures"
+    tables = project_root / "outputs" / "tables"
+    market_figure_lines = (
+        "\n- `figures/F38_market_structure_composition.png`"
+        "\n- `figures/F39_top100_concentration.png`"
+        "\n- `figures/F40_rank_turnover.png`"
+        "\n- `figures/F41_cycle_phase_market_structure.png`"
+        "\n- `figures/F42_market_evolution_dashboard.png`"
+        if (figures / "F38_market_structure_composition.png").exists()
+        else ""
+    )
+    market_table_lines = (
+        "\n- `tables/T40_crypto_universe_monthly.csv`"
+        "\n- `tables/T41_clean_risk_top100_monthly.csv`"
+        "\n- `tables/T42_market_structure_composition.csv`"
+        "\n- `tables/T43_rank_turnover.csv`"
+        "\n- `tables/T44_cycle_phase_market_structure.csv`"
+        "\n- `tables/T45_market_evolution_summary.md`"
+        if (tables / "T40_crypto_universe_monthly.csv").exists()
+        else ""
+    )
     section = f"""{marker}
 The additive market-structure layer integrates tracked DefiLlama/AlternativeMe/TradingView context with optional DefiLlama, Binance, and CoinMarketCap cache. It does not require API keys for the public build.
 
@@ -981,6 +1246,7 @@ Figures:
 - `figures/F35_btc_dominance_cycle_overlay.png`
 - `figures/F36_rwa_dat_growth.png`
 - `figures/F37_market_cap_top100_gap.png`
+{market_figure_lines}
 
 Tables:
 
@@ -996,11 +1262,13 @@ Tables:
 - `tables/T37_market_structure_feature_panel.csv`
 - `tables/T38_fear_greed_blended_daily.csv`
 - `tables/T39_fear_greed_source_overlap_summary.csv`
+{market_table_lines}
 
 Guardrails:
 
 - Binance top100 is exchange-liquidity based, not historical market-cap rank.
 - CMC live fetch requires `CMC_API_KEY`; cached CMC history is included when present.
+- Monthly universe snapshots support composition and turnover analysis, not daily performance or event-return claims.
 - Raw source responses stay in gitignored `data_cache/`.
 """
     return write_text(path, text + "\n" + section)
@@ -1021,6 +1289,7 @@ def patch_outputs_manifest(project_root: Path, output_files: list[Path], skipped
             "uv run python scripts/audit_market_structure_endpoints.py --dry-run",
             "uv run python scripts/fetch_market_structure_raw.py --dry-run",
             "uv run python scripts/fetch_market_structure_raw.py --cache-only",
+            "uv run python scripts/ingest_defillama_monthly_universe.py",
             "uv run python scripts/normalize_market_structure_cache.py --cache-only",
             "uv run python scripts/build_market_structure_outputs.py",
         ],
@@ -1029,6 +1298,7 @@ def patch_outputs_manifest(project_root: Path, output_files: list[Path], skipped
         "guardrails": [
             "Binance top100 is exchange-liquidity based, not market-cap based.",
             "CMC live fetch requires CMC_API_KEY; cached CMC history is included when present.",
+            "Monthly point-in-time universes support composition and turnover, not daily return-performance claims.",
             "Raw API payloads stay in data_cache/ and are not committed.",
             "No API keys are written to outputs or manifests.",
         ],

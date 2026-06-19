@@ -8,13 +8,29 @@ stablecoins:
   - USDE
   - USDP
   - PYUSD
+synthetic_stables:
+  - USDT0
+  - BSC-USD
+  - USD0
+stable_yield_tokens:
+  - SUSDS
+  - SUSDE
+  - SDAI
+bridged_stables:
+  - USDC.E
+  - USDCET
+  - USDC.B
+  - USDC.ARB
+  - USDC-ARB
+  - USDC-AVAX
+  - USDC-POLY
 wrapped_assets:
   - WBTC
   - WETH
-  - WBETH
-  - CBETH
-  - RETH
-  - STETH
+  - CBBTC
+  - WTRX
+  - WSOL
+  - WRAPPED SOL
 tokenized_commodities:
   - PAXG
   - XAUT
@@ -28,10 +44,20 @@ base_assets:
   - AVAX
   - LINK
 lst_restaking:
+  - STETH
+  - WSTETH
+  - RETH
+  - WBETH
+  - CBETH
+  - SN0
   - LDO
   - RPL
   - EIGEN
   - ETHFI
+bridged_duplicates:
+  - SOL.W
+  - BTC.B
+  - WORMHOLE BTC
 risk_assets:
   - DOGE
   - SHIB
