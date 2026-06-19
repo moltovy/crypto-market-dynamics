@@ -4,3 +4,4 @@ stablecoin_tvl_regime,121,available
 cex_dex_activity,163,available
 binance_liquidity_top100,1,available
 market_cap_top100,0,skipped_no_point_in_time_source
+fear_greed_blended_altme_pre_cmc_post,3057,available

@@ -369,7 +369,7 @@
     "Historical release packets and manager notes are archived outside the public surface."
   ],
   "market_structure": {
-    "generated_at_utc": "2026-06-19T01:43:55.791243+00:00",
+    "generated_at_utc": "2026-06-19T02:01:54.581876+00:00",
     "source_table_bundle_date": "2026-06-18",
     "figure_bundle_start": "F30",
     "table_bundle_start": "T28",
@@ -386,6 +386,8 @@
       "outputs/tables/T29_asset_classification_summary.csv",
       "outputs/tables/T30_binance_liquidity_top100.csv",
       "outputs/tables/T31_sentiment_comparison.csv",
+      "outputs/tables/T38_fear_greed_blended_daily.csv",
+      "outputs/tables/T39_fear_greed_source_overlap_summary.csv",
       "outputs/tables/T32_stablecoin_tvl_regimes.csv",
       "outputs/tables/T33_cex_dex_activity.csv",
       "outputs/tables/T34_btc_cycle_overlay.csv",

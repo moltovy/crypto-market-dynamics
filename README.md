@@ -144,6 +144,8 @@ Method details live in [`docs/methodology/`](docs/methodology/).
 | [T33](outputs/tables/T33_cex_dex_activity.csv) | CEX/DEX activity context |
 | [T36](outputs/tables/T36_market_cap_top100_gap.csv) | Market-cap top100 gap guardrail |
 | [T37](outputs/tables/T37_market_structure_feature_panel.csv) | Market-structure feature availability summary |
+| [T38](outputs/tables/T38_fear_greed_blended_daily.csv) | Blended Fear & Greed series with source flags |
+| [T39](outputs/tables/T39_fear_greed_source_overlap_summary.csv) | AlternativeMe vs CMC overlap diagnostics |
 
 ## Figures
 

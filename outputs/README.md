@@ -109,6 +109,8 @@ Tables:
 - `tables/T35_rwa_dat_growth.csv`
 - `tables/T36_market_cap_top100_gap.csv`
 - `tables/T37_market_structure_feature_panel.csv`
+- `tables/T38_fear_greed_blended_daily.csv`
+- `tables/T39_fear_greed_source_overlap_summary.csv`
 
 Guardrails:
 
