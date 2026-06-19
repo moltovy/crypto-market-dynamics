@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-06-19T04:41:17.166591+00:00",
-  "git_commit": "25649c6",
+  "generated_at_utc": "2026-06-19T05:02:52.931876+00:00",
+  "git_commit": "1eafee2",
   "artifact_root": "outputs",
   "figure_bundle": {
     "style": "institutional_dark_research_cards",
@@ -369,7 +369,7 @@
     "Historical release packets and manager notes are archived outside the public surface."
   ],
   "market_structure": {
-    "generated_at_utc": "2026-06-19T04:41:47.934729+00:00",
+    "generated_at_utc": "2026-06-19T05:03:20.921795+00:00",
     "source_table_bundle_date": "2026-06-19",
     "figure_bundle_start": "F30",
     "table_bundle_start": "T28",
@@ -422,6 +422,7 @@
       "outputs/report/market_evolution_thesis.md",
       "outputs/report/market_structure_methodology.md",
       "outputs/report/market_structure_data_inventory.md",
+      "outputs/report/market_structure_next_data_needed.md",
       "outputs/report/market_structure_limitations.md",
       "outputs/report/market_structure_fetch_diagnostics.md",
       "outputs/figures/F30_market_structure_dashboard.png",
@@ -456,8 +457,8 @@
     "guardrails": [
       "Binance top100 is exchange-liquidity based, not market-cap based.",
       "CMC live fetch requires CMC_API_KEY; cached CMC history is included when present.",
-      "Monthly point-in-time universes support composition and turnover, not daily return-performance claims.",
-      "Daily constituent diagnostics use a current top50 ex-stablecoin sample and are labeled as exploratory.",
+      "Monthly point-in-time universes are the primary market-structure evidence and support composition and turnover, not daily return-performance claims.",
+      "Daily constituent diagnostics use a current-top50 exploratory ex-stablecoin cohort and are not the primary altseason backtest.",
       "Raw API payloads stay in data_cache/ and are not committed.",
       "No API keys are written to outputs or manifests."
     ]

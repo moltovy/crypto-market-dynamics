@@ -172,7 +172,7 @@ Contains endpoint capability files and normalized public summaries derived from 
 
 The optional `crypto_universe_monthly_2020_2026.csv` file is a local point-in-time monthly top200 market-cap universe. It is ingested from `data_cache/defillama/` only after validation and supports composition, concentration, clean-risk universe, rank-turnover, and cycle-phase structure diagnostics.
 
-The optional `top50_current_ex_stable_daily_ohlcv_2020_2026.csv` file is a current-constituent daily OHLCV sample. It supports exploratory breadth, rotation, beta, dispersion, and event-response diagnostics, but it is not a point-in-time top100/top200 panel.
+The optional `top50_current_ex_stable_daily_ohlcv_2020_2026.csv` file is a current-top50 exploratory daily OHLCV cohort. It supports current-cohort breadth, rotation, beta, dispersion, and event-response diagnostics, but it is survivorship-biased, not point-in-time, and not the primary altseason backtest.
 """,
         ),
         write_text(
@@ -1210,7 +1210,7 @@ def build_outputs(project_root: Path = ROOT) -> MarketStructureBuildResult:
                 pd.DataFrame(
                     [
                         {
-                            "feature_family": "daily_constituent_rotation_lab",
+                            "feature_family": "current_top50_exploratory_cohort_diagnostics",
                             "rows": len(daily_constituents),
                             "status": "available",
                         }
@@ -1275,7 +1275,9 @@ def write_reports(
         if market_universe_available
         else ""
     )
-    daily_row = feature_panel[feature_panel["feature_family"] == "daily_constituent_rotation_lab"]
+    daily_row = feature_panel[
+        feature_panel["feature_family"] == "current_top50_exploratory_cohort_diagnostics"
+    ]
     daily_constituents_available = (
         not daily_row.empty and str(daily_row["status"].iloc[0]) == "available"
     )
@@ -1293,7 +1295,7 @@ def write_reports(
         else ""
     )
     daily_note = (
-        "The available DefiLlama daily top50 ex-stablecoin OHLCV sample is integrated for exploratory altseason breadth, dispersion, rolling beta, rotation, and event-response diagnostics. It is explicitly labeled as a current-constituent sample rather than a point-in-time top100 panel."
+        "The available DefiLlama daily top50 ex-stablecoin OHLCV sample is integrated only as current-top50 exploratory cohort diagnostics for how today's major non-stablecoin cohort behaved historically. It is survivorship-biased, not point-in-time, and not the primary altseason backtest."
         if daily_constituents_available
         else "Daily constituent OHLCV remains skipped until a local top100/top200 constituent price/market-cap/volume file is supplied and ingested."
     )
@@ -1306,11 +1308,11 @@ The market-structure extension adds a public, reduced-form context layer around 
 
 The release is designed to work without paid/live data. It uses the frozen tracked dataset first and enriches from `data_cache/` only when optional DefiLlama, Binance, or CoinMarketCap cache is available. Generated feature rows across the public market-structure tables: {rows}.
 
-{market_universe_note} When the frozen master daily panel is available, the build also creates a lagged/as-of monthly context layer and descriptive BTC/ETH return-regime diagnostics.
+{market_universe_note} This monthly PIT universe is the primary market-structure evidence in the public release. When the frozen master daily panel is available, the build also creates a lagged/as-of monthly context layer and descriptive BTC/ETH return-regime diagnostics.
 
 {daily_note}
 
-Monthly snapshots support composition, concentration, rank turnover, and cycle-phase structure. A full point-in-time daily OHLCV/mcap constituent panel is still required for survivorship-free returns, breadth, volatility, beta, drawdowns, dispersion, and event-response analysis.
+Monthly PIT snapshots support composition, concentration, rank turnover, and cycle-phase structure. A full point-in-time daily OHLCV/mcap constituent panel is still required for survivorship-free returns, true historical top100 breadth, volatility, beta, drawdowns, dispersion, and event-response analysis.
 
 Interpretation stays descriptive. Binance ranks are exchange-liquidity ranks, stablecoin/TVL variables are liquidity proxies, and ETF-flow language remains contemporaneous association rather than causal identification.
 """,
@@ -1327,7 +1329,7 @@ When `data_cache/defillama/crypto_universe_monthly_2020_2026.csv` is present, `s
 
 CMC Fear & Greed uses the official `v3/fear-and-greed/historical` client when `CMC_API_KEY` is available. Once cached, the normalized CMC history can be rebuilt without the key. If no CMC cache exists, the tracked AlternativeMe series remains the baseline sentiment source.
 
-When `data_cache/defillama/top50_current_ex_stable_daily_ohlcv_2020_2026.csv` is present, `scripts/ingest_defillama_daily_constituents.py` validates and normalizes it into `Data/MarketStructure/DefiLlama/`. The resulting daily lab is explicitly labeled as a current top50 ex-stablecoin sample, not a point-in-time top100/top200 universe.
+When `data_cache/defillama/top50_current_ex_stable_daily_ohlcv_2020_2026.csv` is present, `scripts/ingest_defillama_daily_constituents.py` validates and normalizes it into `Data/MarketStructure/DefiLlama/`. The resulting daily lab is explicitly labeled as `current_top50_exploratory_current_cohort`, not a point-in-time top100/top200 universe.
 """,
         ),
         write_text(
@@ -1355,6 +1357,19 @@ Curated source files live under `Data/MarketStructure/`. Existing frozen data un
 """,
         ),
         write_text(
+            report_dir / "market_structure_next_data_needed.md",
+            """# Market-Structure Next Data Needed
+
+The monthly point-in-time DefiLlama universe is now the primary market-structure foundation. It supports composition, concentration, clean-risk top100 construction, rank turnover, cycle/ETF phase structure, and lagged/as-of BTC/ETH regime context.
+
+The current-top50 daily OHLCV cohort is useful but secondary. It supports exploratory current-cohort diagnostics: how today's large non-stablecoin cohort behaved historically, ETF-era current-major-cohort rotation, and rough daily breadth checks. It is survivorship-biased, not point-in-time, and not the primary altseason backtest.
+
+The next data unlock is daily price, market cap, and volume for every asset that ever appears in the point-in-time monthly top100/top200 universe. That file would support the real T61-T69/F54-F59 altseason lab: true historical top100 returns, risk top100 breadth versus BTC/ETH, moving-average breadth, category returns, dispersion, rolling beta, drawdowns, and event response.
+
+Until that PIT daily constituent OHLCV/mcap panel exists, the repo has true market-structure composition and concentration, but not survivorship-free altseason performance or rotation evidence.
+""",
+        ),
+        write_text(
             report_dir / "market_structure_limitations.md",
             """# Market-Structure Limitations
 
@@ -1364,7 +1379,7 @@ Curated source files live under `Data/MarketStructure/`. Existing frozen data un
 - Stablecoin supply and TVL are proxies, not proven causal drivers.
 - CMC Fear & Greed live refresh requires `CMC_API_KEY`; cached history is included when present.
 - Monthly market-cap snapshots support structure/composition diagnostics only; a full point-in-time daily OHLCV/mcap panel is required for survivorship-free altseason performance, breadth, volatility, beta, drawdown, dispersion, and event-return analysis.
-- The current daily constituent lab uses a DefiLlama current top50 ex-stablecoin sample and should be interpreted as exploratory.
+- The current daily constituent lab uses a DefiLlama current-top50 exploratory cohort and should not be used as true historical top100 or primary altseason evidence.
 """,
         ),
         write_text(
@@ -1996,7 +2011,9 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
             ax.yaxis.set_major_formatter(PercentFormatter(1.0))
             ax.legend(frameon=False, fontsize=8)
         ax.set_title(
-            "Altseason Breadth: Current Top50 Sample", color=COLORS["text"], fontweight="bold"
+            "Current-Top50 Exploratory Breadth",
+            color=COLORS["text"],
+            fontweight="bold",
         )
         ax.set_ylabel("Share beating BTC over 90 days")
         _style_axis(ax)
@@ -2021,7 +2038,7 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
                     )
             ax.set_yscale("log")
             ax.legend(frameon=False, fontsize=8)
-        ax.set_title("Constituent Rotation Indexes", color=COLORS["text"], fontweight="bold")
+        ax.set_title("Current-Cohort Rotation Indexes", color=COLORS["text"], fontweight="bold")
         ax.set_ylabel("Cumulative index, log scale")
         _style_axis(ax)
         written.append(save_fig(fig, figures / "F49_constituent_return_indexes.png"))
@@ -2046,7 +2063,11 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
             ax.axhline(0, color=COLORS["axis"], linewidth=0.8)
             ax.yaxis.set_major_formatter(PercentFormatter(1.0))
             ax.legend(frameon=False, fontsize=8)
-        ax.set_title("Daily Return Dispersion", color=COLORS["text"], fontweight="bold")
+        ax.set_title(
+            "Current-Cohort Daily Return Dispersion",
+            color=COLORS["text"],
+            fontweight="bold",
+        )
         ax.set_ylabel("Clean-risk ex BTC/ETH daily returns")
         _style_axis(ax)
         written.append(save_fig(fig, figures / "F50_return_dispersion.png"))
@@ -2108,7 +2129,11 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
                 ax.barh(event_plot["label"], event_plot["post_window_return"], color=colors)
                 ax.axvline(0, color=COLORS["axis"], linewidth=0.8)
                 ax.xaxis.set_major_formatter(PercentFormatter(1.0))
-        ax.set_title("Event Response: Top50 ex BTC/ETH", color=COLORS["text"], fontweight="bold")
+        ax.set_title(
+            "Event Response: Current Top50 ex BTC/ETH",
+            color=COLORS["text"],
+            fontweight="bold",
+        )
         ax.set_xlabel("Post-event 10-day return")
         _style_axis(ax)
         written.append(save_fig(fig, figures / "F52_event_response_top50.png"))
@@ -2164,7 +2189,11 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
         axes[3].set_title("Top50 beta to BTC", color=COLORS["text"], fontweight="bold")
         for axis in axes:
             _style_axis(axis)
-        fig.suptitle("Altseason and Rotation Dashboard", color=COLORS["text"], fontweight="bold")
+        fig.suptitle(
+            "Current-Top50 Exploratory Rotation Dashboard",
+            color=COLORS["text"],
+            fontweight="bold",
+        )
         fig.tight_layout()
         written.append(save_fig(fig, figures / "F53_rotation_dashboard.png"))
 
@@ -2245,6 +2274,7 @@ Reports:
 - `report/market_structure_data_inventory.md`
 - `report/market_structure_limitations.md`
 - `report/market_structure_fetch_diagnostics.md`
+- `report/market_structure_next_data_needed.md`
 
 Figures:
 
@@ -2280,8 +2310,8 @@ Guardrails:
 
 - Binance top100 is exchange-liquidity based, not historical market-cap rank.
 - CMC live fetch requires `CMC_API_KEY`; cached CMC history is included when present.
-- Monthly universe snapshots support composition and turnover analysis, not daily performance or event-return claims.
-- Daily constituent diagnostics are a current top50 ex-stablecoin sample, not a point-in-time top100 panel.
+- Monthly PIT universe snapshots are the primary market-structure evidence and support composition and turnover analysis, not daily performance or event-return claims.
+- Daily constituent diagnostics are a current-top50 exploratory cohort, not a point-in-time top100 panel or primary altseason backtest.
 - Raw source responses stay in gitignored `data_cache/`.
 """
     return write_text(path, text + "\n" + section)
@@ -2315,8 +2345,8 @@ def patch_outputs_manifest(
         "guardrails": [
             "Binance top100 is exchange-liquidity based, not market-cap based.",
             "CMC live fetch requires CMC_API_KEY; cached CMC history is included when present.",
-            "Monthly point-in-time universes support composition and turnover, not daily return-performance claims.",
-            "Daily constituent diagnostics use a current top50 ex-stablecoin sample and are labeled as exploratory.",
+            "Monthly point-in-time universes are the primary market-structure evidence and support composition and turnover, not daily return-performance claims.",
+            "Daily constituent diagnostics use a current-top50 exploratory ex-stablecoin cohort and are not the primary altseason backtest.",
             "Raw API payloads stay in data_cache/ and are not committed.",
             "No API keys are written to outputs or manifests.",
         ],
