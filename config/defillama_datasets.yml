@@ -1,0 +1,63 @@
+source: defillama
+raw_cache: data_cache/defillama
+curated_root: Data/MarketStructure/DefiLlama
+policy:
+  auth: public endpoints require no key; Pro endpoints require DEFILLAMA_API_KEY in .env.
+  storage: raw responses stay in data_cache; curated summaries may be tracked under Data/MarketStructure.
+  top100_market_cap: skip unless a point-in-time market-cap warehouse file is provided.
+datasets:
+  - id: chains_current
+    tier: free
+    endpoint: https://api.llama.fi/v2/chains
+    frequency: snapshot
+    public_output: true
+  - id: stablecoins_current
+    tier: free
+    endpoint: https://stablecoins.llama.fi/stablecoins
+    frequency: snapshot
+    public_output: true
+  - id: stablecoins_history
+    tier: free
+    endpoint: https://stablecoins.llama.fi/stablecoincharts/all
+    frequency: daily
+    public_output: true
+  - id: dex_overview
+    tier: free
+    endpoint: https://api.llama.fi/overview/dexs
+    frequency: daily
+    public_output: true
+  - id: fees_overview
+    tier: free
+    endpoint: https://api.llama.fi/overview/fees
+    frequency: daily
+    public_output: true
+  - id: open_interest_overview
+    tier: free
+    endpoint: https://api.llama.fi/overview/open-interest
+    frequency: daily
+    public_output: true
+  - id: etf_history
+    tier: pro
+    endpoint: pro_api/etfs
+    frequency: daily
+    public_output: optional
+  - id: bridges
+    tier: pro
+    endpoint: pro_api/bridges
+    frequency: daily
+    public_output: optional
+  - id: rwa
+    tier: pro
+    endpoint: pro_api/rwa
+    frequency: daily
+    public_output: optional
+  - id: dat
+    tier: pro
+    endpoint: pro_api/dat
+    frequency: snapshot
+    public_output: optional
+  - id: historical_token_liquidity
+    tier: pro
+    endpoint: pro_api/historicalLiquidity
+    frequency: daily
+    public_output: optional

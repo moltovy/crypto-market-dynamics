@@ -1,0 +1,2 @@
+month,symbol,base_asset,quote_asset,rolling_quote_volume_usd,liquidity_rank,universe_label,status
+,,,,,,Binance exchange-liquidity top100,skipped_no_kline_cache

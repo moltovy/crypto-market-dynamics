@@ -1,0 +1,2 @@
+dataset,status,reason,guardrail
+market_cap_top100,available,Point-in-time monthly market-cap universe source is present.,do_not_current_top100_backfill

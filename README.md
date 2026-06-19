@@ -75,6 +75,26 @@ The clean catalog entry point is [`docs/data/catalog/`](docs/data/catalog/).
 The historical source-data tree remains under `Data/` for compatibility with
 existing scripts.
 
+### Market-Structure Extension
+
+The additive market-structure layer under [`Data/MarketStructure/`](Data/MarketStructure/)
+and [`outputs/`](outputs/) integrates tracked DefiLlama, AlternativeMe, and
+TradingView context with optional DefiLlama, Binance, and CoinMarketCap cache.
+It runs without API keys by writing explicit skip diagnostics. Raw API payloads
+and large pulls stay in gitignored `data_cache/`.
+
+Binance outputs are labeled as exchange-liquidity ranks based on rolling quote
+volume. They are not market-cap ranks. Historical market-cap top100 output is
+skipped unless point-in-time market-cap snapshots are provided.
+
+The repo supports a local DefiLlama monthly top200 universe at
+`data_cache/defillama/crypto_universe_monthly_2020_2026.csv`. When supplied and
+ingested, it builds full, ex-stable, and clean-risk top100 market-cap universes
+with internal classification overrides. Monthly snapshots support composition,
+concentration, rank-turnover, and cycle-phase structure; daily OHLCV is still
+required for returns, breadth, volatility, beta, drawdowns, dispersion, and
+event-return analysis.
+
 ## Methodology
 
 - Feature engineering for returns, differences, ETF-flow intensity, realized
@@ -124,6 +144,37 @@ Method details live in [`docs/methodology/`](docs/methodology/).
 | [T25](outputs/tables/T25_mvrv_sensitivity_by_regime.csv) | MVRV sensitivity by regime |
 | [T26](outputs/tables/T26_etf_era_feature_strength.csv) | ETF-era feature strength |
 | [T27](outputs/tables/T27_rolling_feature_rank_stability.csv) | Rolling feature rankings |
+| [T28](outputs/tables/T28_market_structure_source_capabilities.csv) | Market-structure source capability audit |
+| [T29](outputs/tables/T29_asset_classification.csv) | Internal asset classification |
+| [T30](outputs/tables/T30_binance_liquidity_top100.csv) | Binance exchange-liquidity universe |
+| [T31](outputs/tables/T31_sentiment_comparison.csv) | AlternativeMe and optional CMC Fear & Greed |
+| [T32](outputs/tables/T32_stablecoin_tvl_regimes.csv) | Stablecoin/TVL liquidity regimes |
+| [T33](outputs/tables/T33_cex_dex_activity.csv) | CEX/DEX activity context |
+| [T36](outputs/tables/T36_market_cap_top100_gap.csv) | Market-cap universe availability guardrail |
+| [T37](outputs/tables/T37_market_structure_feature_panel.csv) | Market-structure feature availability summary |
+| [T38](outputs/tables/T38_fear_greed_blended_daily.csv) | Blended Fear & Greed series with source flags |
+| [T39](outputs/tables/T39_fear_greed_source_overlap_summary.csv) | AlternativeMe vs CMC overlap diagnostics |
+| [T40](outputs/tables/T40_crypto_universe_monthly.csv) | Point-in-time monthly top200 market-cap universe |
+| [T41](outputs/tables/T41_clean_risk_top100_monthly.csv) | Internally rebuilt clean-risk top100 |
+| [T42](outputs/tables/T42_market_structure_composition.csv) | Full/ex-stable/clean-risk composition |
+| [T43](outputs/tables/T43_rank_turnover.csv) | Monthly entries, exits, and rank movement |
+| [T44](outputs/tables/T44_cycle_phase_market_structure.csv) | Cycle/ETF phase composition |
+| [T45](outputs/tables/T45_market_evolution_summary.md) | Market evolution summary |
+| [T46](outputs/tables/T46_market_structure_monthly_features.csv) | Monthly market-structure feature layer |
+| [T47](outputs/tables/T47_market_structure_daily_context.csv) | Lagged/as-of daily market-structure context |
+| [T48](outputs/tables/T48_market_structure_return_regimes.csv) | BTC/ETH descriptive return regimes |
+| [T49](outputs/tables/T49_market_structure_composition_shift.csv) | ETF-era composition-shift diagnostics |
+| [T50](outputs/tables/T50_market_structure_turnover_by_phase.csv) | Clean-risk turnover by cycle/ETF phase |
+| [T51](outputs/tables/T51_market_structure_modeling_summary.md) | Market-structure modeling summary |
+| [T52](outputs/tables/T52_constituent_daily_ohlcv.csv) | Current-top50 exploratory cohort OHLCV sample |
+| [T53](outputs/tables/T53_altseason_breadth.csv) | Exploratory current-cohort 90-day breadth |
+| [T54](outputs/tables/T54_constituent_return_indexes.csv) | BTC, ETH, current top50, and current top10 rotation indexes |
+| [T55](outputs/tables/T55_return_dispersion.csv) | Current-cohort clean-risk daily return dispersion |
+| [T56](outputs/tables/T56_rolling_beta_to_btc_eth.csv) | Current-cohort rolling beta/correlation to BTC and ETH |
+| [T57](outputs/tables/T57_category_rotation_returns.csv) | Exploratory current-cohort 90-day category rotation returns |
+| [T58](outputs/tables/T58_event_response_top50.csv) | Event-window response for the current top50 cohort |
+| [T59](outputs/tables/T59_constituent_data_gap_report.csv) | Daily constituent data-gap audit |
+| [T60](outputs/tables/T60_altseason_rotation_summary.md) | Current-cohort rotation lab summary |
 
 ## Figures
 
@@ -210,6 +261,74 @@ Source: [T09_rolling_connectedness.csv](outputs/tables/T09_rolling_connectedness
 
 *Supplementary figures (native state detail, liquidity context) are in [`outputs/figures/gallery/`](outputs/figures/gallery/).*
 
+### Market-Structure Dashboard
+
+![Market-structure dashboard](outputs/figures/F30_market_structure_dashboard.png)
+
+The extension surfaces source coverage, sentiment, stablecoin/TVL regimes,
+CEX/DEX activity, BTC dominance cycle markers, RWA/DAT context, Binance
+liquidity-rank availability, and a point-in-time monthly market-cap universe.
+The monthly PIT universe is the primary market-structure evidence in this
+release.
+The universe is based on 78 monthly top200 snapshots from January 2020 through
+the partial June 16, 2026 snapshot.
+
+![Market evolution dashboard](outputs/figures/F42_market_evolution_dashboard.png)
+
+Latest monthly-universe readout: BTC plus ETH are 65.3% of full top100 market
+cap, the top10 are 87.6%, stable/synthetic/stable-yield assets are 13.8%, and
+the clean-risk asset share is 82.3%. Latest clean-risk top100 turnover is 5
+entrants and 5 exits.
+
+![Market-structure modeling dashboard](outputs/figures/F47_market_structure_modeling_dashboard.png)
+
+The monthly universe is also converted into a lagged/as-of daily context layer
+for descriptive BTC/ETH regime diagnostics. These outputs describe how daily
+returns and volatility line up with prior monthly market-structure states; they
+do not claim that composition shifts caused BTC or ETH returns.
+
+### Exploratory Current-Cohort Lab
+
+![Current-top50 exploratory rotation dashboard](outputs/figures/F53_rotation_dashboard.png)
+
+The daily lab is deliberately secondary. It adds exploratory breadth,
+dispersion, rolling beta, rotation indexes, and event-window diagnostics using
+the available DefiLlama current-top50 ex-stablecoin OHLCV sample. It is a
+current-cohort view of how today's large caps behaved historically. It is not a
+point-in-time top100/top200 panel, is survivorship-biased, and is not the
+primary altseason backtest.
+
+True historical top100 breadth, risk top100 returns, category rotation,
+drawdowns, and event response require daily OHLCV/market-cap/volume for every
+asset that ever appears in the point-in-time monthly top100/top200 universe.
+
+Source: [T60_altseason_rotation_summary.md](outputs/tables/T60_altseason_rotation_summary.md)
+
+Key figures:
+
+- [F31 stablecoin/TVL regimes](outputs/figures/F31_stablecoin_tvl_regimes.png)
+- [F32 sentiment comparison](outputs/figures/F32_sentiment_comparison.png)
+- [F33 CEX/DEX activity](outputs/figures/F33_cex_dex_activity.png)
+- [F34 Binance liquidity universe](outputs/figures/F34_binance_liquidity_universe.png)
+- [F35 BTC dominance cycle overlay](outputs/figures/F35_btc_dominance_cycle_overlay.png)
+- [F37 market-cap top100 gap](outputs/figures/F37_market_cap_top100_gap.png)
+- [F38 market-structure composition](outputs/figures/F38_market_structure_composition.png)
+- [F39 top100 concentration](outputs/figures/F39_top100_concentration.png)
+- [F40 rank turnover](outputs/figures/F40_rank_turnover.png)
+- [F41 cycle-phase market structure](outputs/figures/F41_cycle_phase_market_structure.png)
+- [F42 market evolution dashboard](outputs/figures/F42_market_evolution_dashboard.png)
+- [F43 monthly market-structure features](outputs/figures/F43_market_structure_monthly_features.png)
+- [F44 BTC/ETH return regimes](outputs/figures/F44_market_structure_return_regimes.png)
+- [F45 ETF-era composition shift](outputs/figures/F45_market_structure_composition_shift.png)
+- [F46 turnover by phase](outputs/figures/F46_market_structure_turnover_by_phase.png)
+- [F47 market-structure modeling dashboard](outputs/figures/F47_market_structure_modeling_dashboard.png)
+- [F48 current-cohort exploratory breadth](outputs/figures/F48_altseason_breadth.png)
+- [F49 current-cohort rotation indexes](outputs/figures/F49_constituent_return_indexes.png)
+- [F50 current-cohort clean-risk return dispersion](outputs/figures/F50_return_dispersion.png)
+- [F51 current-cohort rolling beta to BTC](outputs/figures/F51_rolling_beta_to_btc.png)
+- [F52 current-cohort event response](outputs/figures/F52_event_response_top50.png)
+- [F53 current-top50 exploratory rotation dashboard](outputs/figures/F53_rotation_dashboard.png)
+
 ## Reproduce
 
 ```powershell
@@ -218,6 +337,12 @@ uv run python scripts/06_feature_strength.py
 uv run python scripts/make_hero_figures.py
 uv run pytest
 uv run mypy src/cqresearch
+uv run python scripts/audit_market_structure_endpoints.py --dry-run
+uv run python scripts/fetch_market_structure_raw.py --cache-only
+uv run python scripts/ingest_defillama_monthly_universe.py
+uv run python scripts/ingest_defillama_daily_constituents.py
+uv run python scripts/normalize_market_structure_cache.py --cache-only
+uv run python scripts/build_market_structure_outputs.py
 uv run python scripts/run_all.py
 ```
 
@@ -258,6 +383,10 @@ archive/               retained provenance, not the public workflow
   set.
 - Frozen data makes the project reproducible, but it is not a live market
   monitor.
+- Binance top100 is exchange-liquidity based, not market-cap based.
+- CoinMarketCap Fear & Greed live refresh requires `CMC_API_KEY`; cached CMC
+  history is included when present, otherwise AlternativeMe remains the
+  tracked sentiment baseline.
 
 ## Data and License Notes
 
