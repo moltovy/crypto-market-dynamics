@@ -17,6 +17,7 @@ from typing import Any
 
 import matplotlib.pyplot as plt
 import pandas as pd
+from matplotlib.ticker import PercentFormatter
 
 from cqresearch.analysis.asset_classification import (
     classification_summary,
@@ -862,7 +863,7 @@ def write_reports(
         else "Point-in-time market-cap universe outputs remain skipped until `data_cache/defillama/crypto_universe_monthly_2020_2026.csv` is supplied and ingested."
     )
     market_table_lines = (
-        "\n- `T40_crypto_universe_monthly.csv`"
+        "- `T40_crypto_universe_monthly.csv`"
         "\n- `T41_clean_risk_top100_monthly.csv`"
         "\n- `T42_market_structure_composition.csv`"
         "\n- `T43_rank_turnover.csv`"
@@ -918,7 +919,7 @@ Primary public tables:
 - `T37_market_structure_feature_panel.csv`
 - `T38_fear_greed_blended_daily.csv`
 - `T39_fear_greed_source_overlap_summary.csv`
-{market_table_lines}
+{market_table_lines if market_table_lines else ""}
 
 Curated source files live under `Data/MarketStructure/`. Existing frozen data under `Data/DefiLlama`, `Data/AlternativeMe`, and `Data/Tradingview` remains unchanged.
 """,
@@ -967,6 +968,10 @@ def save_fig(fig: plt.Figure, path: Path) -> Path:
     fig.savefig(path, dpi=180, bbox_inches="tight", facecolor=fig.get_facecolor())
     plt.close(fig)
     return path
+
+
+def _phase_label(value: object) -> str:
+    return str(value).replace("_", "\n")
 
 
 def render_market_structure_figures(project_root: Path) -> list[Path]:
@@ -1102,6 +1107,7 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
             )
             ax.legend(frameon=False, fontsize=7, ncol=2, loc="upper left")
             ax.set_ylim(0, 1)
+            ax.yaxis.set_major_formatter(PercentFormatter(1.0))
         ax.set_title("Full Top100 Market-Structure Composition", color=COLORS["text"], fontweight="bold")
         ax.set_ylabel("Market-cap share")
         _style_axis(ax)
@@ -1126,6 +1132,7 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
             ax.plot(concentration["snapshot_date"], concentration["top10_share"], label="Top10 share", color=COLORS["btc"])
             ax.plot(concentration["snapshot_date"], concentration["btc_eth_share"], label="BTC+ETH share", color=COLORS["eth"])
             ax.set_ylim(0, 1)
+            ax.yaxis.set_major_formatter(PercentFormatter(1.0))
             ax.legend(frameon=False)
         ax.set_title("Top100 Concentration", color=COLORS["text"], fontweight="bold")
         ax.set_ylabel("Share of top100 market cap")
@@ -1133,10 +1140,11 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
         written.append(save_fig(fig, figures / "F39_top100_concentration.png"))
 
         clean_turnover = turnover[turnover["universe_type"] == "clean_risk_top100"]
+        plot_turnover = clean_turnover[pd.to_numeric(clean_turnover["continuing_assets"], errors="coerce") > 0]
         fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
-        if not clean_turnover.empty:
-            ax.plot(clean_turnover["snapshot_date"], clean_turnover["entrants"], label="Entrants", color=COLORS["positive"])
-            ax.plot(clean_turnover["snapshot_date"], clean_turnover["exits"], label="Exits", color=COLORS["negative"])
+        if not plot_turnover.empty:
+            ax.plot(plot_turnover["snapshot_date"], plot_turnover["entrants"], label="Entrants", color=COLORS["positive"])
+            ax.plot(plot_turnover["snapshot_date"], plot_turnover["exits"], label="Exits", color=COLORS["negative"])
             ax.legend(frameon=False)
         ax.set_title("Clean-Risk Top100 Rank Turnover", color=COLORS["text"], fontweight="bold")
         ax.set_ylabel("Assets")
@@ -1156,6 +1164,8 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
             phase_pivot.plot(kind="bar", stacked=True, ax=ax, color=palette[: len(phase_pivot.columns)], width=0.78)
             ax.legend(frameon=False, fontsize=7, ncol=2)
             ax.set_ylim(0, 1)
+            ax.yaxis.set_major_formatter(PercentFormatter(1.0))
+            ax.set_xticklabels([_phase_label(label.get_text()) for label in ax.get_xticklabels()], rotation=0, ha="center")
         ax.set_title("Cycle-Phase Market Structure", color=COLORS["text"], fontweight="bold")
         ax.set_ylabel("Mean market-cap share")
         _style_axis(ax)
@@ -1172,21 +1182,31 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
                 alpha=0.9,
             )
             axes[0].set_ylim(0, 1)
+            axes[0].yaxis.set_major_formatter(PercentFormatter(1.0))
+            axes[0].legend(frameon=False, fontsize=7, ncol=2, loc="upper left")
         axes[0].set_title("Composition", color=COLORS["text"], fontweight="bold")
         if not concentration.empty:
             axes[1].plot(concentration["snapshot_date"], concentration["top10_share"], color=COLORS["btc"], label="Top10")
             axes[1].plot(concentration["snapshot_date"], concentration["btc_eth_share"], color=COLORS["eth"], label="BTC+ETH")
             axes[1].set_ylim(0, 1)
+            axes[1].yaxis.set_major_formatter(PercentFormatter(1.0))
             axes[1].legend(frameon=False, fontsize=7)
         axes[1].set_title("Concentration", color=COLORS["text"], fontweight="bold")
-        if not clean_turnover.empty:
-            axes[2].bar(clean_turnover["snapshot_date"], clean_turnover["entrants"], color=COLORS["positive"], label="Entrants")
-            axes[2].bar(clean_turnover["snapshot_date"], -clean_turnover["exits"], color=COLORS["negative"], label="Exits")
+        if not plot_turnover.empty:
+            axes[2].bar(plot_turnover["snapshot_date"], plot_turnover["entrants"], color=COLORS["positive"], label="Entrants")
+            axes[2].bar(plot_turnover["snapshot_date"], -plot_turnover["exits"], color=COLORS["negative"], label="Exits")
             axes[2].legend(frameon=False, fontsize=7)
         axes[2].set_title("Turnover", color=COLORS["text"], fontweight="bold")
         if not phase_pivot.empty:
             phase_pivot.plot(kind="bar", stacked=True, ax=axes[3], color=palette[: len(phase_pivot.columns)], legend=False)
             axes[3].set_ylim(0, 1)
+            axes[3].yaxis.set_major_formatter(PercentFormatter(1.0))
+            axes[3].set_xticklabels(
+                [_phase_label(label.get_text()) for label in axes[3].get_xticklabels()],
+                rotation=0,
+                ha="center",
+                fontsize=7,
+            )
         axes[3].set_title("Cycle Phases", color=COLORS["text"], fontweight="bold")
         for axis in axes:
             _style_axis(axis)
@@ -1207,7 +1227,7 @@ def update_outputs_readme(project_root: Path) -> Path:
     figures = project_root / "outputs" / "figures"
     tables = project_root / "outputs" / "tables"
     market_figure_lines = (
-        "\n- `figures/F38_market_structure_composition.png`"
+        "- `figures/F38_market_structure_composition.png`"
         "\n- `figures/F39_top100_concentration.png`"
         "\n- `figures/F40_rank_turnover.png`"
         "\n- `figures/F41_cycle_phase_market_structure.png`"
@@ -1216,7 +1236,7 @@ def update_outputs_readme(project_root: Path) -> Path:
         else ""
     )
     market_table_lines = (
-        "\n- `tables/T40_crypto_universe_monthly.csv`"
+        "- `tables/T40_crypto_universe_monthly.csv`"
         "\n- `tables/T41_clean_risk_top100_monthly.csv`"
         "\n- `tables/T42_market_structure_composition.csv`"
         "\n- `tables/T43_rank_turnover.csv`"
@@ -1246,7 +1266,7 @@ Figures:
 - `figures/F35_btc_dominance_cycle_overlay.png`
 - `figures/F36_rwa_dat_growth.png`
 - `figures/F37_market_cap_top100_gap.png`
-{market_figure_lines}
+{market_figure_lines if market_figure_lines else ""}
 
 Tables:
 
@@ -1262,7 +1282,7 @@ Tables:
 - `tables/T37_market_structure_feature_panel.csv`
 - `tables/T38_fear_greed_blended_daily.csv`
 - `tables/T39_fear_greed_source_overlap_summary.csv`
-{market_table_lines}
+{market_table_lines if market_table_lines else ""}
 
 Guardrails:
 

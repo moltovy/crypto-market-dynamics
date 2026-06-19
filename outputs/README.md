@@ -96,7 +96,11 @@ Figures:
 - `figures/F35_btc_dominance_cycle_overlay.png`
 - `figures/F36_rwa_dat_growth.png`
 - `figures/F37_market_cap_top100_gap.png`
-
+- `figures/F38_market_structure_composition.png`
+- `figures/F39_top100_concentration.png`
+- `figures/F40_rank_turnover.png`
+- `figures/F41_cycle_phase_market_structure.png`
+- `figures/F42_market_evolution_dashboard.png`
 
 Tables:
 
@@ -112,7 +116,12 @@ Tables:
 - `tables/T37_market_structure_feature_panel.csv`
 - `tables/T38_fear_greed_blended_daily.csv`
 - `tables/T39_fear_greed_source_overlap_summary.csv`
-
+- `tables/T40_crypto_universe_monthly.csv`
+- `tables/T41_clean_risk_top100_monthly.csv`
+- `tables/T42_market_structure_composition.csv`
+- `tables/T43_rank_turnover.csv`
+- `tables/T44_cycle_phase_market_structure.csv`
+- `tables/T45_market_evolution_summary.md`
 
 Guardrails:
 

@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-06-19T03:06:12.116201+00:00",
-  "git_commit": "9a35c12",
+  "generated_at_utc": "2026-06-19T03:45:15.411727+00:00",
+  "git_commit": "8632efb",
   "artifact_root": "outputs",
   "figure_bundle": {
     "style": "institutional_dark_research_cards",
@@ -369,7 +369,7 @@
     "Historical release packets and manager notes are archived outside the public surface."
   ],
   "market_structure": {
-    "generated_at_utc": "2026-06-19T03:06:15.464093+00:00",
+    "generated_at_utc": "2026-06-19T03:45:20.993130+00:00",
     "source_table_bundle_date": "2026-06-18",
     "figure_bundle_start": "F30",
     "table_bundle_start": "T28",
@@ -393,6 +393,12 @@
       "outputs/tables/T33_cex_dex_activity.csv",
       "outputs/tables/T34_btc_cycle_overlay.csv",
       "outputs/tables/T35_rwa_dat_growth.csv",
+      "outputs/tables/T40_crypto_universe_monthly.csv",
+      "outputs/tables/T41_clean_risk_top100_monthly.csv",
+      "outputs/tables/T42_market_structure_composition.csv",
+      "outputs/tables/T43_rank_turnover.csv",
+      "outputs/tables/T44_cycle_phase_market_structure.csv",
+      "outputs/tables/T45_market_evolution_summary.md",
       "outputs/tables/T36_market_cap_top100_gap.csv",
       "outputs/tables/T37_market_structure_feature_panel.csv",
       "outputs/report/market_evolution_thesis.md",
@@ -408,11 +414,15 @@
       "outputs/figures/F35_btc_dominance_cycle_overlay.png",
       "outputs/figures/F36_rwa_dat_growth.png",
       "outputs/figures/F37_market_cap_top100_gap.png",
+      "outputs/figures/F38_market_structure_composition.png",
+      "outputs/figures/F39_top100_concentration.png",
+      "outputs/figures/F40_rank_turnover.png",
+      "outputs/figures/F41_cycle_phase_market_structure.png",
+      "outputs/figures/F42_market_evolution_dashboard.png",
       "outputs/README.md"
     ],
     "skipped": [
-      "Binance liquidity top100 skipped because no spot kline cache exists.",
-      "Historical market-cap top100 skipped because no point-in-time source is available."
+      "Binance liquidity top100 skipped because no spot kline cache exists."
     ],
     "guardrails": [
       "Binance top100 is exchange-liquidity based, not market-cap based.",
