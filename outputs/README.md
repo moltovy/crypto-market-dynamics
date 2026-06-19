@@ -73,3 +73,89 @@ uv run pytest
 uv run mypy src/cqresearch
 uv run python scripts/run_all.py
 ```
+
+## Market-Structure Extension
+
+The additive market-structure layer integrates tracked DefiLlama/AlternativeMe/TradingView context with optional DefiLlama, Binance, and CoinMarketCap cache. It does not require API keys for the public build.
+
+Reports:
+
+- `report/altseason_rotation_lab.md`
+- `report/market_evolution_thesis.md`
+- `report/market_structure_modeling_thesis.md`
+- `report/market_structure_methodology.md`
+- `report/market_structure_data_inventory.md`
+- `report/market_structure_limitations.md`
+- `report/market_structure_fetch_diagnostics.md`
+- `report/market_structure_next_data_needed.md`
+
+Figures:
+
+- `figures/F30_market_structure_dashboard.png`
+- `figures/F31_stablecoin_tvl_regimes.png`
+- `figures/F32_sentiment_comparison.png`
+- `figures/F33_cex_dex_activity.png`
+- `figures/F34_binance_liquidity_universe.png`
+- `figures/F35_btc_dominance_cycle_overlay.png`
+- `figures/F36_rwa_dat_growth.png`
+- `figures/F37_market_cap_top100_gap.png`
+- `figures/F38_market_structure_composition.png`
+- `figures/F39_top100_concentration.png`
+- `figures/F40_rank_turnover.png`
+- `figures/F41_cycle_phase_market_structure.png`
+- `figures/F42_market_evolution_dashboard.png`
+- `figures/F43_market_structure_monthly_features.png`
+- `figures/F44_market_structure_return_regimes.png`
+- `figures/F45_market_structure_composition_shift.png`
+- `figures/F46_market_structure_turnover_by_phase.png`
+- `figures/F47_market_structure_modeling_dashboard.png`
+- `figures/F48_altseason_breadth.png`
+- `figures/F49_constituent_return_indexes.png`
+- `figures/F50_return_dispersion.png`
+- `figures/F51_rolling_beta_to_btc.png`
+- `figures/F52_event_response_top50.png`
+- `figures/F53_rotation_dashboard.png`
+
+Tables:
+
+- `tables/T28_market_structure_source_capabilities.csv`
+- `tables/T29_asset_classification.csv`
+- `tables/T30_binance_liquidity_top100.csv`
+- `tables/T31_sentiment_comparison.csv`
+- `tables/T32_stablecoin_tvl_regimes.csv`
+- `tables/T33_cex_dex_activity.csv`
+- `tables/T34_btc_cycle_overlay.csv`
+- `tables/T35_rwa_dat_growth.csv`
+- `tables/T36_market_cap_top100_gap.csv`
+- `tables/T37_market_structure_feature_panel.csv`
+- `tables/T38_fear_greed_blended_daily.csv`
+- `tables/T39_fear_greed_source_overlap_summary.csv`
+- `tables/T40_crypto_universe_monthly.csv`
+- `tables/T41_clean_risk_top100_monthly.csv`
+- `tables/T42_market_structure_composition.csv`
+- `tables/T43_rank_turnover.csv`
+- `tables/T44_cycle_phase_market_structure.csv`
+- `tables/T45_market_evolution_summary.md`
+- `tables/T46_market_structure_monthly_features.csv`
+- `tables/T47_market_structure_daily_context.csv`
+- `tables/T48_market_structure_return_regimes.csv`
+- `tables/T49_market_structure_composition_shift.csv`
+- `tables/T50_market_structure_turnover_by_phase.csv`
+- `tables/T51_market_structure_modeling_summary.md`
+- `tables/T52_constituent_daily_ohlcv.csv`
+- `tables/T53_altseason_breadth.csv`
+- `tables/T54_constituent_return_indexes.csv`
+- `tables/T55_return_dispersion.csv`
+- `tables/T56_rolling_beta_to_btc_eth.csv`
+- `tables/T57_category_rotation_returns.csv`
+- `tables/T58_event_response_top50.csv`
+- `tables/T59_constituent_data_gap_report.csv`
+- `tables/T60_altseason_rotation_summary.md`
+
+Guardrails:
+
+- Binance top100 is exchange-liquidity based, not historical market-cap rank.
+- CMC live fetch requires `CMC_API_KEY`; cached CMC history is included when present.
+- Monthly PIT universe snapshots are the primary market-structure evidence and support composition and turnover analysis, not daily performance or event-return claims.
+- Daily constituent diagnostics are a current-top50 exploratory cohort, not a point-in-time top100 panel or primary altseason backtest.
+- Raw source responses stay in gitignored `data_cache/`.

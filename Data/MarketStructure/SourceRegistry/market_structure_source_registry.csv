@@ -1,0 +1,5 @@
+source,role,tracked_files,auth_required,storage_policy,status
+DefiLlama,"TVL, stablecoins, DeFi activity, RWA/DAT context",44,Pro endpoints only,raw cache in data_cache/defillama; curated summaries in Data/MarketStructure/DefiLlama,tracked_baseline_plus_optional_refresh
+Binance,"CEX spot/futures liquidity, quote volume, funding and premium regimes",0,no,raw cache in data_cache/binance; curated summaries in Data/MarketStructure/Binance,optional_public_fetch_or_cache
+CoinMarketCap,Fear & Greed historical sentiment comparison,1,CMC_API_KEY,raw cache in data_cache/coinmarketcap; curated summaries in Data/MarketStructure/CoinMarketCap,optional_key_required
+AlternativeMe,Tracked baseline Fear & Greed sentiment series,1,no,existing frozen Data/AlternativeMe file used in public outputs,tracked_baseline

@@ -1,0 +1,85 @@
+stablecoins:
+  - USDT
+  - USDC
+  - FDUSD
+  - BUSD
+  - DAI
+  - TUSD
+  - USDE
+  - USDP
+  - PYUSD
+  - USDS
+  - USD1
+  - USDG
+  - RLUSD
+  - USDF
+  - USDD
+  - BFUSD
+synthetic_stables:
+  - USDT0
+  - BSC-USD
+  - USD0
+  - USDTB
+stable_yield_tokens:
+  - SUSDS
+  - SUSDE
+  - SDAI
+  - SYRUPUSDC
+  - USDY
+  - BUIDL
+bridged_stables:
+  - USDC.E
+  - USDCET
+  - USDC.B
+  - USDC.ARB
+  - USDC-ARB
+  - USDC-AVAX
+  - USDC-POLY
+wrapped_assets:
+  - WBTC
+  - WETH
+  - CBBTC
+  - WTRX
+  - WSOL
+  - AWETH
+  - WEETH
+  - WBNB
+  - BTCT
+  - CLBTC
+  - WRAPPED SOL
+tokenized_commodities:
+  - PAXG
+  - XAUT
+tokenized_rwa:
+  - FIGR_HELOC
+base_assets:
+  - BTC
+  - ETH
+  - SOL
+  - BNB
+  - XRP
+  - ADA
+  - AVAX
+  - LINK
+lst_restaking:
+  - STETH
+  - WSTETH
+  - RETH
+  - WBETH
+  - CBETH
+  - SN0
+  - RSETH
+  - LDO
+  - RPL
+  - EIGEN
+  - ETHFI
+bridged_duplicates:
+  - SOL.W
+  - BTC.B
+  - WORMHOLE BTC
+risk_assets:
+  - DOGE
+  - SHIB
+  - PEPE
+  - WIF
+  - BONK

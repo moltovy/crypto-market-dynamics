@@ -1,0 +1,6 @@
+symbol,base_asset,quote_asset,status,asset_class
+BTCUSDT,BTC,USDT,seed_reference,base_assets
+ETHUSDT,ETH,USDT,seed_reference,base_assets
+USDCUSDT,USDC,USDT,seed_reference,stablecoins
+PAXGUSDT,PAXG,USDT,seed_reference,tokenized_commodities
+DOGEUSDT,DOGE,USDT,seed_reference,risk_assets

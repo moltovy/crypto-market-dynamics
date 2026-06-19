@@ -585,3 +585,20 @@ The same information (plus column lists and SHA-256) is in `Data/MASTER_DATA.csv
 For **LLM / chat attachments** (e.g. Perplexity Pro deep research), prefer `Data/MASTER_DATA.txt`: same inventory as this file, UTF-8 plain text with a short usage preamble — avoids PDF/DOCX extraction issues.
 
 _Auto-generated on 2026-04-19 by `tools/data_curation/06_build_inventory.py`._
+
+## MarketStructure Extension
+
+Tracked normalized market-structure summaries. Raw API payloads stay in gitignored `data_cache/`; these files are release-ready CSVs under `Data/MarketStructure/`.
+
+| Relative path | Topic | Rows | Freq |
+| --- | --- | ---: | --- |
+| `MarketStructure/CoinMarketCap/cmc_fear_greed__daily.csv` | Cmc Fear Greed  Daily | 1086 | daily |
+| `MarketStructure/DefiLlama/crypto_constituents_daily_ohlcv_top50_current_2020_2026.csv` | Crypto Constituents Daily Ohlcv Top50 Current 2020 2026 | 50449 | daily |
+| `MarketStructure/DefiLlama/crypto_universe_monthly_2020_2026.csv` | Crypto Universe Monthly 2020 2026 | 15600 | monthly |
+| `MarketStructure/DefiLlama/defillama_existing_inventory.csv` | Defillama Existing Inventory | 44 | snapshot |
+| `MarketStructure/Sentiment/fear_greed_altme_pre_cmc_post__daily.csv` | Fear Greed Altme Pre Cmc Post  Daily | 3057 | daily |
+| `MarketStructure/Sentiment/fear_greed_source_overlap__daily.csv` | Fear Greed Source Overlap  Daily | 1023 | daily |
+| `MarketStructure/Sentiment/fear_greed_source_overlap_summary.csv` | Fear Greed Source Overlap Summary | 17 | snapshot |
+| `MarketStructure/SourceRegistry/market_structure_cache_status.csv` | Market Structure Cache Status | 4 | snapshot |
+| `MarketStructure/SourceRegistry/market_structure_endpoint_capabilities.csv` | Market Structure Endpoint Capabilities | 25 | snapshot |
+| `MarketStructure/SourceRegistry/market_structure_source_registry.csv` | Market Structure Source Registry | 4 | snapshot |
