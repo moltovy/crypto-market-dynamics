@@ -11,7 +11,7 @@ Definitions:
 - `current_cohort_eth_led`: ETH beats BTC and the median clean-risk current-cohort sample over 90 days.
 - `large_cap_rotation_vs_btc`: top10 ex-BTC/ETH 90-day return minus BTC 90-day return.
 
-- Latest 90-day breadth: 54.5% of clean-risk sample assets beat BTC; regime `current_cohort_mixed_rotation`.
+- Latest 90-day breadth: 52.9% of clean-risk sample assets beat BTC; regime `current_cohort_mixed_rotation`.
 - Daily constituent span: 2023-01-01 to 2026-06-16; index rows: 7,572.
 - Event-response rows: 160.
 

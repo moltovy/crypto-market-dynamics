@@ -509,9 +509,7 @@ def write_dashboard() -> list[Path]:
         "F03_btc_ex_mvrv_strength.png",
         "F04_etf_flow_lead_lag.png",
         "F05_core_correlation_matrix.png",
-        "F06_rolling_correlations.png",
         "F07_feature_strength_heatmap.png",
-        "F08_connectedness_robustness.png",
     ]
     cards = "\n".join(
         f"<section class='card'><h2>{html.escape(f.replace('_', ' ').replace('.png', ''))}</h2>"

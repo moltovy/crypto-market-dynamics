@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import shutil
 import textwrap
 from dataclasses import dataclass
 from datetime import UTC, datetime
@@ -68,6 +69,84 @@ from cqresearch.viz.theme import apply_institutional_mpl_theme
 
 ROOT = Path(__file__).resolve().parents[3]
 plt.switch_backend("Agg")
+
+PUBLIC_MARKET_STRUCTURE_FIGURES: tuple[str, ...] = (
+    "F38_market_structure_composition.png",
+    "F39_top100_concentration.png",
+    "F40_rank_turnover.png",
+    "F41_cycle_phase_market_structure.png",
+    "F42_market_evolution_dashboard.png",
+    "F45_market_structure_composition_shift.png",
+)
+
+SUPPORTING_MARKET_STRUCTURE_FIGURES: tuple[str, ...] = (
+    "F30_market_structure_dashboard.png",
+    "F31_stablecoin_tvl_regimes.png",
+    "F32_sentiment_comparison.png",
+    "F33_cex_dex_activity.png",
+    "F34_binance_liquidity_universe.png",
+    "F35_btc_dominance_cycle_overlay.png",
+    "F36_rwa_dat_growth.png",
+    "F37_market_cap_top100_gap.png",
+    "F43_market_structure_monthly_features.png",
+    "F44_market_structure_return_regimes.png",
+    "F46_market_structure_turnover_by_phase.png",
+    "F47_market_structure_modeling_dashboard.png",
+    "F48_altseason_breadth.png",
+    "F49_constituent_return_indexes.png",
+    "F50_return_dispersion.png",
+    "F51_rolling_beta_to_btc.png",
+    "F52_event_response_top50.png",
+    "F53_rotation_dashboard.png",
+)
+
+LEGACY_PUBLIC_FIGURE_NAMES: tuple[str, ...] = (
+    "F00_project_summary_card.png",
+    "F01_data_coverage.png",
+    "F01_data_inventory.png",
+    "F02_btc_block_attribution.png",
+    "F02_btc_model_sensitivity.png",
+    "F03_btc_etf_lead_lag.png",
+    "F04_btc_rolling_correlations.png",
+    "F05_stablecoin_supply_tvl.png",
+    "F06_btc_native_dashboard.png",
+    "F07_connectedness.png",
+    "F08_robustness_grid.png",
+    "F09_key_results_cards.png",
+    "T00_key_results_table.png",
+    "current_contact_sheet.png",
+    "triage_before_contact_sheet.png",
+    "visual_gallery.png",
+)
+
+PUBLIC_README_FIGURES: tuple[str, ...] = (
+    "F01_mvrv_sensitivity_by_regime_v2.png",
+    "F02_same_support_ablation.png",
+    "F03_btc_ex_mvrv_strength.png",
+    "F04_etf_flow_lead_lag.png",
+    "F05_core_correlation_matrix.png",
+    "F07_feature_strength_heatmap.png",
+    "F38_market_structure_composition.png",
+    "F39_top100_concentration.png",
+    "F40_rank_turnover.png",
+    "F41_cycle_phase_market_structure.png",
+    "F42_market_evolution_dashboard.png",
+    "F45_market_structure_composition_shift.png",
+)
+
+CURRENT_TOP50_GALLERY_FIGURES: tuple[str, ...] = (
+    "F48_altseason_breadth.png",
+    "F49_constituent_return_indexes.png",
+    "F50_return_dispersion.png",
+    "F51_rolling_beta_to_btc.png",
+    "F52_event_response_top50.png",
+    "F53_rotation_dashboard.png",
+)
+
+CURRENT_TOP50_GUARDRAIL_SENTENCE = (
+    "Exploratory current-top50 cohort diagnostics. Survivorship-biased. "
+    "Not point-in-time. Not the primary altseason backtest."
+)
 
 
 @dataclass(frozen=True)
@@ -975,6 +1054,10 @@ def remove_market_cap_universe_outputs(project_root: Path) -> None:
         "outputs/figures/F45_market_structure_composition_shift.png",
         "outputs/figures/F46_market_structure_turnover_by_phase.png",
         "outputs/figures/F47_market_structure_modeling_dashboard.png",
+        "outputs/figures/gallery/F43_market_structure_monthly_features.png",
+        "outputs/figures/gallery/F44_market_structure_return_regimes.png",
+        "outputs/figures/gallery/F46_market_structure_turnover_by_phase.png",
+        "outputs/figures/gallery/F47_market_structure_modeling_dashboard.png",
         "outputs/report/market_structure_modeling_thesis.md",
     ]:
         path = project_root / relpath
@@ -1002,6 +1085,12 @@ def remove_constituent_rotation_outputs(project_root: Path) -> None:
         "outputs/figures/F51_rolling_beta_to_btc.png",
         "outputs/figures/F52_event_response_top50.png",
         "outputs/figures/F53_rotation_dashboard.png",
+        "outputs/figures/gallery/F48_altseason_breadth.png",
+        "outputs/figures/gallery/F49_constituent_return_indexes.png",
+        "outputs/figures/gallery/F50_return_dispersion.png",
+        "outputs/figures/gallery/F51_rolling_beta_to_btc.png",
+        "outputs/figures/gallery/F52_event_response_top50.png",
+        "outputs/figures/gallery/F53_rotation_dashboard.png",
     ]:
         path = project_root / relpath
         if path.exists():
@@ -1797,6 +1886,25 @@ def save_fig(fig: plt.Figure, path: Path) -> Path:
     fig.savefig(path, dpi=180, bbox_inches="tight", facecolor=fig.get_facecolor())
     plt.close(fig)
     return path
+
+
+def govern_market_structure_visual_surface(project_root: Path, written: list[Path]) -> list[Path]:
+    """Keep only the canonical market-structure figures in the public figure root."""
+
+    figures = project_root / "outputs" / "figures"
+    gallery = figures / "gallery"
+    gallery.mkdir(parents=True, exist_ok=True)
+    relocated: dict[Path, Path] = {}
+    for filename in SUPPORTING_MARKET_STRUCTURE_FIGURES:
+        src = figures / filename
+        if not src.exists():
+            continue
+        dst = gallery / filename
+        if dst.exists():
+            dst.unlink()
+        shutil.move(str(src), str(dst))
+        relocated[src] = dst
+    return [relocated.get(path, path) for path in written]
 
 
 def render_market_structure_figures(project_root: Path) -> list[Path]:
@@ -2975,7 +3083,7 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
             _style_axis(axis)
         written.append(save_fig(fig, figures / "F53_rotation_dashboard.png"))
 
-    return written
+    return govern_market_structure_visual_surface(project_root, written)
 
 
 def update_outputs_readme(project_root: Path) -> Path:
@@ -2987,29 +3095,16 @@ def update_outputs_readme(project_root: Path) -> Path:
     text = text.split(marker, 1)[0].rstrip()
     figures = project_root / "outputs" / "figures"
     tables = project_root / "outputs" / "tables"
-    market_figure_lines = (
-        "- `figures/F38_market_structure_composition.png`"
-        "\n- `figures/F39_top100_concentration.png`"
-        "\n- `figures/F40_rank_turnover.png`"
-        "\n- `figures/F41_cycle_phase_market_structure.png`"
-        "\n- `figures/F42_market_evolution_dashboard.png`"
-        "\n- `figures/F43_market_structure_monthly_features.png`"
-        "\n- `figures/F44_market_structure_return_regimes.png`"
-        "\n- `figures/F45_market_structure_composition_shift.png`"
-        "\n- `figures/F46_market_structure_turnover_by_phase.png`"
-        "\n- `figures/F47_market_structure_modeling_dashboard.png`"
-        if (figures / "F38_market_structure_composition.png").exists()
-        else ""
+    gallery = figures / "gallery"
+    public_figure_lines = "\n".join(
+        f"- `figures/{filename}`"
+        for filename in PUBLIC_MARKET_STRUCTURE_FIGURES
+        if (figures / filename).exists()
     )
-    daily_figure_lines = (
-        "- `figures/F48_altseason_breadth.png`"
-        "\n- `figures/F49_constituent_return_indexes.png`"
-        "\n- `figures/F50_return_dispersion.png`"
-        "\n- `figures/F51_rolling_beta_to_btc.png`"
-        "\n- `figures/F52_event_response_top50.png`"
-        "\n- `figures/F53_rotation_dashboard.png`"
-        if (figures / "F48_altseason_breadth.png").exists()
-        else ""
+    supporting_figure_lines = "\n".join(
+        f"- `figures/gallery/{filename}`"
+        for filename in SUPPORTING_MARKET_STRUCTURE_FIGURES
+        if (gallery / filename).exists()
     )
     market_table_lines = (
         "- `tables/T40_crypto_universe_monthly.csv`"
@@ -3055,18 +3150,17 @@ Reports:
 - `report/market_structure_next_data_needed.md`
 - `report/visualization_quality_audit.md`
 
-Figures:
+Public figures:
 
-- `figures/F30_market_structure_dashboard.png`
-- `figures/F31_stablecoin_tvl_regimes.png`
-- `figures/F32_sentiment_comparison.png`
-- `figures/F33_cex_dex_activity.png`
-- `figures/F34_binance_liquidity_universe.png`
-- `figures/F35_btc_dominance_cycle_overlay.png`
-- `figures/F36_rwa_dat_growth.png`
-- `figures/F37_market_cap_top100_gap.png`
-{market_figure_lines if market_figure_lines else ""}
-{daily_figure_lines if daily_figure_lines else ""}
+{public_figure_lines if public_figure_lines else "- Monthly PIT market-structure public figures unavailable."}
+
+Supporting gallery:
+
+{supporting_figure_lines if supporting_figure_lines else "- No supporting market-structure gallery figures available."}
+
+Archived diagnostics:
+
+- Legacy diagnostic plots and before-redesign contact sheets live under `archive/visuals/legacy_diagnostics/`, not under the public figure root.
 
 Tables:
 
@@ -3090,7 +3184,7 @@ Guardrails:
 - Binance top100 is exchange-liquidity based, not historical market-cap rank.
 - CMC live fetch requires `CMC_API_KEY`; cached CMC history is included when present.
 - Monthly PIT universe snapshots are the primary market-structure evidence and support composition and turnover analysis, not daily performance or event-return claims.
-- Daily constituent diagnostics are a current-top50 exploratory cohort, not a point-in-time top100 panel or primary altseason backtest.
+- Exploratory current-top50 cohort diagnostics. Survivorship-biased. Not point-in-time. Not the primary altseason backtest.
 - Raw source responses stay in gitignored `data_cache/`.
 """
     return write_text(path, text + "\n" + section)
@@ -3110,6 +3204,17 @@ def patch_outputs_manifest(
         "source_table_bundle_date": generated_at.date().isoformat(),
         "figure_bundle_start": "F30",
         "table_bundle_start": "T28",
+        "public_figures": [
+            f"outputs/figures/{filename}"
+            for filename in PUBLIC_MARKET_STRUCTURE_FIGURES
+            if (project_root / "outputs" / "figures" / filename).exists()
+        ],
+        "supporting_gallery": [
+            f"outputs/figures/gallery/{filename}"
+            for filename in SUPPORTING_MARKET_STRUCTURE_FIGURES
+            if (project_root / "outputs" / "figures" / "gallery" / filename).exists()
+        ],
+        "archived_diagnostics": "archive/visuals/legacy_diagnostics/",
         "commands": [
             "uv run python scripts/audit_market_structure_endpoints.py --dry-run",
             "uv run python scripts/fetch_market_structure_raw.py --dry-run",
@@ -3225,13 +3330,27 @@ def readme_public_surface_rows(project_root: Path) -> list[dict[str, str]]:
                 "status": "violation",
             }
         )
-    old_figs = [
-        "F02_btc_model_sensitivity.png",
-        "F01_data_inventory.png",
-        "F02_btc_model_sensitivity",
-        "F01_data_inventory",
-    ]
+    if "before redesign" in readme.lower():
+        rows.append(
+            {
+                "file": "README.md",
+                "rule": "banned_before_redesign_language",
+                "term": "before redesign",
+                "status": "violation",
+            }
+        )
+    if CURRENT_TOP50_GUARDRAIL_SENTENCE not in readme:
+        rows.append(
+            {
+                "file": "README.md",
+                "rule": "missing_current_top50_guardrail",
+                "term": CURRENT_TOP50_GUARDRAIL_SENTENCE,
+                "status": "violation",
+            }
+        )
+    public_readme_set = set(PUBLIC_README_FIGURES)
     for raw_path in re.findall(r"!\[[^\]]*\]\(([^)]+)\)", readme):
+        filename = Path(raw_path).name
         if "archive/" in raw_path or "reports/portfolio_" in raw_path:
             rows.append(
                 {
@@ -3241,7 +3360,7 @@ def readme_public_surface_rows(project_root: Path) -> list[dict[str, str]]:
                     "status": "violation",
                 }
             )
-        for old_fig in old_figs:
+        for old_fig in LEGACY_PUBLIC_FIGURE_NAMES:
             if old_fig in raw_path:
                 rows.append(
                     {
@@ -3251,12 +3370,61 @@ def readme_public_surface_rows(project_root: Path) -> list[dict[str, str]]:
                         "status": "violation",
                     }
                 )
+        if filename in CURRENT_TOP50_GALLERY_FIGURES:
+            rows.append(
+                {
+                    "file": "README.md",
+                    "rule": "current_top50_embedded_as_primary",
+                    "term": filename,
+                    "status": "violation",
+                }
+            )
+        if filename not in public_readme_set:
+            rows.append(
+                {
+                    "file": "README.md",
+                    "rule": "noncanonical_readme_image",
+                    "term": filename,
+                    "status": "violation",
+                }
+            )
         if not (project_root / raw_path).exists():
             rows.append(
                 {
                     "file": "README.md",
                     "rule": "missing_image_path",
                     "term": raw_path,
+                    "status": "violation",
+                }
+            )
+    figures = project_root / "outputs" / "figures"
+    contact_sheet = figures / "public_contact_sheet.png"
+    if not contact_sheet.exists():
+        rows.append(
+            {
+                "file": "outputs/figures/public_contact_sheet.png",
+                "rule": "public_contact_sheet_exists",
+                "term": "",
+                "status": "violation",
+            }
+        )
+    for filename in LEGACY_PUBLIC_FIGURE_NAMES:
+        if (figures / filename).exists():
+            rows.append(
+                {
+                    "file": f"outputs/figures/{filename}",
+                    "rule": "legacy_diagnostic_in_public_root",
+                    "term": filename,
+                    "status": "violation",
+                }
+            )
+    for filename in CURRENT_TOP50_GALLERY_FIGURES:
+        if (figures / filename).exists():
+            rows.append(
+                {
+                    "file": f"outputs/figures/{filename}",
+                    "rule": "current_top50_in_public_root",
+                    "term": filename,
                     "status": "violation",
                 }
             )

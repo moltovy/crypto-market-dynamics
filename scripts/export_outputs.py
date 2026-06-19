@@ -20,6 +20,102 @@ ROOT = Path(__file__).resolve().parents[1]
 OUTPUTS = ROOT / "outputs"
 PANEL_META = {"start": "2020-01-01", "end": "2026-04-11", "n_rows": 2293, "n_cols": 63}
 
+PUBLIC_CORE_FIGURES: tuple[str, ...] = (
+    "F01_mvrv_sensitivity_by_regime_v2.png",
+    "F02_same_support_ablation.png",
+    "F03_btc_ex_mvrv_strength.png",
+    "F04_etf_flow_lead_lag.png",
+    "F05_core_correlation_matrix.png",
+    "F07_feature_strength_heatmap.png",
+)
+
+SUPPORTING_CORE_FIGURES: tuple[str, ...] = (
+    "F03_etf_flow_lead_lag.png",
+    "F04_rolling_correlations.png",
+    "F05_liquidity_context.png",
+    "F06_connectedness_and_robustness.png",
+    "F06_rolling_correlations.png",
+    "F08_connectedness_robustness.png",
+)
+
+CORE_GALLERY_FIGURES: tuple[str, ...] = (
+    "G01_native_state_detail.png",
+    "G02_full_robustness_grid.png",
+    "G02_liquidity_context.png",
+    "G03_fevd_matrix.png",
+    *SUPPORTING_CORE_FIGURES,
+)
+
+LEGACY_DIAGNOSTIC_BASENAMES: tuple[str, ...] = (
+    "F00_project_summary_card",
+    "F01_data_coverage",
+    "F01_data_inventory",
+    "F02_btc_block_attribution",
+    "F02_btc_model_sensitivity",
+    "F03_btc_etf_lead_lag",
+    "F04_btc_rolling_correlations",
+    "F05_stablecoin_supply_tvl",
+    "F06_btc_native_dashboard",
+    "F07_connectedness",
+    "F08_robustness_grid",
+    "F09_key_results_cards",
+    "T00_key_results_table",
+    "current_contact_sheet",
+    "triage_before_contact_sheet",
+    "visual_gallery",
+)
+
+LEGACY_VISUAL_REPORTS: tuple[str, ...] = (
+    "visual_audit.md",
+    "visual_quality_check.md",
+    "visual_text_audit.md",
+    "visual_triage.md",
+)
+
+
+def _move_visual_file(src: Path, dst: Path) -> Path | None:
+    if not src.exists():
+        return None
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    if dst.exists():
+        dst.unlink()
+    shutil.move(str(src), str(dst))
+    return dst
+
+
+def _with_sidecars(filename: str) -> tuple[str, ...]:
+    path = Path(filename)
+    if path.suffix:
+        return (filename, path.with_suffix(".svg").name)
+    return (f"{filename}.png", f"{filename}.svg")
+
+
+def govern_core_visual_surface() -> dict[str, list[str]]:
+    """Move stale diagnostics out of the public figure root after rendering."""
+
+    figures = OUTPUTS / "figures"
+    gallery = figures / "gallery"
+    archive = ROOT / "archive" / "visuals" / "legacy_diagnostics"
+    moved_archive: list[str] = []
+    moved_gallery: list[str] = []
+
+    for basename in LEGACY_DIAGNOSTIC_BASENAMES:
+        for filename in _with_sidecars(basename):
+            moved = _move_visual_file(figures / filename, archive / filename)
+            if moved:
+                moved_archive.append(rel(moved))
+
+    for filename in SUPPORTING_CORE_FIGURES:
+        for sidecar in _with_sidecars(filename):
+            moved = _move_visual_file(figures / sidecar, gallery / sidecar)
+            if moved:
+                moved_gallery.append(rel(moved))
+
+    for filename in LEGACY_VISUAL_REPORTS:
+        _move_visual_file(OUTPUTS / "report" / filename, archive / filename)
+
+    return {"archived_diagnostics": moved_archive, "supporting_gallery": moved_gallery}
+
 
 def find_packet(name: str) -> Path:
     candidates = [
@@ -307,18 +403,27 @@ def outputs_readme() -> str:
 - `report/limitations.md`
 - `report/reorganization_summary.md`
 
-## Figures
+## Public Figures
 
 - `figures/F01_mvrv_sensitivity_by_regime_v2.png`
 - `figures/F02_same_support_ablation.png`
 - `figures/F03_btc_ex_mvrv_strength.png`
 - `figures/F04_etf_flow_lead_lag.png`
 - `figures/F05_core_correlation_matrix.png`
-- `figures/F06_rolling_correlations.png`
 - `figures/F07_feature_strength_heatmap.png`
-- `figures/F08_connectedness_robustness.png`
+- `figures/public_contact_sheet.png`
+
+## Supporting Gallery
+
 - `figures/gallery/G01_native_state_detail.png`
 - `figures/gallery/G02_liquidity_context.png`
+- `figures/gallery/F06_rolling_correlations.png`
+- `figures/gallery/F08_connectedness_robustness.png`
+
+## Archived Diagnostics
+
+Legacy diagnostic plots and before-redesign contact sheets are retained outside
+the public figure root under `archive/visuals/legacy_diagnostics/`.
 
 ## Tables
 
@@ -382,11 +487,23 @@ def export_reports() -> list[dict[str, str]]:
 
 def export_figures() -> list[dict[str, str]]:
     rendered = render_all_figures()
-    figure_paths = [
+    govern_core_visual_surface()
+    figure_paths: list[Path] = []
+    for filename in PUBLIC_CORE_FIGURES:
+        for sidecar in _with_sidecars(filename):
+            path = OUTPUTS / "figures" / sidecar
+            if path.exists():
+                figure_paths.append(path)
+    for filename in CORE_GALLERY_FIGURES:
+        for sidecar in _with_sidecars(filename):
+            path = OUTPUTS / "figures" / "gallery" / sidecar
+            if path.exists():
+                figure_paths.append(path)
+    figure_paths.extend(
         path
         for path in rendered
-        if path.is_relative_to(OUTPUTS / "figures") and path.suffix.lower() in {".png", ".svg"}
-    ]
+        if path.is_relative_to(OUTPUTS / "dashboard") and path.suffix.lower() == ".html"
+    )
     return [
         {
             "source": "generated from canonical output tables and archived supplemental tables",
@@ -547,6 +664,11 @@ def write_manifest(
             "generated_from": "canonical output tables plus archived supplemental tables",
             "export_formats": ["png", "svg"],
             "dashboard": "outputs/dashboard/index.html",
+            "public_figures": [f"outputs/figures/{filename}" for filename in PUBLIC_CORE_FIGURES],
+            "supporting_gallery": [
+                f"outputs/figures/gallery/{filename}" for filename in CORE_GALLERY_FIGURES
+            ],
+            "archived_diagnostics": "archive/visuals/legacy_diagnostics/",
         },
         "panel": PANEL_META,
         "commands_to_reproduce": [
@@ -591,12 +713,6 @@ def main() -> int:
     model_cards = export_model_cards(v21, v22)
     data_catalog = export_data_catalog()
     figures = export_figures()
-    reports.extend(
-        [
-            {"source": "generated visual QA narrative", "output": "outputs/report/visual_audit.md"},
-            {"source": "generated visual QA narrative", "output": "outputs/report/visual_quality_check.md"},
-        ]
-    )
     tables.extend(
         [
             {"source": "generated key-results presentation table", "output": "outputs/tables/README.md"},

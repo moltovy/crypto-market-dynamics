@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
+from scripts.build_visual_gallery import build_public_contact_sheet  # noqa: E402
 from scripts.export_outputs import main as export_outputs_main  # noqa: E402
 
 from cqresearch.analysis.constituent_rotation import (  # noqa: E402
@@ -35,6 +36,7 @@ def main() -> int:
     ingest_defillama_daily_constituents(ROOT)
     normalize_cache_to_curated(ROOT, cache_only=True)
     build_market_structure_outputs(ROOT)
+    build_public_contact_sheet()
     return 0
 
 

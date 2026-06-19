@@ -387,12 +387,6 @@ def classify_universe_asset(symbol: str, asset_name: str, overrides: dict[str, s
         return override_class
     if "STAKED" in name_token or "RESTAKED" in name_token or symbol_token in {"RSETH", "WEETH"}:
         return "lst_restaking"
-    if (
-        "WRAPPED" in name_token
-        or (symbol_token.startswith("W") and len(symbol_token) > 3)
-        or symbol_token in {"AWETH", "BTCT", "CLBTC"}
-    ):
-        return "wrapped_assets"
     if "USD" in name_token and ("YIELD" in name_token or "LIQUIDITY FUND" in name_token):
         return "stable_yield_tokens"
     if symbol_token.startswith("USD") or symbol_token.endswith("USD") or " USD" in name_token:

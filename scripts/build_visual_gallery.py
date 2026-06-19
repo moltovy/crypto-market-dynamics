@@ -14,34 +14,20 @@ sys.path.insert(0, str(ROOT / "src"))
 from cqresearch.viz.design_system import COLORS  # noqa: E402
 
 FIGURES = ROOT / "outputs" / "figures"
-GALLERY = FIGURES / "gallery"
-V21 = ROOT / "archive" / "legacy_portfolio_releases" / "portfolio_v2_1" / "figures"
-V22 = ROOT / "archive" / "legacy_portfolio_releases" / "portfolio_v2_2" / "figures"
 
-ORIGINAL_FIGURES: tuple[tuple[Path, str], ...] = (
-    (V21 / "F62_baseline_data_coverage.png", "F01 data coverage"),
-    (V21 / "F10_btc_block_partial_r2_heatmap.png", "F02 block attribution"),
-    (V21 / "F22_btc_etf_lead_lag_heatmap.png", "F03 ETF lead-lag"),
-    (V21 / "F30_btc_rolling_correlations_180d.png", "F04 rolling correlations"),
-    (V21 / "F40_stablecoin_supply_and_tvl.png", "F05 stablecoin/TVL"),
-    (V21 / "F50_btc_native_zscore_dashboard.png", "F06 BTC native"),
-    (V22 / "F77_rolling_connectedness.png", "F07 connectedness"),
-    (V22 / "F78_robustness_grid_heatmap.png", "F08 robustness"),
-)
-
-FINAL_FIGURES: tuple[str, ...] = (
-    "F01_data_inventory.png",
-    "F02_btc_model_sensitivity.png",
-    "F03_etf_flow_lead_lag.png",
-    "F04_rolling_correlations.png",
-    "F05_liquidity_context.png",
-    "F06_connectedness_and_robustness.png",
-)
-
-GALLERY_FIGURES: tuple[str, ...] = (
-    "G01_native_state_detail.png",
-    "G02_full_robustness_grid.png",
-    "G03_fevd_matrix.png",
+PUBLIC_FIGURES: tuple[str, ...] = (
+    "F01_mvrv_sensitivity_by_regime_v2.png",
+    "F02_same_support_ablation.png",
+    "F03_btc_ex_mvrv_strength.png",
+    "F04_etf_flow_lead_lag.png",
+    "F05_core_correlation_matrix.png",
+    "F07_feature_strength_heatmap.png",
+    "F38_market_structure_composition.png",
+    "F39_top100_concentration.png",
+    "F40_rank_turnover.png",
+    "F41_cycle_phase_market_structure.png",
+    "F42_market_evolution_dashboard.png",
+    "F45_market_structure_composition_shift.png",
 )
 
 def _fonts() -> tuple[ImageFont.ImageFont, ImageFont.ImageFont]:
@@ -94,26 +80,23 @@ def build_contact_sheet(
     canvas.save(output)
     return output
 
-def build_current_contact_sheet() -> Path:
+def build_public_contact_sheet() -> Path:
+    items = [
+        (FIGURES / filename, filename.replace("_", " ").replace(".png", ""))
+        for filename in PUBLIC_FIGURES
+    ]
     return build_contact_sheet(
-        [(path, label) for path, label in ORIGINAL_FIGURES],
-        FIGURES / "current_contact_sheet.png",
-        subtitle="before redesign: archived diagnostic plots",
+        items,
+        FIGURES / "public_contact_sheet.png",
+        subtitle="canonical public figure set",
     )
-
-def build_final_gallery() -> Path:
-    items = [(FIGURES / filename, filename.replace("_", " ").replace(".png", "")) for filename in FINAL_FIGURES]
-    items.extend([(GALLERY / filename, filename.replace("_", " ").replace(".png", "")) for filename in GALLERY_FIGURES])
-    return build_contact_sheet(items, FIGURES / "visual_gallery.png", subtitle="final public visual system")
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--kind", choices=["current", "final", "all"], default="all")
+    parser.add_argument("--kind", choices=["public"], default="public")
     args = parser.parse_args(argv)
-    if args.kind in {"current", "all"}:
-        print(f"[ok] {build_current_contact_sheet().relative_to(ROOT)}")
-    if args.kind in {"final", "all"}:
-        print(f"[ok] {build_final_gallery().relative_to(ROOT)}")
+    if args.kind == "public":
+        print(f"[ok] {build_public_contact_sheet().relative_to(ROOT)}")
     return 0
 
 if __name__ == "__main__":

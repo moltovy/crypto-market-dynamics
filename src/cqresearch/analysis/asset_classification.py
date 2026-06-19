@@ -25,8 +25,6 @@ def classify_asset(symbol: str, overrides: dict[str, set[str]] | None = None) ->
     for class_name, values in rules.items():
         if token in values:
             return class_name
-    if token.startswith("W") and len(token) > 3:
-        return "wrapped_assets"
     if token.endswith("USD") or token.endswith("USDT") or token.endswith("USDC"):
         return "stablecoins"
     return "risk_assets"

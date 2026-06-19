@@ -7,8 +7,8 @@ Latest snapshot: `2026-06-16`.
 - BTC plus ETH share of full top100 market cap: 65.3%
 - Top10 concentration in full top100: 87.6%
 - Stable/synthetic/stable-yield share of full top100: 13.8%
-- Wrapped/LST/tokenized commodity share of full top100: 3.9%
-- Clean-risk asset share of full top100: 82.3%
+- Wrapped/LST/tokenized commodity share of full top100: 3.7%
+- Clean-risk asset share of full top100: 82.5%
 - Latest clean-risk top100 turnover: 5 entrants and 5 exits
 - Cycle/ETF phases represented: 5
 

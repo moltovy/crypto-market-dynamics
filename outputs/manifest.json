@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-06-19T05:02:52.931876+00:00",
-  "git_commit": "1eafee2",
+  "generated_at_utc": "2026-06-19T06:42:52.448763+00:00",
+  "git_commit": "95c8703",
   "artifact_root": "outputs",
   "figure_bundle": {
     "style": "institutional_dark_research_cards",
@@ -9,7 +9,28 @@
       "png",
       "svg"
     ],
-    "dashboard": "outputs/dashboard/index.html"
+    "dashboard": "outputs/dashboard/index.html",
+    "public_figures": [
+      "outputs/figures/F01_mvrv_sensitivity_by_regime_v2.png",
+      "outputs/figures/F02_same_support_ablation.png",
+      "outputs/figures/F03_btc_ex_mvrv_strength.png",
+      "outputs/figures/F04_etf_flow_lead_lag.png",
+      "outputs/figures/F05_core_correlation_matrix.png",
+      "outputs/figures/F07_feature_strength_heatmap.png"
+    ],
+    "supporting_gallery": [
+      "outputs/figures/gallery/G01_native_state_detail.png",
+      "outputs/figures/gallery/G02_full_robustness_grid.png",
+      "outputs/figures/gallery/G02_liquidity_context.png",
+      "outputs/figures/gallery/G03_fevd_matrix.png",
+      "outputs/figures/gallery/F03_etf_flow_lead_lag.png",
+      "outputs/figures/gallery/F04_rolling_correlations.png",
+      "outputs/figures/gallery/F05_liquidity_context.png",
+      "outputs/figures/gallery/F06_connectedness_and_robustness.png",
+      "outputs/figures/gallery/F06_rolling_correlations.png",
+      "outputs/figures/gallery/F08_connectedness_robustness.png"
+    ],
+    "archived_diagnostics": "archive/visuals/legacy_diagnostics/"
   },
   "panel": {
     "start": "2020-01-01",
@@ -24,6 +45,10 @@
     "uv run python scripts/run_all.py"
   ],
   "figures": [
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/dashboard/index.html"
+    },
     {
       "source": "generated from canonical output tables and archived supplemental tables",
       "output": "outputs/figures/F01_mvrv_sensitivity_by_regime_v2.png"
@@ -66,14 +91,6 @@
     },
     {
       "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F06_rolling_correlations.png"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F06_rolling_correlations.svg"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
       "output": "outputs/figures/F07_feature_strength_heatmap.png"
     },
     {
@@ -82,11 +99,51 @@
     },
     {
       "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F08_connectedness_robustness.png"
+      "output": "outputs/figures/gallery/F03_etf_flow_lead_lag.png"
     },
     {
       "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F08_connectedness_robustness.svg"
+      "output": "outputs/figures/gallery/F03_etf_flow_lead_lag.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/gallery/F04_rolling_correlations.png"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/gallery/F04_rolling_correlations.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/gallery/F05_liquidity_context.png"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/gallery/F05_liquidity_context.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/gallery/F06_connectedness_and_robustness.png"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/gallery/F06_connectedness_and_robustness.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/gallery/F06_rolling_correlations.png"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/gallery/F06_rolling_correlations.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/gallery/F08_connectedness_robustness.png"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/gallery/F08_connectedness_robustness.svg"
     },
     {
       "source": "generated from canonical output tables and archived supplemental tables",
@@ -98,11 +155,27 @@
     },
     {
       "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/gallery/G02_full_robustness_grid.png"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/gallery/G02_full_robustness_grid.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
       "output": "outputs/figures/gallery/G02_liquidity_context.png"
     },
     {
       "source": "generated from canonical output tables and archived supplemental tables",
       "output": "outputs/figures/gallery/G02_liquidity_context.svg"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/gallery/G03_fevd_matrix.png"
+    },
+    {
+      "source": "generated from canonical output tables and archived supplemental tables",
+      "output": "outputs/figures/gallery/G03_fevd_matrix.svg"
     }
   ],
   "tables": [
@@ -284,14 +357,6 @@
     {
       "source": "generated canonical narrative",
       "output": "outputs/README.md"
-    },
-    {
-      "source": "generated visual QA narrative",
-      "output": "outputs/report/visual_audit.md"
-    },
-    {
-      "source": "generated visual QA narrative",
-      "output": "outputs/report/visual_quality_check.md"
     }
   ],
   "model_cards": [
@@ -369,10 +434,39 @@
     "Historical release packets and manager notes are archived outside the public surface."
   ],
   "market_structure": {
-    "generated_at_utc": "2026-06-19T05:52:23.024516+00:00",
+    "generated_at_utc": "2026-06-19T06:43:24.107512+00:00",
     "source_table_bundle_date": "2026-06-19",
     "figure_bundle_start": "F30",
     "table_bundle_start": "T28",
+    "public_figures": [
+      "outputs/figures/F38_market_structure_composition.png",
+      "outputs/figures/F39_top100_concentration.png",
+      "outputs/figures/F40_rank_turnover.png",
+      "outputs/figures/F41_cycle_phase_market_structure.png",
+      "outputs/figures/F42_market_evolution_dashboard.png",
+      "outputs/figures/F45_market_structure_composition_shift.png"
+    ],
+    "supporting_gallery": [
+      "outputs/figures/gallery/F30_market_structure_dashboard.png",
+      "outputs/figures/gallery/F31_stablecoin_tvl_regimes.png",
+      "outputs/figures/gallery/F32_sentiment_comparison.png",
+      "outputs/figures/gallery/F33_cex_dex_activity.png",
+      "outputs/figures/gallery/F34_binance_liquidity_universe.png",
+      "outputs/figures/gallery/F35_btc_dominance_cycle_overlay.png",
+      "outputs/figures/gallery/F36_rwa_dat_growth.png",
+      "outputs/figures/gallery/F37_market_cap_top100_gap.png",
+      "outputs/figures/gallery/F43_market_structure_monthly_features.png",
+      "outputs/figures/gallery/F44_market_structure_return_regimes.png",
+      "outputs/figures/gallery/F46_market_structure_turnover_by_phase.png",
+      "outputs/figures/gallery/F47_market_structure_modeling_dashboard.png",
+      "outputs/figures/gallery/F48_altseason_breadth.png",
+      "outputs/figures/gallery/F49_constituent_return_indexes.png",
+      "outputs/figures/gallery/F50_return_dispersion.png",
+      "outputs/figures/gallery/F51_rolling_beta_to_btc.png",
+      "outputs/figures/gallery/F52_event_response_top50.png",
+      "outputs/figures/gallery/F53_rotation_dashboard.png"
+    ],
+    "archived_diagnostics": "archive/visuals/legacy_diagnostics/",
     "commands": [
       "uv run python scripts/audit_market_structure_endpoints.py --dry-run",
       "uv run python scripts/fetch_market_structure_raw.py --dry-run",
@@ -425,30 +519,30 @@
       "outputs/report/market_structure_next_data_needed.md",
       "outputs/report/market_structure_limitations.md",
       "outputs/report/market_structure_fetch_diagnostics.md",
-      "outputs/figures/F30_market_structure_dashboard.png",
-      "outputs/figures/F31_stablecoin_tvl_regimes.png",
-      "outputs/figures/F32_sentiment_comparison.png",
-      "outputs/figures/F33_cex_dex_activity.png",
-      "outputs/figures/F34_binance_liquidity_universe.png",
-      "outputs/figures/F35_btc_dominance_cycle_overlay.png",
-      "outputs/figures/F36_rwa_dat_growth.png",
-      "outputs/figures/F37_market_cap_top100_gap.png",
+      "outputs/figures/gallery/F30_market_structure_dashboard.png",
+      "outputs/figures/gallery/F31_stablecoin_tvl_regimes.png",
+      "outputs/figures/gallery/F32_sentiment_comparison.png",
+      "outputs/figures/gallery/F33_cex_dex_activity.png",
+      "outputs/figures/gallery/F34_binance_liquidity_universe.png",
+      "outputs/figures/gallery/F35_btc_dominance_cycle_overlay.png",
+      "outputs/figures/gallery/F36_rwa_dat_growth.png",
+      "outputs/figures/gallery/F37_market_cap_top100_gap.png",
       "outputs/figures/F38_market_structure_composition.png",
       "outputs/figures/F39_top100_concentration.png",
       "outputs/figures/F40_rank_turnover.png",
       "outputs/figures/F41_cycle_phase_market_structure.png",
       "outputs/figures/F42_market_evolution_dashboard.png",
-      "outputs/figures/F43_market_structure_monthly_features.png",
-      "outputs/figures/F44_market_structure_return_regimes.png",
+      "outputs/figures/gallery/F43_market_structure_monthly_features.png",
+      "outputs/figures/gallery/F44_market_structure_return_regimes.png",
       "outputs/figures/F45_market_structure_composition_shift.png",
-      "outputs/figures/F46_market_structure_turnover_by_phase.png",
-      "outputs/figures/F47_market_structure_modeling_dashboard.png",
-      "outputs/figures/F48_altseason_breadth.png",
-      "outputs/figures/F49_constituent_return_indexes.png",
-      "outputs/figures/F50_return_dispersion.png",
-      "outputs/figures/F51_rolling_beta_to_btc.png",
-      "outputs/figures/F52_event_response_top50.png",
-      "outputs/figures/F53_rotation_dashboard.png",
+      "outputs/figures/gallery/F46_market_structure_turnover_by_phase.png",
+      "outputs/figures/gallery/F47_market_structure_modeling_dashboard.png",
+      "outputs/figures/gallery/F48_altseason_breadth.png",
+      "outputs/figures/gallery/F49_constituent_return_indexes.png",
+      "outputs/figures/gallery/F50_return_dispersion.png",
+      "outputs/figures/gallery/F51_rolling_beta_to_btc.png",
+      "outputs/figures/gallery/F52_event_response_top50.png",
+      "outputs/figures/gallery/F53_rotation_dashboard.png",
       "outputs/report/visualization_quality_audit.md",
       "outputs/README.md"
     ],

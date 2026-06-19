@@ -176,159 +176,69 @@ Method details live in [`docs/methodology/`](docs/methodology/).
 | [T59](outputs/tables/T59_constituent_data_gap_report.csv) | Daily constituent data-gap audit |
 | [T60](outputs/tables/T60_altseason_rotation_summary.md) | Current-cohort rotation lab summary |
 
-## Figures
+## Core BTC/ETH Factor Results
 
-### MVRV Sensitivity by Regime
+These figures are the public core set for the factor lab. Supporting diagnostics remain available in [`outputs/figures/gallery/`](outputs/figures/gallery/), but the main read is deliberately narrow.
 
 ![MVRV sensitivity by regime](outputs/figures/F01_mvrv_sensitivity_by_regime_v2.png)
 
-Panel A shows standalone model R² for three specifications (full with MVRV,
-MVRV-only, ex-MVRV) across time regimes. Panel B shows the ΔR² from removing
-MVRV — the incremental contribution of the MVRV block. MVRV dominance persists
-across all regimes but weakens in 2026 YTD.
-
-Source: [T25_mvrv_sensitivity_by_regime.csv](outputs/tables/T25_mvrv_sensitivity_by_regime.csv)
-
-### Same-Support Model Ablation
+MVRV dominance persists across regimes but weakens in 2026 YTD. Source: [T25_mvrv_sensitivity_by_regime.csv](outputs/tables/T25_mvrv_sensitivity_by_regime.csv).
 
 ![Same-support BTC ablation](outputs/figures/F02_same_support_ablation.png)
 
-Nested model ablation where every model is estimated on the same set of 1,940
-non-missing rows. The R² jump from M5 (+ native-ex-MVRV, R² = 0.146) to M6
-(+ MVRV, R² = 0.921) confirms MVRV as the dominant explanatory variable.
-MVRV-only achieves R² = 0.915, close to the full model.
-
-Source: [T19_same_support_ablation_btc.csv](outputs/tables/T19_same_support_ablation_btc.csv)
-
-### BTC Feature Strength (ex-MVRV)
+Same-support nested ablation shows the R2 jump from native-ex-MVRV to MVRV. Source: [T19_same_support_ablation_btc.csv](outputs/tables/T19_same_support_ablation_btc.csv).
 
 ![BTC feature strength ex-MVRV](outputs/figures/F03_btc_ex_mvrv_strength.png)
 
-Which features matter once MVRV is excluded? Panel A shows absolute correlation,
-Panel B shows multivariate HAC t-statistics. The t = 2 threshold highlights
-statistically significant contributors in the ex-MVRV specification.
-
-Source: [T15_feature_strength_btc_ex_mvrv.csv](outputs/tables/T15_feature_strength_btc_ex_mvrv.csv)
-
-### ETF Flow Lead-Lag
+Ex-MVRV feature strength separates correlation from multivariate HAC t-stats. Source: [T15_feature_strength_btc_ex_mvrv.csv](outputs/tables/T15_feature_strength_btc_ex_mvrv.csv).
 
 ![ETF flow lead-lag](outputs/figures/F04_etf_flow_lead_lag.png)
 
-HAC t-statistics for the lead-lag pattern between ETF-flow intensity and BTC
-returns. The strongest signal is contemporaneous (lag 0, t = 10.22). Lagged
-relationships are reduced-form association, not predictive causality.
-
-Source: [T04_etf_lead_lag.csv](outputs/tables/T04_etf_lead_lag.csv)
-
-### Core Correlation Matrix
+ETF-flow intensity is strongest at lag 0; lagged relationships are reduced-form association, not predictive causality. Source: [T04_etf_lead_lag.csv](outputs/tables/T04_etf_lead_lag.csv).
 
 ![Core correlation matrix](outputs/figures/F05_core_correlation_matrix.png)
 
-Pairwise correlations among core features. The BTC–MVRV correlation (0.955)
-dominates all other entries. BTC–SPY and BTC–QQQ correlations reflect
-time-varying crypto-equity integration.
-
-Source: [T23_core_correlation_matrix.csv](outputs/tables/T23_core_correlation_matrix.csv)
-
-### Rolling Correlations
-
-![Rolling correlations](outputs/figures/F06_rolling_correlations.png)
-
-Small multiples of 180-day rolling correlations illustrate regime variation
-between BTC and TradFi/Macro assets. These are descriptive co-movements
-across crypto beta, equity risk, and volatility regimes.
-
-Source: [T05_rolling_correlations.csv](outputs/tables/T05_rolling_correlations.csv)
-
-### Feature Strength by Regime
+The BTC-MVRV correlation dominates the core matrix. Source: [T23_core_correlation_matrix.csv](outputs/tables/T23_core_correlation_matrix.csv).
 
 ![Feature strength heatmap](outputs/figures/F07_feature_strength_heatmap.png)
 
-Multivariate HAC t-statistics for the ex-MVRV model across time and volatility
-regimes. Color intensity shows where specific features become stronger or
-weaker across different market conditions.
+Regime-stratified HAC t-stats show where ex-MVRV features strengthen or fade. Source: [T17_feature_strength_by_regime.csv](outputs/tables/T17_feature_strength_by_regime.csv).
 
-Source: [T17_feature_strength_by_regime.csv](outputs/tables/T17_feature_strength_by_regime.csv)
+## Market-Structure Evidence
 
-### Connectedness and Robustness
+The market-structure layer is anchored on the point-in-time monthly top200 universe. It supports composition, concentration, clean-risk top100 construction, rank turnover, and cycle/ETF phase structure. It does not support survivorship-free daily returns, breadth, volatility, beta, drawdown, dispersion, or event-response analysis without a full PIT daily OHLCV/mcap constituent panel.
 
-![Connectedness and robustness](outputs/figures/F08_connectedness_robustness.png)
+![Market-structure composition](outputs/figures/F38_market_structure_composition.png)
 
-Left: Rolling VAR/FEVD connectedness index. Right: Model R² with and without
-MVRV across different estimation windows — robustness confirmation.
+Full, ex-stable, and clean-risk top100 composition from monthly PIT snapshots. Source: [T42_market_structure_composition.csv](outputs/tables/T42_market_structure_composition.csv).
 
-Source: [T09_rolling_connectedness.csv](outputs/tables/T09_rolling_connectedness.csv) and [T10_robustness.csv](outputs/tables/T10_robustness.csv)
+![Top100 concentration](outputs/figures/F39_top100_concentration.png)
 
-*Supplementary figures (native state detail, liquidity context) are in [`outputs/figures/gallery/`](outputs/figures/gallery/).*
+BTC+ETH, top10, stable-like, productized, and clean-risk market-cap shares over time. Source: [T46_market_structure_monthly_features.csv](outputs/tables/T46_market_structure_monthly_features.csv).
 
-### Market-Structure Dashboard
+![Rank turnover](outputs/figures/F40_rank_turnover.png)
 
-![Market-structure dashboard](outputs/figures/F30_market_structure_dashboard.png)
+Monthly entries, exits, and clean-risk rank movement. Source: [T43_rank_turnover.csv](outputs/tables/T43_rank_turnover.csv).
 
-The extension surfaces source coverage, sentiment, stablecoin/TVL regimes,
-CEX/DEX activity, BTC dominance cycle markers, RWA/DAT context, Binance
-liquidity-rank availability, and a point-in-time monthly market-cap universe.
-The monthly PIT universe is the primary market-structure evidence in this
-release.
-The universe is based on 78 monthly top200 snapshots from January 2020 through
-the partial June 16, 2026 snapshot.
+![Cycle-phase market structure](outputs/figures/F41_cycle_phase_market_structure.png)
+
+Composition summarized across halving and ETF-era phases. Source: [T44_cycle_phase_market_structure.csv](outputs/tables/T44_cycle_phase_market_structure.csv).
 
 ![Market evolution dashboard](outputs/figures/F42_market_evolution_dashboard.png)
 
-Latest monthly-universe readout: BTC plus ETH are 65.3% of full top100 market
-cap, the top10 are 87.6%, stable/synthetic/stable-yield assets are 13.8%, and
-the clean-risk asset share is 82.3%. Latest clean-risk top100 turnover is 5
-entrants and 5 exits.
+Compact PIT universe readout using the latest monthly snapshot and turnover summary. Source: [T45_market_evolution_summary.md](outputs/tables/T45_market_evolution_summary.md).
 
-![Market-structure modeling dashboard](outputs/figures/F47_market_structure_modeling_dashboard.png)
+![ETF-era composition shift](outputs/figures/F45_market_structure_composition_shift.png)
 
-The monthly universe is also converted into a lagged/as-of daily context layer
-for descriptive BTC/ETH regime diagnostics. These outputs describe how daily
-returns and volatility line up with prior monthly market-structure states; they
-do not claim that composition shifts caused BTC or ETH returns.
+Pre/post BTC ETF composition deltas, treated as descriptive structure context. Source: [T49_market_structure_composition_shift.csv](outputs/tables/T49_market_structure_composition_shift.csv).
 
-### Exploratory Current-Cohort Lab
+## Supporting/Exploratory Current-Cohort Diagnostics
 
-![Current-top50 exploratory rotation dashboard](outputs/figures/F53_rotation_dashboard.png)
+Exploratory current-top50 cohort diagnostics. Survivorship-biased. Not point-in-time. Not the primary altseason backtest.
 
-The daily lab is deliberately secondary. It adds exploratory breadth,
-dispersion, rolling beta, rotation indexes, and event-window diagnostics using
-the available DefiLlama current-top50 ex-stablecoin OHLCV sample. It is a
-current-cohort view of how today's large caps behaved historically. It is not a
-point-in-time top100/top200 panel, is survivorship-biased, and is not the
-primary altseason backtest.
+The current-cohort daily layer is available for triage only: breadth, dispersion, rolling beta, rotation indexes, and event-window diagnostics for the available DefiLlama current-top50 ex-stablecoin OHLCV sample. The figures are kept in [`outputs/figures/gallery/`](outputs/figures/gallery/) and the summary is [T60_altseason_rotation_summary.md](outputs/tables/T60_altseason_rotation_summary.md).
 
-True historical top100 breadth, risk top100 returns, category rotation,
-drawdowns, and event response require daily OHLCV/market-cap/volume for every
-asset that ever appears in the point-in-time monthly top100/top200 universe.
-
-Source: [T60_altseason_rotation_summary.md](outputs/tables/T60_altseason_rotation_summary.md)
-
-Key figures:
-
-- [F31 stablecoin/TVL regimes](outputs/figures/F31_stablecoin_tvl_regimes.png)
-- [F32 sentiment comparison](outputs/figures/F32_sentiment_comparison.png)
-- [F33 CEX/DEX activity](outputs/figures/F33_cex_dex_activity.png)
-- [F34 Binance liquidity universe](outputs/figures/F34_binance_liquidity_universe.png)
-- [F35 BTC dominance cycle overlay](outputs/figures/F35_btc_dominance_cycle_overlay.png)
-- [F37 market-cap top100 gap](outputs/figures/F37_market_cap_top100_gap.png)
-- [F38 market-structure composition](outputs/figures/F38_market_structure_composition.png)
-- [F39 top100 concentration](outputs/figures/F39_top100_concentration.png)
-- [F40 rank turnover](outputs/figures/F40_rank_turnover.png)
-- [F41 cycle-phase market structure](outputs/figures/F41_cycle_phase_market_structure.png)
-- [F42 market evolution dashboard](outputs/figures/F42_market_evolution_dashboard.png)
-- [F43 monthly market-structure features](outputs/figures/F43_market_structure_monthly_features.png)
-- [F44 BTC/ETH return regimes](outputs/figures/F44_market_structure_return_regimes.png)
-- [F45 ETF-era composition shift](outputs/figures/F45_market_structure_composition_shift.png)
-- [F46 turnover by phase](outputs/figures/F46_market_structure_turnover_by_phase.png)
-- [F47 market-structure modeling dashboard](outputs/figures/F47_market_structure_modeling_dashboard.png)
-- [F48 current-cohort exploratory breadth](outputs/figures/F48_altseason_breadth.png)
-- [F49 current-cohort rotation indexes](outputs/figures/F49_constituent_return_indexes.png)
-- [F50 current-cohort clean-risk return dispersion](outputs/figures/F50_return_dispersion.png)
-- [F51 current-cohort rolling beta to BTC](outputs/figures/F51_rolling_beta_to_btc.png)
-- [F52 current-cohort event response](outputs/figures/F52_event_response_top50.png)
-- [F53 current-top50 exploratory rotation dashboard](outputs/figures/F53_rotation_dashboard.png)
-
+True historical top100 breadth, risk top100 returns, category rotation, drawdowns, and event response require daily OHLCV/market-cap/volume for every asset that ever appears in the point-in-time monthly top100/top200 universe.
 ## Reproduce
 
 ```powershell

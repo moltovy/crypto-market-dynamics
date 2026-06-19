@@ -16,7 +16,7 @@ The Crypto Market Factor Lab evaluates the factors explaining BTC and ETH return
    - ETF-flow intensity is strongly associated with same-day returns ($t\text{-stat} \approx 10.22$, standalone $R^2 \approx 0.271$). However, negative lags (excluding lag -1) are weak, and lag +1 is also strong, highlighting that this association represents contemporaneous market-plumbing co-movement rather than predictive ex-ante causality.
 
 4. **Regime and Temporal Stability**
-   - MVRV dominance persists across regimes but exhibits temporal shifts. In the post-ETF era (2024–2026), MVRV's standalone explanatory power is still dominant but declines slightly as TradFi integration and ETF flow associations grow.
+   - MVRV dominance persists across regimes but exhibits temporal shifts. In the post-ETF era (2024-2026), MVRV's standalone explanatory power is still dominant but declines slightly as TradFi integration and ETF flow associations grow.
    - Realized volatility regimes (high vs. low vol quartiles) show that macro and TradFi risk exposures are regime-dependent, with stronger TradFi betas observed during low-volatility regimes.
 
 5. **Analytical Infrastructure & Same-Support Comparisons**

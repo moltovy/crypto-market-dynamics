@@ -82,7 +82,9 @@ def test_market_structure_pipeline_runs_without_keys_or_cache(tmp_path) -> None:
 
     assert (tmp_path / "Data" / "MarketStructure" / "SourceRegistry" / "market_structure_source_registry.csv").exists()
     assert (tmp_path / "outputs" / "tables" / "T36_market_cap_top100_gap.csv").exists()
-    assert (tmp_path / "outputs" / "figures" / "F30_market_structure_dashboard.png").exists()
+    assert (
+        tmp_path / "outputs" / "figures" / "gallery" / "F30_market_structure_dashboard.png"
+    ).exists()
     assert any("CMC Fear & Greed cache unavailable" in item for item in curated.skipped)
     assert any("Binance liquidity top100 skipped" in item for item in built.skipped)
 
@@ -168,7 +170,12 @@ base_assets: [BTC, ETH, SOL]
     build_outputs(tmp_path)
 
     gap = pd.read_csv(tmp_path / "outputs" / "tables" / "T36_market_cap_top100_gap.csv")
+    t40 = pd.read_csv(tmp_path / "outputs" / "tables" / "T40_crypto_universe_monthly.csv")
+    t41 = pd.read_csv(tmp_path / "outputs" / "tables" / "T41_clean_risk_top100_monthly.csv")
     assert gap.loc[0, "status"] == "available"
-    assert (tmp_path / "outputs" / "tables" / "T40_crypto_universe_monthly.csv").exists()
+    assert not t40.empty
+    assert {"snapshot_date", "symbol", "rank_full_market"}.issubset(t40.columns)
+    assert not t41.empty
+    assert {"snapshot_date", "symbol", "rank_clean_risk"}.issubset(t41.columns)
     assert (tmp_path / "outputs" / "tables" / "T45_market_evolution_summary.md").exists()
     assert (tmp_path / "outputs" / "figures" / "F38_market_structure_composition.png").exists()

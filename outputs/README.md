@@ -11,18 +11,27 @@
 - `report/limitations.md`
 - `report/reorganization_summary.md`
 
-## Figures
+## Public Figures
 
 - `figures/F01_mvrv_sensitivity_by_regime_v2.png`
 - `figures/F02_same_support_ablation.png`
 - `figures/F03_btc_ex_mvrv_strength.png`
 - `figures/F04_etf_flow_lead_lag.png`
 - `figures/F05_core_correlation_matrix.png`
-- `figures/F06_rolling_correlations.png`
 - `figures/F07_feature_strength_heatmap.png`
-- `figures/F08_connectedness_robustness.png`
+- `figures/public_contact_sheet.png`
+
+## Supporting Gallery
+
 - `figures/gallery/G01_native_state_detail.png`
 - `figures/gallery/G02_liquidity_context.png`
+- `figures/gallery/F06_rolling_correlations.png`
+- `figures/gallery/F08_connectedness_robustness.png`
+
+## Archived Diagnostics
+
+Legacy diagnostic plots and before-redesign contact sheets are retained outside
+the public figure root under `archive/visuals/legacy_diagnostics/`.
 
 ## Tables
 
@@ -90,32 +99,39 @@ Reports:
 - `report/market_structure_next_data_needed.md`
 - `report/visualization_quality_audit.md`
 
-Figures:
+Public figures:
 
-- `figures/F30_market_structure_dashboard.png`
-- `figures/F31_stablecoin_tvl_regimes.png`
-- `figures/F32_sentiment_comparison.png`
-- `figures/F33_cex_dex_activity.png`
-- `figures/F34_binance_liquidity_universe.png`
-- `figures/F35_btc_dominance_cycle_overlay.png`
-- `figures/F36_rwa_dat_growth.png`
-- `figures/F37_market_cap_top100_gap.png`
 - `figures/F38_market_structure_composition.png`
 - `figures/F39_top100_concentration.png`
 - `figures/F40_rank_turnover.png`
 - `figures/F41_cycle_phase_market_structure.png`
 - `figures/F42_market_evolution_dashboard.png`
-- `figures/F43_market_structure_monthly_features.png`
-- `figures/F44_market_structure_return_regimes.png`
 - `figures/F45_market_structure_composition_shift.png`
-- `figures/F46_market_structure_turnover_by_phase.png`
-- `figures/F47_market_structure_modeling_dashboard.png`
-- `figures/F48_altseason_breadth.png`
-- `figures/F49_constituent_return_indexes.png`
-- `figures/F50_return_dispersion.png`
-- `figures/F51_rolling_beta_to_btc.png`
-- `figures/F52_event_response_top50.png`
-- `figures/F53_rotation_dashboard.png`
+
+Supporting gallery:
+
+- `figures/gallery/F30_market_structure_dashboard.png`
+- `figures/gallery/F31_stablecoin_tvl_regimes.png`
+- `figures/gallery/F32_sentiment_comparison.png`
+- `figures/gallery/F33_cex_dex_activity.png`
+- `figures/gallery/F34_binance_liquidity_universe.png`
+- `figures/gallery/F35_btc_dominance_cycle_overlay.png`
+- `figures/gallery/F36_rwa_dat_growth.png`
+- `figures/gallery/F37_market_cap_top100_gap.png`
+- `figures/gallery/F43_market_structure_monthly_features.png`
+- `figures/gallery/F44_market_structure_return_regimes.png`
+- `figures/gallery/F46_market_structure_turnover_by_phase.png`
+- `figures/gallery/F47_market_structure_modeling_dashboard.png`
+- `figures/gallery/F48_altseason_breadth.png`
+- `figures/gallery/F49_constituent_return_indexes.png`
+- `figures/gallery/F50_return_dispersion.png`
+- `figures/gallery/F51_rolling_beta_to_btc.png`
+- `figures/gallery/F52_event_response_top50.png`
+- `figures/gallery/F53_rotation_dashboard.png`
+
+Archived diagnostics:
+
+- Legacy diagnostic plots and before-redesign contact sheets live under `archive/visuals/legacy_diagnostics/`, not under the public figure root.
 
 Tables:
 
@@ -158,5 +174,5 @@ Guardrails:
 - Binance top100 is exchange-liquidity based, not historical market-cap rank.
 - CMC live fetch requires `CMC_API_KEY`; cached CMC history is included when present.
 - Monthly PIT universe snapshots are the primary market-structure evidence and support composition and turnover analysis, not daily performance or event-return claims.
-- Daily constituent diagnostics are a current-top50 exploratory cohort, not a point-in-time top100 panel or primary altseason backtest.
+- Exploratory current-top50 cohort diagnostics. Survivorship-biased. Not point-in-time. Not the primary altseason backtest.
 - Raw source responses stay in gitignored `data_cache/`.

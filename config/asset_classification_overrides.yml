@@ -69,10 +69,6 @@ lst_restaking:
   - CBETH
   - SN0
   - RSETH
-  - LDO
-  - RPL
-  - EIGEN
-  - ETHFI
 bridged_duplicates:
   - SOL.W
   - BTC.B
@@ -83,3 +79,10 @@ risk_assets:
   - PEPE
   - WIF
   - BONK
+  - WAVES
+  - WEMIX
+  - WBT
+  - LDO
+  - RPL
+  - EIGEN
+  - ETHFI

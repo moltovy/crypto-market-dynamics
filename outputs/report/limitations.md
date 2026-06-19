@@ -11,7 +11,7 @@ Since the numerator is current market price times supply, the first difference o
 - **Mitigation**: The project explicitly separates MVRV from other native variables and presents an independent "Ex-MVRV" model family to evaluate macro and liquidity factors cleanly.
 
 ## 3. ETF-Flow Causal Interpretation
-ETF-flow intensity shows a high same-day association with BTC returns. Daily data cannot identify the direction of causality. ETF flows could be driving price appreciation, or momentum/intraday price action could be driving ETF subscriptions (feedback loop). 
+ETF-flow intensity shows a high same-day association with BTC returns. Daily data cannot identify the direction of causality. ETF flows could be driving price appreciation, or momentum/intraday price action could be driving ETF subscriptions (feedback loop).
 - **Risk**: Interpreting OLS coefficients as causal impact (e.g., "an inflow of $\$100\text{M}$ causes a $1\%$ rise") is statistically incorrect. It represents market-plumbing co-movement.
 - **Mitigation**: Lead-lag regressions demonstrate that lag +1 (returns leading ETF flows) is statistically significant, supporting the feedback loop hypothesis.
 
