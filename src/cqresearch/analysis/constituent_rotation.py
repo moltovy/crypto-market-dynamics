@@ -39,8 +39,9 @@ REQUIRED_COLUMNS = {
 }
 
 SAMPLE_NOTE = (
-    "Current top50 ex-stablecoin constituent sample from DefiLlama daily OHLCV. "
-    "Use for exploratory breadth/rotation diagnostics only; it is not a point-in-time top100 universe."
+    "Current-top50 exploratory ex-stablecoin cohort from DefiLlama daily OHLCV. "
+    "Use for current-cohort diagnostics only; it is survivorship-biased, not point-in-time, "
+    "and not the primary altseason backtest."
 )
 
 
@@ -57,7 +58,7 @@ def read_defillama_daily_constituent_raw(path: Path) -> pd.DataFrame:
 
 
 def normalize_defillama_daily_constituents(raw: pd.DataFrame) -> pd.DataFrame:
-    """Validate and normalize a current-top50 daily OHLCV constituent file."""
+    """Validate and normalize a current-top50 exploratory daily OHLCV constituent file."""
 
     missing = REQUIRED_COLUMNS - set(raw.columns)
     if missing:
@@ -96,8 +97,8 @@ def normalize_defillama_daily_constituents(raw: pd.DataFrame) -> pd.DataFrame:
         )
     out["rank"] = out["rank"].astype(int)
     out["month"] = pd.to_datetime(out["date"]).dt.to_period("M").astype(str)
-    out["source"] = "defillama_current_top50_daily_ohlcv"
-    out["universe_label"] = "current_top50_ex_stablecoin_daily_ohlcv"
+    out["source"] = "defillama_current_top50_exploratory_daily_ohlcv"
+    out["universe_label"] = "current_top50_exploratory_current_cohort"
     out["method_note"] = SAMPLE_NOTE
     cols = [
         "source",
@@ -201,7 +202,7 @@ def constituent_gap_report(
 ) -> pd.DataFrame:
     status = "available" if has_daily_constituents else "skipped"
     reason = (
-        "Current top50 ex-stable daily OHLCV sample is present."
+        "Current-top50 exploratory daily OHLCV cohort is present."
         if has_daily_constituents
         else "No normalized daily constituent OHLCV file is available."
     )
@@ -223,7 +224,7 @@ def constituent_gap_report(
                 "market_cap_missing_or_nonpositive_share": (
                     missing_market_cap_rows / row_count if row_count else 0
                 ),
-                "guardrail": "label_current_top50_survivorship_bias",
+                "guardrail": "current_top50_exploratory_survivorship_biased_not_primary_altseason",
             }
         ]
     )
@@ -331,14 +332,14 @@ def classify_breadth_regime(
     median_risk_return_90d: float,
 ) -> str:
     if share_beating_btc >= 0.70:
-        return "broad_altseason"
+        return "current_cohort_broad_breadth"
     if share_beating_btc < 0.30:
-        return "risk_off_or_btc_dominant"
+        return "current_cohort_btc_dominant_or_risk_off"
     if btc_return_90d > eth_return_90d and btc_return_90d > median_risk_return_90d:
-        return "btc_led"
+        return "current_cohort_btc_led"
     if eth_return_90d > btc_return_90d and eth_return_90d > median_risk_return_90d:
-        return "eth_led"
-    return "mixed_rotation"
+        return "current_cohort_eth_led"
+    return "current_cohort_mixed_rotation"
 
 
 def return_dispersion(prepared: pd.DataFrame) -> pd.DataFrame:
@@ -511,7 +512,7 @@ def event_response_top_constituents(
 def constituent_rotation_summary(tables: dict[str, pd.DataFrame]) -> str:
     gap = tables.get("gap", pd.DataFrame())
     if gap.empty or gap["status"].iloc[0] != "available":
-        return "# Altseason Rotation Lab\n\nDaily constituent OHLCV is unavailable; outputs are skipped.\n"
+        return "# Current-Cohort Rotation Lab\n\nDaily constituent OHLCV is unavailable; outputs are skipped.\n"
     breadth = tables["breadth"]
     indexes = tables["indexes"]
     events = tables["events"]
@@ -528,21 +529,21 @@ def constituent_rotation_summary(tables: dict[str, pd.DataFrame]) -> str:
         span = f"{pd.to_datetime(indexes['date']).min().date()} to {pd.to_datetime(indexes['date']).max().date()}"
         index_line = f"\n- Daily constituent span: {span}; index rows: {len(indexes):,}."
     event_line = f"\n- Event-response rows: {len(events):,}." if not events.empty else ""
-    return f"""# Altseason Rotation Lab
+    return f"""# Current-Cohort Rotation Lab
 
-The daily constituent layer adds exploratory breadth, dispersion, rolling beta, rotation, and event-response diagnostics from the available DefiLlama current-top50 ex-stablecoin OHLCV sample.
+The current-cohort daily layer adds exploratory breadth, dispersion, rolling beta, rotation, and event-response diagnostics from the available DefiLlama current-top50 ex-stablecoin OHLCV sample.
 
 {SAMPLE_NOTE}
 
 Definitions:
 
-- `broad_altseason`: at least 70% of clean-risk ex-BTC/ETH constituents beat BTC over 90 days.
-- `btc_led`: BTC beats ETH and the median clean-risk sample over 90 days.
-- `eth_led`: ETH beats BTC and the median clean-risk sample over 90 days.
+- `current_cohort_broad_breadth`: at least 70% of clean-risk ex-BTC/ETH current-cohort constituents beat BTC over 90 days.
+- `current_cohort_btc_led`: BTC beats ETH and the median clean-risk current-cohort sample over 90 days.
+- `current_cohort_eth_led`: ETH beats BTC and the median clean-risk current-cohort sample over 90 days.
 - `large_cap_rotation_vs_btc`: top10 ex-BTC/ETH 90-day return minus BTC 90-day return.
 {latest_line}{index_line}{event_line}
 
-Guardrail: this is a current top50 sample, not a point-in-time top100/top200 constituent panel. Treat it as an exploratory rotation lab until a full point-in-time daily OHLCV/mcap file is supplied.
+Guardrail: this is a current-top50 cohort diagnostic. It is survivorship-biased, not point-in-time, and not the primary altseason backtest. Treat it as exploratory until a full point-in-time daily OHLCV/mcap file is supplied for every asset that ever appears in the PIT top100/top200 universe.
 """
 
 

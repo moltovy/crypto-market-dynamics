@@ -87,6 +87,7 @@ Reports:
 - `report/market_structure_data_inventory.md`
 - `report/market_structure_limitations.md`
 - `report/market_structure_fetch_diagnostics.md`
+- `report/market_structure_next_data_needed.md`
 
 Figures:
 
@@ -155,6 +156,6 @@ Guardrails:
 
 - Binance top100 is exchange-liquidity based, not historical market-cap rank.
 - CMC live fetch requires `CMC_API_KEY`; cached CMC history is included when present.
-- Monthly universe snapshots support composition and turnover analysis, not daily performance or event-return claims.
-- Daily constituent diagnostics are a current top50 ex-stablecoin sample, not a point-in-time top100 panel.
+- Monthly PIT universe snapshots are the primary market-structure evidence and support composition and turnover analysis, not daily performance or event-return claims.
+- Daily constituent diagnostics are a current-top50 exploratory cohort, not a point-in-time top100 panel or primary altseason backtest.
 - Raw source responses stay in gitignored `data_cache/`.

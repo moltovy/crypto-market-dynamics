@@ -139,5 +139,5 @@ def test_daily_constituent_normalizer_accepts_file_like_raw_payload() -> None:
     raw = pd.read_csv(StringIO(_daily_raw(days=1).to_csv(index=False)))
     normalized = normalize_defillama_daily_constituents(raw)
 
-    assert normalized["source"].eq("defillama_current_top50_daily_ohlcv").all()
-    assert normalized["universe_label"].eq("current_top50_ex_stablecoin_daily_ohlcv").all()
+    assert normalized["source"].eq("defillama_current_top50_exploratory_daily_ohlcv").all()
+    assert normalized["universe_label"].eq("current_top50_exploratory_current_cohort").all()
