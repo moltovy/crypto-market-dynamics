@@ -6,3 +6,4 @@ binance_liquidity_top100,0,skipped_no_kline_cache
 market_cap_top100,7800,available
 fear_greed_blended_altme_pre_cmc_post,3057,available
 monthly_market_structure_daily_context,2263,available
+daily_constituent_rotation_lab,50449,available

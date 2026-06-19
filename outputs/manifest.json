@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-06-19T04:07:55.637953+00:00",
-  "git_commit": "f1fed54",
+  "generated_at_utc": "2026-06-19T04:41:17.166591+00:00",
+  "git_commit": "25649c6",
   "artifact_root": "outputs",
   "figure_bundle": {
     "style": "institutional_dark_research_cards",
@@ -369,7 +369,7 @@
     "Historical release packets and manager notes are archived outside the public surface."
   ],
   "market_structure": {
-    "generated_at_utc": "2026-06-19T04:10:16.722681+00:00",
+    "generated_at_utc": "2026-06-19T04:41:47.934729+00:00",
     "source_table_bundle_date": "2026-06-19",
     "figure_bundle_start": "F30",
     "table_bundle_start": "T28",
@@ -378,6 +378,7 @@
       "uv run python scripts/fetch_market_structure_raw.py --dry-run",
       "uv run python scripts/fetch_market_structure_raw.py --cache-only",
       "uv run python scripts/ingest_defillama_monthly_universe.py",
+      "uv run python scripts/ingest_defillama_daily_constituents.py",
       "uv run python scripts/normalize_market_structure_cache.py --cache-only",
       "uv run python scripts/build_market_structure_outputs.py"
     ],
@@ -406,6 +407,16 @@
       "outputs/tables/T50_market_structure_turnover_by_phase.csv",
       "outputs/tables/T51_market_structure_modeling_summary.md",
       "outputs/report/market_structure_modeling_thesis.md",
+      "outputs/tables/T52_constituent_daily_ohlcv.csv",
+      "outputs/tables/T53_altseason_breadth.csv",
+      "outputs/tables/T54_constituent_return_indexes.csv",
+      "outputs/tables/T55_return_dispersion.csv",
+      "outputs/tables/T56_rolling_beta_to_btc_eth.csv",
+      "outputs/tables/T57_category_rotation_returns.csv",
+      "outputs/tables/T58_event_response_top50.csv",
+      "outputs/tables/T59_constituent_data_gap_report.csv",
+      "outputs/tables/T60_altseason_rotation_summary.md",
+      "outputs/report/altseason_rotation_lab.md",
       "outputs/tables/T36_market_cap_top100_gap.csv",
       "outputs/tables/T37_market_structure_feature_panel.csv",
       "outputs/report/market_evolution_thesis.md",
@@ -431,6 +442,12 @@
       "outputs/figures/F45_market_structure_composition_shift.png",
       "outputs/figures/F46_market_structure_turnover_by_phase.png",
       "outputs/figures/F47_market_structure_modeling_dashboard.png",
+      "outputs/figures/F48_altseason_breadth.png",
+      "outputs/figures/F49_constituent_return_indexes.png",
+      "outputs/figures/F50_return_dispersion.png",
+      "outputs/figures/F51_rolling_beta_to_btc.png",
+      "outputs/figures/F52_event_response_top50.png",
+      "outputs/figures/F53_rotation_dashboard.png",
       "outputs/README.md"
     ],
     "skipped": [
@@ -440,6 +457,7 @@
       "Binance top100 is exchange-liquidity based, not market-cap based.",
       "CMC live fetch requires CMC_API_KEY; cached CMC history is included when present.",
       "Monthly point-in-time universes support composition and turnover, not daily return-performance claims.",
+      "Daily constituent diagnostics use a current top50 ex-stablecoin sample and are labeled as exploratory.",
       "Raw API payloads stay in data_cache/ and are not committed.",
       "No API keys are written to outputs or manifests."
     ]

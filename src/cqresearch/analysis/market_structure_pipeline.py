@@ -24,6 +24,11 @@ from cqresearch.analysis.asset_classification import (
     classify_symbol_frame,
     load_classification_overrides,
 )
+from cqresearch.analysis.constituent_rotation import (
+    build_constituent_rotation_tables,
+    constituent_rotation_summary,
+    load_daily_constituents,
+)
 from cqresearch.analysis.market_universe import (
     MONTHLY_UNIVERSE_CURATED,
     build_binance_liquidity_ranks,
@@ -166,6 +171,8 @@ This subtree is additive to the frozen research database. Existing source files 
 Contains endpoint capability files and normalized public summaries derived from local DefiLlama cache when available. Pro-only datasets are skipped unless `DEFILLAMA_API_KEY` and plan access are present at runtime.
 
 The optional `crypto_universe_monthly_2020_2026.csv` file is a local point-in-time monthly top200 market-cap universe. It is ingested from `data_cache/defillama/` only after validation and supports composition, concentration, clean-risk universe, rank-turnover, and cycle-phase structure diagnostics.
+
+The optional `top50_current_ex_stable_daily_ohlcv_2020_2026.csv` file is a current-constituent daily OHLCV sample. It supports exploratory breadth, rotation, beta, dispersion, and event-response diagnostics, but it is not a point-in-time top100/top200 panel.
 """,
         ),
         write_text(
@@ -890,6 +897,54 @@ def write_market_structure_feature_outputs(
     return output_files
 
 
+def write_constituent_rotation_outputs(
+    project_root: Path,
+    dirs: dict[str, Path],
+    daily_constituents: pd.DataFrame,
+) -> tuple[list[Path], list[str]]:
+    """Write daily constituent breadth, rotation, beta, and event-response outputs."""
+
+    if daily_constituents.empty:
+        remove_constituent_rotation_outputs(project_root)
+        return [], [
+            "Daily constituent OHLCV skipped because no normalized top50 constituent file exists."
+        ]
+
+    output_files: list[Path] = []
+    tables = build_constituent_rotation_tables(
+        daily_constituents,
+        events_path=project_root / "config" / "events.yml",
+    )
+    output_files.append(
+        write_csv(dirs["tables"] / "T52_constituent_daily_ohlcv.csv", daily_constituents)
+    )
+    output_files.append(write_csv(dirs["tables"] / "T53_altseason_breadth.csv", tables["breadth"]))
+    output_files.append(
+        write_csv(dirs["tables"] / "T54_constituent_return_indexes.csv", tables["indexes"])
+    )
+    output_files.append(
+        write_csv(dirs["tables"] / "T55_return_dispersion.csv", tables["dispersion"])
+    )
+    output_files.append(
+        write_csv(dirs["tables"] / "T56_rolling_beta_to_btc_eth.csv", tables["beta"])
+    )
+    output_files.append(
+        write_csv(dirs["tables"] / "T57_category_rotation_returns.csv", tables["rotation"])
+    )
+    output_files.append(
+        write_csv(dirs["tables"] / "T58_event_response_top50.csv", tables["events"])
+    )
+    output_files.append(
+        write_csv(dirs["tables"] / "T59_constituent_data_gap_report.csv", tables["gap"])
+    )
+    summary = constituent_rotation_summary(tables)
+    output_files.append(write_text(dirs["tables"] / "T60_altseason_rotation_summary.md", summary))
+    output_files.append(
+        write_text(project_root / "outputs" / "report" / "altseason_rotation_lab.md", summary)
+    )
+    return output_files, []
+
+
 def remove_market_cap_universe_outputs(project_root: Path) -> None:
     """Remove stale market-cap universe outputs when the source is unavailable."""
 
@@ -917,6 +972,32 @@ def remove_market_cap_universe_outputs(project_root: Path) -> None:
         "outputs/figures/F46_market_structure_turnover_by_phase.png",
         "outputs/figures/F47_market_structure_modeling_dashboard.png",
         "outputs/report/market_structure_modeling_thesis.md",
+    ]:
+        path = project_root / relpath
+        if path.exists():
+            path.unlink()
+
+
+def remove_constituent_rotation_outputs(project_root: Path) -> None:
+    """Remove stale daily constituent outputs when the source is unavailable."""
+
+    for relpath in [
+        "outputs/tables/T52_constituent_daily_ohlcv.csv",
+        "outputs/tables/T53_altseason_breadth.csv",
+        "outputs/tables/T54_constituent_return_indexes.csv",
+        "outputs/tables/T55_return_dispersion.csv",
+        "outputs/tables/T56_rolling_beta_to_btc_eth.csv",
+        "outputs/tables/T57_category_rotation_returns.csv",
+        "outputs/tables/T58_event_response_top50.csv",
+        "outputs/tables/T59_constituent_data_gap_report.csv",
+        "outputs/tables/T60_altseason_rotation_summary.md",
+        "outputs/report/altseason_rotation_lab.md",
+        "outputs/figures/F48_altseason_breadth.png",
+        "outputs/figures/F49_constituent_return_indexes.png",
+        "outputs/figures/F50_return_dispersion.png",
+        "outputs/figures/F51_rolling_beta_to_btc.png",
+        "outputs/figures/F52_event_response_top50.png",
+        "outputs/figures/F53_rotation_dashboard.png",
     ]:
         path = project_root / relpath
         if path.exists():
@@ -1068,6 +1149,12 @@ def build_outputs(project_root: Path = ROOT) -> MarketStructureBuildResult:
         skipped.append(
             "Historical market-cap top100 skipped because no point-in-time source is available."
         )
+    daily_constituents = load_daily_constituents(project_root)
+    constituent_files, constituent_skipped = write_constituent_rotation_outputs(
+        project_root, dirs, daily_constituents
+    )
+    output_files.extend(constituent_files)
+    skipped.extend(constituent_skipped)
     output_files.append(write_csv(dirs["tables"] / "T36_market_cap_top100_gap.csv", gap))
     market_cap_top100_rows = (
         int(market_universe["in_full_top100"].sum()) if has_market_universe else 0
@@ -1110,6 +1197,22 @@ def build_outputs(project_root: Path = ROOT) -> MarketStructureBuildResult:
                             "status": "available"
                             if monthly_context_rows
                             else "skipped_no_daily_panel",
+                        }
+                    ]
+                ),
+            ],
+            ignore_index=True,
+        )
+    if not daily_constituents.empty:
+        feature_panel = pd.concat(
+            [
+                feature_panel,
+                pd.DataFrame(
+                    [
+                        {
+                            "feature_family": "daily_constituent_rotation_lab",
+                            "rows": len(daily_constituents),
+                            "status": "available",
                         }
                     ]
                 ),
@@ -1172,6 +1275,28 @@ def write_reports(
         if market_universe_available
         else ""
     )
+    daily_row = feature_panel[feature_panel["feature_family"] == "daily_constituent_rotation_lab"]
+    daily_constituents_available = (
+        not daily_row.empty and str(daily_row["status"].iloc[0]) == "available"
+    )
+    daily_table_lines = (
+        "- `T52_constituent_daily_ohlcv.csv`"
+        "\n- `T53_altseason_breadth.csv`"
+        "\n- `T54_constituent_return_indexes.csv`"
+        "\n- `T55_return_dispersion.csv`"
+        "\n- `T56_rolling_beta_to_btc_eth.csv`"
+        "\n- `T57_category_rotation_returns.csv`"
+        "\n- `T58_event_response_top50.csv`"
+        "\n- `T59_constituent_data_gap_report.csv`"
+        "\n- `T60_altseason_rotation_summary.md`"
+        if daily_constituents_available
+        else ""
+    )
+    daily_note = (
+        "The available DefiLlama daily top50 ex-stablecoin OHLCV sample is integrated for exploratory altseason breadth, dispersion, rolling beta, rotation, and event-response diagnostics. It is explicitly labeled as a current-constituent sample rather than a point-in-time top100 panel."
+        if daily_constituents_available
+        else "Daily constituent OHLCV remains skipped until a local top100/top200 constituent price/market-cap/volume file is supplied and ingested."
+    )
     return [
         write_text(
             report_dir / "market_evolution_thesis.md",
@@ -1183,7 +1308,9 @@ The release is designed to work without paid/live data. It uses the frozen track
 
 {market_universe_note} When the frozen master daily panel is available, the build also creates a lagged/as-of monthly context layer and descriptive BTC/ETH return-regime diagnostics.
 
-Monthly snapshots support composition, concentration, rank turnover, and cycle-phase structure. Daily OHLCV is still required for returns, breadth, volatility, beta, drawdowns, dispersion, and event-response analysis.
+{daily_note}
+
+Monthly snapshots support composition, concentration, rank turnover, and cycle-phase structure. A full point-in-time daily OHLCV/mcap constituent panel is still required for survivorship-free returns, breadth, volatility, beta, drawdowns, dispersion, and event-response analysis.
 
 Interpretation stays descriptive. Binance ranks are exchange-liquidity ranks, stablecoin/TVL variables are liquidity proxies, and ETF-flow language remains contemporaneous association rather than causal identification.
 """,
@@ -1199,6 +1326,8 @@ Point-in-time market-cap top100 universes require point-in-time market-cap sourc
 When `data_cache/defillama/crypto_universe_monthly_2020_2026.csv` is present, `scripts/ingest_defillama_monthly_universe.py` validates and normalizes it into `Data/MarketStructure/DefiLlama/`. The build then constructs full, ex-stable, and clean-risk top100 universes using internal classifications rather than upstream risk labels.
 
 CMC Fear & Greed uses the official `v3/fear-and-greed/historical` client when `CMC_API_KEY` is available. Once cached, the normalized CMC history can be rebuilt without the key. If no CMC cache exists, the tracked AlternativeMe series remains the baseline sentiment source.
+
+When `data_cache/defillama/top50_current_ex_stable_daily_ohlcv_2020_2026.csv` is present, `scripts/ingest_defillama_daily_constituents.py` validates and normalizes it into `Data/MarketStructure/DefiLlama/`. The resulting daily lab is explicitly labeled as a current top50 ex-stablecoin sample, not a point-in-time top100/top200 universe.
 """,
         ),
         write_text(
@@ -1220,6 +1349,7 @@ Primary public tables:
 - `T38_fear_greed_blended_daily.csv`
 - `T39_fear_greed_source_overlap_summary.csv`
 {market_table_lines if market_table_lines else ""}
+{daily_table_lines if daily_table_lines else ""}
 
 Curated source files live under `Data/MarketStructure/`. Existing frozen data under `Data/DefiLlama`, `Data/AlternativeMe`, and `Data/Tradingview` remains unchanged.
 """,
@@ -1233,7 +1363,8 @@ Curated source files live under `Data/MarketStructure/`. Existing frozen data un
 - Current order-book and ticker endpoints are snapshots and are not used as historical depth.
 - Stablecoin supply and TVL are proxies, not proven causal drivers.
 - CMC Fear & Greed live refresh requires `CMC_API_KEY`; cached history is included when present.
-- Monthly market-cap snapshots support structure/composition diagnostics only; daily OHLCV is required for altseason performance, breadth, volatility, beta, drawdown, dispersion, and event-return analysis.
+- Monthly market-cap snapshots support structure/composition diagnostics only; a full point-in-time daily OHLCV/mcap panel is required for survivorship-free altseason performance, breadth, volatility, beta, drawdown, dispersion, and event-return analysis.
+- The current daily constituent lab uses a DefiLlama current top50 ex-stablecoin sample and should be interpreted as exploratory.
 """,
         ),
         write_text(
@@ -1804,7 +1935,8 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
             if not shift.empty:
                 plot_shift = shift.dropna(subset=["delta"]).sort_values("delta")
                 shift_colors = [
-                    COLORS["liquidity"] if value >= 0 else COLORS["gold"] for value in plot_shift["delta"]
+                    COLORS["liquidity"] if value >= 0 else COLORS["gold"]
+                    for value in plot_shift["delta"]
                 ]
                 axes[2].barh(
                     plot_shift["metric"]
@@ -1830,6 +1962,211 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
             )
             fig.tight_layout()
             written.append(save_fig(fig, figures / "F47_market_structure_modeling_dashboard.png"))
+
+    breadth_path = tables / "T53_altseason_breadth.csv"
+    indexes_path = tables / "T54_constituent_return_indexes.csv"
+    dispersion_path = tables / "T55_return_dispersion.csv"
+    beta_path = tables / "T56_rolling_beta_to_btc_eth.csv"
+    events_path = tables / "T58_event_response_top50.csv"
+    if (
+        breadth_path.exists()
+        and indexes_path.exists()
+        and dispersion_path.exists()
+        and beta_path.exists()
+        and events_path.exists()
+    ):
+        breadth = pd.read_csv(breadth_path, parse_dates=["date"])
+        indexes = pd.read_csv(indexes_path, parse_dates=["date"])
+        dispersion = pd.read_csv(dispersion_path, parse_dates=["date"])
+        beta = pd.read_csv(beta_path, parse_dates=["date"])
+        events = pd.read_csv(events_path)
+
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+        if not breadth.empty:
+            ax.plot(
+                breadth["date"],
+                breadth["share_risk_beating_btc_90d"],
+                color=COLORS["liquidity"],
+                linewidth=1.6,
+                label="Risk sample beating BTC",
+            )
+            ax.axhline(0.70, color=COLORS["positive"], linestyle="--", linewidth=1, alpha=0.7)
+            ax.axhline(0.30, color=COLORS["gold"], linestyle="--", linewidth=1, alpha=0.7)
+            ax.set_ylim(0, 1)
+            ax.yaxis.set_major_formatter(PercentFormatter(1.0))
+            ax.legend(frameon=False, fontsize=8)
+        ax.set_title(
+            "Altseason Breadth: Current Top50 Sample", color=COLORS["text"], fontweight="bold"
+        )
+        ax.set_ylabel("Share beating BTC over 90 days")
+        _style_axis(ax)
+        written.append(save_fig(fig, figures / "F48_altseason_breadth.png"))
+
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+        if not indexes.empty:
+            for universe, label, color in [
+                ("btc", "BTC", COLORS["btc"]),
+                ("eth", "ETH", COLORS["eth"]),
+                ("top50_ex_btc_eth", "Top50 ex BTC/ETH", COLORS["liquidity"]),
+                ("top10_ex_btc_eth", "Top10 ex BTC/ETH", COLORS["institutional"]),
+            ]:
+                series = indexes[indexes["universe"] == universe]
+                if not series.empty:
+                    ax.plot(
+                        series["date"],
+                        series["cumulative_index"],
+                        label=label,
+                        color=color,
+                        linewidth=1.35,
+                    )
+            ax.set_yscale("log")
+            ax.legend(frameon=False, fontsize=8)
+        ax.set_title("Constituent Rotation Indexes", color=COLORS["text"], fontweight="bold")
+        ax.set_ylabel("Cumulative index, log scale")
+        _style_axis(ax)
+        written.append(save_fig(fig, figures / "F49_constituent_return_indexes.png"))
+
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+        if not dispersion.empty:
+            ax.fill_between(
+                dispersion["date"],
+                dispersion["p10_return_1d"],
+                dispersion["p90_return_1d"],
+                color=COLORS["eth"],
+                alpha=0.18,
+                label="P10-P90 daily return range",
+            )
+            ax.plot(
+                dispersion["date"],
+                dispersion["median_return_1d"],
+                color=COLORS["btc"],
+                linewidth=1.2,
+                label="Median",
+            )
+            ax.axhline(0, color=COLORS["axis"], linewidth=0.8)
+            ax.yaxis.set_major_formatter(PercentFormatter(1.0))
+            ax.legend(frameon=False, fontsize=8)
+        ax.set_title("Daily Return Dispersion", color=COLORS["text"], fontweight="bold")
+        ax.set_ylabel("Clean-risk ex BTC/ETH daily returns")
+        _style_axis(ax)
+        written.append(save_fig(fig, figures / "F50_return_dispersion.png"))
+
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+        if not beta.empty:
+            plot_beta = beta[
+                (beta["window_days"] == 180)
+                & (beta["benchmark"] == "btc")
+                & (
+                    beta["universe"].isin(
+                        ["top50_ex_btc_eth", "top10_ex_btc_eth", "clean_risk_ex_btc_eth"]
+                    )
+                )
+            ]
+            for universe, label, color in [
+                ("top50_ex_btc_eth", "Top50 ex BTC/ETH", COLORS["liquidity"]),
+                ("top10_ex_btc_eth", "Top10 ex BTC/ETH", COLORS["institutional"]),
+                ("clean_risk_ex_btc_eth", "Clean risk ex BTC/ETH", COLORS["native"]),
+            ]:
+                series = plot_beta[plot_beta["universe"] == universe]
+                if not series.empty:
+                    ax.plot(series["date"], series["beta"], label=label, color=color, linewidth=1.2)
+            ax.axhline(1, color=COLORS["axis"], linewidth=0.8, linestyle="--")
+            ax.legend(frameon=False, fontsize=8)
+        ax.set_title("Rolling Beta to BTC", color=COLORS["text"], fontweight="bold")
+        ax.set_ylabel("180-day beta")
+        _style_axis(ax)
+        written.append(save_fig(fig, figures / "F51_rolling_beta_to_btc.png"))
+
+        fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+        if not events.empty:
+            event_plot = events[
+                (events["window_days"] == 10) & (events["universe"] == "top50_ex_btc_eth")
+            ].copy()
+            event_plot = event_plot.dropna(subset=["post_window_return"]).tail(10)
+            if not event_plot.empty:
+                label_map = {
+                    "btc_spot_etf_launch": "BTC ETF launch",
+                    "eth_spot_etf_launch": "ETH ETF launch",
+                    "bitcoin_halving_2024": "2024 halving",
+                    "dencun_upgrade": "Dencun",
+                    "luna_collapse_2022": "Luna",
+                    "ftx_collapse_2022": "FTX",
+                    "svb_crisis_2023": "SVB",
+                    "yen_carry_unwind_2024": "Yen carry",
+                    "sec_generic_etp_listing_standards_2025": "SEC ETP rule",
+                    "crypto_liquidation_tariff_shock_2025": "Oct. 2025 shock",
+                }
+                event_plot["label"] = (
+                    event_plot["event_id"]
+                    .map(label_map)
+                    .fillna(event_plot["event_id"].astype(str).str.replace("_", " "))
+                )
+                colors = [
+                    COLORS["liquidity"] if value >= 0 else COLORS["gold"]
+                    for value in event_plot["post_window_return"]
+                ]
+                ax.barh(event_plot["label"], event_plot["post_window_return"], color=colors)
+                ax.axvline(0, color=COLORS["axis"], linewidth=0.8)
+                ax.xaxis.set_major_formatter(PercentFormatter(1.0))
+        ax.set_title("Event Response: Top50 ex BTC/ETH", color=COLORS["text"], fontweight="bold")
+        ax.set_xlabel("Post-event 10-day return")
+        _style_axis(ax)
+        written.append(save_fig(fig, figures / "F52_event_response_top50.png"))
+
+        fig, axes = plt.subplots(2, 2, figsize=(12, 8), facecolor=COLORS["bg"])
+        axes = axes.flatten()
+        if not breadth.empty:
+            axes[0].plot(
+                breadth["date"],
+                breadth["share_risk_beating_btc_90d"],
+                color=COLORS["liquidity"],
+                linewidth=1.3,
+            )
+            axes[0].axhline(0.70, color=COLORS["positive"], linestyle="--", linewidth=0.9)
+            axes[0].set_ylim(0, 1)
+            axes[0].yaxis.set_major_formatter(PercentFormatter(1.0))
+        axes[0].set_title("90-day breadth", color=COLORS["text"], fontweight="bold")
+        if not indexes.empty:
+            for universe, label, color in [
+                ("btc", "BTC", COLORS["btc"]),
+                ("eth", "ETH", COLORS["eth"]),
+                ("top50_ex_btc_eth", "Top50 ex BTC/ETH", COLORS["liquidity"]),
+            ]:
+                series = indexes[indexes["universe"] == universe]
+                if not series.empty:
+                    axes[1].plot(
+                        series["date"],
+                        series["cumulative_index"],
+                        label=label,
+                        color=color,
+                        linewidth=1.1,
+                    )
+            axes[1].set_yscale("log")
+            axes[1].legend(frameon=False, fontsize=7)
+        axes[1].set_title("Rotation indexes", color=COLORS["text"], fontweight="bold")
+        if not dispersion.empty:
+            axes[2].plot(
+                dispersion["date"],
+                dispersion["dispersion_1d_p90_minus_p10"],
+                color=COLORS["eth"],
+                linewidth=1.1,
+            )
+            axes[2].yaxis.set_major_formatter(PercentFormatter(1.0))
+        axes[2].set_title("Daily dispersion", color=COLORS["text"], fontweight="bold")
+        if not beta.empty:
+            series = beta[
+                (beta["window_days"] == 180)
+                & (beta["benchmark"] == "btc")
+                & (beta["universe"] == "top50_ex_btc_eth")
+            ]
+            axes[3].plot(series["date"], series["beta"], color=COLORS["btc"], linewidth=1.1)
+            axes[3].axhline(1, color=COLORS["axis"], linestyle="--", linewidth=0.8)
+        axes[3].set_title("Top50 beta to BTC", color=COLORS["text"], fontweight="bold")
+        for axis in axes:
+            _style_axis(axis)
+        fig.suptitle("Altseason and Rotation Dashboard", color=COLORS["text"], fontweight="bold")
+        fig.tight_layout()
+        written.append(save_fig(fig, figures / "F53_rotation_dashboard.png"))
 
     return written
 
@@ -1857,6 +2194,16 @@ def update_outputs_readme(project_root: Path) -> Path:
         if (figures / "F38_market_structure_composition.png").exists()
         else ""
     )
+    daily_figure_lines = (
+        "- `figures/F48_altseason_breadth.png`"
+        "\n- `figures/F49_constituent_return_indexes.png`"
+        "\n- `figures/F50_return_dispersion.png`"
+        "\n- `figures/F51_rolling_beta_to_btc.png`"
+        "\n- `figures/F52_event_response_top50.png`"
+        "\n- `figures/F53_rotation_dashboard.png`"
+        if (figures / "F48_altseason_breadth.png").exists()
+        else ""
+    )
     market_table_lines = (
         "- `tables/T40_crypto_universe_monthly.csv`"
         "\n- `tables/T41_clean_risk_top100_monthly.csv`"
@@ -1873,11 +2220,25 @@ def update_outputs_readme(project_root: Path) -> Path:
         if (tables / "T40_crypto_universe_monthly.csv").exists()
         else ""
     )
+    daily_table_lines = (
+        "- `tables/T52_constituent_daily_ohlcv.csv`"
+        "\n- `tables/T53_altseason_breadth.csv`"
+        "\n- `tables/T54_constituent_return_indexes.csv`"
+        "\n- `tables/T55_return_dispersion.csv`"
+        "\n- `tables/T56_rolling_beta_to_btc_eth.csv`"
+        "\n- `tables/T57_category_rotation_returns.csv`"
+        "\n- `tables/T58_event_response_top50.csv`"
+        "\n- `tables/T59_constituent_data_gap_report.csv`"
+        "\n- `tables/T60_altseason_rotation_summary.md`"
+        if (tables / "T52_constituent_daily_ohlcv.csv").exists()
+        else ""
+    )
     section = f"""{marker}
 The additive market-structure layer integrates tracked DefiLlama/AlternativeMe/TradingView context with optional DefiLlama, Binance, and CoinMarketCap cache. It does not require API keys for the public build.
 
 Reports:
 
+- `report/altseason_rotation_lab.md`
 - `report/market_evolution_thesis.md`
 - `report/market_structure_modeling_thesis.md`
 - `report/market_structure_methodology.md`
@@ -1896,6 +2257,7 @@ Figures:
 - `figures/F36_rwa_dat_growth.png`
 - `figures/F37_market_cap_top100_gap.png`
 {market_figure_lines if market_figure_lines else ""}
+{daily_figure_lines if daily_figure_lines else ""}
 
 Tables:
 
@@ -1912,12 +2274,14 @@ Tables:
 - `tables/T38_fear_greed_blended_daily.csv`
 - `tables/T39_fear_greed_source_overlap_summary.csv`
 {market_table_lines if market_table_lines else ""}
+{daily_table_lines if daily_table_lines else ""}
 
 Guardrails:
 
 - Binance top100 is exchange-liquidity based, not historical market-cap rank.
 - CMC live fetch requires `CMC_API_KEY`; cached CMC history is included when present.
 - Monthly universe snapshots support composition and turnover analysis, not daily performance or event-return claims.
+- Daily constituent diagnostics are a current top50 ex-stablecoin sample, not a point-in-time top100 panel.
 - Raw source responses stay in gitignored `data_cache/`.
 """
     return write_text(path, text + "\n" + section)
@@ -1942,6 +2306,7 @@ def patch_outputs_manifest(
             "uv run python scripts/fetch_market_structure_raw.py --dry-run",
             "uv run python scripts/fetch_market_structure_raw.py --cache-only",
             "uv run python scripts/ingest_defillama_monthly_universe.py",
+            "uv run python scripts/ingest_defillama_daily_constituents.py",
             "uv run python scripts/normalize_market_structure_cache.py --cache-only",
             "uv run python scripts/build_market_structure_outputs.py",
         ],
@@ -1951,6 +2316,7 @@ def patch_outputs_manifest(
             "Binance top100 is exchange-liquidity based, not market-cap based.",
             "CMC live fetch requires CMC_API_KEY; cached CMC history is included when present.",
             "Monthly point-in-time universes support composition and turnover, not daily return-performance claims.",
+            "Daily constituent diagnostics use a current top50 ex-stablecoin sample and are labeled as exploratory.",
             "Raw API payloads stay in data_cache/ and are not committed.",
             "No API keys are written to outputs or manifests.",
         ],

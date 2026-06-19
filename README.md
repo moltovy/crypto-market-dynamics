@@ -166,6 +166,15 @@ Method details live in [`docs/methodology/`](docs/methodology/).
 | [T49](outputs/tables/T49_market_structure_composition_shift.csv) | ETF-era composition-shift diagnostics |
 | [T50](outputs/tables/T50_market_structure_turnover_by_phase.csv) | Clean-risk turnover by cycle/ETF phase |
 | [T51](outputs/tables/T51_market_structure_modeling_summary.md) | Market-structure modeling summary |
+| [T52](outputs/tables/T52_constituent_daily_ohlcv.csv) | Current top50 ex-stablecoin daily OHLCV sample |
+| [T53](outputs/tables/T53_altseason_breadth.csv) | Exploratory 90-day altseason breadth |
+| [T54](outputs/tables/T54_constituent_return_indexes.csv) | BTC, ETH, top50, and top10 rotation indexes |
+| [T55](outputs/tables/T55_return_dispersion.csv) | Clean-risk daily return dispersion |
+| [T56](outputs/tables/T56_rolling_beta_to_btc_eth.csv) | Rolling beta/correlation to BTC and ETH |
+| [T57](outputs/tables/T57_category_rotation_returns.csv) | 90-day category rotation returns |
+| [T58](outputs/tables/T58_event_response_top50.csv) | Event-window response for the current top50 sample |
+| [T59](outputs/tables/T59_constituent_data_gap_report.csv) | Daily constituent data-gap audit |
+| [T60](outputs/tables/T60_altseason_rotation_summary.md) | Altseason rotation lab summary |
 
 ## Figures
 
@@ -276,6 +285,19 @@ for descriptive BTC/ETH regime diagnostics. These outputs describe how daily
 returns and volatility line up with prior monthly market-structure states; they
 do not claim that composition shifts caused BTC or ETH returns.
 
+### Altseason and Rotation Lab
+
+![Altseason and rotation dashboard](outputs/figures/F53_rotation_dashboard.png)
+
+The daily lab adds exploratory breadth, dispersion, rolling beta, rotation
+indexes, and event-window diagnostics using the available DefiLlama current
+top50 ex-stablecoin OHLCV sample. It is not a point-in-time top100/top200 panel:
+the public tables flag the sample design and market-cap gaps, so these outputs
+should be read as a rotation diagnostic rather than a survivorship-free
+altseason backtest.
+
+Source: [T60_altseason_rotation_summary.md](outputs/tables/T60_altseason_rotation_summary.md)
+
 Key figures:
 
 - [F31 stablecoin/TVL regimes](outputs/figures/F31_stablecoin_tvl_regimes.png)
@@ -294,6 +316,12 @@ Key figures:
 - [F45 ETF-era composition shift](outputs/figures/F45_market_structure_composition_shift.png)
 - [F46 turnover by phase](outputs/figures/F46_market_structure_turnover_by_phase.png)
 - [F47 market-structure modeling dashboard](outputs/figures/F47_market_structure_modeling_dashboard.png)
+- [F48 altseason breadth](outputs/figures/F48_altseason_breadth.png)
+- [F49 constituent rotation indexes](outputs/figures/F49_constituent_return_indexes.png)
+- [F50 clean-risk return dispersion](outputs/figures/F50_return_dispersion.png)
+- [F51 rolling beta to BTC](outputs/figures/F51_rolling_beta_to_btc.png)
+- [F52 event response](outputs/figures/F52_event_response_top50.png)
+- [F53 altseason and rotation dashboard](outputs/figures/F53_rotation_dashboard.png)
 
 ## Reproduce
 
@@ -306,6 +334,7 @@ uv run mypy src/cqresearch
 uv run python scripts/audit_market_structure_endpoints.py --dry-run
 uv run python scripts/fetch_market_structure_raw.py --cache-only
 uv run python scripts/ingest_defillama_monthly_universe.py
+uv run python scripts/ingest_defillama_daily_constituents.py
 uv run python scripts/normalize_market_structure_cache.py --cache-only
 uv run python scripts/build_market_structure_outputs.py
 uv run python scripts/run_all.py

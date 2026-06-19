@@ -26,5 +26,14 @@ Primary public tables:
 - `T49_market_structure_composition_shift.csv`
 - `T50_market_structure_turnover_by_phase.csv`
 - `T51_market_structure_modeling_summary.md`
+- `T52_constituent_daily_ohlcv.csv`
+- `T53_altseason_breadth.csv`
+- `T54_constituent_return_indexes.csv`
+- `T55_return_dispersion.csv`
+- `T56_rolling_beta_to_btc_eth.csv`
+- `T57_category_rotation_returns.csv`
+- `T58_event_response_top50.csv`
+- `T59_constituent_data_gap_report.csv`
+- `T60_altseason_rotation_summary.md`
 
 Curated source files live under `Data/MarketStructure/`. Existing frozen data under `Data/DefiLlama`, `Data/AlternativeMe`, and `Data/Tradingview` remains unchanged.
