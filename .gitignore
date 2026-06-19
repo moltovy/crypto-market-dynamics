@@ -51,6 +51,9 @@ reports/panels/**/*.parquet
 tmp/
 *.tmp
 
+# Local API/cache payloads for optional market-structure refreshes.
+data_cache/
+
 # --- Never commit secrets or API-key material
 *.key
 *.pem

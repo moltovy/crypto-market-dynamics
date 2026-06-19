@@ -1,0 +1,10 @@
+sentiment_sources:
+  alternative_me:
+    file: Data/AlternativeMe/fear_greed_index__daily.csv
+    availability: tracked_baseline
+    columns: [date, fng_value, fng_classification]
+  coinmarketcap:
+    endpoint: https://pro-api.coinmarketcap.com/v3/fear-and-greed/historical
+    auth: CMC_API_KEY
+    limit_max: 500
+    availability: optional_runtime_fetch

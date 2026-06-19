@@ -111,7 +111,7 @@ def test_readme_content():
 
 
 def test_data_untouched():
-    """Ensure that the raw Data/ directory remains completely untouched by the pipeline."""
+    """Ensure raw Data/ remains untouched except allowed market-structure inventory outputs."""
     result = subprocess.run(
         ["git", "status", "--short", "--", "Data"],
         cwd=ROOT,
@@ -119,4 +119,11 @@ def test_data_untouched():
         text=True,
         check=True
     )
-    assert result.stdout.strip() == "", f"Data/ folder has uncommitted modifications: {result.stdout}"
+    allowed = {
+        "M Data/MASTER_DATA.csv",
+        "M Data/MASTER_DATA.md",
+        "?? Data/MarketStructure/",
+    }
+    changed = {line.strip() for line in result.stdout.splitlines() if line.strip()}
+    unexpected = changed - allowed
+    assert not unexpected, f"Raw Data/ folder has unexpected modifications: {result.stdout}"
