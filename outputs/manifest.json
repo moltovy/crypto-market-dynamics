@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-06-19T03:45:15.411727+00:00",
-  "git_commit": "8632efb",
+  "generated_at_utc": "2026-06-19T04:07:55.637953+00:00",
+  "git_commit": "f1fed54",
   "artifact_root": "outputs",
   "figure_bundle": {
     "style": "institutional_dark_research_cards",
@@ -369,8 +369,8 @@
     "Historical release packets and manager notes are archived outside the public surface."
   ],
   "market_structure": {
-    "generated_at_utc": "2026-06-19T03:45:20.993130+00:00",
-    "source_table_bundle_date": "2026-06-18",
+    "generated_at_utc": "2026-06-19T04:10:16.722681+00:00",
+    "source_table_bundle_date": "2026-06-19",
     "figure_bundle_start": "F30",
     "table_bundle_start": "T28",
     "commands": [
@@ -399,6 +399,13 @@
       "outputs/tables/T43_rank_turnover.csv",
       "outputs/tables/T44_cycle_phase_market_structure.csv",
       "outputs/tables/T45_market_evolution_summary.md",
+      "outputs/tables/T46_market_structure_monthly_features.csv",
+      "outputs/tables/T47_market_structure_daily_context.csv",
+      "outputs/tables/T48_market_structure_return_regimes.csv",
+      "outputs/tables/T49_market_structure_composition_shift.csv",
+      "outputs/tables/T50_market_structure_turnover_by_phase.csv",
+      "outputs/tables/T51_market_structure_modeling_summary.md",
+      "outputs/report/market_structure_modeling_thesis.md",
       "outputs/tables/T36_market_cap_top100_gap.csv",
       "outputs/tables/T37_market_structure_feature_panel.csv",
       "outputs/report/market_evolution_thesis.md",
@@ -419,6 +426,11 @@
       "outputs/figures/F40_rank_turnover.png",
       "outputs/figures/F41_cycle_phase_market_structure.png",
       "outputs/figures/F42_market_evolution_dashboard.png",
+      "outputs/figures/F43_market_structure_monthly_features.png",
+      "outputs/figures/F44_market_structure_return_regimes.png",
+      "outputs/figures/F45_market_structure_composition_shift.png",
+      "outputs/figures/F46_market_structure_turnover_by_phase.png",
+      "outputs/figures/F47_market_structure_modeling_dashboard.png",
       "outputs/README.md"
     ],
     "skipped": [

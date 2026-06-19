@@ -160,6 +160,12 @@ Method details live in [`docs/methodology/`](docs/methodology/).
 | [T43](outputs/tables/T43_rank_turnover.csv) | Monthly entries, exits, and rank movement |
 | [T44](outputs/tables/T44_cycle_phase_market_structure.csv) | Cycle/ETF phase composition |
 | [T45](outputs/tables/T45_market_evolution_summary.md) | Market evolution summary |
+| [T46](outputs/tables/T46_market_structure_monthly_features.csv) | Monthly market-structure feature layer |
+| [T47](outputs/tables/T47_market_structure_daily_context.csv) | Lagged/as-of daily market-structure context |
+| [T48](outputs/tables/T48_market_structure_return_regimes.csv) | BTC/ETH descriptive return regimes |
+| [T49](outputs/tables/T49_market_structure_composition_shift.csv) | ETF-era composition-shift diagnostics |
+| [T50](outputs/tables/T50_market_structure_turnover_by_phase.csv) | Clean-risk turnover by cycle/ETF phase |
+| [T51](outputs/tables/T51_market_structure_modeling_summary.md) | Market-structure modeling summary |
 
 ## Figures
 
@@ -263,6 +269,13 @@ cap, the top10 are 87.6%, stable/synthetic/stable-yield assets are 13.8%, and
 the clean-risk asset share is 82.3%. Latest clean-risk top100 turnover is 5
 entrants and 5 exits.
 
+![Market-structure modeling dashboard](outputs/figures/F47_market_structure_modeling_dashboard.png)
+
+The monthly universe is also converted into a lagged/as-of daily context layer
+for descriptive BTC/ETH regime diagnostics. These outputs describe how daily
+returns and volatility line up with prior monthly market-structure states; they
+do not claim that composition shifts caused BTC or ETH returns.
+
 Key figures:
 
 - [F31 stablecoin/TVL regimes](outputs/figures/F31_stablecoin_tvl_regimes.png)
@@ -276,6 +289,11 @@ Key figures:
 - [F40 rank turnover](outputs/figures/F40_rank_turnover.png)
 - [F41 cycle-phase market structure](outputs/figures/F41_cycle_phase_market_structure.png)
 - [F42 market evolution dashboard](outputs/figures/F42_market_evolution_dashboard.png)
+- [F43 monthly market-structure features](outputs/figures/F43_market_structure_monthly_features.png)
+- [F44 BTC/ETH return regimes](outputs/figures/F44_market_structure_return_regimes.png)
+- [F45 ETF-era composition shift](outputs/figures/F45_market_structure_composition_shift.png)
+- [F46 turnover by phase](outputs/figures/F46_market_structure_turnover_by_phase.png)
+- [F47 market-structure modeling dashboard](outputs/figures/F47_market_structure_modeling_dashboard.png)
 
 ## Reproduce
 

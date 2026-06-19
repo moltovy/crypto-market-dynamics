@@ -9,11 +9,17 @@ from cqresearch.analysis.market_universe import (
     MONTHLY_UNIVERSE_CACHE,
     MONTHLY_UNIVERSE_CURATED,
     UniverseValidationError,
+    build_market_structure_daily_context,
     classify_market_universe,
     clean_risk_top100,
     cycle_phase_market_structure,
     ingest_defillama_monthly_universe,
     market_structure_composition,
+    market_structure_composition_shift,
+    market_structure_modeling_summary,
+    market_structure_monthly_features,
+    market_structure_return_regimes,
+    market_structure_turnover_by_phase,
     normalize_defillama_monthly_universe,
     rank_turnover,
 )
@@ -180,3 +186,52 @@ def test_composition_turnover_and_cycle_phase_builders() -> None:
     assert latest_turnover["entrants"] == 1
     assert latest_turnover["exits"] == 1
     assert not cycle.empty
+
+
+def test_monthly_features_daily_context_and_regime_diagnostics() -> None:
+    overrides = {
+        "stablecoins": {"USDT", "USDC"},
+        "wrapped_assets": {"WBTC", "CBBTC"},
+        "lst_restaking": {"STETH", "WSTETH"},
+        "tokenized_commodities": {"PAXG", "XAUT"},
+        "base_assets": {"BTC", "ETH", "SOL", "ADA"},
+    }
+    classified = classify_market_universe(_normalized(), overrides)
+    composition = market_structure_composition(classified)
+    turnover = rank_turnover(classified)
+    monthly = market_structure_monthly_features(classified, composition, turnover)
+
+    assert len(monthly) == 2
+    assert monthly["btc_eth_share_full_top100"].between(0, 1).all()
+    assert monthly["clean_risk_entrants"].iloc[-1] == 1
+
+    dates = pd.date_range("2024-01-01", "2024-03-15", freq="D")
+    daily = pd.DataFrame(
+        {
+            "date": dates,
+            "btc_close": [100 + idx for idx in range(len(dates))],
+            "eth_close": [50 + idx * 0.5 for idx in range(len(dates))],
+        }
+    )
+    context = build_market_structure_daily_context(daily, monthly)
+    assert not context.empty
+    assert context["market_structure_snapshot_date"].min() == pd.Timestamp("2024-01-31")
+    assert context["btc_return_1d"].notna().any()
+
+    synthetic_context = context.copy()
+    synthetic_context["top10_share_full_top100"] = [
+        0.40 + idx / 1000 for idx in range(len(synthetic_context))
+    ]
+    synthetic_context["clean_risk_share_full_top100"] = [
+        0.30 + idx / 1200 for idx in range(len(synthetic_context))
+    ]
+    regimes = market_structure_return_regimes(synthetic_context)
+    shift = market_structure_composition_shift(monthly)
+    turnover_phase = market_structure_turnover_by_phase(monthly)
+    summary = market_structure_modeling_summary(monthly, context, regimes, shift, turnover_phase)
+
+    assert {"BTC", "ETH"}.issubset(set(regimes["asset"]))
+    assert {"low", "mid", "high"}.issubset(set(regimes["bucket"]))
+    assert not shift.empty
+    assert not turnover_phase.empty
+    assert "descriptive regime analysis" in summary

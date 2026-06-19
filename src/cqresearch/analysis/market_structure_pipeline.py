@@ -27,12 +27,18 @@ from cqresearch.analysis.asset_classification import (
 from cqresearch.analysis.market_universe import (
     MONTHLY_UNIVERSE_CURATED,
     build_binance_liquidity_ranks,
+    build_market_structure_daily_context,
     classify_market_universe,
     clean_risk_top100,
     cycle_phase_market_structure,
     market_cap_top100_gap_report,
     market_evolution_summary,
     market_structure_composition,
+    market_structure_composition_shift,
+    market_structure_modeling_summary,
+    market_structure_monthly_features,
+    market_structure_return_regimes,
+    market_structure_turnover_by_phase,
     rank_turnover,
 )
 from cqresearch.data.market_structure_cache import CacheLayout, read_json, utc_now_iso
@@ -189,7 +195,9 @@ Contains the transparent Fear & Greed blend and source-overlap diagnostics. The 
 
 def source_registry(project_root: Path) -> pd.DataFrame:
     defillama_count = len(list((project_root / "Data" / "DefiLlama").rglob("*.csv")))
-    binance_count = len(list((project_root / "Data" / "MarketStructure" / "Binance").rglob("*.csv")))
+    binance_count = len(
+        list((project_root / "Data" / "MarketStructure" / "Binance").rglob("*.csv"))
+    )
     return pd.DataFrame(
         [
             {
@@ -211,7 +219,11 @@ def source_registry(project_root: Path) -> pd.DataFrame:
             {
                 "source": "CoinMarketCap",
                 "role": "Fear & Greed historical sentiment comparison",
-                "tracked_files": len(list((project_root / "Data" / "MarketStructure" / "CoinMarketCap").rglob("*.csv"))),
+                "tracked_files": len(
+                    list(
+                        (project_root / "Data" / "MarketStructure" / "CoinMarketCap").rglob("*.csv")
+                    )
+                ),
                 "auth_required": "CMC_API_KEY",
                 "storage_policy": "raw cache in data_cache/coinmarketcap; curated summaries in Data/MarketStructure/CoinMarketCap",
                 "status": "optional_key_required",
@@ -228,7 +240,9 @@ def source_registry(project_root: Path) -> pd.DataFrame:
     )
 
 
-def normalize_cache_to_curated(project_root: Path = ROOT, *, cache_only: bool = False) -> MarketStructureBuildResult:
+def normalize_cache_to_curated(
+    project_root: Path = ROOT, *, cache_only: bool = False
+) -> MarketStructureBuildResult:
     """Normalize local raw cache into tracked curated CSVs."""
 
     dirs = ensure_dirs(project_root)
@@ -237,22 +251,30 @@ def normalize_cache_to_curated(project_root: Path = ROOT, *, cache_only: bool = 
     skipped: list[str] = []
 
     endpoint_rows = pd.DataFrame(endpoint_audit_rows(all_endpoint_specs()))
-    written.append(write_csv(dirs["registry"] / "market_structure_endpoint_capabilities.csv", endpoint_rows))
+    written.append(
+        write_csv(dirs["registry"] / "market_structure_endpoint_capabilities.csv", endpoint_rows)
+    )
 
     registry = source_registry(project_root)
     written.append(write_csv(dirs["registry"] / "market_structure_source_registry.csv", registry))
 
     defillama_existing = inventory_existing_defillama(project_root)
-    written.append(write_csv(dirs["defillama"] / "defillama_existing_inventory.csv", defillama_existing))
+    written.append(
+        write_csv(dirs["defillama"] / "defillama_existing_inventory.csv", defillama_existing)
+    )
 
     written.extend(normalize_defillama_cache(layout, dirs["defillama"], skipped))
     written.extend(normalize_binance_cache(layout, dirs["binance"], skipped))
     written.extend(normalize_cmc_cache(layout, dirs["cmc"], skipped))
     written.extend(write_sentiment_blend_files(project_root, dirs["sentiment"], skipped))
 
-    status_rows = [{"status": "cache_only", "detail": "No network calls were made."}] if cache_only else []
+    status_rows = (
+        [{"status": "cache_only", "detail": "No network calls were made."}] if cache_only else []
+    )
     status_rows.extend({"status": "skipped", "detail": item} for item in skipped)
-    written.append(write_csv(dirs["registry"] / "market_structure_cache_status.csv", pd.DataFrame(status_rows)))
+    written.append(
+        write_csv(dirs["registry"] / "market_structure_cache_status.csv", pd.DataFrame(status_rows))
+    )
 
     update_master_inventory(project_root)
     return MarketStructureBuildResult(curated_files=written, output_files=[], skipped=skipped)
@@ -262,14 +284,18 @@ def inventory_existing_defillama(project_root: Path) -> pd.DataFrame:
     rows = []
     for path in sorted((project_root / "Data" / "DefiLlama").rglob("*.csv")):
         try:
-            meta = csv_inventory_row(path, "DefiLlama", "Existing curated DefiLlama source file", project_root)
+            meta = csv_inventory_row(
+                path, "DefiLlama", "Existing curated DefiLlama source file", project_root
+            )
         except Exception:
             continue
         rows.append(meta)
     return pd.DataFrame(rows)
 
 
-def _cached_payloads(layout: CacheLayout, source: str, dataset_prefix: str) -> list[tuple[Path, Any]]:
+def _cached_payloads(
+    layout: CacheLayout, source: str, dataset_prefix: str
+) -> list[tuple[Path, Any]]:
     raw_dir = layout.raw_dir(source)
     if not raw_dir.exists():
         return []
@@ -286,13 +312,22 @@ def normalize_defillama_cache(layout: CacheLayout, out_dir: Path, skipped: list[
     written: list[Path] = []
     chains = _cached_payloads(layout, "defillama", "chains_current")
     if chains:
-        written.append(write_csv(out_dir / "defillama_chains_current.csv", normalize_defillama_chains(chains[-1][1])))
+        written.append(
+            write_csv(
+                out_dir / "defillama_chains_current.csv", normalize_defillama_chains(chains[-1][1])
+            )
+        )
     else:
         skipped.append("DefiLlama chains_current cache unavailable.")
 
     stable = _cached_payloads(layout, "defillama", "stablecoins_current")
     if stable:
-        written.append(write_csv(out_dir / "defillama_stablecoins_current.csv", normalize_defillama_stablecoins(stable[-1][1])))
+        written.append(
+            write_csv(
+                out_dir / "defillama_stablecoins_current.csv",
+                normalize_defillama_stablecoins(stable[-1][1]),
+            )
+        )
 
     for dataset in ["dex_overview", "fees_overview", "open_interest_overview"]:
         payloads = _cached_payloads(layout, "defillama", dataset)
@@ -313,7 +348,12 @@ def normalize_binance_cache(layout: CacheLayout, out_dir: Path, skipped: list[st
 
     tickers = _cached_payloads(layout, "binance", "spot_24h_tickers")
     if tickers:
-        written.append(write_csv(out_dir / "binance_spot_24h_tickers_snapshot.csv", normalize_binance_24h_tickers(tickers[-1][1])))
+        written.append(
+            write_csv(
+                out_dir / "binance_spot_24h_tickers_snapshot.csv",
+                normalize_binance_24h_tickers(tickers[-1][1]),
+            )
+        )
 
     kline_frames = []
     for path, payload in _cached_payloads(layout, "binance", "spot_daily_klines"):
@@ -327,7 +367,9 @@ def normalize_binance_cache(layout: CacheLayout, out_dir: Path, skipped: list[st
         ranks = build_binance_liquidity_ranks(klines)
         written.append(write_csv(out_dir / "binance_liquidity_top100__monthly.csv", ranks))
     else:
-        skipped.append("Binance spot daily kline cache unavailable; liquidity top100 not generated.")
+        skipped.append(
+            "Binance spot daily kline cache unavailable; liquidity top100 not generated."
+        )
 
     funding_frames = []
     for path, payload in _cached_payloads(layout, "binance", "usd_m_funding_rate"):
@@ -336,7 +378,12 @@ def normalize_binance_cache(layout: CacheLayout, out_dir: Path, skipped: list[st
         if not frame.empty:
             funding_frames.append(frame)
     if funding_frames:
-        written.append(write_csv(out_dir / "binance_usd_m_funding_rates.csv", pd.concat(funding_frames, ignore_index=True)))
+        written.append(
+            write_csv(
+                out_dir / "binance_usd_m_funding_rates.csv",
+                pd.concat(funding_frames, ignore_index=True),
+            )
+        )
     return written
 
 
@@ -344,7 +391,9 @@ def normalize_cmc_cache(layout: CacheLayout, out_dir: Path, skipped: list[str]) 
     written: list[Path] = []
     payloads = _cached_payloads(layout, "coinmarketcap", "fear_greed_historical")
     if not payloads:
-        skipped.append("CMC Fear & Greed cache unavailable; AlternativeMe remains the tracked sentiment baseline.")
+        skipped.append(
+            "CMC Fear & Greed cache unavailable; AlternativeMe remains the tracked sentiment baseline."
+        )
         return written
     frames = [normalize_cmc_fear_greed(payload) for _, payload in payloads]
     out = pd.concat(frames, ignore_index=True).drop_duplicates(subset=["date"]).sort_values("date")
@@ -356,7 +405,9 @@ def load_alt_and_cmc_fear_greed(project_root: Path) -> tuple[pd.DataFrame, pd.Da
     """Load AlternativeMe and curated CMC Fear & Greed frames."""
 
     alt_path = project_root / "Data" / "AlternativeMe" / "fear_greed_index__daily.csv"
-    cmc_path = project_root / "Data" / "MarketStructure" / "CoinMarketCap" / "cmc_fear_greed__daily.csv"
+    cmc_path = (
+        project_root / "Data" / "MarketStructure" / "CoinMarketCap" / "cmc_fear_greed__daily.csv"
+    )
     alt = pd.DataFrame(columns=["date", "alt_value", "alt_classification"])
     cmc = pd.DataFrame(columns=["date", "cmc_value", "cmc_classification"])
     if alt_path.exists():
@@ -411,7 +462,9 @@ def sentiment_overlap_diagnostics(project_root: Path) -> pd.DataFrame:
     ].sort_values("date")
 
 
-def sentiment_overlap_summary(project_root: Path, *, splice_date: str = "2023-06-29") -> pd.DataFrame:
+def sentiment_overlap_summary(
+    project_root: Path, *, splice_date: str = "2023-06-29"
+) -> pd.DataFrame:
     """Summarize AlternativeMe vs CMC overlap and splice risk."""
 
     overlap = sentiment_overlap_diagnostics(project_root)
@@ -419,7 +472,13 @@ def sentiment_overlap_summary(project_root: Path, *, splice_date: str = "2023-06
     rows: list[dict[str, object]] = []
     if overlap.empty:
         return pd.DataFrame(
-            [{"metric": "overlap_rows", "value": 0, "note": "CMC or AlternativeMe data unavailable."}]
+            [
+                {
+                    "metric": "overlap_rows",
+                    "value": 0,
+                    "note": "CMC or AlternativeMe data unavailable.",
+                }
+            ]
         )
 
     def add(metric: str, value: object, note: str = "") -> None:
@@ -428,7 +487,10 @@ def sentiment_overlap_summary(project_root: Path, *, splice_date: str = "2023-06
     add("overlap_rows", len(overlap))
     add("overlap_start", str(overlap["date"].min()))
     add("overlap_end", str(overlap["date"].max()))
-    add("pearson_correlation", round(float(overlap[["alt_value", "cmc_value"]].corr().iloc[0, 1]), 4))
+    add(
+        "pearson_correlation",
+        round(float(overlap[["alt_value", "cmc_value"]].corr().iloc[0, 1]), 4),
+    )
     add("mean_diff_cmc_minus_alt", round(float(overlap["diff_cmc_minus_alt"].mean()), 4))
     add("median_diff_cmc_minus_alt", round(float(overlap["diff_cmc_minus_alt"].median()), 4))
     add("mean_abs_diff", round(float(overlap["abs_diff"].mean()), 4))
@@ -472,13 +534,22 @@ def sentiment_overlap_summary(project_root: Path, *, splice_date: str = "2023-06
     return pd.DataFrame(rows)
 
 
-def build_blended_fear_greed(project_root: Path, *, splice_date: str = "2023-06-29") -> pd.DataFrame:
+def build_blended_fear_greed(
+    project_root: Path, *, splice_date: str = "2023-06-29"
+) -> pd.DataFrame:
     """Blend AlternativeMe before CMC starts and CMC after the splice date."""
 
     alt, cmc = load_alt_and_cmc_fear_greed(project_root)
     if alt.empty or cmc.empty:
         return pd.DataFrame(
-            columns=["date", "fng_value", "fng_classification", "source", "splice_rule", "is_post_splice"]
+            columns=[
+                "date",
+                "fng_value",
+                "fng_classification",
+                "source",
+                "splice_rule",
+                "is_post_splice",
+            ]
         )
     splice = pd.Timestamp(splice_date)
     alt_part = alt[alt["date"] < splice].rename(
@@ -496,13 +567,19 @@ def build_blended_fear_greed(project_root: Path, *, splice_date: str = "2023-06-
         ],
         ignore_index=True,
     ).sort_values("date")
-    blended["splice_rule"] = f"alternative_me_before_{splice_date}__coinmarketcap_from_{splice_date}"
+    blended["splice_rule"] = (
+        f"alternative_me_before_{splice_date}__coinmarketcap_from_{splice_date}"
+    )
     blended["is_post_splice"] = blended["date"] >= splice
     blended["date"] = blended["date"].dt.date
-    return blended[["date", "fng_value", "fng_classification", "source", "splice_rule", "is_post_splice"]]
+    return blended[
+        ["date", "fng_value", "fng_classification", "source", "splice_rule", "is_post_splice"]
+    ]
 
 
-def write_sentiment_blend_files(project_root: Path, out_dir: Path, skipped: list[str]) -> list[Path]:
+def write_sentiment_blend_files(
+    project_root: Path, out_dir: Path, skipped: list[str]
+) -> list[Path]:
     """Write the curated blended Fear & Greed file and overlap diagnostics."""
 
     written: list[Path] = []
@@ -510,7 +587,9 @@ def write_sentiment_blend_files(project_root: Path, out_dir: Path, skipped: list
     overlap = sentiment_overlap_diagnostics(project_root)
     summary = sentiment_overlap_summary(project_root)
     if blended.empty:
-        skipped.append("Fear & Greed blend skipped because CMC or AlternativeMe data is unavailable.")
+        skipped.append(
+            "Fear & Greed blend skipped because CMC or AlternativeMe data is unavailable."
+        )
         return written
     written.append(write_csv(out_dir / "fear_greed_altme_pre_cmc_post__daily.csv", blended))
     written.append(write_csv(out_dir / "fear_greed_source_overlap__daily.csv", overlap))
@@ -560,7 +639,9 @@ def load_sentiment(project_root: Path) -> pd.DataFrame:
     alt_path = project_root / "Data" / "AlternativeMe" / "fear_greed_index__daily.csv"
     if alt_path.exists():
         frames.append(normalize_alternative_me_fear_greed(pd.read_csv(alt_path)))
-    cmc_path = project_root / "Data" / "MarketStructure" / "CoinMarketCap" / "cmc_fear_greed__daily.csv"
+    cmc_path = (
+        project_root / "Data" / "MarketStructure" / "CoinMarketCap" / "cmc_fear_greed__daily.csv"
+    )
     if cmc_path.exists():
         frames.append(pd.read_csv(cmc_path))
     if not frames:
@@ -569,15 +650,28 @@ def load_sentiment(project_root: Path) -> pd.DataFrame:
 
 
 def stablecoin_tvl_regimes(project_root: Path) -> pd.DataFrame:
-    metrics_path = project_root / "Data" / "DefiLlama" / "ChainMetrics" / "all_dex_metrics__daily.csv"
+    metrics_path = (
+        project_root / "Data" / "DefiLlama" / "ChainMetrics" / "all_dex_metrics__daily.csv"
+    )
     tvl_path = project_root / "Data" / "DefiLlama" / "TVL" / "Daily" / "tvl_all_chains_daily.csv"
     if not metrics_path.exists() and not tvl_path.exists():
-        return pd.DataFrame(columns=["date", "defi_tvl_usd", "stablecoins_mcap_usd", "dex_volume_usd", "stablecoin_tvl_ratio", "regime"])
+        return pd.DataFrame(
+            columns=[
+                "date",
+                "defi_tvl_usd",
+                "stablecoins_mcap_usd",
+                "dex_volume_usd",
+                "stablecoin_tvl_ratio",
+                "regime",
+            ]
+        )
 
     if metrics_path.exists():
         metrics = pd.read_csv(metrics_path, parse_dates=["date"])
         frame = pd.DataFrame({"date": metrics["date"]})
-        frame["stablecoins_mcap_usd"] = pd.to_numeric(metrics.get("Stablecoins Mcap"), errors="coerce")
+        frame["stablecoins_mcap_usd"] = pd.to_numeric(
+            metrics.get("Stablecoins Mcap"), errors="coerce"
+        )
         frame["dex_volume_usd"] = pd.to_numeric(metrics.get("DEXs Volume"), errors="coerce")
         frame["defi_tvl_usd"] = pd.to_numeric(metrics.get("TVL"), errors="coerce")
     else:
@@ -585,33 +679,65 @@ def stablecoin_tvl_regimes(project_root: Path) -> pd.DataFrame:
     if tvl_path.exists():
         tvl = pd.read_csv(tvl_path, parse_dates=["date"])
         tvl["defi_tvl_usd_alt"] = pd.to_numeric(tvl.get("TVL"), errors="coerce")
-        frame = frame.merge(tvl[["date", "defi_tvl_usd_alt"]], on="date", how="outer") if not frame.empty else tvl[["date", "defi_tvl_usd_alt"]]
-        frame["defi_tvl_usd"] = frame.get("defi_tvl_usd").combine_first(frame["defi_tvl_usd_alt"]) if "defi_tvl_usd" in frame else frame["defi_tvl_usd_alt"]
+        frame = (
+            frame.merge(tvl[["date", "defi_tvl_usd_alt"]], on="date", how="outer")
+            if not frame.empty
+            else tvl[["date", "defi_tvl_usd_alt"]]
+        )
+        frame["defi_tvl_usd"] = (
+            frame.get("defi_tvl_usd").combine_first(frame["defi_tvl_usd_alt"])
+            if "defi_tvl_usd" in frame
+            else frame["defi_tvl_usd_alt"]
+        )
     frame = frame.drop(columns=[col for col in ["defi_tvl_usd_alt"] if col in frame])
     frame["stablecoin_tvl_ratio"] = frame["stablecoins_mcap_usd"] / frame["defi_tvl_usd"]
     monthly = frame.set_index("date").resample("ME").last().reset_index()
     median = monthly["stablecoin_tvl_ratio"].median(skipna=True)
-    monthly["regime"] = monthly["stablecoin_tvl_ratio"].map(lambda value: "high_stablecoin_to_tvl" if pd.notna(value) and value >= median else "low_stablecoin_to_tvl")
+    monthly["regime"] = monthly["stablecoin_tvl_ratio"].map(
+        lambda value: (
+            "high_stablecoin_to_tvl"
+            if pd.notna(value) and value >= median
+            else "low_stablecoin_to_tvl"
+        )
+    )
     monthly["date"] = monthly["date"].dt.date
     return monthly
 
 
 def cex_dex_activity(project_root: Path) -> pd.DataFrame:
     dex_path = project_root / "Data" / "DefiLlama" / "ChainMetrics" / "all_dex_metrics__daily.csv"
-    cex_path = project_root / "Data" / "DefiLlama" / "CEX" / "cex_net_inflows_by_exchange__daily.csv"
+    cex_path = (
+        project_root / "Data" / "DefiLlama" / "CEX" / "cex_net_inflows_by_exchange__daily.csv"
+    )
     frames: list[pd.DataFrame] = []
     if dex_path.exists():
         dex = pd.read_csv(dex_path, parse_dates=["date"])
-        frames.append(pd.DataFrame({"date": dex["date"], "metric": "dex_volume_usd", "value": pd.to_numeric(dex.get("DEXs Volume"), errors="coerce")}))
+        frames.append(
+            pd.DataFrame(
+                {
+                    "date": dex["date"],
+                    "metric": "dex_volume_usd",
+                    "value": pd.to_numeric(dex.get("DEXs Volume"), errors="coerce"),
+                }
+            )
+        )
     if cex_path.exists():
         cex = pd.read_csv(cex_path, parse_dates=["date"])
         value_cols = [col for col in cex.columns if col != "date"]
         values = cex[value_cols].apply(pd.to_numeric, errors="coerce").sum(axis=1, min_count=1)
-        frames.append(pd.DataFrame({"date": cex["date"], "metric": "cex_net_inflows_usd", "value": values}))
+        frames.append(
+            pd.DataFrame({"date": cex["date"], "metric": "cex_net_inflows_usd", "value": values})
+        )
     if not frames:
         return pd.DataFrame(columns=["date", "metric", "value"])
     out = pd.concat(frames, ignore_index=True)
-    out = out.set_index("date").groupby("metric").resample("ME")["value"].sum(min_count=1).reset_index()
+    out = (
+        out.set_index("date")
+        .groupby("metric")
+        .resample("ME")["value"]
+        .sum(min_count=1)
+        .reset_index()
+    )
     out["date"] = out["date"].dt.date
     return out
 
@@ -624,7 +750,9 @@ def rwa_dat_growth(project_root: Path) -> pd.DataFrame:
         rwa = pd.read_csv(rwa_path, parse_dates=["date"])
         value_cols = [col for col in rwa.columns if col != "date"]
         values = rwa[value_cols].apply(pd.to_numeric, errors="coerce").sum(axis=1, min_count=1)
-        rows.append(pd.DataFrame({"date": rwa["date"], "metric": "rwa_onchain_mcap_usd", "value": values}))
+        rows.append(
+            pd.DataFrame({"date": rwa["date"], "metric": "rwa_onchain_mcap_usd", "value": values})
+        )
     if dat_path.exists():
         dat = pd.read_csv(dat_path)
         rows.append(
@@ -654,7 +782,9 @@ def btc_cycle_overlay(project_root: Path) -> pd.DataFrame:
     return out.dropna()
 
 
-def load_monthly_market_universe(project_root: Path, overrides: dict[str, set[str]]) -> pd.DataFrame:
+def load_monthly_market_universe(
+    project_root: Path, overrides: dict[str, set[str]]
+) -> pd.DataFrame:
     """Load the normalized monthly point-in-time market-cap universe when present."""
 
     path = project_root / MONTHLY_UNIVERSE_CURATED
@@ -666,6 +796,7 @@ def load_monthly_market_universe(project_root: Path, overrides: dict[str, set[st
 
 
 def write_market_cap_universe_outputs(
+    project_root: Path,
     dirs: dict[str, Path],
     universe: pd.DataFrame,
 ) -> list[Path]:
@@ -681,10 +812,81 @@ def write_market_cap_universe_outputs(
     summary = market_evolution_summary(universe, composition, turnover)
     output_files.append(write_csv(dirs["tables"] / "T40_crypto_universe_monthly.csv", universe))
     output_files.append(write_csv(dirs["tables"] / "T41_clean_risk_top100_monthly.csv", clean_risk))
-    output_files.append(write_csv(dirs["tables"] / "T42_market_structure_composition.csv", composition))
+    output_files.append(
+        write_csv(dirs["tables"] / "T42_market_structure_composition.csv", composition)
+    )
     output_files.append(write_csv(dirs["tables"] / "T43_rank_turnover.csv", turnover))
-    output_files.append(write_csv(dirs["tables"] / "T44_cycle_phase_market_structure.csv", cycle_phase))
+    output_files.append(
+        write_csv(dirs["tables"] / "T44_cycle_phase_market_structure.csv", cycle_phase)
+    )
     output_files.append(write_text(dirs["tables"] / "T45_market_evolution_summary.md", summary))
+    output_files.extend(
+        write_market_structure_feature_outputs(project_root, dirs, universe, composition, turnover)
+    )
+    return output_files
+
+
+def write_market_structure_feature_outputs(
+    project_root: Path,
+    dirs: dict[str, Path],
+    universe: pd.DataFrame,
+    composition: pd.DataFrame,
+    turnover: pd.DataFrame,
+) -> list[Path]:
+    """Write monthly feature, daily context, and descriptive regime diagnostics."""
+
+    output_files: list[Path] = []
+    monthly_features = market_structure_monthly_features(universe, composition, turnover)
+    output_files.append(
+        write_csv(dirs["tables"] / "T46_market_structure_monthly_features.csv", monthly_features)
+    )
+
+    panel_path = project_root / "reports" / "panels" / "master_daily.parquet"
+    if panel_path.exists():
+        try:
+            daily_panel = pd.read_parquet(panel_path)
+        except (ImportError, ValueError, OSError) as exc:
+            daily_panel = pd.DataFrame()
+            note = f"Daily context skipped because master_daily.parquet could not be read: {exc}"
+        else:
+            note = ""
+    else:
+        daily_panel = pd.DataFrame()
+        note = "Daily context skipped because reports/panels/master_daily.parquet is unavailable."
+
+    daily_context = build_market_structure_daily_context(daily_panel, monthly_features)
+    return_regimes = market_structure_return_regimes(daily_context)
+    composition_shift = market_structure_composition_shift(monthly_features)
+    turnover_by_phase = market_structure_turnover_by_phase(monthly_features)
+    summary = market_structure_modeling_summary(
+        monthly_features,
+        daily_context,
+        return_regimes,
+        composition_shift,
+        turnover_by_phase,
+    )
+    if note:
+        summary += f"\n\nPipeline note: {note}\n"
+    output_files.append(
+        write_csv(dirs["tables"] / "T47_market_structure_daily_context.csv", daily_context)
+    )
+    output_files.append(
+        write_csv(dirs["tables"] / "T48_market_structure_return_regimes.csv", return_regimes)
+    )
+    output_files.append(
+        write_csv(dirs["tables"] / "T49_market_structure_composition_shift.csv", composition_shift)
+    )
+    output_files.append(
+        write_csv(dirs["tables"] / "T50_market_structure_turnover_by_phase.csv", turnover_by_phase)
+    )
+    output_files.append(
+        write_text(dirs["tables"] / "T51_market_structure_modeling_summary.md", summary)
+    )
+    output_files.append(
+        write_text(
+            project_root / "outputs" / "report" / "market_structure_modeling_thesis.md", summary
+        )
+    )
     return output_files
 
 
@@ -698,11 +900,23 @@ def remove_market_cap_universe_outputs(project_root: Path) -> None:
         "outputs/tables/T43_rank_turnover.csv",
         "outputs/tables/T44_cycle_phase_market_structure.csv",
         "outputs/tables/T45_market_evolution_summary.md",
+        "outputs/tables/T46_market_structure_monthly_features.csv",
+        "outputs/tables/T47_market_structure_daily_context.csv",
+        "outputs/tables/T48_market_structure_return_regimes.csv",
+        "outputs/tables/T49_market_structure_composition_shift.csv",
+        "outputs/tables/T50_market_structure_turnover_by_phase.csv",
+        "outputs/tables/T51_market_structure_modeling_summary.md",
         "outputs/figures/F38_market_structure_composition.png",
         "outputs/figures/F39_top100_concentration.png",
         "outputs/figures/F40_rank_turnover.png",
         "outputs/figures/F41_cycle_phase_market_structure.png",
         "outputs/figures/F42_market_evolution_dashboard.png",
+        "outputs/figures/F43_market_structure_monthly_features.png",
+        "outputs/figures/F44_market_structure_return_regimes.png",
+        "outputs/figures/F45_market_structure_composition_shift.png",
+        "outputs/figures/F46_market_structure_turnover_by_phase.png",
+        "outputs/figures/F47_market_structure_modeling_dashboard.png",
+        "outputs/report/market_structure_modeling_thesis.md",
     ]:
         path = project_root / relpath
         if path.exists():
@@ -717,15 +931,33 @@ def feature_panel_summary(
     market_cap_top100_rows: int = 0,
 ) -> pd.DataFrame:
     market_status = "available" if market_cap_top100_rows else "skipped_no_point_in_time_source"
-    ranks_skipped = "status" in ranks and ranks["status"].astype(str).str.startswith("skipped").all()
+    ranks_skipped = (
+        "status" in ranks and ranks["status"].astype(str).str.startswith("skipped").all()
+    )
     rank_rows = 0 if ranks.empty or ranks_skipped else len(ranks)
     rank_status = "available" if rank_rows else "skipped_no_kline_cache"
     rows = [
-        {"feature_family": "sentiment", "rows": len(sentiment), "status": "available" if len(sentiment) else "missing"},
-        {"feature_family": "stablecoin_tvl_regime", "rows": len(stablecoin_tvl), "status": "available" if len(stablecoin_tvl) else "missing"},
-        {"feature_family": "cex_dex_activity", "rows": len(activity), "status": "available" if len(activity) else "missing"},
+        {
+            "feature_family": "sentiment",
+            "rows": len(sentiment),
+            "status": "available" if len(sentiment) else "missing",
+        },
+        {
+            "feature_family": "stablecoin_tvl_regime",
+            "rows": len(stablecoin_tvl),
+            "status": "available" if len(stablecoin_tvl) else "missing",
+        },
+        {
+            "feature_family": "cex_dex_activity",
+            "rows": len(activity),
+            "status": "available" if len(activity) else "missing",
+        },
         {"feature_family": "binance_liquidity_top100", "rows": rank_rows, "status": rank_status},
-        {"feature_family": "market_cap_top100", "rows": market_cap_top100_rows, "status": market_status},
+        {
+            "feature_family": "market_cap_top100",
+            "rows": market_cap_top100_rows,
+            "status": market_status,
+        },
     ]
     return pd.DataFrame(rows)
 
@@ -738,9 +970,13 @@ def build_outputs(project_root: Path = ROOT) -> MarketStructureBuildResult:
     skipped: list[str] = []
 
     endpoint_rows = pd.DataFrame(endpoint_audit_rows(all_endpoint_specs()))
-    output_files.append(write_csv(dirs["tables"] / "T28_market_structure_source_capabilities.csv", endpoint_rows))
+    output_files.append(
+        write_csv(dirs["tables"] / "T28_market_structure_source_capabilities.csv", endpoint_rows)
+    )
 
-    overrides = load_classification_overrides(project_root / "config" / "asset_classification_overrides.yml")
+    overrides = load_classification_overrides(
+        project_root / "config" / "asset_classification_overrides.yml"
+    )
     symbol_path = project_root / "Data" / "MarketStructure" / "Binance" / "binance_spot_symbols.csv"
     if symbol_path.exists():
         symbols = pd.read_csv(symbol_path)
@@ -755,9 +991,20 @@ def build_outputs(project_root: Path = ROOT) -> MarketStructureBuildResult:
         )
     classified = classify_symbol_frame(symbols, overrides)
     output_files.append(write_csv(dirs["tables"] / "T29_asset_classification.csv", classified))
-    output_files.append(write_csv(dirs["tables"] / "T29_asset_classification_summary.csv", classification_summary(classified)))
+    output_files.append(
+        write_csv(
+            dirs["tables"] / "T29_asset_classification_summary.csv",
+            classification_summary(classified),
+        )
+    )
 
-    ranks_path = project_root / "Data" / "MarketStructure" / "Binance" / "binance_liquidity_top100__monthly.csv"
+    ranks_path = (
+        project_root
+        / "Data"
+        / "MarketStructure"
+        / "Binance"
+        / "binance_liquidity_top100__monthly.csv"
+    )
     if ranks_path.exists():
         ranks = pd.read_csv(ranks_path)
     else:
@@ -779,20 +1026,31 @@ def build_outputs(project_root: Path = ROOT) -> MarketStructureBuildResult:
     output_files.append(write_csv(dirs["tables"] / "T30_binance_liquidity_top100.csv", ranks))
 
     sentiment = load_sentiment(project_root)
-    if not (project_root / "Data" / "MarketStructure" / "CoinMarketCap" / "cmc_fear_greed__daily.csv").exists():
-        skipped.append("CMC Fear & Greed skipped because CMC_API_KEY/cache is unavailable; AlternativeMe baseline used.")
+    if not (
+        project_root / "Data" / "MarketStructure" / "CoinMarketCap" / "cmc_fear_greed__daily.csv"
+    ).exists():
+        skipped.append(
+            "CMC Fear & Greed skipped because CMC_API_KEY/cache is unavailable; AlternativeMe baseline used."
+        )
     output_files.append(write_csv(dirs["tables"] / "T31_sentiment_comparison.csv", sentiment))
     sentiment_dir = project_root / "Data" / "MarketStructure" / "Sentiment"
     blend_path = sentiment_dir / "fear_greed_altme_pre_cmc_post__daily.csv"
     overlap_summary_path = sentiment_dir / "fear_greed_source_overlap_summary.csv"
     if blend_path.exists():
-        output_files.append(write_csv(dirs["tables"] / "T38_fear_greed_blended_daily.csv", pd.read_csv(blend_path)))
+        output_files.append(
+            write_csv(dirs["tables"] / "T38_fear_greed_blended_daily.csv", pd.read_csv(blend_path))
+        )
     if overlap_summary_path.exists():
         output_files.append(
-            write_csv(dirs["tables"] / "T39_fear_greed_source_overlap_summary.csv", pd.read_csv(overlap_summary_path))
+            write_csv(
+                dirs["tables"] / "T39_fear_greed_source_overlap_summary.csv",
+                pd.read_csv(overlap_summary_path),
+            )
         )
     stablecoin_tvl = stablecoin_tvl_regimes(project_root)
-    output_files.append(write_csv(dirs["tables"] / "T32_stablecoin_tvl_regimes.csv", stablecoin_tvl))
+    output_files.append(
+        write_csv(dirs["tables"] / "T32_stablecoin_tvl_regimes.csv", stablecoin_tvl)
+    )
     activity = cex_dex_activity(project_root)
     output_files.append(write_csv(dirs["tables"] / "T33_cex_dex_activity.csv", activity))
     cycle = btc_cycle_overlay(project_root)
@@ -804,12 +1062,16 @@ def build_outputs(project_root: Path = ROOT) -> MarketStructureBuildResult:
     has_market_universe = not market_universe.empty
     gap = market_cap_top100_gap_report(has_market_universe)
     if has_market_universe:
-        output_files.extend(write_market_cap_universe_outputs(dirs, market_universe))
+        output_files.extend(write_market_cap_universe_outputs(project_root, dirs, market_universe))
     else:
         remove_market_cap_universe_outputs(project_root)
-        skipped.append("Historical market-cap top100 skipped because no point-in-time source is available.")
+        skipped.append(
+            "Historical market-cap top100 skipped because no point-in-time source is available."
+        )
     output_files.append(write_csv(dirs["tables"] / "T36_market_cap_top100_gap.csv", gap))
-    market_cap_top100_rows = int(market_universe["in_full_top100"].sum()) if has_market_universe else 0
+    market_cap_top100_rows = (
+        int(market_universe["in_full_top100"].sum()) if has_market_universe else 0
+    )
     feature_panel = feature_panel_summary(
         sentiment,
         stablecoin_tvl,
@@ -834,7 +1096,29 @@ def build_outputs(project_root: Path = ROOT) -> MarketStructureBuildResult:
             ],
             ignore_index=True,
         )
-    output_files.append(write_csv(dirs["tables"] / "T37_market_structure_feature_panel.csv", feature_panel))
+    monthly_context_path = dirs["tables"] / "T47_market_structure_daily_context.csv"
+    if monthly_context_path.exists():
+        monthly_context_rows = len(pd.read_csv(monthly_context_path))
+        feature_panel = pd.concat(
+            [
+                feature_panel,
+                pd.DataFrame(
+                    [
+                        {
+                            "feature_family": "monthly_market_structure_daily_context",
+                            "rows": monthly_context_rows,
+                            "status": "available"
+                            if monthly_context_rows
+                            else "skipped_no_daily_panel",
+                        }
+                    ]
+                ),
+            ],
+            ignore_index=True,
+        )
+    output_files.append(
+        write_csv(dirs["tables"] / "T37_market_structure_feature_panel.csv", feature_panel)
+    )
 
     output_files.extend(write_reports(project_root, feature_panel, endpoint_rows, skipped))
     output_files.extend(render_market_structure_figures(project_root))
@@ -851,12 +1135,22 @@ def write_reports(
 ) -> list[Path]:
     report_dir = project_root / "outputs" / "report"
     rows = int(feature_panel["rows"].sum()) if not feature_panel.empty else 0
-    key_required = endpoint_rows[endpoint_rows["requires_key_env"].astype(str) != ""] if "requires_key_env" in endpoint_rows else pd.DataFrame()
-    key_available = int(key_required["key_available"].sum()) if "key_available" in key_required else 0
-    cmc_path = project_root / "Data" / "MarketStructure" / "CoinMarketCap" / "cmc_fear_greed__daily.csv"
+    key_required = (
+        endpoint_rows[endpoint_rows["requires_key_env"].astype(str) != ""]
+        if "requires_key_env" in endpoint_rows
+        else pd.DataFrame()
+    )
+    key_available = (
+        int(key_required["key_available"].sum()) if "key_available" in key_required else 0
+    )
+    cmc_path = (
+        project_root / "Data" / "MarketStructure" / "CoinMarketCap" / "cmc_fear_greed__daily.csv"
+    )
     cmc_rows = len(pd.read_csv(cmc_path)) if cmc_path.exists() else 0
     market_row = feature_panel[feature_panel["feature_family"] == "market_cap_top100"]
-    market_universe_available = not market_row.empty and str(market_row["status"].iloc[0]) == "available"
+    market_universe_available = (
+        not market_row.empty and str(market_row["status"].iloc[0]) == "available"
+    )
     market_universe_note = (
         "The local DefiLlama monthly point-in-time top200 universe is integrated for market-cap composition, concentration, clean-risk top100 construction, rank turnover, and cycle/ETF phase structure."
         if market_universe_available
@@ -869,6 +1163,12 @@ def write_reports(
         "\n- `T43_rank_turnover.csv`"
         "\n- `T44_cycle_phase_market_structure.csv`"
         "\n- `T45_market_evolution_summary.md`"
+        "\n- `T46_market_structure_monthly_features.csv`"
+        "\n- `T47_market_structure_daily_context.csv`"
+        "\n- `T48_market_structure_return_regimes.csv`"
+        "\n- `T49_market_structure_composition_shift.csv`"
+        "\n- `T50_market_structure_turnover_by_phase.csv`"
+        "\n- `T51_market_structure_modeling_summary.md`"
         if market_universe_available
         else ""
     )
@@ -881,7 +1181,7 @@ The market-structure extension adds a public, reduced-form context layer around 
 
 The release is designed to work without paid/live data. It uses the frozen tracked dataset first and enriches from `data_cache/` only when optional DefiLlama, Binance, or CoinMarketCap cache is available. Generated feature rows across the public market-structure tables: {rows}.
 
-{market_universe_note}
+{market_universe_note} When the frozen master daily panel is available, the build also creates a lagged/as-of monthly context layer and descriptive BTC/ETH return-regime diagnostics.
 
 Monthly snapshots support composition, concentration, rank turnover, and cycle-phase structure. Daily OHLCV is still required for returns, breadth, volatility, beta, drawdowns, dispersion, and event-response analysis.
 
@@ -992,7 +1292,12 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
     fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
     if not st.empty:
         ax.plot(st["date"], st["defi_tvl_usd"], label="DeFi TVL", color=COLORS["eth"])
-        ax.plot(st["date"], st["stablecoins_mcap_usd"], label="Stablecoin mcap", color=COLORS["stablecoin"])
+        ax.plot(
+            st["date"],
+            st["stablecoins_mcap_usd"],
+            label="Stablecoin mcap",
+            color=COLORS["stablecoin"],
+        )
         ax.set_yscale("log")
     ax.set_title("Stablecoins and TVL Regimes", color=COLORS["text"], fontweight="bold")
     ax.legend(frameon=False)
@@ -1021,12 +1326,27 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
 
     ranks = pd.read_csv(tables / "T30_binance_liquidity_top100.csv")
     fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
-    if "rolling_quote_volume_usd" in ranks and pd.to_numeric(ranks["rolling_quote_volume_usd"], errors="coerce").notna().any():
+    if (
+        "rolling_quote_volume_usd" in ranks
+        and pd.to_numeric(ranks["rolling_quote_volume_usd"], errors="coerce").notna().any()
+    ):
         latest_month = ranks["month"].dropna().iloc[-1]
         latest = ranks[ranks["month"] == latest_month].head(20)
-        ax.barh(latest["symbol"], pd.to_numeric(latest["rolling_quote_volume_usd"], errors="coerce"), color=COLORS["btc"])
+        ax.barh(
+            latest["symbol"],
+            pd.to_numeric(latest["rolling_quote_volume_usd"], errors="coerce"),
+            color=COLORS["btc"],
+        )
     else:
-        ax.text(0.5, 0.5, "No Binance kline cache\nliquidity ranks skipped", ha="center", va="center", color=COLORS["muted"], transform=ax.transAxes)
+        ax.text(
+            0.5,
+            0.5,
+            "No Binance kline cache\nliquidity ranks skipped",
+            ha="center",
+            va="center",
+            color=COLORS["muted"],
+            transform=ax.transAxes,
+        )
         ax.set_xticks([])
         ax.set_yticks([])
     ax.set_title("Binance Exchange-Liquidity Universe", color=COLORS["text"], fontweight="bold")
@@ -1037,9 +1357,22 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
     fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
     if not cycle.empty:
         ax.plot(cycle["date"], cycle["btc_dominance_close"], color=COLORS["btc"], linewidth=1.2)
-        for date_str, label in [("2020-05-11", "2020 halving"), ("2024-01-11", "BTC ETF"), ("2024-04-20", "2024 halving"), ("2024-07-23", "ETH ETF")]:
+        for date_str, label in [
+            ("2020-05-11", "2020 halving"),
+            ("2024-01-11", "BTC ETF"),
+            ("2024-04-20", "2024 halving"),
+            ("2024-07-23", "ETH ETF"),
+        ]:
             ax.axvline(pd.Timestamp(date_str), color=COLORS["neutral"], linewidth=0.8, alpha=0.5)
-            ax.text(pd.Timestamp(date_str), ax.get_ylim()[1], label, rotation=90, va="top", fontsize=7, color=COLORS["muted"])
+            ax.text(
+                pd.Timestamp(date_str),
+                ax.get_ylim()[1],
+                label,
+                rotation=90,
+                va="top",
+                fontsize=7,
+                color=COLORS["muted"],
+            )
     ax.set_title("BTC Dominance With Cycle Markers", color=COLORS["text"], fontweight="bold")
     _style_axis(ax)
     written.append(save_fig(fig, figures / "F35_btc_dominance_cycle_overlay.png"))
@@ -1058,17 +1391,53 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
     gap = pd.read_csv(tables / "T36_market_cap_top100_gap.csv")
     fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
     ax.axis("off")
-    ax.text(0.02, 0.75, "Market-Cap Top100", color=COLORS["text"], fontsize=18, fontweight="bold", transform=ax.transAxes)
-    ax.text(0.02, 0.55, str(gap.loc[0, "status"]).upper(), color=COLORS["risk"], fontsize=28, fontweight="bold", transform=ax.transAxes)
-    ax.text(0.02, 0.36, str(gap.loc[0, "reason"]), color=COLORS["muted"], fontsize=11, wrap=True, transform=ax.transAxes)
-    ax.text(0.02, 0.18, "Guardrail: no current-top100 historical backfill.", color=COLORS["muted"], fontsize=10, transform=ax.transAxes)
+    ax.text(
+        0.02,
+        0.75,
+        "Market-Cap Top100",
+        color=COLORS["text"],
+        fontsize=18,
+        fontweight="bold",
+        transform=ax.transAxes,
+    )
+    ax.text(
+        0.02,
+        0.55,
+        str(gap.loc[0, "status"]).upper(),
+        color=COLORS["risk"],
+        fontsize=28,
+        fontweight="bold",
+        transform=ax.transAxes,
+    )
+    ax.text(
+        0.02,
+        0.36,
+        str(gap.loc[0, "reason"]),
+        color=COLORS["muted"],
+        fontsize=11,
+        wrap=True,
+        transform=ax.transAxes,
+    )
+    ax.text(
+        0.02,
+        0.18,
+        "Guardrail: no current-top100 historical backfill.",
+        color=COLORS["muted"],
+        fontsize=10,
+        transform=ax.transAxes,
+    )
     written.append(save_fig(fig, figures / "F37_market_cap_top100_gap.png"))
 
     universe_path = tables / "T40_crypto_universe_monthly.csv"
     composition_path = tables / "T42_market_structure_composition.csv"
     turnover_path = tables / "T43_rank_turnover.csv"
     cycle_path = tables / "T44_cycle_phase_market_structure.csv"
-    if universe_path.exists() and composition_path.exists() and turnover_path.exists() and cycle_path.exists():
+    if (
+        universe_path.exists()
+        and composition_path.exists()
+        and turnover_path.exists()
+        and cycle_path.exists()
+    ):
         universe = pd.read_csv(universe_path, parse_dates=["snapshot_date"])
         composition = pd.read_csv(composition_path, parse_dates=["snapshot_date"])
         turnover = pd.read_csv(turnover_path, parse_dates=["snapshot_date"])
@@ -1108,7 +1477,9 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
             ax.legend(frameon=False, fontsize=7, ncol=2, loc="upper left")
             ax.set_ylim(0, 1)
             ax.yaxis.set_major_formatter(PercentFormatter(1.0))
-        ax.set_title("Full Top100 Market-Structure Composition", color=COLORS["text"], fontweight="bold")
+        ax.set_title(
+            "Full Top100 Market-Structure Composition", color=COLORS["text"], fontweight="bold"
+        )
         ax.set_ylabel("Market-cap share")
         _style_axis(ax)
         written.append(save_fig(fig, figures / "F38_market_structure_composition.png"))
@@ -1118,7 +1489,9 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
         for snapshot_date, group in full_top100.groupby("snapshot_date"):
             total = group["market_cap_usd"].sum()
             top10_share = group.nsmallest(10, "rank_full_market")["market_cap_usd"].sum() / total
-            btc_eth_share = group[group["symbol"].isin(["BTC", "ETH"])]["market_cap_usd"].sum() / total
+            btc_eth_share = (
+                group[group["symbol"].isin(["BTC", "ETH"])]["market_cap_usd"].sum() / total
+            )
             concentration_rows.append(
                 {
                     "snapshot_date": snapshot_date,
@@ -1129,8 +1502,18 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
         concentration = pd.DataFrame(concentration_rows)
         fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
         if not concentration.empty:
-            ax.plot(concentration["snapshot_date"], concentration["top10_share"], label="Top10 share", color=COLORS["btc"])
-            ax.plot(concentration["snapshot_date"], concentration["btc_eth_share"], label="BTC+ETH share", color=COLORS["eth"])
+            ax.plot(
+                concentration["snapshot_date"],
+                concentration["top10_share"],
+                label="Top10 share",
+                color=COLORS["btc"],
+            )
+            ax.plot(
+                concentration["snapshot_date"],
+                concentration["btc_eth_share"],
+                label="BTC+ETH share",
+                color=COLORS["eth"],
+            )
             ax.set_ylim(0, 1)
             ax.yaxis.set_major_formatter(PercentFormatter(1.0))
             ax.legend(frameon=False)
@@ -1140,11 +1523,23 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
         written.append(save_fig(fig, figures / "F39_top100_concentration.png"))
 
         clean_turnover = turnover[turnover["universe_type"] == "clean_risk_top100"]
-        plot_turnover = clean_turnover[pd.to_numeric(clean_turnover["continuing_assets"], errors="coerce") > 0]
+        plot_turnover = clean_turnover[
+            pd.to_numeric(clean_turnover["continuing_assets"], errors="coerce") > 0
+        ]
         fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
         if not plot_turnover.empty:
-            ax.plot(plot_turnover["snapshot_date"], plot_turnover["entrants"], label="Entrants", color=COLORS["positive"])
-            ax.plot(plot_turnover["snapshot_date"], plot_turnover["exits"], label="Exits", color=COLORS["negative"])
+            ax.plot(
+                plot_turnover["snapshot_date"],
+                plot_turnover["entrants"],
+                label="Entrants",
+                color=COLORS["positive"],
+            )
+            ax.plot(
+                plot_turnover["snapshot_date"],
+                plot_turnover["exits"],
+                label="Exits",
+                color=COLORS["negative"],
+            )
             ax.legend(frameon=False)
         ax.set_title("Clean-Risk Top100 Rank Turnover", color=COLORS["text"], fontweight="bold")
         ax.set_ylabel("Assets")
@@ -1161,11 +1556,21 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
         )
         fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
         if not phase_pivot.empty:
-            phase_pivot.plot(kind="bar", stacked=True, ax=ax, color=palette[: len(phase_pivot.columns)], width=0.78)
+            phase_pivot.plot(
+                kind="bar",
+                stacked=True,
+                ax=ax,
+                color=palette[: len(phase_pivot.columns)],
+                width=0.78,
+            )
             ax.legend(frameon=False, fontsize=7, ncol=2)
             ax.set_ylim(0, 1)
             ax.yaxis.set_major_formatter(PercentFormatter(1.0))
-            ax.set_xticklabels([_phase_label(label.get_text()) for label in ax.get_xticklabels()], rotation=0, ha="center")
+            ax.set_xticklabels(
+                [_phase_label(label.get_text()) for label in ax.get_xticklabels()],
+                rotation=0,
+                ha="center",
+            )
         ax.set_title("Cycle-Phase Market Structure", color=COLORS["text"], fontweight="bold")
         ax.set_ylabel("Mean market-cap share")
         _style_axis(ax)
@@ -1186,19 +1591,45 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
             axes[0].legend(frameon=False, fontsize=7, ncol=2, loc="upper left")
         axes[0].set_title("Composition", color=COLORS["text"], fontweight="bold")
         if not concentration.empty:
-            axes[1].plot(concentration["snapshot_date"], concentration["top10_share"], color=COLORS["btc"], label="Top10")
-            axes[1].plot(concentration["snapshot_date"], concentration["btc_eth_share"], color=COLORS["eth"], label="BTC+ETH")
+            axes[1].plot(
+                concentration["snapshot_date"],
+                concentration["top10_share"],
+                color=COLORS["btc"],
+                label="Top10",
+            )
+            axes[1].plot(
+                concentration["snapshot_date"],
+                concentration["btc_eth_share"],
+                color=COLORS["eth"],
+                label="BTC+ETH",
+            )
             axes[1].set_ylim(0, 1)
             axes[1].yaxis.set_major_formatter(PercentFormatter(1.0))
             axes[1].legend(frameon=False, fontsize=7)
         axes[1].set_title("Concentration", color=COLORS["text"], fontweight="bold")
         if not plot_turnover.empty:
-            axes[2].bar(plot_turnover["snapshot_date"], plot_turnover["entrants"], color=COLORS["positive"], label="Entrants")
-            axes[2].bar(plot_turnover["snapshot_date"], -plot_turnover["exits"], color=COLORS["negative"], label="Exits")
+            axes[2].bar(
+                plot_turnover["snapshot_date"],
+                plot_turnover["entrants"],
+                color=COLORS["positive"],
+                label="Entrants",
+            )
+            axes[2].bar(
+                plot_turnover["snapshot_date"],
+                -plot_turnover["exits"],
+                color=COLORS["negative"],
+                label="Exits",
+            )
             axes[2].legend(frameon=False, fontsize=7)
         axes[2].set_title("Turnover", color=COLORS["text"], fontweight="bold")
         if not phase_pivot.empty:
-            phase_pivot.plot(kind="bar", stacked=True, ax=axes[3], color=palette[: len(phase_pivot.columns)], legend=False)
+            phase_pivot.plot(
+                kind="bar",
+                stacked=True,
+                ax=axes[3],
+                color=palette[: len(phase_pivot.columns)],
+                legend=False,
+            )
             axes[3].set_ylim(0, 1)
             axes[3].yaxis.set_major_formatter(PercentFormatter(1.0))
             axes[3].set_xticklabels(
@@ -1213,6 +1644,192 @@ def render_market_structure_figures(project_root: Path) -> list[Path]:
         fig.suptitle("Market Evolution Dashboard", color=COLORS["text"], fontweight="bold")
         fig.tight_layout()
         written.append(save_fig(fig, figures / "F42_market_evolution_dashboard.png"))
+
+        monthly_path = tables / "T46_market_structure_monthly_features.csv"
+        regimes_path = tables / "T48_market_structure_return_regimes.csv"
+        shift_path = tables / "T49_market_structure_composition_shift.csv"
+        phase_turnover_path = tables / "T50_market_structure_turnover_by_phase.csv"
+        if (
+            monthly_path.exists()
+            and regimes_path.exists()
+            and shift_path.exists()
+            and phase_turnover_path.exists()
+        ):
+            monthly = pd.read_csv(monthly_path, parse_dates=["snapshot_date"])
+            regimes = pd.read_csv(regimes_path)
+            shift = pd.read_csv(shift_path)
+            phase_turnover = pd.read_csv(phase_turnover_path)
+
+            share_cols = [
+                ("btc_eth_share_full_top100", "BTC+ETH", COLORS["btc"]),
+                ("top10_share_full_top100", "Top10", COLORS["eth"]),
+                ("stable_like_share_full_top100", "Stable-like", COLORS["stablecoin"]),
+                ("productized_share_full_top100", "Productized", COLORS["institutional"]),
+                ("clean_risk_share_full_top100", "Clean risk", COLORS["liquidity"]),
+            ]
+            fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+            for col, label, color in share_cols:
+                ax.plot(
+                    monthly["snapshot_date"], monthly[col], label=label, color=color, linewidth=1.6
+                )
+            ax.set_ylim(0, 1)
+            ax.yaxis.set_major_formatter(PercentFormatter(1.0))
+            ax.set_title(
+                "Monthly Market-Structure Feature Layer", color=COLORS["text"], fontweight="bold"
+            )
+            ax.set_ylabel("Share of full top100 market cap")
+            ax.legend(frameon=False, fontsize=8, ncol=3, loc="upper left")
+            _style_axis(ax)
+            written.append(save_fig(fig, figures / "F43_market_structure_monthly_features.png"))
+
+            focused = regimes[
+                (
+                    regimes["feature"].isin(
+                        ["top10_share_full_top100", "clean_risk_share_full_top100"]
+                    )
+                )
+                & (regimes["asset"].isin(["BTC", "ETH"]))
+            ].copy()
+            fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+            if not focused.empty:
+                focused["label"] = (
+                    focused["feature"]
+                    .str.replace("_share_full_top100", "", regex=False)
+                    .str.replace("_", " ")
+                    + " / "
+                    + focused["bucket"].astype(str)
+                    + " / "
+                    + focused["asset"]
+                )
+                focused = focused.sort_values("mean_return_1d")
+                colors = [
+                    COLORS["eth"] if asset == "ETH" else COLORS["btc"] for asset in focused["asset"]
+                ]
+                ax.barh(focused["label"], focused["mean_return_1d"], color=colors)
+                ax.axvline(0, color=COLORS["axis"], linewidth=0.8)
+                ax.xaxis.set_major_formatter(PercentFormatter(1.0))
+            ax.set_title(
+                "BTC/ETH Returns by Lagged Monthly Context Bucket",
+                color=COLORS["text"],
+                fontweight="bold",
+            )
+            ax.set_xlabel("Mean daily return")
+            _style_axis(ax)
+            written.append(save_fig(fig, figures / "F44_market_structure_return_regimes.png"))
+
+            fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+            if not shift.empty:
+                plot_shift = shift.dropna(subset=["delta"]).copy()
+                plot_shift["label"] = (
+                    plot_shift["metric"]
+                    .str.replace("_full_top100", "", regex=False)
+                    .str.replace("_", " ")
+                )
+                plot_shift = plot_shift.sort_values("delta")
+                colors = [
+                    COLORS["liquidity"] if value >= 0 else COLORS["gold"]
+                    for value in plot_shift["delta"]
+                ]
+                ax.barh(plot_shift["label"], plot_shift["delta"], color=colors)
+                ax.axvline(0, color=COLORS["axis"], linewidth=0.8)
+                ax.xaxis.set_major_formatter(PercentFormatter(1.0))
+            ax.set_title(
+                "ETF-Era Market-Structure Composition Shift",
+                color=COLORS["text"],
+                fontweight="bold",
+            )
+            ax.set_xlabel("Post BTC ETF mean minus pre BTC ETF mean")
+            _style_axis(ax)
+            written.append(save_fig(fig, figures / "F45_market_structure_composition_shift.png"))
+
+            fig, ax = plt.subplots(figsize=HERO_SIZE, facecolor=COLORS["bg"])
+            if not phase_turnover.empty:
+                phase_plot = phase_turnover.copy()
+                x = range(len(phase_plot))
+                ax.bar(
+                    [idx - 0.18 for idx in x],
+                    phase_plot["mean_clean_risk_entrants"],
+                    width=0.36,
+                    label="Entrants",
+                    color=COLORS["positive"],
+                )
+                ax.bar(
+                    [idx + 0.18 for idx in x],
+                    phase_plot["mean_clean_risk_exits"],
+                    width=0.36,
+                    label="Exits",
+                    color=COLORS["negative"],
+                )
+                ax.set_xticks(list(x))
+                ax.set_xticklabels(
+                    [_phase_label(value) for value in phase_plot["cycle_phase"]],
+                    rotation=0,
+                    fontsize=7,
+                )
+                ax.legend(frameon=False, fontsize=8)
+            ax.set_title(
+                "Clean-Risk Top100 Turnover by Cycle/ETF Phase",
+                color=COLORS["text"],
+                fontweight="bold",
+            )
+            ax.set_ylabel("Mean assets per snapshot")
+            _style_axis(ax)
+            written.append(save_fig(fig, figures / "F46_market_structure_turnover_by_phase.png"))
+
+            fig, axes = plt.subplots(2, 2, figsize=(12, 8), facecolor=COLORS["bg"])
+            axes = axes.flatten()
+            for col, label, color in share_cols[:4]:
+                axes[0].plot(
+                    monthly["snapshot_date"], monthly[col], label=label, color=color, linewidth=1.35
+                )
+            axes[0].set_ylim(0, 1)
+            axes[0].yaxis.set_major_formatter(PercentFormatter(1.0))
+            axes[0].legend(frameon=False, fontsize=7, ncol=2)
+            axes[0].set_title("Monthly context features", color=COLORS["text"], fontweight="bold")
+            if not focused.empty:
+                short = focused[focused["feature"] == "top10_share_full_top100"].sort_values(
+                    "mean_return_1d"
+                )
+                short_colors = [
+                    COLORS["eth"] if asset == "ETH" else COLORS["btc"] for asset in short["asset"]
+                ]
+                axes[1].barh(
+                    short["bucket"] + " / " + short["asset"],
+                    short["mean_return_1d"],
+                    color=short_colors,
+                )
+                axes[1].axvline(0, color=COLORS["axis"], linewidth=0.8)
+                axes[1].xaxis.set_major_formatter(PercentFormatter(1.0))
+            axes[1].set_title("Return buckets", color=COLORS["text"], fontweight="bold")
+            if not shift.empty:
+                plot_shift = shift.dropna(subset=["delta"]).sort_values("delta")
+                shift_colors = [
+                    COLORS["liquidity"] if value >= 0 else COLORS["gold"] for value in plot_shift["delta"]
+                ]
+                axes[2].barh(
+                    plot_shift["metric"]
+                    .str.replace("_full_top100", "", regex=False)
+                    .str.replace("_", " "),
+                    plot_shift["delta"],
+                    color=shift_colors,
+                )
+                axes[2].axvline(0, color=COLORS["axis"], linewidth=0.8)
+                axes[2].xaxis.set_major_formatter(PercentFormatter(1.0))
+            axes[2].set_title("ETF-era deltas", color=COLORS["text"], fontweight="bold")
+            if not phase_turnover.empty:
+                axes[3].barh(
+                    phase_turnover["cycle_phase"].map(_phase_label),
+                    phase_turnover["mean_clean_risk_entrants"],
+                    color=COLORS["positive"],
+                )
+            axes[3].set_title("Clean-risk entrants", color=COLORS["text"], fontweight="bold")
+            for axis in axes:
+                _style_axis(axis)
+            fig.suptitle(
+                "Market-Structure Modeling Dashboard", color=COLORS["text"], fontweight="bold"
+            )
+            fig.tight_layout()
+            written.append(save_fig(fig, figures / "F47_market_structure_modeling_dashboard.png"))
 
     return written
 
@@ -1232,6 +1849,11 @@ def update_outputs_readme(project_root: Path) -> Path:
         "\n- `figures/F40_rank_turnover.png`"
         "\n- `figures/F41_cycle_phase_market_structure.png`"
         "\n- `figures/F42_market_evolution_dashboard.png`"
+        "\n- `figures/F43_market_structure_monthly_features.png`"
+        "\n- `figures/F44_market_structure_return_regimes.png`"
+        "\n- `figures/F45_market_structure_composition_shift.png`"
+        "\n- `figures/F46_market_structure_turnover_by_phase.png`"
+        "\n- `figures/F47_market_structure_modeling_dashboard.png`"
         if (figures / "F38_market_structure_composition.png").exists()
         else ""
     )
@@ -1242,6 +1864,12 @@ def update_outputs_readme(project_root: Path) -> Path:
         "\n- `tables/T43_rank_turnover.csv`"
         "\n- `tables/T44_cycle_phase_market_structure.csv`"
         "\n- `tables/T45_market_evolution_summary.md`"
+        "\n- `tables/T46_market_structure_monthly_features.csv`"
+        "\n- `tables/T47_market_structure_daily_context.csv`"
+        "\n- `tables/T48_market_structure_return_regimes.csv`"
+        "\n- `tables/T49_market_structure_composition_shift.csv`"
+        "\n- `tables/T50_market_structure_turnover_by_phase.csv`"
+        "\n- `tables/T51_market_structure_modeling_summary.md`"
         if (tables / "T40_crypto_universe_monthly.csv").exists()
         else ""
     )
@@ -1251,6 +1879,7 @@ The additive market-structure layer integrates tracked DefiLlama/AlternativeMe/T
 Reports:
 
 - `report/market_evolution_thesis.md`
+- `report/market_structure_modeling_thesis.md`
 - `report/market_structure_methodology.md`
 - `report/market_structure_data_inventory.md`
 - `report/market_structure_limitations.md`
@@ -1294,15 +1923,18 @@ Guardrails:
     return write_text(path, text + "\n" + section)
 
 
-def patch_outputs_manifest(project_root: Path, output_files: list[Path], skipped: list[str]) -> Path:
+def patch_outputs_manifest(
+    project_root: Path, output_files: list[Path], skipped: list[str]
+) -> Path:
     manifest_path = project_root / "outputs" / "manifest.json"
     if manifest_path.exists():
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     else:
         manifest = {}
+    generated_at = datetime.now(UTC)
     manifest["market_structure"] = {
-        "generated_at_utc": datetime.now(UTC).isoformat(),
-        "source_table_bundle_date": "2026-06-18",
+        "generated_at_utc": generated_at.isoformat(),
+        "source_table_bundle_date": generated_at.date().isoformat(),
         "figure_bundle_start": "F30",
         "table_bundle_start": "T28",
         "commands": [
@@ -1336,13 +1968,22 @@ def public_surface_findings(project_root: Path) -> pd.DataFrame:
         "current_top100_backfill": ["current top100 backfill", "current-top100 backfill"],
     }
     rows = []
-    roots = [project_root / "README.md", project_root / "outputs", project_root / "docs", project_root / "Data" / "MarketStructure"]
+    roots = [
+        project_root / "README.md",
+        project_root / "outputs",
+        project_root / "docs",
+        project_root / "Data" / "MarketStructure",
+    ]
     files: list[Path] = []
     for root in roots:
         if root.is_file():
             files.append(root)
         elif root.exists():
-            files.extend(path for path in root.rglob("*") if path.suffix.lower() in {".md", ".json", ".csv", ".txt"})
+            files.extend(
+                path
+                for path in root.rglob("*")
+                if path.suffix.lower() in {".md", ".json", ".csv", ".txt"}
+            )
     files = [path for path in files if path.name != "market_structure_public_surface_check.md"]
     for path in files:
         text = path.read_text(encoding="utf-8", errors="ignore")
@@ -1350,7 +1991,14 @@ def public_surface_findings(project_root: Path) -> pd.DataFrame:
             for term in terms:
                 if term in text:
                     allowed = path.name == ".env.example" or "guardrail" in text.lower()
-                    rows.append({"file": rel(path, project_root), "rule": rule, "term": term, "status": "allowed_context" if allowed else "violation"})
+                    rows.append(
+                        {
+                            "file": rel(path, project_root),
+                            "rule": rule,
+                            "term": term,
+                            "status": "allowed_context" if allowed else "violation",
+                        }
+                    )
     if not rows:
         rows.append({"file": "", "rule": "all", "term": "", "status": "pass"})
     rows.extend(readme_public_surface_rows(project_root))
@@ -1365,13 +2013,43 @@ def readme_public_surface_rows(project_root: Path) -> list[dict[str, str]]:
         return [{"file": "README.md", "rule": "readme_exists", "term": "", "status": "violation"}]
     readme = readme_path.read_text(encoding="utf-8")
     rows: list[dict[str, str]] = []
-    for term in ["portfolio_v2", "v2.1", "v2.2", "v2.0", "career", "recruiter", "LinkedIn", "interview"]:
+    for term in [
+        "portfolio_v2",
+        "v2.1",
+        "v2.2",
+        "v2.0",
+        "career",
+        "recruiter",
+        "LinkedIn",
+        "interview",
+    ]:
         if term.lower() in readme.lower():
-            rows.append({"file": "README.md", "rule": "banned_readme_term", "term": term, "status": "violation"})
+            rows.append(
+                {
+                    "file": "README.md",
+                    "rule": "banned_readme_term",
+                    "term": term,
+                    "status": "violation",
+                }
+            )
     if "results at a glance" not in readme.lower():
-        rows.append({"file": "README.md", "rule": "required_section", "term": "Results at a Glance", "status": "violation"})
+        rows.append(
+            {
+                "file": "README.md",
+                "rule": "required_section",
+                "term": "Results at a Glance",
+                "status": "violation",
+            }
+        )
     if "t11_results_at_a_glance.md" not in readme.lower():
-        rows.append({"file": "README.md", "rule": "required_table_link", "term": "T11_results_at_a_glance.md", "status": "violation"})
+        rows.append(
+            {
+                "file": "README.md",
+                "rule": "required_table_link",
+                "term": "T11_results_at_a_glance.md",
+                "status": "violation",
+            }
+        )
     old_figs = [
         "F02_btc_model_sensitivity.png",
         "F01_data_inventory.png",
@@ -1380,12 +2058,33 @@ def readme_public_surface_rows(project_root: Path) -> list[dict[str, str]]:
     ]
     for raw_path in re.findall(r"!\[[^\]]*\]\(([^)]+)\)", readme):
         if "archive/" in raw_path or "reports/portfolio_" in raw_path:
-            rows.append({"file": "README.md", "rule": "banned_image_path", "term": raw_path, "status": "violation"})
+            rows.append(
+                {
+                    "file": "README.md",
+                    "rule": "banned_image_path",
+                    "term": raw_path,
+                    "status": "violation",
+                }
+            )
         for old_fig in old_figs:
             if old_fig in raw_path:
-                rows.append({"file": "README.md", "rule": "old_figure_name", "term": old_fig, "status": "violation"})
+                rows.append(
+                    {
+                        "file": "README.md",
+                        "rule": "old_figure_name",
+                        "term": old_fig,
+                        "status": "violation",
+                    }
+                )
         if not (project_root / raw_path).exists():
-            rows.append({"file": "README.md", "rule": "missing_image_path", "term": raw_path, "status": "violation"})
+            rows.append(
+                {
+                    "file": "README.md",
+                    "rule": "missing_image_path",
+                    "term": raw_path,
+                    "status": "violation",
+                }
+            )
     return rows
 
 
