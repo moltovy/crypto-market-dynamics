@@ -1,61 +1,11 @@
-# MVRV mechanics Model Card
+# MVRV Mechanics Model Card
 
-## Purpose and research question
+Purpose: audit whether same-day MVRV changes mechanically overlap BTC returns and summarize lagged MVRV state outcomes.
 
-Audit same-day MVRV target overlap and lagged valuation-state regimes.
+Outcome and features: BTC log return, `d_log_mvrv`, `d_log_market_cap`, `d_log_realized_cap`, and `identity_residual` over the same daily interval.
 
-## Outcome definition
+Principal finding: corr(BTC return, d-log MVRV)=0.9966; R2=0.9932; median abs residual / median abs BTC return=1.14e-07.
 
-See the source tables linked from `outputs/README.md`.
+Estimator and uncertainty: HAC same-day diagnostic plus identity residual quantiles. This is a measurement audit, not a predictive model.
 
-## Exposures/state variables
-
-Configured in `config/feature_registry.yml` and exported to `outputs/tables/feature_registry.csv`.
-
-## Frequency and sample
-
-The pipeline reports the effective sample size in every canonical model table.
-
-## Transformations and timing
-
-Contemporaneous exposure models use same-day TradFi returns/changes to measure co-movement. Lagged liquidity, sentiment, leverage, funding, OI, and exchange-flow variables are labeled lagged-state associations. ETF-era augmented models include ETF flow intensity at lag 0 and lag 1.
-
-## Estimator and uncertainty method
-
-HAC OLS, logistic diagnostics, descriptive summaries, FDR adjustment, VIF/condition diagnostics, accepted weekly robustness models, and local-window correlation distributions where applicable.
-
-## Same-support rule
-
-Model comparisons use the same non-missing row support for the relevant specification.
-
-## Main outputs
-
-See `outputs/tables/` and `outputs/figures/public/`.
-
-## Interpretation
-
-Reduced-form descriptive evidence only.
-
-## Mechanical-link/endogeneity risks
-
-Documented in the evidence ledger and feature registry.
-
-## Robustness checks
-
-Accepted daily/weekly checks, multicollinearity diagnostics, ridge stability, and local-window correlation distributions are included where applicable.
-
-## Prohibited claims
-
-Do not call MVRV the strongest independent factor.
-
-## Evidence grade
-
-See `outputs/tables/evidence_ledger.csv`.
-
-## Known limitations
-
-Short ETF-era samples, reporting timing, source conventions, and lack of daily PIT constituent OHLCV for true historical altseason analysis.
-
-## Reproduction command
-
-`uv run python scripts/run_all.py`
+Prohibited claims: MVRV is the strongest independent factor; same-day MVRV predicts BTC returns.

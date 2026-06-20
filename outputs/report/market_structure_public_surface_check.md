@@ -49,6 +49,7 @@ Verdict: PASS
 | canonical_table_nonempty             | pass     | tables/selected_major_comparable_window_metrics.csv          |
 | canonical_table_nonempty             | pass     | tables/selected_major_risk_metrics.csv                       |
 | canonical_table_nonempty             | pass     | tables/stablecoin_defi_liquidity_summary.csv                 |
+| canonical_table_nonempty             | pass     | tables/valuation_contamination_audit.csv                     |
 | secret_pattern_gho_                  | pass     | gho_                                                         |
 | secret_pattern_sk-                   | pass     | sk-                                                          |
 | secret_pattern_DEFILLAMA_API_KEY=    | pass     | DEFILLAMA_API_KEY=                                           |

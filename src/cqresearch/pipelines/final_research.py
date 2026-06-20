@@ -47,6 +47,7 @@ TABLE_SCHEMA_COLUMNS = {
         "robustness_checks",
         "mechanical_link_risk",
         "endogeneity_risk",
+        "valuation_contamination_risk",
         "multiple_testing_status",
         "evidence_grade",
         "approved_public_language",
@@ -203,6 +204,28 @@ SELECTED_ASSETS: list[dict[str, Any]] = [
 NESTED_TOL = 1e-10
 BTC_ETF_START = pd.Timestamp("2024-01-11")
 ETH_ETF_START = pd.Timestamp("2024-07-23")
+
+CALENDAR_ASSUMPTIONS = {
+    "crypto_calendar_daily": "BTC/ETH returns are seven-day crypto close-to-close returns.",
+    "tradfi_business_daily": (
+        "BTC/ETH returns are computed between consecutive common TradFi business-date "
+        "closes; TradFi returns/changes use the same business dates."
+    ),
+    "tradfi_friday_weekly": "Weekly TradFi models use Friday-to-Friday BTC/ETH and TradFi moves.",
+    "crypto_week_sunday": (
+        "Crypto-native weekly state panel uses Sunday-ended crypto weeks; returns sum daily "
+        "log returns and state variables use week-end or prior week-end values by semantic type."
+    ),
+    "etf_trading_daily": (
+        "ETF-era daily panel uses dates with ETF flow observations; BTC/ETH returns run from "
+        "the prior ETF trading date to the current ETF trading date."
+    ),
+}
+
+CLOSE_TIME_ASSUMPTION = (
+    "Local curated close timestamps are treated as provider daily closes; cross-market close-time "
+    "mismatches are not intraday-adjusted."
+)
 
 CANONICAL_SELECTED_BY_KEY = {
     str(asset["asset_key"]).lower(): asset for asset in SELECTED_ASSETS
@@ -395,28 +418,14 @@ def clean_legacy_outputs(p: BuildPaths) -> None:
         if item.exists():
             item.unlink()
     allowed_reports = {
-        "baseline_audit.md",
-        "cycle_and_event_atlas.md",
-        "data_atlas.md",
-        "etf_market_plumbing.md",
         "executive_summary.md",
-        "final_pr_body.md",
-        "final_release_audit.md",
-        "leverage_and_tail_risk.md",
         "limitations.md",
         "market_structure_public_surface_check.md",
         "methodology.md",
-        "onchain_valuation_state.md",
-        "open_pr_disposition.md",
-        "point_in_time_market_structure.md",
-        "public_readiness.md",
+        "provider_data_disposition.md",
         "reproducibility_report.md",
         "results_and_interpretation.md",
-        "selected_major_assets.md",
-        "stablecoin_defi_liquidity.md",
-        "statistical_robustness.md",
         "visual_quality_audit.md",
-        "provider_data_disposition.md",
     }
     for item in p.report.glob("*.md"):
         if item.name not in allowed_reports:
@@ -525,10 +534,16 @@ def clean_label(value: str) -> str:
         "eth_etf_flow_intensity_lag1": "ETH ETF flow / lag mcap, t-1",
         "stablecoin_supply_growth": "Stablecoin supply growth",
         "stablecoin_supply_growth_lag1": "Stablecoin supply growth, t-1",
-        "defi_tvl_growth": "DeFi TVL growth",
-        "defi_tvl_growth_lag1": "DeFi TVL growth, t-1",
+        "defi_tvl_growth": "Raw USD DeFi TVL growth",
+        "defi_tvl_growth_lag1": "Raw USD DeFi TVL growth, t-1",
+        "valuation_sensitive_defi_tvl_growth": "Valuation-sensitive DeFi TVL growth",
+        "valuation_sensitive_defi_tvl_growth_lag1": "Valuation-sensitive DeFi TVL growth, t-1",
         "btc_oi_growth": "BTC OI growth",
         "btc_oi_growth_lag1": "BTC OI growth, t-1",
+        "btc_oi_to_mcap": "BTC OI / market cap",
+        "btc_oi_to_mcap_growth_lag1": "BTC OI/market-cap growth, t-1",
+        "eth_oi_to_mcap": "ETH OI / market cap",
+        "eth_oi_to_mcap_growth_lag1": "ETH OI/market-cap growth, t-1",
         "btc_funding_z": "BTC funding z-score",
         "btc_funding_z_lag1": "BTC funding z-score, t-1",
         "eth_oi_growth_lag1": "ETH OI growth, t-1",
@@ -747,25 +762,28 @@ def feature_registry_rows() -> list[dict[str, Any]]:
         ("btc_ret", "BTC log return", "target", "CryptoQuant", "BTC price close", "daily", "log return", 0, "", "Return outcome."),
         ("eth_ret", "ETH log return", "target", "CryptoQuant", "ETH price close", "daily", "log return", 0, "", "Return outcome."),
         ("btc_realized_vol_30d", "BTC 30-day realized volatility", "target", "CryptoQuant", "BTC close", "daily", "rolling volatility", 0, "", "Volatility outcome."),
-        ("qqq_ret", "QQQ return", "macro_risk", "TradingView", "QQQ close", "daily", "log return", 1, "", "Equity-growth proxy."),
-        ("spy_ret", "SPY return", "macro_risk", "TradingView", "SPY close", "daily", "log return", 1, "", "US equity-market proxy."),
-        ("vix_d1", "VIX change", "macro_risk", "FRED", "VIXCLS", "daily", "first difference", 1, "", "Equity-volatility proxy."),
-        ("dxy_ret", "DXY return", "macro_risk", "TradingView", "DXY close", "daily", "log return", 1, "", "Dollar index proxy."),
-        ("real_yield_d1", "Real-yield change", "macro_risk", "FRED", "DFII10", "daily", "first difference", 1, "", "Real-rate proxy."),
-        ("nominal_10y_d1", "Nominal 10Y yield change", "macro_risk", "FRED", "DGS10", "daily", "first difference", 1, "", "Nominal-rate proxy."),
-        ("gold_ret", "Gold return", "macro_risk", "TradingView/FRED", "GLD or XAUUSD close", "daily", "log return", 1, "", "Gold proxy."),
+        ("qqq_ret", "QQQ return", "macro_risk", "TradingView", "QQQ close", "daily", "business-date log return", 0, "", "Contemporaneous equity-growth exposure proxy."),
+        ("spy_ret", "SPY return", "macro_risk", "TradingView", "SPY close", "daily", "business-date log return", 0, "", "Contemporaneous US equity-market exposure proxy."),
+        ("iwm_ret", "IWM return", "macro_risk", "TradingView", "IWM close", "daily", "business-date log return", 0, "", "Contemporaneous small-cap equity exposure proxy where supported."),
+        ("vix_d1", "VIX change", "macro_risk", "FRED", "VIXCLS", "daily", "business-date first difference", 0, "", "Contemporaneous equity-volatility exposure proxy."),
+        ("dxy_ret", "DXY return", "macro_risk", "TradingView", "DXY close", "daily", "business-date log return", 0, "", "Contemporaneous dollar index exposure proxy."),
+        ("real_yield_d1", "Real-yield change", "macro_risk", "FRED", "DFII10", "daily", "business-date first difference", 0, "", "Contemporaneous real-rate exposure proxy."),
+        ("nominal_10y_d1", "Nominal 10Y yield change", "macro_risk", "FRED", "DGS10", "daily", "business-date first difference", 0, "", "Contemporaneous nominal-rate exposure proxy."),
+        ("gold_ret", "Gold return", "macro_risk", "TradingView/FRED", "GLD or XAUUSD close", "daily", "business-date log return", 0, "", "Contemporaneous gold exposure proxy."),
         ("btc_etf_flow_intensity_lag0", "BTC ETF flow intensity, t", "etf_institutional", "Farside", "BTC ETF total", "daily", "flow / lagged market cap", 0, "prior-day BTC market cap", "Market-plumbing flow proxy."),
         ("btc_etf_flow_intensity_lag1", "BTC ETF flow intensity, t-1", "etf_institutional", "Farside", "BTC ETF total", "daily", "flow / lagged market cap then lag one day", 1, "prior-day BTC market cap", "Lagged market-plumbing flow proxy."),
         ("eth_etf_flow_intensity_lag0", "ETH ETF flow intensity, t", "etf_institutional", "Farside", "ETH ETF total", "daily", "flow / lagged market cap", 0, "prior-day ETH market cap", "Market-plumbing flow proxy."),
         ("eth_etf_flow_intensity_lag1", "ETH ETF flow intensity, t-1", "etf_institutional", "Farside", "ETH ETF total", "daily", "flow / lagged market cap then lag one day", 1, "prior-day ETH market cap", "Lagged market-plumbing flow proxy."),
-        ("btc_oi_growth_lag1", "BTC open-interest growth, t-1", "leverage", "CryptoQuant", "BTC open interest", "daily", "log difference lagged one day", 1, "", "Leverage-state proxy."),
+        ("btc_oi_growth_lag1", "BTC raw open-interest growth, t-1", "leverage", "CryptoQuant", "BTC open interest", "daily", "log difference lagged one day", 1, "", "Raw leverage-state proxy; retained for audit, not preferred if OI is USD-valued."),
+        ("btc_oi_to_mcap_growth_lag1", "BTC OI/market-cap growth, t-1", "leverage", "CryptoQuant", "BTC open interest and market cap", "daily", "log difference of OI/market-cap ratio lagged one panel step", 1, "BTC market cap", "Preferred lagged leverage-state proxy when OI is USD/notional-valued."),
+        ("eth_oi_to_mcap_growth_lag1", "ETH OI/market-cap growth, t-1", "leverage", "CryptoQuant", "ETH open interest and market cap", "daily", "log difference of OI/market-cap ratio lagged one panel step", 1, "ETH market cap", "Preferred lagged leverage-state proxy when OI is USD/notional-valued."),
         ("btc_funding_z_lag1", "BTC funding z-score, t-1", "leverage", "CryptoQuant", "BTC funding rates", "daily", "rolling z-score lagged one day", 1, "", "Positioning stress proxy."),
         ("btc_total_liq_to_lag_oi_pct", "BTC liquidation / lagged OI", "leverage", "CryptoQuant", "BTC liquidations USD", "daily", "liquidation USD / prior-day open interest, percent", 0, "prior-day open interest", "Same-day liquidation stress signature."),
         ("btc_total_liq_to_lag_mcap_bps", "BTC liquidation / lagged market cap", "leverage", "CryptoQuant", "BTC liquidations USD", "daily", "liquidation USD / prior-day market cap, basis points", 0, "prior-day BTC market cap", "Same-day liquidation stress signature."),
         ("stablecoin_supply_growth", "Stablecoin supply growth", "liquidity", "DefiLlama", "stablecoin market caps", "weekly", "log difference", 1, "", "Liquidity-state proxy."),
         ("stablecoin_supply_growth_lag1", "Lagged stablecoin supply growth", "liquidity", "DefiLlama", "stablecoin market caps", "weekly", "weekly log difference lagged one week", 1, "", "Lagged liquidity-state proxy."),
-        ("defi_tvl_growth", "DeFi TVL growth", "liquidity", "DefiLlama", "TVL", "weekly", "log difference", 1, "", "DeFi balance-sheet proxy."),
-        ("defi_tvl_growth_lag1", "Lagged DeFi TVL growth", "liquidity", "DefiLlama", "TVL", "weekly", "weekly log difference lagged one week", 1, "", "Lagged DeFi balance-sheet proxy."),
+        ("valuation_sensitive_defi_tvl_growth", "Valuation-sensitive DeFi TVL growth", "liquidity", "DefiLlama", "USD TVL", "weekly", "log difference of USD TVL", 0, "", "Valuation-sensitive DeFi balance-sheet proxy, not pure capital inflow."),
+        ("valuation_sensitive_defi_tvl_growth_lag1", "Lagged valuation-sensitive DeFi TVL growth", "liquidity", "DefiLlama", "USD TVL", "weekly", "weekly log difference lagged one week", 1, "", "Lagged valuation-sensitive DeFi balance-sheet proxy, not pure capital inflow."),
         ("btc_mvrv_lag1", "Lagged BTC MVRV", "onchain_state", "CryptoQuant", "MVRV Ratio", "daily", "lagged level/percentile", 1, "", "Valuation-state conditioning variable."),
         ("d_log_mvrv", "BTC d-log MVRV", "onchain_state", "CryptoQuant", "MVRV Ratio", "daily", "same-interval log difference", 0, "", "Measurement-mechanics diagnostic only."),
         ("d_log_market_cap", "BTC d-log market cap", "onchain_state", "CryptoQuant", "BTC market cap", "daily", "same-interval log difference", 0, "", "MVRV identity component."),
@@ -789,7 +807,22 @@ def feature_registry_rows() -> list[dict[str, Any]]:
                 "first_valid_date": "",
                 "last_valid_date": "",
                 "missing_policy": "drop from model sample; report effective n",
-                "mechanical_link_risk": "direct_target_component" if feature_id == "btc_mvrv_d1" else ("high" if "mvrv" in feature_id else "low"),
+                "mechanical_link_risk": (
+                    "direct_target_component"
+                    if feature_id == "btc_mvrv_d1"
+                    else "high"
+                    if "mvrv" in feature_id
+                    else "medium"
+                    if "tvl" in feature_id or "oi_growth" in feature_id
+                    else "low"
+                ),
+                "valuation_contamination_risk": (
+                    "high_usd_price_content"
+                    if "valuation_sensitive_defi_tvl" in feature_id
+                    else "medium_if_usd_notional"
+                    if "oi" in feature_id
+                    else "none_identified"
+                ),
                 "contemporaneous_endogeneity_risk": "medium" if "etf" in feature_id or "liq" in feature_id else "low",
                 "permitted_model_families": "descriptive, exposure, state conditioning",
                 "prohibited_uses": "price forecasting; causal claims; same-day MVRV as primary BTC-return factor",
@@ -866,13 +899,23 @@ def build_feature_store(root: Path = PROJECT_ROOT) -> tuple[pd.DataFrame, pd.Dat
     daily = pd.DataFrame(index=panel.index)
     daily["btc_close"] = panel["btc_close"]
     daily["eth_close"] = panel["eth_close"]
+    daily["spy_close"] = panel.get("spy_close")
+    daily["qqq_close"] = panel.get("qqq_close")
+    daily["iwm_close"] = panel.get("iwm_close")
+    gld_close = panel.get("gld_close", pd.Series(index=panel.index, dtype=float))
+    xauusd_close = panel.get("xauusd_close", pd.Series(index=panel.index, dtype=float))
+    daily["gold_close"] = gld_close.combine_first(xauusd_close)
+    daily["dxy_close"] = panel.get("dxy_tv_close")
+    daily["vix_level"] = panel.get("VIXCLS", pd.Series(index=panel.index, dtype=float))
+    daily["real_yield_level"] = panel.get("DFII10", pd.Series(index=panel.index, dtype=float))
+    daily["nominal_10y_level"] = panel.get("DGS10", pd.Series(index=panel.index, dtype=float))
     daily["btc_ret"] = log_return(panel["btc_close"])
     daily["eth_ret"] = log_return(panel["eth_close"])
-    daily["spy_ret"] = log_return(panel.get("spy_close"))
-    daily["qqq_ret"] = log_return(panel.get("qqq_close"))
-    daily["iwm_ret"] = log_return(panel.get("iwm_close"))
-    daily["gold_ret"] = log_return(panel.get("gld_close")).combine_first(log_return(panel.get("xauusd_close")))
-    daily["dxy_ret"] = log_return(panel.get("dxy_tv_close"))
+    daily["spy_ret"] = log_return(daily["spy_close"])
+    daily["qqq_ret"] = log_return(daily["qqq_close"])
+    daily["iwm_ret"] = log_return(daily["iwm_close"])
+    daily["gold_ret"] = log_return(daily["gold_close"])
+    daily["dxy_ret"] = log_return(daily["dxy_close"])
     daily["total3_ret"] = log_return(panel.get("total3_close"))
     daily["vix_d1"] = panel.get("VIXCLS", pd.Series(index=panel.index, dtype=float)).diff()
     daily["real_yield_d1"] = panel.get("DFII10", pd.Series(index=panel.index, dtype=float)).diff()
@@ -923,14 +966,20 @@ def build_feature_store(root: Path = PROJECT_ROOT) -> tuple[pd.DataFrame, pd.Dat
     daily["defi_tvl_usd"] = panel.get("defi_tvl_usd")
     daily["stablecoin_supply_growth"] = log_return(panel.get("stables_total_usd"))
     daily["defi_tvl_growth"] = log_return(panel.get("defi_tvl_usd"))
+    daily["valuation_sensitive_defi_tvl_growth"] = daily["defi_tvl_growth"]
     daily["stablecoin_supply_growth_lag1"] = daily["stablecoin_supply_growth"].shift(1)
     daily["defi_tvl_growth_lag1"] = daily["defi_tvl_growth"].shift(1)
+    daily["valuation_sensitive_defi_tvl_growth_lag1"] = daily["valuation_sensitive_defi_tvl_growth"].shift(1)
     daily["stablecoin_to_tvl"] = panel.get("stables_total_usd") / panel.get("defi_tvl_usd")
     daily["stablecoin_share_crypto_proxy"] = panel.get("stables_total_usd") / (panel["btc_mcap_usd"] + panel["eth_mcap_usd"] + panel.get("total3_close"))
     daily["btc_oi"] = panel.get("btc_oi")
     daily["btc_oi_growth"] = log_return(panel.get("btc_oi"))
     daily["btc_oi_growth_lag1"] = daily["btc_oi_growth"].shift(1)
     daily["btc_oi_to_mcap"] = panel.get("btc_oi") / daily["btc_mcap_lag1"]
+    daily["btc_oi_to_mcap_current"] = panel.get("btc_oi") / daily["btc_market_cap_usd"]
+    daily["btc_oi_to_mcap_growth"] = log_return(daily["btc_oi_to_mcap_current"])
+    daily["btc_oi_to_mcap_growth_lag1"] = daily["btc_oi_to_mcap_growth"].shift(1)
+    daily["btc_oi_unit_assumption"] = "CryptoQuant all-exchange OI export treated as USD/notional-valued for scaling audit."
     daily["btc_funding"] = panel.get("btc_funding")
     daily["btc_abs_funding"] = daily["btc_funding"].abs()
     daily["btc_funding_z"] = rolling_z(daily["btc_funding"], 90)
@@ -954,6 +1003,11 @@ def build_feature_store(root: Path = PROJECT_ROOT) -> tuple[pd.DataFrame, pd.Dat
     daily["eth_oi"] = panel.get("eth_oi")
     daily["eth_oi_growth"] = log_return(daily["eth_oi"])
     daily["eth_oi_growth_lag1"] = daily["eth_oi_growth"].shift(1)
+    daily["eth_oi_to_mcap"] = panel.get("eth_oi") / daily["eth_mcap_lag1"]
+    daily["eth_oi_to_mcap_current"] = panel.get("eth_oi") / daily["eth_market_cap_usd"]
+    daily["eth_oi_to_mcap_growth"] = log_return(daily["eth_oi_to_mcap_current"])
+    daily["eth_oi_to_mcap_growth_lag1"] = daily["eth_oi_to_mcap_growth"].shift(1)
+    daily["eth_oi_unit_assumption"] = "CryptoQuant all-exchange OI export treated as USD/notional-valued for scaling audit."
     daily["eth_funding_z"] = rolling_z(panel.get("eth_funding", pd.Series(index=panel.index, dtype=float)), 90)
     daily["eth_funding_z_lag1"] = daily["eth_funding_z"].shift(1)
     eth_long_liq = panel.get("eth_long_liq_usd", pd.Series(index=panel.index, dtype=float))
@@ -982,11 +1036,24 @@ def build_feature_store(root: Path = PROJECT_ROOT) -> tuple[pd.DataFrame, pd.Dat
     daily["btc_ret_fwd_7d"] = daily["btc_ret"].rolling(7).sum().shift(-7)
     daily["btc_future_30d_min_drawdown"] = (panel["btc_close"].shift(-30).rolling(30).min() / panel["btc_close"] - 1)
 
+    daily["calendar"] = "crypto_calendar_daily"
+    daily["calendar_assumption"] = CALENDAR_ASSUMPTIONS["crypto_calendar_daily"]
+    daily["close_time_assumption"] = CLOSE_TIME_ASSUMPTION
+
     weekly = weekly_features(daily)
+    tradfi_daily = tradfi_business_daily_features(daily)
+    tradfi_weekly = tradfi_friday_weekly_features(daily)
+    etf_daily = etf_trading_daily_features(daily)
+    etf_weekly = tradfi_friday_weekly_features(daily, calendar_name="etf_friday_weekly")
     monthly = build_market_structure_monthly(root)
 
     daily.to_parquet(p.panels / "feature_store_daily.parquet")
     weekly.to_parquet(p.panels / "feature_store_weekly.parquet")
+    weekly.to_parquet(p.panels / "feature_store_crypto_weekly.parquet")
+    tradfi_daily.to_parquet(p.panels / "feature_store_tradfi_daily.parquet")
+    tradfi_weekly.to_parquet(p.panels / "feature_store_tradfi_weekly.parquet")
+    etf_daily.to_parquet(p.panels / "feature_store_etf_trading_daily.parquet")
+    etf_weekly.to_parquet(p.panels / "feature_store_etf_trading_weekly.parquet")
     monthly.to_parquet(p.panels / "market_structure_monthly.parquet")
 
     feature_registry = pd.DataFrame(feature_registry_rows())
@@ -1042,14 +1109,24 @@ def weekly_features(daily: pd.DataFrame) -> pd.DataFrame:
     level_cols = [
         "btc_close",
         "eth_close",
+        "spy_close",
+        "qqq_close",
+        "iwm_close",
+        "gold_close",
+        "dxy_close",
+        "vix_level",
+        "real_yield_level",
+        "nominal_10y_level",
         "btc_market_cap_usd",
         "eth_market_cap_usd",
         "stablecoin_supply_usd",
         "defi_tvl_usd",
         "btc_oi",
+        "btc_oi_to_mcap_current",
         "btc_funding",
         "btc_funding_z",
         "eth_oi",
+        "eth_oi_to_mcap_current",
         "eth_funding_z",
         "btc_leverage_ratio_percentile",
         "btc_exchange_netflow_scaled",
@@ -1075,13 +1152,23 @@ def weekly_features(daily: pd.DataFrame) -> pd.DataFrame:
     weekly["eth_mcap_lag1"] = weekly["eth_market_cap_usd"].shift(1)
     weekly["stablecoin_supply_growth"] = log_return(weekly["stablecoin_supply_usd"])
     weekly["defi_tvl_growth"] = log_return(weekly["defi_tvl_usd"])
+    weekly["valuation_sensitive_defi_tvl_growth"] = weekly["defi_tvl_growth"]
     weekly["stablecoin_supply_growth_lag1"] = weekly["stablecoin_supply_growth"].shift(1)
     weekly["defi_tvl_growth_lag1"] = weekly["defi_tvl_growth"].shift(1)
+    weekly["valuation_sensitive_defi_tvl_growth_lag1"] = weekly["valuation_sensitive_defi_tvl_growth"].shift(1)
     weekly["btc_oi_growth"] = log_return(weekly["btc_oi"])
     weekly["btc_oi_growth_lag1"] = weekly["btc_oi_growth"].shift(1)
+    weekly["btc_oi_to_mcap"] = weekly["btc_oi"] / weekly["btc_mcap_lag1"]
+    weekly["btc_oi_to_mcap_current"] = weekly["btc_oi"] / weekly["btc_market_cap_usd"]
+    weekly["btc_oi_to_mcap_growth"] = log_return(weekly["btc_oi_to_mcap_current"])
+    weekly["btc_oi_to_mcap_growth_lag1"] = weekly["btc_oi_to_mcap_growth"].shift(1)
     weekly["btc_funding_z_lag1"] = weekly["btc_funding_z"].shift(1)
     weekly["eth_oi_growth"] = log_return(weekly["eth_oi"])
     weekly["eth_oi_growth_lag1"] = weekly["eth_oi_growth"].shift(1)
+    weekly["eth_oi_to_mcap"] = weekly["eth_oi"] / weekly["eth_mcap_lag1"]
+    weekly["eth_oi_to_mcap_current"] = weekly["eth_oi"] / weekly["eth_market_cap_usd"]
+    weekly["eth_oi_to_mcap_growth"] = log_return(weekly["eth_oi_to_mcap_current"])
+    weekly["eth_oi_to_mcap_growth_lag1"] = weekly["eth_oi_to_mcap_growth"].shift(1)
     weekly["eth_funding_z_lag1"] = weekly["eth_funding_z"].shift(1)
     weekly["btc_exchange_netflow_scaled_lag1"] = weekly["btc_exchange_netflow_scaled"].shift(1)
     weekly["fear_greed_change"] = weekly["fear_greed_altme"].diff()
@@ -1101,7 +1188,163 @@ def weekly_features(daily: pd.DataFrame) -> pd.DataFrame:
     weekly["eth_realized_vol_30d"] = daily["eth_ret"].resample("W-SUN").std() * math.sqrt(365)
     weekly["btc_ret_fwd_1d"] = weekly["btc_ret"].shift(-1)
     weekly["btc_ret_fwd_7d"] = weekly["btc_ret"].shift(-1)
+    weekly["calendar"] = "crypto_week_sunday"
+    weekly["calendar_assumption"] = CALENDAR_ASSUMPTIONS["crypto_week_sunday"]
+    weekly["close_time_assumption"] = CLOSE_TIME_ASSUMPTION
     return weekly
+
+
+def annotate_calendar(frame: pd.DataFrame, calendar: str, assumption: str | None = None) -> pd.DataFrame:
+    out = frame.copy()
+    out["calendar"] = calendar
+    out["calendar_assumption"] = assumption or CALENDAR_ASSUMPTIONS.get(calendar, "")
+    out["close_time_assumption"] = CLOSE_TIME_ASSUMPTION
+    return out
+
+
+def recompute_lagged_state_features(frame: pd.DataFrame) -> pd.DataFrame:
+    out = frame.copy()
+    lag_pairs = {
+        "stablecoin_supply_growth": "stablecoin_supply_growth_lag1",
+        "valuation_sensitive_defi_tvl_growth": "valuation_sensitive_defi_tvl_growth_lag1",
+        "defi_tvl_growth": "defi_tvl_growth_lag1",
+        "btc_oi_growth": "btc_oi_growth_lag1",
+        "eth_oi_growth": "eth_oi_growth_lag1",
+        "btc_oi_to_mcap_growth": "btc_oi_to_mcap_growth_lag1",
+        "eth_oi_to_mcap_growth": "eth_oi_to_mcap_growth_lag1",
+        "btc_funding_z": "btc_funding_z_lag1",
+        "eth_funding_z": "eth_funding_z_lag1",
+        "btc_exchange_netflow_scaled": "btc_exchange_netflow_scaled_lag1",
+        "fear_greed_altme": "fear_greed_altme_lag1",
+        "fear_greed_change": "fear_greed_change_lag1",
+    }
+    for source, lagged in lag_pairs.items():
+        if source in out:
+            out[lagged] = out[source].shift(1)
+    return out
+
+
+def recompute_tradfi_features_on_index(frame: pd.DataFrame) -> pd.DataFrame:
+    out = frame.copy()
+    for asset in ["btc", "eth"]:
+        close_col = f"{asset}_close"
+        if close_col in out:
+            out[f"{asset}_ret"] = log_return(out[close_col])
+    close_return_pairs = {
+        "spy_close": "spy_ret",
+        "qqq_close": "qqq_ret",
+        "iwm_close": "iwm_ret",
+        "gold_close": "gold_ret",
+        "dxy_close": "dxy_ret",
+    }
+    for close_col, ret_col in close_return_pairs.items():
+        if close_col in out:
+            out[ret_col] = log_return(out[close_col])
+    level_change_pairs = {
+        "vix_level": "vix_d1",
+        "real_yield_level": "real_yield_d1",
+        "nominal_10y_level": "nominal_10y_d1",
+    }
+    for level_col, change_col in level_change_pairs.items():
+        if level_col in out:
+            out[change_col] = pd.to_numeric(out[level_col], errors="coerce").diff()
+    return out
+
+
+def tradfi_business_daily_features(daily: pd.DataFrame) -> pd.DataFrame:
+    level_cols = [
+        "spy_close",
+        "qqq_close",
+        "iwm_close",
+        "gold_close",
+        "dxy_close",
+        "vix_level",
+        "real_yield_level",
+        "nominal_10y_level",
+    ]
+    present = [col for col in level_cols if col in daily.columns]
+    mask = daily[present].notna().any(axis=1) if present else pd.Series(False, index=daily.index)
+    panel = recompute_tradfi_features_on_index(daily.loc[mask].copy())
+    panel = recompute_lagged_state_features(panel)
+    return annotate_calendar(panel, "tradfi_business_daily")
+
+
+def tradfi_friday_weekly_features(daily: pd.DataFrame, calendar_name: str = "tradfi_friday_weekly") -> pd.DataFrame:
+    level_cols = [
+        "btc_close",
+        "eth_close",
+        "spy_close",
+        "qqq_close",
+        "iwm_close",
+        "gold_close",
+        "dxy_close",
+        "vix_level",
+        "real_yield_level",
+        "nominal_10y_level",
+        "btc_market_cap_usd",
+        "eth_market_cap_usd",
+        "stablecoin_supply_usd",
+        "defi_tvl_usd",
+        "btc_oi",
+        "eth_oi",
+        "btc_funding_z",
+        "eth_funding_z",
+        "btc_exchange_netflow_scaled",
+        "fear_greed_altme",
+        "stablecoin_to_tvl",
+        "stablecoin_share_crypto_proxy",
+    ]
+    weekly = pd.DataFrame(index=daily.resample("W-FRI").size().index)
+    for col in [c for c in level_cols if c in daily.columns]:
+        weekly[col] = daily[col].resample("W-FRI").last()
+    for col in ["btc_etf_net_flow_usd", "eth_etf_net_flow_usd", "btc_total_liq_usd", "eth_total_liq_usd"]:
+        if col in daily.columns:
+            weekly[col] = daily[col].resample("W-FRI").sum(min_count=1)
+    weekly = recompute_tradfi_features_on_index(weekly)
+    weekly["btc_mcap_lag1"] = weekly["btc_market_cap_usd"].shift(1)
+    weekly["eth_mcap_lag1"] = weekly["eth_market_cap_usd"].shift(1)
+    weekly["stablecoin_supply_growth"] = log_return(weekly["stablecoin_supply_usd"])
+    weekly["defi_tvl_growth"] = log_return(weekly["defi_tvl_usd"])
+    weekly["valuation_sensitive_defi_tvl_growth"] = weekly["defi_tvl_growth"]
+    weekly["btc_oi_growth"] = log_return(weekly["btc_oi"])
+    weekly["eth_oi_growth"] = log_return(weekly["eth_oi"])
+    weekly["btc_oi_to_mcap_current"] = weekly["btc_oi"] / weekly["btc_market_cap_usd"]
+    weekly["eth_oi_to_mcap_current"] = weekly["eth_oi"] / weekly["eth_market_cap_usd"]
+    weekly["btc_oi_to_mcap"] = weekly["btc_oi"] / weekly["btc_mcap_lag1"]
+    weekly["eth_oi_to_mcap"] = weekly["eth_oi"] / weekly["eth_mcap_lag1"]
+    weekly["btc_oi_to_mcap_growth"] = log_return(weekly["btc_oi_to_mcap_current"])
+    weekly["eth_oi_to_mcap_growth"] = log_return(weekly["eth_oi_to_mcap_current"])
+    weekly["fear_greed_change"] = weekly["fear_greed_altme"].diff()
+    weekly["btc_etf_flow_intensity_lag0"] = weekly["btc_etf_net_flow_usd"] / weekly["btc_mcap_lag1"]
+    weekly["eth_etf_flow_intensity_lag0"] = weekly["eth_etf_net_flow_usd"] / weekly["eth_mcap_lag1"]
+    weekly["btc_etf_flow_intensity"] = weekly["btc_etf_flow_intensity_lag0"]
+    weekly["eth_etf_flow_intensity"] = weekly["eth_etf_flow_intensity_lag0"]
+    weekly["btc_total_liq_to_lag_oi_pct"] = weekly["btc_total_liq_usd"] / weekly["btc_oi"].shift(1) * 100
+    weekly["eth_total_liq_to_lag_oi_pct"] = weekly["eth_total_liq_usd"] / weekly["eth_oi"].shift(1) * 100
+    weekly = recompute_lagged_state_features(weekly)
+    weekly["btc_realized_vol_30d"] = weekly["btc_ret"].rolling(4, min_periods=3).std() * math.sqrt(52)
+    weekly["eth_realized_vol_30d"] = weekly["eth_ret"].rolling(4, min_periods=3).std() * math.sqrt(52)
+    assumption = CALENDAR_ASSUMPTIONS["tradfi_friday_weekly"]
+    if calendar_name != "tradfi_friday_weekly":
+        assumption = assumption + " ETF-era weekly rows are Friday-ended trading-week summaries."
+    return annotate_calendar(weekly, calendar_name, assumption)
+
+
+def etf_trading_daily_features(daily: pd.DataFrame) -> pd.DataFrame:
+    flow_cols = ["btc_etf_net_flow_usd", "eth_etf_net_flow_usd"]
+    present = [col for col in flow_cols if col in daily.columns]
+    mask = daily[present].notna().any(axis=1) if present else pd.Series(False, index=daily.index)
+    panel = recompute_tradfi_features_on_index(daily.loc[mask].copy())
+    panel["btc_mcap_lag1"] = panel["btc_market_cap_usd"].shift(1)
+    panel["eth_mcap_lag1"] = panel["eth_market_cap_usd"].shift(1)
+    panel["btc_etf_flow_intensity_lag0"] = panel["btc_etf_net_flow_usd"] / panel["btc_mcap_lag1"]
+    panel["eth_etf_flow_intensity_lag0"] = panel["eth_etf_net_flow_usd"] / panel["eth_mcap_lag1"]
+    panel["btc_etf_flow_intensity_lag1"] = panel["btc_etf_flow_intensity_lag0"].shift(1)
+    panel["eth_etf_flow_intensity_lag1"] = panel["eth_etf_flow_intensity_lag0"].shift(1)
+    panel["btc_etf_flow_intensity"] = panel["btc_etf_flow_intensity_lag0"]
+    panel["eth_etf_flow_intensity"] = panel["eth_etf_flow_intensity_lag0"]
+    panel = recompute_lagged_state_features(panel)
+    return annotate_calendar(panel, "etf_trading_daily")
 
 
 def classify_pit_asset(row: pd.Series) -> str:
@@ -1165,6 +1408,12 @@ def build_market_structure_monthly(root: Path = PROJECT_ROOT) -> pd.DataFrame:
     frame = pd.read_csv(source)
     frame["snapshot_date"] = pd.to_datetime(frame["snapshot_date"], errors="coerce")
     frame["month"] = pd.to_datetime(frame["month"].astype(str) + "-01", errors="coerce")
+    if "is_partial_month" not in frame:
+        frame["is_partial_month"] = frame["snapshot_date"].dt.to_period("M").dt.to_timestamp("M") != frame["snapshot_date"]
+    if frame["is_partial_month"].dtype == object:
+        frame["is_partial_month"] = frame["is_partial_month"].astype(str).str.lower().isin({"true", "1", "yes"})
+    else:
+        frame["is_partial_month"] = frame["is_partial_month"].fillna(False).astype(bool)
     frame = frame.dropna(subset=["month", "market_cap_usd"])
     frame["asset_class_final"] = frame.apply(classify_pit_asset, axis=1)
     frame = frame.sort_values(["month", "market_cap_usd"], ascending=[True, False])
@@ -1310,11 +1559,11 @@ def tradfi_contemporaneous_blocks() -> dict[str, list[str]]:
 
 
 def lagged_state_blocks(asset: str) -> dict[str, list[str]]:
-    native = [f"{asset}_oi_growth_lag1", f"{asset}_funding_z_lag1"]
+    native = [f"{asset}_oi_to_mcap_growth_lag1", f"{asset}_funding_z_lag1"]
     if asset == "btc":
         native.append("btc_exchange_netflow_scaled_lag1")
     return {
-        "liquidity_state": ["stablecoin_supply_growth_lag1", "defi_tvl_growth_lag1"],
+        "liquidity_state": ["stablecoin_supply_growth_lag1", "valuation_sensitive_defi_tvl_growth_lag1"],
         "sentiment_state": ["fear_greed_altme_lag1", "fear_greed_change_lag1"],
         "lagged_leverage_state": native,
     }
@@ -1401,7 +1650,23 @@ def model_specs_for(asset: str) -> list[dict[str, Any]]:
     ]
 
 
-def exposure_tables(daily: pd.DataFrame, weekly: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFrame]:
+def panel_calendar_value(frame: pd.DataFrame, column: str) -> str:
+    if column in frame.columns:
+        values = frame[column].dropna()
+        if not values.empty:
+            return str(values.iloc[0])
+    return ""
+
+
+def exposure_tables(
+    daily: pd.DataFrame,
+    tradfi_daily: pd.DataFrame,
+    tradfi_weekly: pd.DataFrame,
+    crypto_weekly: pd.DataFrame,
+    etf_daily: pd.DataFrame,
+    etf_weekly: pd.DataFrame,
+    p: BuildPaths,
+) -> dict[str, pd.DataFrame]:
     outputs: dict[str, pd.DataFrame] = {}
     strength_frames = []
     block_frames = []
@@ -1410,11 +1675,24 @@ def exposure_tables(daily: pd.DataFrame, weekly: pd.DataFrame, p: BuildPaths) ->
     multi_frames = []
     ridge_frames = []
     freq_frames = []
+    frame_routes = {
+        ("long_sample_contemporaneous_exposure", "daily"): (tradfi_daily, 5),
+        ("long_sample_contemporaneous_exposure", "weekly"): (tradfi_weekly, 4),
+        ("long_sample_lagged_state_association", "daily"): (daily, 5),
+        ("long_sample_lagged_state_association", "weekly"): (crypto_weekly, 4),
+        ("etf_era_augmented", "daily"): (etf_daily, 5),
+        ("etf_era_augmented", "weekly"): (etf_weekly, 4),
+    }
     for asset, target in [("btc", "btc_ret"), ("eth", "eth_ret")]:
-        for frequency, frame, hac in [("daily", daily, 5), ("weekly", weekly, 4)]:
-            if target not in frame:
-                continue
-            for spec in model_specs_for(asset):
+        for spec in model_specs_for(asset):
+            model_family = spec["model_family"]
+            for frequency in ["daily", "weekly"]:
+                frame, hac = frame_routes[(model_family, frequency)]
+                if target not in frame:
+                    continue
+                calendar = panel_calendar_value(frame, "calendar")
+                calendar_assumption = panel_calendar_value(frame, "calendar_assumption")
+                close_time_assumption = panel_calendar_value(frame, "close_time_assumption")
                 model_family = spec["model_family"]
                 blocks = {
                     block: available_features(frame, features, min_obs=30 if frequency == "weekly" else 40)
@@ -1438,6 +1716,9 @@ def exposure_tables(daily: pd.DataFrame, weekly: pd.DataFrame, p: BuildPaths) ->
                                 "acceptance_threshold": threshold,
                                 "full_r2": np.nan,
                                 "feature_count": len(flat_features),
+                                "calendar": calendar,
+                                "calendar_assumption": calendar_assumption,
+                                "close_time_assumption": close_time_assumption,
                                 "status": "skipped_insufficient_common_sample",
                             }
                         )
@@ -1474,6 +1755,9 @@ def exposure_tables(daily: pd.DataFrame, weekly: pd.DataFrame, p: BuildPaths) ->
                                 "same_support": int(full["n"]) == int(reduced["n"]),
                                 "sample_start": sample_start,
                                 "sample_end": sample_end,
+                                "calendar": calendar,
+                                "calendar_assumption": calendar_assumption,
+                                "close_time_assumption": close_time_assumption,
                                 "feature_list": feature_list,
                                 "row_index_hash": row_hash,
                                 "correlation": corr,
@@ -1496,6 +1780,9 @@ def exposure_tables(daily: pd.DataFrame, weekly: pd.DataFrame, p: BuildPaths) ->
                                 "n": int(full["n"]),
                                 "sample_start": sample_start,
                                 "sample_end": sample_end,
+                                "calendar": calendar,
+                                "calendar_assumption": calendar_assumption,
+                                "close_time_assumption": close_time_assumption,
                                 "p_value": pvals.get(feature, np.nan),
                                 "fdr_q_value": qvals.get(feature, np.nan),
                             }
@@ -1519,6 +1806,9 @@ def exposure_tables(daily: pd.DataFrame, weekly: pd.DataFrame, p: BuildPaths) ->
                                 "same_support": int(full["n"]) == int(reduced["n"]),
                                 "sample_start": sample_start,
                                 "sample_end": sample_end,
+                                "calendar": calendar,
+                                "calendar_assumption": calendar_assumption,
+                                "close_time_assumption": close_time_assumption,
                                 "feature_list": feature_list,
                                 "dropped_features": "|".join(block_features),
                                 "row_index_hash": row_hash,
@@ -1542,6 +1832,9 @@ def exposure_tables(daily: pd.DataFrame, weekly: pd.DataFrame, p: BuildPaths) ->
                                 "same_support": int(full["n"]) == int(reduced["n"]),
                                 "sample_start": sample_start,
                                 "sample_end": sample_end,
+                                "calendar": calendar,
+                                "calendar_assumption": calendar_assumption,
+                                "close_time_assumption": close_time_assumption,
                                 "feature_list": feature_list,
                                 "dropped_features": "|".join(block_features),
                                 "row_index_hash": row_hash,
@@ -1551,8 +1844,31 @@ def exposure_tables(daily: pd.DataFrame, weekly: pd.DataFrame, p: BuildPaths) ->
                                 "formula": "(SSE_reduced - SSE_full) / SSE_reduced on the same complete-case estimation frame",
                             }
                         )
-                    multi_frames.extend(multicollinearity_rows(asset, frequency, standardize(estimation[flat_features]), model_family, regime, row_hash))
-                    ridge_frames.extend(ridge_stability_rows(asset, frequency, estimation[target], standardize(estimation[flat_features]), model_family, regime, row_hash))
+                    multi_frames.extend(
+                        multicollinearity_rows(
+                            asset,
+                            frequency,
+                            standardize(estimation[flat_features]),
+                            model_family,
+                            regime,
+                            row_hash,
+                            calendar,
+                            calendar_assumption,
+                        )
+                    )
+                    ridge_frames.extend(
+                        ridge_stability_rows(
+                            asset,
+                            frequency,
+                            estimation[target],
+                            standardize(estimation[flat_features]),
+                            model_family,
+                            regime,
+                            row_hash,
+                            calendar,
+                            calendar_assumption,
+                        )
+                    )
                     freq_frames.append(
                         {
                             "asset": asset.upper(),
@@ -1563,6 +1879,9 @@ def exposure_tables(daily: pd.DataFrame, weekly: pd.DataFrame, p: BuildPaths) ->
                             "acceptance_threshold": threshold,
                             "sample_start": sample_start,
                             "sample_end": sample_end,
+                            "calendar": calendar,
+                            "calendar_assumption": calendar_assumption,
+                            "close_time_assumption": close_time_assumption,
                             "full_r2": full["r2"],
                             "feature_count": len(flat_features),
                             "status": "passed",
@@ -1574,7 +1893,7 @@ def exposure_tables(daily: pd.DataFrame, weekly: pd.DataFrame, p: BuildPaths) ->
     eth_strength = strength[strength["asset"] == "ETH"].copy()
     block_delta = pd.DataFrame(block_frames)
     conventional_partial = pd.DataFrame(partial_frames)
-    rolling = rolling_tradfi_exposures(daily)
+    rolling = rolling_tradfi_exposures(tradfi_daily)
     regimes = exposure_regime_comparison(block_delta)
     multicollinearity = pd.DataFrame(multi_frames)
     ridge = pd.DataFrame(ridge_frames)
@@ -1616,6 +1935,8 @@ def multicollinearity_rows(
     model_family: str = "",
     regime: str = "",
     row_index_hash: str = "",
+    calendar: str = "",
+    calendar_assumption: str = "",
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     clean = x.replace([np.inf, -np.inf], np.nan).dropna()
@@ -1641,6 +1962,8 @@ def multicollinearity_rows(
                 "feature_id": feature,
                 "n": int(len(clean)),
                 "row_index_hash": row_index_hash,
+                "calendar": calendar,
+                "calendar_assumption": calendar_assumption,
                 "vif": vif,
                 "condition_number": cond,
                 "max_abs_pairwise_corr": corr[feature].drop(feature, errors="ignore").max(),
@@ -1658,6 +1981,8 @@ def ridge_stability_rows(
     model_family: str = "",
     regime: str = "",
     row_index_hash: str = "",
+    calendar: str = "",
+    calendar_assumption: str = "",
 ) -> list[dict[str, Any]]:
     df = pd.concat([y.rename("target"), x], axis=1).replace([np.inf, -np.inf], np.nan).dropna()
     if len(df) < 40:
@@ -1680,6 +2005,8 @@ def ridge_stability_rows(
                     "feature_id": feature,
                     "n": int(len(df)),
                     "row_index_hash": row_index_hash,
+                    "calendar": calendar,
+                    "calendar_assumption": calendar_assumption,
                     "ridge_coef": float(coef),
                     "sign": "positive" if coef > 0 else "negative" if coef < 0 else "zero",
                     "abs_rank": int(ranks[feature]),
@@ -1691,6 +2018,9 @@ def ridge_stability_rows(
 def rolling_tradfi_exposures(daily: pd.DataFrame) -> pd.DataFrame:
     rows = []
     features = available_features(daily, [f for values in tradfi_contemporaneous_blocks().values() for f in values], min_obs=120)
+    calendar = panel_calendar_value(daily, "calendar")
+    calendar_assumption = panel_calendar_value(daily, "calendar_assumption")
+    close_time_assumption = panel_calendar_value(daily, "close_time_assumption")
     for asset, target in [("BTC", "btc_ret"), ("ETH", "eth_ret")]:
         for window in [180, 365]:
             for idx in range(window, len(daily), 14):
@@ -1713,6 +2043,9 @@ def rolling_tradfi_exposures(daily: pd.DataFrame) -> pd.DataFrame:
                             "sample_count": int(len(df)),
                             "n": int(len(df)),
                             "timing": "contemporaneous",
+                            "calendar": calendar,
+                            "calendar_assumption": calendar_assumption,
+                            "close_time_assumption": close_time_assumption,
                         }
                     )
     return pd.DataFrame(rows)
@@ -1735,6 +2068,8 @@ def exposure_regime_comparison(block: pd.DataFrame) -> pd.DataFrame:
                 "n": int(group["n"].max()),
                 "r2": float(group["full_r2"].max()),
                 "feature_count": len(str(group["feature_list"].iloc[0]).split("|")) if not group.empty else 0,
+                "calendar": str(group["calendar"].iloc[0]) if "calendar" in group else "",
+                "calendar_assumption": str(group["calendar_assumption"].iloc[0]) if "calendar_assumption" in group else "",
                 "method_note": "Contemporaneous TradFi exposure model, descriptive regime split.",
             }
         )
@@ -1799,22 +2134,13 @@ def mvrv_tables(daily: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFrame]:
     write_csv(p.tables / "mvrv_identity_points.csv", points)
     write_csv(p.tables / "onchain_state_regimes.csv", state)
     write_csv(p.tables / "mvrv_regime_outcomes.csv", regime)
-    report = """# On-Chain Valuation State
-
-MVRV is retained as a measurement-mechanics audit and lagged valuation-state variable. Same-day `d_log_mvrv` is mechanically tied to BTC market capitalization and is excluded from the primary ex-MVRV exposure models.
-
-The identity audit aligns `d_log_mvrv`, `d_log_market_cap`, and `d_log_realized_cap` over the same date interval and reports residual scale diagnostics. Residuals are interpreted with source-convention caveats, not assumed negligible.
-
-The regime table uses lagged MVRV percentiles and reports conditional forward return, realized volatility, drawdown, funding, and leverage summaries. These are descriptive state summaries, not forecasts.
-"""
-    write_md(p.report / "onchain_valuation_state.md", report)
     return {"mvrv_mechanical_link_audit": audit, "mvrv_identity_points": points, "onchain_state_regimes": state, "mvrv_regime_outcomes": regime}
 
 
 def leverage_tables(daily: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFrame]:
     daily = daily.copy()
     features = [
-        "btc_oi_growth_lag1",
+        "btc_oi_to_mcap_growth_lag1",
         "btc_funding_z_lag1",
         "btc_leverage_ratio_percentile_lag1",
         "btc_basis_z",
@@ -1857,7 +2183,7 @@ def leverage_tables(daily: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFram
     ).reset_index().rename(columns={"leverage_state_quintile": "leverage_state"})
 
     model_rows = []
-    lag_features = available_features(daily, ["btc_oi_growth_lag1", "btc_funding_z_lag1", "btc_leverage_ratio_percentile_lag1", "btc_basis_z"])
+    lag_features = available_features(daily, ["btc_oi_to_mcap_growth_lag1", "btc_funding_z_lag1", "btc_leverage_ratio_percentile_lag1", "btc_basis_z"])
     if lag_features:
         df = pd.concat([daily["btc_bottom5"].rename("target"), daily[lag_features]], axis=1).replace([np.inf, -np.inf], np.nan).dropna()
         if len(df) >= 100 and df["target"].nunique() > 1:
@@ -1915,11 +2241,10 @@ def leverage_tables(daily: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFram
     write_csv(p.tables / "tail_risk_models.csv", tail)
     write_csv(p.tables / "liquidation_event_responses.csv", top_events)
     write_csv(p.tables / "leverage_tail_risk_summary.csv", summary)
-    write_md(p.report / "leverage_and_tail_risk.md", "# Leverage And Tail Risk\n\nLeverage, funding, open interest, and liquidation variables are evaluated as volatility and stress-state measures. Liquidation signatures are expressed as percent of prior-day open interest and basis points of prior-day market cap, with post-event returns reported separately.")
     return {"leverage_state_summary": state, "tail_risk_models": tail, "liquidation_event_responses": top_events, "leverage_tail_risk_summary": summary}
 
 
-def etf_tables(daily: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFrame]:
+def etf_tables(daily: pd.DataFrame, etf_daily: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFrame]:
     timing = []
     for asset in ["btc", "eth"]:
         flow_col = f"{asset}_etf_net_flow_usd"
@@ -1931,15 +2256,17 @@ def etf_tables(daily: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFrame]:
                 "last_flow_date": valid.index.max().date().isoformat() if not valid.empty else "",
                 "observations": int(len(valid)),
                 "nonzero_observations": int((valid != 0).sum()),
+                "calendar": panel_calendar_value(etf_daily, "calendar"),
+                "calendar_assumption": panel_calendar_value(etf_daily, "calendar_assumption"),
                 "timing_note": "Farside daily issuer aggregates; holidays/non-reporting days are not treated as zero unless source reports zero.",
             }
         )
     assoc_rows = []
     for asset in ["btc", "eth"]:
-        ret = daily[f"{asset}_ret"]
-        vol = daily[f"{asset}_realized_vol_30d"]
+        ret = etf_daily[f"{asset}_ret"]
+        vol = etf_daily[f"{asset}_realized_vol_30d"] if f"{asset}_realized_vol_30d" in etf_daily else daily[f"{asset}_realized_vol_30d"].reindex(etf_daily.index)
         for lag, flow_col in [(0, f"{asset}_etf_flow_intensity_lag0"), (1, f"{asset}_etf_flow_intensity_lag1")]:
-            flow = daily[flow_col]
+            flow = etf_daily[flow_col]
             ret_df = pd.concat([ret, flow.rename("flow")], axis=1).dropna()
             vol_df = pd.concat([vol, flow.rename("flow")], axis=1).dropna()
             assoc_rows.append(
@@ -1951,7 +2278,10 @@ def etf_tables(daily: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFrame]:
                     "volatility_corr": vol_df.iloc[:, 0].corr(vol_df["flow"]) if len(vol_df) else np.nan,
                     "n_return": len(ret_df),
                     "n_volatility": len(vol_df),
-                    "lag_convention": "lag 0 is same-day reported ETF flow intensity; lag 1 is prior-day flow intensity",
+                    "calendar": panel_calendar_value(etf_daily, "calendar"),
+                    "calendar_assumption": panel_calendar_value(etf_daily, "calendar_assumption"),
+                    "close_time_assumption": panel_calendar_value(etf_daily, "close_time_assumption"),
+                    "lag_convention": "lag 0 is current ETF trading-date reported flow intensity; lag 1 is prior ETF trading-date flow intensity",
                     "language": "association_grid_not_causal",
                 }
             )
@@ -1981,6 +2311,7 @@ def etf_tables(daily: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFrame]:
                 "key_metric": "latest cumulative flow / lagged BTC mcap",
                 "value": absorption["btc_cum_flow_to_lag_mcap"].dropna().iloc[-1] if absorption["btc_cum_flow_to_lag_mcap"].notna().any() else np.nan,
                 "sample": "BTC ETF era",
+                "calendar": panel_calendar_value(etf_daily, "calendar"),
                 "interpretation": "Descriptive absorption ratio, not valuation model.",
             },
             {
@@ -1988,6 +2319,7 @@ def etf_tables(daily: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFrame]:
                 "key_metric": "latest cumulative flow / lagged ETH mcap",
                 "value": absorption["eth_cum_flow_to_lag_mcap"].dropna().iloc[-1] if absorption["eth_cum_flow_to_lag_mcap"].notna().any() else np.nan,
                 "sample": "ETH ETF era",
+                "calendar": panel_calendar_value(etf_daily, "calendar"),
                 "interpretation": "Descriptive absorption ratio, not valuation model.",
             },
         ]
@@ -1998,15 +2330,77 @@ def etf_tables(daily: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFrame]:
     write_csv(p.tables / "etf_absorption_metrics.csv", absorption)
     write_csv(p.tables / "etf_era_exposure_comparison.csv", era)
     write_csv(p.tables / "etf_market_plumbing_summary.csv", summary)
-    write_md(p.report / "etf_market_plumbing.md", "# ETF Market Plumbing\n\nETF flows are analyzed as daily market-plumbing variables with reporting-timing caveats. The report avoids causal price claims.")
     return {"etf_market_plumbing_summary": summary, "etf_flow_associations": pd.DataFrame(assoc_rows), "etf_absorption_metrics": absorption}
 
 
+def valuation_contamination_audit(daily: pd.DataFrame, weekly: pd.DataFrame, p: BuildPaths) -> pd.DataFrame:
+    rows: list[dict[str, Any]] = []
+    for asset in ["btc", "eth"]:
+        ret_col = f"{asset}_ret"
+        tvl_col = "valuation_sensitive_defi_tvl_growth"
+        tvl_df = weekly[[ret_col, tvl_col]].replace([np.inf, -np.inf], np.nan).dropna()
+        rows.append(
+            {
+                "feature_id": tvl_col,
+                "asset": asset.upper(),
+                "audit_scope": "same-week raw USD TVL price-content screen",
+                "frequency": "weekly",
+                "calendar": panel_calendar_value(weekly, "calendar"),
+                "n": len(tvl_df),
+                "correlation_with_return": tvl_df[ret_col].corr(tvl_df[tvl_col]) if len(tvl_df) else np.nan,
+                "unit_disposition": "USD TVL embeds asset-price effects; label as valuation-sensitive DeFi balance-sheet proxy.",
+                "mechanical_link_risk": "high_usd_price_content",
+                "preferred_public_language": "valuation-sensitive DeFi balance-sheet proxy",
+                "prohibited_public_language": "pure capital inflow; exogenous liquidity shock",
+            }
+        )
+        raw_oi = f"{asset}_oi_growth"
+        ratio_oi = f"{asset}_oi_to_mcap_growth"
+        for feature, disposition, risk in [
+            (raw_oi, "Raw OI growth is retained for audit only when OI is USD/notional-valued.", "medium_if_usd_notional"),
+            (ratio_oi, "OI/market-cap growth is preferred as the price-scaled OI state measure.", "lower_after_mcap_scaling"),
+        ]:
+            if feature not in daily:
+                continue
+            oi_df = daily[[ret_col, feature]].replace([np.inf, -np.inf], np.nan).dropna()
+            rows.append(
+                {
+                    "feature_id": feature,
+                    "asset": asset.upper(),
+                    "audit_scope": "open-interest unit and price-content screen",
+                    "frequency": "daily",
+                    "calendar": panel_calendar_value(daily, "calendar"),
+                    "n": len(oi_df),
+                    "correlation_with_return": oi_df[ret_col].corr(oi_df[feature]) if len(oi_df) else np.nan,
+                    "unit_disposition": disposition + " CryptoQuant OI unit is treated as USD/notional unless provider metadata prove otherwise.",
+                    "mechanical_link_risk": risk,
+                    "preferred_public_language": "lagged OI/market-cap leverage-state association",
+                    "prohibited_public_language": "pure leverage expansion independent of price",
+                }
+            )
+    audit = pd.DataFrame(rows)
+    write_csv(p.tables / "valuation_contamination_audit.csv", audit)
+    return audit
+
+
 def liquidity_tables(weekly: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFrame]:
-    features = weekly[["stablecoin_supply_usd", "stablecoin_supply_growth", "defi_tvl_usd", "defi_tvl_growth", "stablecoin_to_tvl", "btc_ret", "eth_ret", "btc_realized_vol_30d"]].copy()
+    features = weekly[
+        [
+            "stablecoin_supply_usd",
+            "stablecoin_supply_growth",
+            "defi_tvl_usd",
+            "valuation_sensitive_defi_tvl_growth",
+            "stablecoin_to_tvl",
+            "btc_ret",
+            "eth_ret",
+            "btc_realized_vol_30d",
+            "calendar",
+            "calendar_assumption",
+        ]
+    ].copy()
     features = features.reset_index()
     features["date"] = pd.to_datetime(features["date"]).dt.date.astype(str)
-    defifeat = features[["date", "defi_tvl_usd", "defi_tvl_growth"]].copy()
+    defifeat = features[["date", "defi_tvl_usd", "valuation_sensitive_defi_tvl_growth"]].copy()
     quantiles = pd.qcut(weekly["stablecoin_supply_growth"], 3, labels=["contraction/low", "middle", "expansion/high"], duplicates="drop")
     regime = weekly.assign(liquidity_regime=quantiles).groupby("liquidity_regime", dropna=True).agg(
         n=("btc_ret", "count"),
@@ -2017,19 +2411,32 @@ def liquidity_tables(weekly: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFr
         stablecoin_to_tvl_median=("stablecoin_to_tvl", "median"),
     ).reset_index()
     assoc_rows = []
-    for lhs in ["stablecoin_supply_growth", "defi_tvl_growth", "stablecoin_to_tvl"]:
+    for lhs in ["stablecoin_supply_growth", "valuation_sensitive_defi_tvl_growth", "stablecoin_to_tvl"]:
         for rhs in ["btc_ret", "eth_ret", "btc_realized_vol_30d"]:
             df = weekly[[lhs, rhs]].dropna()
-            assoc_rows.append({"liquidity_feature": lhs, "outcome": rhs, "frequency": "weekly", "n": len(df), "correlation": df[lhs].corr(df[rhs]) if len(df) else np.nan, "language": "descriptive_lead_lag_not_shock"})
+            assoc_rows.append(
+                {
+                    "liquidity_feature": lhs,
+                    "outcome": rhs,
+                    "frequency": "weekly",
+                    "calendar": panel_calendar_value(weekly, "calendar"),
+                    "calendar_assumption": panel_calendar_value(weekly, "calendar_assumption"),
+                    "n": len(df),
+                    "correlation": df[lhs].corr(df[rhs]) if len(df) else np.nan,
+                    "mechanical_link_risk": "high_usd_price_content" if "tvl" in lhs else "low",
+                    "language": "descriptive_state_proxy_not_shock",
+                }
+            )
     assoc = pd.DataFrame(assoc_rows)
     summary = regime.copy()
-    summary["method_note"] = "Weekly aggregation; stablecoin supply, DeFi TVL, and activity proxies are not exogenous shocks."
+    summary["calendar"] = panel_calendar_value(weekly, "calendar")
+    summary["calendar_assumption"] = panel_calendar_value(weekly, "calendar_assumption")
+    summary["method_note"] = "Sunday-ended crypto weekly aggregation; stablecoin supply is cleaner than raw USD TVL, while TVL is valuation-sensitive."
     write_csv(p.tables / "stablecoin_liquidity_features.csv", features)
     write_csv(p.tables / "defi_activity_features.csv", defifeat)
     write_csv(p.tables / "liquidity_regime_summary.csv", regime)
     write_csv(p.tables / "liquidity_associations.csv", assoc)
     write_csv(p.tables / "stablecoin_defi_liquidity_summary.csv", summary)
-    write_md(p.report / "stablecoin_defi_liquidity.md", "# Stablecoin And DeFi Liquidity\n\nStablecoin and DeFi variables are treated as weekly liquidity-state proxies. Supply, transaction activity, and TVL are not conflated.")
     return {"stablecoin_defi_liquidity_summary": summary, "liquidity_associations": assoc}
 
 
@@ -2179,7 +2586,6 @@ def selected_major_tables(root: Path, p: BuildPaths) -> dict[str, pd.DataFrame]:
     write_csv(p.tables / "selected_major_betas.csv", betas)
     write_csv(p.tables / "chain_fundamental_panel_summary.csv", panel_summary)
     write_csv(p.tables / "chain_activity_associations.csv", chain_assoc)
-    write_md(p.report / "selected_major_assets.md", "# Selected Major Assets\n\nSelected-major comparisons use canonical IDs, explicit coverage windows, and no pre-launch backfill. Current daily constituent coverage begins 2022-12-31/2023 for most selected assets; HYPE is visibly short-history. Toncoin is sourced only when the canonical `coingecko:the-open-network` series is present, even if the source symbol is not TON.")
     return {"selected_major_risk_metrics": risk, "selected_major_comparable_window_metrics": comparable, "selected_major_betas": betas}
 
 
@@ -2216,7 +2622,14 @@ def pit_tables(monthly: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFrame]:
     composition = top100.groupby(["month", "asset_class_final"], dropna=False)["market_cap_usd"].sum().reset_index()
     totals = composition.groupby("month")["market_cap_usd"].transform("sum")
     composition["share"] = composition["market_cap_usd"] / totals
-    composition["month"] = composition["month"].dt.date.astype(str)
+    month_meta = top100.groupby("month", dropna=False).agg(
+        snapshot_date=("snapshot_date", "max"),
+        is_partial_month=("is_partial_month", "max"),
+    ).reset_index()
+    composition = composition.merge(month_meta, on="month", how="left")
+    composition["snapshot_date"] = pd.to_datetime(composition["snapshot_date"]).dt.date.astype(str)
+    composition["is_partial_month"] = composition["is_partial_month"].astype(bool)
+    composition["month"] = composition["month"].dt.to_period("M").astype(str)
     concentration_rows = []
     turnover_rows = []
     previous_assets: set[str] | None = None
@@ -2225,9 +2638,13 @@ def pit_tables(monthly: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFrame]:
         total = group["market_cap_usd"].sum()
         shares = group["market_cap_usd"] / total
         assets = set(group["asset_key"])
+        snapshot_date = pd.to_datetime(group["snapshot_date"]).max()
+        is_partial = bool(group["is_partial_month"].fillna(False).astype(bool).any())
         concentration_rows.append(
             {
-                "month": month.date().isoformat(),
+                "month": month.to_period("M").strftime("%Y-%m"),
+                "snapshot_date": snapshot_date.date().isoformat(),
+                "is_partial_month": is_partial,
                 "snapshot_count": len(group),
                 "top5_share": shares.head(5).sum(),
                 "top10_share": shares.head(10).sum(),
@@ -2242,7 +2659,7 @@ def pit_tables(monthly: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFrame]:
         if previous_assets is not None:
             turnover_rows.append(
                 {
-                    "month": month.date().isoformat(),
+                    "month": month.to_period("M").strftime("%Y-%m"),
                     "entries": len(assets - previous_assets),
                     "exits": len(previous_assets - assets),
                     "rank_persistence": len(assets & previous_assets) / max(len(assets), 1),
@@ -2280,7 +2697,6 @@ def pit_tables(monthly: pd.DataFrame, p: BuildPaths) -> dict[str, pd.DataFrame]:
     write_csv(p.tables / "pit_turnover.csv", turnover)
     write_csv(p.tables / "pit_period_comparison.csv", period)
     write_csv(p.tables / "pit_market_structure_summary.csv", summary)
-    write_md(p.report / "point_in_time_market_structure.md", "# Point-In-Time Market Structure\n\nMonthly PIT top-200 data is used for composition, concentration, and turnover only. It is not used for daily historical altseason performance.")
     return {"pit_market_structure_summary": summary, "pit_composition": composition, "pit_concentration": concentration}
 
 
@@ -2327,7 +2743,6 @@ def event_tables(root: Path, daily: pd.DataFrame, p: BuildPaths) -> dict[str, pd
     write_csv(p.tables / "event_atlas.csv", events)
     write_csv(p.tables / "event_response_matrix.csv", response)
     write_csv(p.tables / "event_inference.csv", inference)
-    write_md(p.report / "cycle_and_event_atlas.md", "# Cycle And Event Atlas\n\nCycle and event outputs are descriptive. They do not forecast prices or claim causal identification from a small number of episodes.")
     return {"event_response_matrix": response, "event_inference": inference}
 
 
@@ -2466,7 +2881,6 @@ def robustness_tables(daily: pd.DataFrame, weekly: pd.DataFrame, p: BuildPaths) 
     robustness = pd.DataFrame(summary_rows)
     write_csv(p.tables / "local_window_correlation_distribution.csv", local_window_df)
     write_csv(p.tables / "robustness_summary.csv", robustness)
-    write_md(p.report / "statistical_robustness.md", "# Statistical Robustness\n\nThe final pipeline reports FDR-adjusted inference, VIF/condition diagnostics, ridge coefficient stability, accepted daily-versus-weekly comparisons, and distributions of overlapping 20-day local-window correlations. The local-window table is not described as a bootstrap confidence interval.")
     return {"local_window_correlation_distribution": local_window_df, "robustness_summary": robustness}
 
 
@@ -2474,19 +2888,24 @@ def build_analysis_outputs(root: Path = PROJECT_ROOT) -> dict[str, pd.DataFrame]
     p = paths(root)
     ensure_output_dirs(p)
     daily = pd.read_parquet(p.panels / "feature_store_daily.parquet")
-    weekly = pd.read_parquet(p.panels / "feature_store_weekly.parquet")
+    crypto_weekly = pd.read_parquet(p.panels / "feature_store_crypto_weekly.parquet")
+    tradfi_daily = pd.read_parquet(p.panels / "feature_store_tradfi_daily.parquet")
+    tradfi_weekly = pd.read_parquet(p.panels / "feature_store_tradfi_weekly.parquet")
+    etf_daily = pd.read_parquet(p.panels / "feature_store_etf_trading_daily.parquet")
+    etf_weekly = pd.read_parquet(p.panels / "feature_store_etf_trading_weekly.parquet")
     monthly = pd.read_parquet(p.panels / "market_structure_monthly.parquet")
     results: dict[str, pd.DataFrame] = {}
     results.update(mvrv_tables(daily, p))
-    results.update(exposure_tables(daily, weekly, p))
+    results.update(exposure_tables(daily, tradfi_daily, tradfi_weekly, crypto_weekly, etf_daily, etf_weekly, p))
     results.update(leverage_tables(daily, p))
-    results.update(etf_tables(daily, p))
-    results.update(liquidity_tables(weekly, p))
+    results.update(etf_tables(daily, etf_daily, p))
+    results["valuation_contamination_audit"] = valuation_contamination_audit(daily, crypto_weekly, p)
+    results.update(liquidity_tables(crypto_weekly, p))
     results.update(asset_identity_tables(monthly, p))
     results.update(selected_major_tables(root, p))
     results.update(pit_tables(monthly, p))
     results.update(event_tables(root, daily, p))
-    results.update(robustness_tables(daily, weekly, p))
+    results.update(robustness_tables(tradfi_daily, crypto_weekly, p))
     ledger, glance = evidence_and_glance(p)
     results["evidence_ledger"] = ledger
     results["results_at_a_glance"] = glance
@@ -2637,122 +3056,251 @@ def claim_inventory() -> pd.DataFrame:
 
 
 def evidence_and_glance(p: BuildPaths) -> tuple[pd.DataFrame, pd.DataFrame]:
+    claim_specs = [
+        (
+            "mvrv_mechanics_01",
+            "mvrv_mechanics",
+            "Same-day MVRV changes strongly overlap with BTC returns and are treated as measurement mechanics.",
+            "BTC return",
+            "d_log_mvrv",
+            sample_range_from_table(p.tables / "mvrv_identity_points.csv", "date", "daily"),
+            "daily",
+            "same-interval identity audit and HAC same-day diagnostic",
+            "mvrv_mechanical_link_audit.csv",
+            "01_mvrv_mechanics.png",
+            mvrv_headline_stat(p.tables / "mvrv_mechanical_link_audit.csv"),
+            "Diagnostic only; same-day MVRV is excluded from primary exposure models.",
+            "Identity residual scale, residual quantiles, and lagged state summaries.",
+            "direct_target_component",
+            "high",
+            "high",
+            "not_applicable_single_diagnostic",
+            "B",
+            "mechanically price-linked valuation-state measure",
+            "strongest independent factor; predictive driver",
+            "Source conventions and realized-cap updates affect residual.",
+            "accepted_qualified",
+        ),
+        (
+            "tradfi_exposure_01",
+            "tradfi_exposure_evolution",
+            "Contemporaneous TradFi exposure is evaluated on synchronized business-date and Friday panels.",
+            "BTC/ETH returns",
+            "equity, volatility, dollar, rate, and gold exposures",
+            "effective sample reported per row",
+            "daily; weekly",
+            "same-support HAC OLS drop-block delta R-squared",
+            "block_delta_r2.csv; rolling_tradfi_exposures.csv",
+            "02_factor_strength_by_regime.png; 03_tradfi_integration_over_time.png",
+            tradfi_period_headline_stat(p.tables / "block_delta_r2.csv"),
+            "HAC/FDR diagnostics; rolling windows overlap.",
+            "Business-date daily returns, Friday weekly returns, VIF, ridge, FDR, and local-window correlation distributions.",
+            "low",
+            "medium",
+            "low",
+            "FDR applied within model family.",
+            "B",
+            "period comparison of exposure strength",
+            "ETF effect; forecast; caused",
+            "Period splits are descriptive and not causal ETF identification.",
+            "accepted_qualified",
+        ),
+        (
+            "lagged_state_01",
+            "lagged_state_associations",
+            "Crypto-native liquidity, sentiment, funding, and scaled OI are reported as lagged-state associations.",
+            "BTC/ETH returns",
+            "stablecoin supply, valuation-sensitive TVL, Fear & Greed, funding, OI/market-cap, exchange flow",
+            "effective sample reported per row",
+            "daily; Sunday weekly",
+            "same-support HAC OLS state model",
+            "frequency_robustness.csv; block_delta_r2.csv",
+            "06_stablecoin_defi_liquidity.png",
+            lagged_state_headline_stat(p.tables / "frequency_robustness.csv"),
+            "HAC/FDR diagnostics; weekly models require nonzero accepted samples.",
+            "Sunday-ended crypto weekly panel and daily lagged-state panel.",
+            "medium",
+            "medium",
+            "medium",
+            "FDR applied within model family.",
+            "B",
+            "lagged-state association",
+            "exogenous shock; forecast",
+            "USD TVL and USD/notional OI can embed price content.",
+            "accepted_qualified",
+        ),
+        (
+            "etf_plumbing_01",
+            "etf_plumbing",
+            "ETF flow intensity is separated into lag 0 and lag 1 associations on ETF trading dates.",
+            "BTC/ETH returns and volatility",
+            "ETF flow intensity, cumulative flow / lagged market cap",
+            "ETF era only",
+            "ETF trading daily; Friday weekly model rows",
+            "correlation grid, absorption ratios, ETF-era augmented same-support OLS",
+            "etf_flow_associations.csv; etf_absorption_metrics.csv; block_delta_r2.csv",
+            "04_etf_market_plumbing.png",
+            etf_flow_headline_stat(p.tables / "etf_flow_associations.csv"),
+            "Short samples and reporting timing caveats.",
+            "Lag 0 and lag 1 flow intensity are separate columns; no zero-imputation for holidays.",
+            "low",
+            "high",
+            "low",
+            "pre_specified_lag0_lag1_grid",
+            "B",
+            "market-plumbing association",
+            "ETF flows caused returns",
+            "ETF flow timing may be reported after market close.",
+            "accepted_qualified",
+        ),
+        (
+            "leverage_tail_01",
+            "leverage_tail_stress",
+            "Leverage and liquidation variables are treated as stress-state diagnostics with interpretable denominators.",
+            "BTC lower-tail days",
+            "funding, OI/market-cap, leverage ratio, liquidations / lagged OI and market cap",
+            sample_range_from_table(p.tables / "liquidation_event_responses.csv", "event_date", "daily"),
+            "daily",
+            "state quintiles, lagged logit, top liquidation event windows",
+            "leverage_tail_risk_summary.csv; tail_risk_models.csv; liquidation_event_responses.csv",
+            "05_leverage_liquidation_stress.png",
+            leverage_headline_stat(p.tables / "leverage_tail_risk_summary.csv"),
+            "Class-balance diagnostics; event responses separated from same-day signatures.",
+            "Liquidation ratios in percent of lagged OI or basis points of lagged market cap.",
+            "low",
+            "medium",
+            "medium_if_usd_notional",
+            "limited_pre_specified_state_model",
+            "B",
+            "U-shaped tail-stress pattern",
+            "liquidations caused the move",
+            "Exchange coverage and liquidation reporting conventions.",
+            "accepted_qualified",
+        ),
+        (
+            "liquidity_state_01",
+            "stablecoin_defi_state",
+            "Stablecoin supply is a cleaner liquidity-state proxy; raw USD TVL is valuation-sensitive.",
+            "BTC/ETH returns and BTC volatility",
+            "stablecoin supply growth, valuation-sensitive DeFi TVL growth",
+            sample_range_from_table(p.tables / "stablecoin_liquidity_features.csv", "date", "weekly"),
+            "Sunday weekly",
+            "weekly regime summaries and contamination audit correlations",
+            "stablecoin_defi_liquidity_summary.csv; liquidity_associations.csv; valuation_contamination_audit.csv",
+            "06_stablecoin_defi_liquidity.png",
+            liquidity_headline_stat(p.tables / "valuation_contamination_audit.csv"),
+            "Descriptive correlations only.",
+            "Sunday-ended weekly transformations and explicit TVL price-content audit.",
+            "high_usd_price_content",
+            "medium",
+            "high",
+            "not_promoted_as_shock",
+            "B",
+            "valuation-sensitive DeFi balance-sheet proxy",
+            "pure capital inflow; liquidity shock",
+            "No price-adjusted TVL source is available in the local data.",
+            "accepted_qualified",
+        ),
+        (
+            "pit_structure_01",
+            "pit_structure",
+            "Monthly PIT snapshots support composition, concentration, and turnover evidence.",
+            "market composition and concentration",
+            "PIT top-100 slices from top-200 snapshots",
+            sample_range_from_table(p.tables / "pit_market_structure_summary.csv", "snapshot_date", "monthly"),
+            "monthly",
+            "market-cap shares, HHI, top-share concentration, entries/exits",
+            "pit_market_structure_summary.csv; pit_composition.csv; pit_turnover.csv",
+            "07_point_in_time_market_structure.png",
+            pit_headline_stat(p.tables / "pit_market_structure_summary.csv"),
+            "Descriptive monthly snapshots.",
+            "Shares sum within month; taxonomy and canonical IDs audited.",
+            "none",
+            "low",
+            "none",
+            "not_applicable_descriptive",
+            "A",
+            "market-structure context",
+            "daily PIT performance",
+            "No daily PIT constituent OHLCV for historical performance.",
+            "accepted_headline",
+        ),
+        (
+            "selected_major_risk_01",
+            "selected_major_risk",
+            "Selected-major risk comparisons are coverage-aware and use canonical local IDs.",
+            "volatility, drawdown, beta",
+            "selected major current-source daily returns",
+            sample_range_from_table(p.tables / "selected_major_risk_metrics.csv", "first_date", "daily"),
+            "daily",
+            "coverage-window and comparable-window risk summaries",
+            "selected_major_risk_metrics.csv; selected_major_comparable_window_metrics.csv",
+            "08_selected_major_asset_risk.png",
+            selected_major_headline_stat(p.tables / "selected_major_comparable_window_metrics.csv", p.tables / "selected_major_coverage.csv"),
+            "Coverage windows differ; HYPE is short-history.",
+            "Comparable-window metrics reported separately.",
+            "none",
+            "medium",
+            "low",
+            "not_promoted_as_full_cycle",
+            "B",
+            "coverage-aware risk comparison",
+            "event response for selected majors",
+            "Current-source cohort coverage begins mostly in 2023.",
+            "accepted_qualified",
+        ),
+        (
+            "event_atlas_01",
+            "event_atlas",
+            "Configured BTC/ETH event windows are empirical placebo-window tests, not bootstrap causal inference.",
+            "BTC/ETH post-event returns",
+            "registered event dates",
+            sample_range_from_table(p.tables / "event_response_matrix.csv", "event_date", "daily"),
+            "daily",
+            "post +1 through +10 return and non-overlapping placebo windows",
+            "event_response_matrix.csv; event_inference.csv",
+            "09_event_response_matrix.png",
+            event_headline_stat(p.tables / "event_inference.csv"),
+            "Small event count; placebo windows exclude registered-event overlaps.",
+            "Actual and placebo windows use the same block size and convention.",
+            "none",
+            "high",
+            "none",
+            "empirical_placebo_not_bootstrap",
+            "C",
+            "descriptive event-window response",
+            "causal event effect; forecast rule",
+            "Sparse events and overlapping regimes.",
+            "exploratory_only",
+        ),
+        (
+            "deferred_altseason_01",
+            "deferred_pit_altseason",
+            "True point-in-time historical altseason return analysis remains deferred.",
+            "altseason performance",
+            "historical PIT constituent daily OHLCV and market cap",
+            "not available",
+            "daily",
+            "honest skip path",
+            "claim_inventory.csv; selected_major_coverage.csv",
+            "",
+            "Deferred: monthly PIT snapshots do not include daily constituent return histories.",
+            "No statistical inference attempted.",
+            "Public checker and evidence ledger prevent current-cohort overclaiming.",
+            "none",
+            "high",
+            "none",
+            "not_promoted",
+            "C",
+            "deferred until data exists",
+            "historical altseason backtest",
+            "Requires daily point-in-time constituent OHLCV/mcap.",
+            "data_limited_deferred",
+        ),
+    ]
     claim_rows = [
-        {
-            "claim_id": "mvrv_mechanics_01",
-            "module": "mvrv",
-            "claim_text": "Same-day MVRV changes strongly overlap with BTC returns and are treated as measurement mechanics.",
-            "outcome": "BTC return",
-            "exposure_or_state": "d_log_mvrv",
-            "sample": "2020-2026 daily",
-            "frequency": "daily",
-            "method": "identity audit and HAC same-day diagnostic",
-            "source_tables": "mvrv_mechanical_link_audit.csv",
-            "source_figures": "01_mvrv_mechanics.png",
-            "estimate_summary": table_stat(p.tables / "mvrv_mechanical_link_audit.csv", "same_day_mvrv_r2_diagnostic"),
-            "uncertainty_summary": "Diagnostic only; not promoted as independent factor.",
-            "robustness_checks": "Mechanical identity residual and related holder-profit state correlations.",
-            "mechanical_link_risk": "direct_target_component",
-            "endogeneity_risk": "high",
-            "multiple_testing_status": "not_applicable_single_diagnostic",
-            "evidence_grade": "B",
-            "approved_public_language": "mechanically price-linked valuation-state measure",
-            "prohibited_language": "strongest independent factor; predictive driver",
-            "limitations": "Source conventions and realized-cap updates affect residual.",
-            "status": "accepted_qualified",
-        },
-        {
-            "claim_id": "ex_mvrv_exposure_01",
-            "module": "ex_mvrv_exposure",
-            "claim_text": "Contemporaneous TradFi exposure, lagged-state association, and ETF-era augmented models are evaluated in ex-MVRV same-support BTC/ETH samples.",
-            "outcome": "BTC/ETH returns",
-            "exposure_or_state": "TradFi exposure blocks; lagged liquidity/sentiment/leverage state; ETF lag 0/lag 1 flow intensity",
-            "sample": "effective sample reported per asset/frequency/regime",
-            "frequency": "daily; weekly",
-            "method": "standardized HAC OLS with drop-block delta R-squared",
-            "source_tables": "block_delta_r2.csv; conventional_partial_r2.csv",
-            "source_figures": "02_factor_strength_by_regime.png; 03_tradfi_integration_over_time.png",
-            "estimate_summary": block_headline_stat(p.tables / "block_delta_r2.csv"),
-            "uncertainty_summary": "HAC t-stats plus FDR table; rolling windows overlap.",
-            "robustness_checks": "Accepted daily/weekly specifications, VIF, ridge, FDR, regime splits, and local-window correlation distributions.",
-            "mechanical_link_risk": "low",
-            "endogeneity_risk": "medium",
-            "multiple_testing_status": "FDR applied within model family.",
-            "evidence_grade": "B",
-            "approved_public_language": "exposure; co-moves with; incremental contribution",
-            "prohibited_language": "predicts; caused",
-            "limitations": "Short ETF era and collinearity among risk proxies.",
-            "status": "accepted_qualified",
-        },
-        {
-            "claim_id": "leverage_tail_01",
-            "module": "leverage_tail_risk",
-            "claim_text": "Leverage and liquidation measures are most appropriate as volatility and tail-stress diagnostics.",
-            "outcome": "volatility and bottom-tail days",
-            "exposure_or_state": "funding, OI, liquidations, leverage ratio",
-            "sample": "2018-2026 where available",
-            "frequency": "daily",
-            "method": "state quintiles, lagged logit, top liquidation event windows",
-            "source_tables": "leverage_tail_risk_summary.csv; tail_risk_models.csv",
-            "source_figures": "05_leverage_liquidation_stress.png",
-            "estimate_summary": leverage_headline_stat(p.tables / "leverage_tail_risk_summary.csv"),
-            "uncertainty_summary": "Class-balance diagnostics; liquidation events labeled contemporaneous.",
-            "robustness_checks": "Lagged state separated from contemporaneous signatures.",
-            "mechanical_link_risk": "low",
-            "endogeneity_risk": "medium",
-            "multiple_testing_status": "limited pre-specified state model",
-            "evidence_grade": "B",
-            "approved_public_language": "contemporaneous stress signature",
-            "prohibited_language": "liquidations caused the move",
-            "limitations": "Exchange coverage and liquidation reporting conventions.",
-            "status": "accepted_qualified",
-        },
-        {
-            "claim_id": "pit_structure_01",
-            "module": "pit_market_structure",
-            "claim_text": "Monthly PIT data supports concentration, composition, and turnover analysis, not daily historical altseason performance.",
-            "outcome": "market composition and concentration",
-            "exposure_or_state": "PIT top-100 slices from top-200 snapshots",
-            "sample": "2020-2026 monthly",
-            "frequency": "monthly",
-            "method": "market-cap shares, HHI, top-share concentration, entries/exits",
-            "source_tables": "pit_market_structure_summary.csv",
-            "source_figures": "07_point_in_time_market_structure.png",
-            "estimate_summary": pit_headline_stat(p.tables / "pit_market_structure_summary.csv"),
-            "uncertainty_summary": "Descriptive monthly snapshots.",
-            "robustness_checks": "Shares sum within month; taxonomy explicit.",
-            "mechanical_link_risk": "none",
-            "endogeneity_risk": "low",
-            "multiple_testing_status": "not_applicable_descriptive",
-            "evidence_grade": "A",
-            "approved_public_language": "market-structure context",
-            "prohibited_language": "historical altseason backtest from current constituents",
-            "limitations": "No daily PIT constituent OHLCV for true historical performance.",
-            "status": "accepted_headline",
-        },
-        {
-            "claim_id": "current_cohort_deferred_01",
-            "module": "current_cohort",
-            "claim_text": "True point-in-time historical altseason-return claims remain deferred.",
-            "outcome": "altseason performance",
-            "exposure_or_state": "current-top50 daily cohort",
-            "sample": "2022-2026 current cohort",
-            "frequency": "daily",
-            "method": "exploratory current-cohort appendix only",
-            "source_tables": "selected_major_risk_metrics.csv",
-            "source_figures": "",
-            "estimate_summary": "Not used for headline evidence.",
-            "uncertainty_summary": "Survivorship-biased current cohort.",
-            "robustness_checks": "Caveat enforced in README/checker.",
-            "mechanical_link_risk": "none",
-            "endogeneity_risk": "high",
-            "multiple_testing_status": "not_promoted",
-            "evidence_grade": "C",
-            "approved_public_language": "exploratory current cohort",
-            "prohibited_language": "historical altseason",
-            "limitations": "Needs daily PIT constituent OHLCV/mcap.",
-            "status": "exploratory_only",
-        },
+        dict(zip(TABLE_SCHEMA_COLUMNS["evidence_ledger"], spec, strict=True))
+        for spec in claim_specs
     ]
     ledger = pd.DataFrame(claim_rows, columns=TABLE_SCHEMA_COLUMNS["evidence_ledger"])
     glance = pd.DataFrame(
@@ -2760,7 +3308,7 @@ def evidence_and_glance(p: BuildPaths) -> tuple[pd.DataFrame, pd.DataFrame]:
             {
                 "question": "MVRV mechanics",
                 "finding": "MVRV is retained as a mechanically price-linked valuation-state diagnostic.",
-                "key_statistic": table_stat(p.tables / "mvrv_mechanical_link_audit.csv", "same_day_mvrv_r2_diagnostic"),
+                "key_statistic": mvrv_headline_stat(p.tables / "mvrv_mechanical_link_audit.csv"),
                 "sample_frequency": "2020-2026 daily",
                 "evidence_grade": "B",
                 "interpretation": "Use lagged state regimes; exclude same-day MVRV from primary BTC/ETH models.",
@@ -2768,24 +3316,44 @@ def evidence_and_glance(p: BuildPaths) -> tuple[pd.DataFrame, pd.DataFrame]:
                 "source_table": "mvrv_mechanical_link_audit.csv",
             },
             {
-                "question": "Ex-MVRV exposure evolution",
-                "finding": "BTC/ETH exposure tables split contemporaneous TradFi, lagged-state, and ETF-era augmented families.",
-                "key_statistic": block_headline_stat(p.tables / "block_delta_r2.csv"),
-                "sample_frequency": "effective sample reported per row",
+                "question": "TradFi exposure evolution",
+                "finding": "Contemporaneous exposure comparisons use synchronized business-date and Friday calendars.",
+                "key_statistic": tradfi_period_headline_stat(p.tables / "block_delta_r2.csv"),
+                "sample_frequency": "business-date daily; Friday weekly",
                 "evidence_grade": "B",
-                "interpretation": "Feature blocks are descriptive exposures, not forecasts.",
-                "caveat": "Collinearity and short ETF sample.",
+                "interpretation": "Period comparison of co-movement, not an ETF-effect estimate.",
+                "caveat": "Collinearity and overlapping rolling windows.",
                 "source_table": "block_delta_r2.csv",
             },
             {
+                "question": "ETF plumbing",
+                "finding": "ETF flow intensity is split into lag 0 and lag 1 on ETF trading dates.",
+                "key_statistic": etf_flow_headline_stat(p.tables / "etf_flow_associations.csv"),
+                "sample_frequency": "ETF trading daily",
+                "evidence_grade": "B",
+                "interpretation": "Market-plumbing association only.",
+                "caveat": "Short sample and reporting timing.",
+                "source_table": "etf_flow_associations.csv",
+            },
+            {
                 "question": "Leverage and tail stress",
-                "finding": "Derivatives variables are framed as stress and volatility-state diagnostics.",
+                "finding": "Tail-day rates are reported for pre-specified Q1/Q3/Q5 leverage states.",
                 "key_statistic": leverage_headline_stat(p.tables / "leverage_tail_risk_summary.csv"),
                 "sample_frequency": "daily",
                 "evidence_grade": "B",
-                "interpretation": "Lagged state differs from contemporaneous liquidation signature.",
-                "caveat": "No initiation-cause claim.",
+                "interpretation": "U-shaped pattern, not only the highest-leverage quintile.",
+                "caveat": "No liquidation initiation-cause claim.",
                 "source_table": "leverage_tail_risk_summary.csv",
+            },
+            {
+                "question": "Stablecoin/DeFi state",
+                "finding": "Raw USD TVL is valuation-sensitive; stablecoin supply is the cleaner local liquidity proxy.",
+                "key_statistic": liquidity_headline_stat(p.tables / "valuation_contamination_audit.csv"),
+                "sample_frequency": "Sunday weekly",
+                "evidence_grade": "B",
+                "interpretation": "Treat TVL as DeFi balance-sheet state, not pure inflow.",
+                "caveat": "No price-adjusted TVL source is available locally.",
+                "source_table": "valuation_contamination_audit.csv",
             },
             {
                 "question": "PIT market structure",
@@ -2796,6 +3364,36 @@ def evidence_and_glance(p: BuildPaths) -> tuple[pd.DataFrame, pd.DataFrame]:
                 "interpretation": "Use for market structure only.",
                 "caveat": "No daily PIT performance.",
                 "source_table": "pit_market_structure_summary.csv",
+            },
+            {
+                "question": "Selected-major risk",
+                "finding": "Selected-major risk is coverage-aware and reports comparable-window metrics.",
+                "key_statistic": selected_major_headline_stat(p.tables / "selected_major_comparable_window_metrics.csv", p.tables / "selected_major_coverage.csv"),
+                "sample_frequency": "daily current-source coverage",
+                "evidence_grade": "B",
+                "interpretation": "Compare risk only with coverage caveats.",
+                "caveat": "HYPE is short-history; TON is canonical-source only.",
+                "source_table": "selected_major_comparable_window_metrics.csv",
+            },
+            {
+                "question": "Event atlas",
+                "finding": "Configured BTC/ETH events use equal-length empirical placebo windows.",
+                "key_statistic": event_headline_stat(p.tables / "event_inference.csv"),
+                "sample_frequency": "daily",
+                "evidence_grade": "C",
+                "interpretation": "Descriptive event-window context.",
+                "caveat": "Not bootstrap causal inference.",
+                "source_table": "event_inference.csv",
+            },
+            {
+                "question": "Deferred PIT altseason",
+                "finding": "True PIT historical altseason return analysis is deferred.",
+                "key_statistic": "No daily PIT constituent OHLCV/mcap history is available.",
+                "sample_frequency": "not available",
+                "evidence_grade": "C",
+                "interpretation": "Monthly PIT supports structure, not daily performance.",
+                "caveat": "Current-cohort daily outputs are survivorship-biased.",
+                "source_table": "claim_inventory.csv",
             },
         ]
     )
@@ -2814,19 +3412,103 @@ def table_stat(path: Path, metric: str) -> str:
     return "see table"
 
 
-def block_headline_stat(path: Path, model_family: str = "long_sample_contemporaneous_exposure") -> str:
+def sample_range_from_table(path: Path, date_col: str, frequency: str) -> str:
     if not path.exists():
         return "not generated"
     frame = pd.read_csv(path)
-    frame = frame[frame["model_family"].eq(model_family) & frame["drop_block_delta_r2"].notna()]
+    if date_col not in frame:
+        return frequency
+    dates = pd.to_datetime(frame[date_col], errors="coerce").dropna()
+    if dates.empty:
+        return frequency
+    return f"{dates.min().date().isoformat()} to {dates.max().date().isoformat()} {frequency}"
+
+
+def mvrv_headline_stat(path: Path) -> str:
+    if not path.exists():
+        return "not generated"
+    frame = pd.read_csv(path)
+    metrics = frame.set_index("metric")["value"]
+    corr = float(metrics.get("corr_btc_return_d_log_mvrv", np.nan))
+    r2 = float(metrics.get("same_day_mvrv_r2_diagnostic", np.nan))
+    residual_scale = float(metrics.get("identity_residual_abs_median_to_median_abs_btc_return", np.nan))
+    return f"corr(BTC return, d-log MVRV)={corr:.4f}; R2={r2:.4f}; median abs residual / median abs BTC return={residual_scale:.2e}"
+
+
+def block_headline_stat(path: Path, model_family: str = "long_sample_contemporaneous_exposure") -> str:
+    return tradfi_period_headline_stat(path, model_family)
+
+
+def tradfi_period_headline_stat(path: Path, model_family: str = "long_sample_contemporaneous_exposure") -> str:
+    if not path.exists():
+        return "not generated"
+    frame = pd.read_csv(path)
+    frame = frame[
+        frame["model_family"].eq(model_family)
+        & frame["frequency"].eq("daily")
+        & frame["block"].eq("equity_beta")
+        & frame["regime"].isin(["pre_btc_etf", "btc_etf_era"])
+    ]
     if frame.empty:
         return "no accepted model sample"
-    row = frame.sort_values("drop_block_delta_r2", ascending=False).iloc[0]
-    return (
-        f"{row['asset']} {row['frequency']} {row['regime']} {row['block']} "
-        f"delta R2={row['drop_block_delta_r2']:.4f}, n={int(row['n'])}, "
-        f"{row['sample_start']} to {row['sample_end']}"
-    )
+    parts = []
+    for asset in ["BTC", "ETH"]:
+        pre = frame[(frame["asset"].eq(asset)) & frame["regime"].eq("pre_btc_etf")]
+        era = frame[(frame["asset"].eq(asset)) & frame["regime"].eq("btc_etf_era")]
+        if pre.empty or era.empty:
+            continue
+        pre_row = pre.iloc[0]
+        era_row = era.iloc[0]
+        parts.append(
+            f"{asset} equity block pre-BTC-ETF delta R2={pre_row['drop_block_delta_r2']:.4f} "
+            f"(n={int(pre_row['n'])}) vs BTC-ETF-era delta R2={era_row['drop_block_delta_r2']:.4f} "
+            f"(n={int(era_row['n'])})"
+        )
+    return "; ".join(parts) + "; period comparison, not ETF effect" if parts else "no accepted pre-specified equity comparison"
+
+
+def lagged_state_headline_stat(path: Path) -> str:
+    if not path.exists():
+        return "not generated"
+    frame = pd.read_csv(path)
+    subset = frame[
+        frame["model_family"].eq("long_sample_lagged_state_association")
+        & frame["frequency"].isin(["daily", "weekly"])
+        & frame["status"].eq("passed")
+    ]
+    if subset.empty:
+        return "no accepted lagged-state model"
+    daily = subset[subset["frequency"].eq("daily")]
+    rows = daily if not daily.empty else subset
+    parts = []
+    for asset in ["BTC", "ETH"]:
+        hit = rows[rows["asset"].eq(asset)]
+        if hit.empty:
+            continue
+        row = hit.iloc[0]
+        parts.append(f"{asset} {row['frequency']} lagged-state full R2={row['full_r2']:.4f}, n={int(row['n'])}")
+    return "; ".join(parts)
+
+
+def etf_flow_headline_stat(path: Path) -> str:
+    if not path.exists():
+        return "not generated"
+    frame = pd.read_csv(path)
+    parts = []
+    for asset in ["BTC", "ETH"]:
+        hit = frame[frame["asset"].eq(asset)].sort_values("flow_lag_days")
+        if hit.empty:
+            continue
+        lag0 = hit[hit["flow_lag_days"].eq(0)]
+        lag1 = hit[hit["flow_lag_days"].eq(1)]
+        if lag0.empty or lag1.empty:
+            continue
+        parts.append(
+            f"{asset} lag0 return corr={lag0['return_corr'].iloc[0]:.3f} "
+            f"(n={int(lag0['n_return'].iloc[0])}) vs lag1={lag1['return_corr'].iloc[0]:.3f} "
+            f"(n={int(lag1['n_return'].iloc[0])})"
+        )
+    return "; ".join(parts) if parts else "no ETF flow association rows"
 
 
 def leverage_headline_stat(path: Path) -> str:
@@ -2835,8 +3517,27 @@ def leverage_headline_stat(path: Path) -> str:
     frame = pd.read_csv(path)
     if frame.empty:
         return "no leverage state rows"
-    row = frame.sort_values("bottom5_rate", ascending=False).iloc[0]
-    return f"{row['leverage_state']} bottom-5pct day rate={row['bottom5_rate']:.2%}, n={int(row['n'])}"
+    parts = []
+    for state in ["Q1 low", "Q3", "Q5 high"]:
+        hit = frame[frame["leverage_state"].astype(str).eq(state)]
+        if not hit.empty:
+            row = hit.iloc[0]
+            parts.append(f"{state} tail-day rate={row['bottom5_rate']:.2%} (n={int(row['n'])})")
+    return "; ".join(parts) + "; read as U-shaped state pattern" if parts else "no Q1/Q3/Q5 leverage states"
+
+
+def liquidity_headline_stat(path: Path) -> str:
+    if not path.exists():
+        return "not generated"
+    frame = pd.read_csv(path)
+    subset = frame[frame["feature_id"].eq("valuation_sensitive_defi_tvl_growth")]
+    parts = []
+    for asset in ["BTC", "ETH"]:
+        hit = subset[subset["asset"].eq(asset)]
+        if not hit.empty:
+            row = hit.iloc[0]
+            parts.append(f"{asset} same-week raw USD TVL corr={row['correlation_with_return']:.3f} (n={int(row['n'])})")
+    return "; ".join(parts) + "; TVL labeled valuation-sensitive" if parts else "no TVL valuation audit rows"
 
 
 def pit_headline_stat(path: Path) -> str:
@@ -2845,84 +3546,152 @@ def pit_headline_stat(path: Path) -> str:
     frame = pd.read_csv(path)
     if frame.empty:
         return "no PIT rows"
-    row = frame.sort_values("month").iloc[-1]
-    return f"{row['month']} top10 share={row['top10_share']:.2%}, HHI={row['hhi']:.3f}"
+    sort_col = "snapshot_date" if "snapshot_date" in frame else "month"
+    row = frame.sort_values(sort_col).iloc[-1]
+    partial = " partial snapshot" if bool(row.get("is_partial_month", False)) else ""
+    snapshot = row.get("snapshot_date", row.get("month", ""))
+    month = row.get("month", "")
+    return f"{snapshot}{partial} (month={month}) top10 share={row['top10_share']:.2%}, HHI={row['hhi']:.3f}"
+
+
+def selected_major_headline_stat(comparable_path: Path, coverage_path: Path) -> str:
+    if not comparable_path.exists() or not coverage_path.exists():
+        return "not generated"
+    comparable = pd.read_csv(comparable_path)
+    coverage = pd.read_csv(coverage_path)
+    if comparable.empty:
+        return "no comparable-window rows"
+    common_start = comparable["common_start"].iloc[0]
+    common_end = comparable["common_end"].iloc[0]
+    hype = coverage[coverage["symbol"].eq("HYPE")]
+    hype_n = int(hype["observations"].iloc[0]) if not hype.empty else 0
+    return f"{len(comparable)} assets comparable from {common_start} to {common_end}; HYPE max-coverage n={hype_n}"
+
+
+def event_headline_stat(path: Path) -> str:
+    if not path.exists():
+        return "not generated"
+    frame = pd.read_csv(path)
+    if frame.empty:
+        return "no event rows"
+    block_size = int(frame["block_size"].dropna().iloc[0]) if frame["block_size"].notna().any() else 0
+    placebo = int(frame["placebo_window_count"].median()) if frame["placebo_window_count"].notna().any() else 0
+    assets = ",".join(sorted(frame["asset"].dropna().unique()))
+    return f"{assets} event windows use block size={block_size}; median eligible placebo windows={placebo}; convention +1 through +10"
 
 
 def write_model_cards(p: BuildPaths) -> None:
     cards = {
-        "mvrv_mechanics.md": ("MVRV mechanics", "Audit same-day MVRV target overlap and lagged valuation-state regimes.", "Do not call MVRV the strongest independent factor."),
-        "ex_mvrv_exposure.md": ("Ex-MVRV exposure", "Estimate contemporaneous TradFi exposure, lagged-state associations, and ETF-era augmented market-plumbing models for BTC/ETH.", "Do not forecast prices or use same-day MVRV."),
-        "leverage_tail_risk.md": ("Leverage and tail risk", "Evaluate derivatives state variables for volatility and lower-tail stress.", "Do not claim liquidations initiated price moves."),
-        "etf_market_plumbing.md": ("ETF market plumbing", "Describe ETF flows, absorption, and exposure-period comparisons.", "Do not make causal ETF price claims."),
-        "stablecoin_defi_liquidity.md": ("Stablecoin and DeFi liquidity", "Summarize weekly liquidity-state proxies.", "Do not call proxy changes exogenous liquidity shocks."),
-        "selected_major_assets.md": ("Selected majors and chain fundamentals", "Compare coverage-aware volatility, drawdown, and beta metrics.", "Do not compare unequal histories as if identical."),
-        "pit_market_structure.md": ("PIT market structure", "Use monthly top-200 snapshots for composition, concentration, and turnover.", "Do not use current-top50 returns as historical PIT altseason."),
-        "event_atlas.md": ("Cycle and event atlas", "Describe configured event-window outcomes with dependence-aware placebo context.", "Do not infer causality from event timing."),
+        "mvrv_mechanics.md": f"""# MVRV Mechanics Model Card
+
+Purpose: audit whether same-day MVRV changes mechanically overlap BTC returns and summarize lagged MVRV state outcomes.
+
+Outcome and features: BTC log return, `d_log_mvrv`, `d_log_market_cap`, `d_log_realized_cap`, and `identity_residual` over the same daily interval.
+
+Principal finding: {mvrv_headline_stat(p.tables / "mvrv_mechanical_link_audit.csv")}.
+
+Estimator and uncertainty: HAC same-day diagnostic plus identity residual quantiles. This is a measurement audit, not a predictive model.
+
+Prohibited claims: MVRV is the strongest independent factor; same-day MVRV predicts BTC returns.
+""",
+        "tradfi_exposure.md": f"""# TradFi Exposure Model Card
+
+Purpose: measure contemporaneous BTC/ETH co-movement with equities, volatility, dollar, rates, and gold.
+
+Calendar: daily models use common TradFi business-date closes; weekly models use Friday-to-Friday returns.
+
+Estimator: same-support HAC OLS with drop-block delta R-squared, conventional partial R-squared in a separate table, FDR, VIF, and ridge diagnostics.
+
+Principal finding: {tradfi_period_headline_stat(p.tables / "block_delta_r2.csv")}.
+
+Prohibited claims: ETF effect; forecast; causal macro driver.
+""",
+        "lagged_state_associations.md": f"""# Lagged-State Association Model Card
+
+Purpose: summarize lagged crypto-native state associations without calling them exposure betas.
+
+Features: stablecoin supply growth, valuation-sensitive USD TVL growth, Fear & Greed state/change, funding z-score, OI/market-cap growth, and BTC exchange-flow state where available.
+
+Calendar: daily state models use the crypto daily panel; weekly state models use Sunday-ended crypto weeks.
+
+Principal finding: {lagged_state_headline_stat(p.tables / "frequency_robustness.csv")}.
+
+Prohibited claims: exogenous liquidity shock; price forecast.
+""",
+        "etf_market_plumbing.md": f"""# ETF Market Plumbing Model Card
+
+Purpose: describe ETF-era market plumbing through flow intensity, lag timing, and absorption ratios.
+
+Calendar and timing: ETF trading-day panel computes BTC/ETH returns from the prior ETF trading date to the current ETF trading date. Lag 0 is current ETF trading-date flow intensity; lag 1 is prior ETF trading-date flow intensity.
+
+Principal finding: {etf_flow_headline_stat(p.tables / "etf_flow_associations.csv")}.
+
+Limitations: short sample, reporting timing, and simultaneity.
+
+Prohibited claims: ETF flows caused BTC or ETH returns.
+""",
+        "leverage_tail_risk.md": f"""# Leverage And Tail Risk Model Card
+
+Purpose: evaluate leverage/funding/OI state and liquidation signatures as stress diagnostics.
+
+Features and units: lagged OI/market-cap growth, funding z-score, leverage percentile, liquidation USD / lagged OI in percent, and liquidation USD / lagged market cap in basis points.
+
+Principal finding: {leverage_headline_stat(p.tables / "leverage_tail_risk_summary.csv")}.
+
+Estimator: descriptive quintiles, lagged logit diagnostics, and top liquidation event response table.
+
+Prohibited claims: liquidations initiated price moves.
+""",
+        "stablecoin_defi_state.md": f"""# Stablecoin And DeFi State Model Card
+
+Purpose: summarize weekly stablecoin/DeFi state while auditing raw USD TVL price content.
+
+Calendar: Sunday-ended crypto weekly panel.
+
+Principal finding: {liquidity_headline_stat(p.tables / "valuation_contamination_audit.csv")}.
+
+Interpretation: stablecoin supply is the cleaner local liquidity-state proxy; raw USD TVL is a valuation-sensitive DeFi balance-sheet proxy.
+
+Prohibited claims: raw TVL growth is pure capital inflow; proxy changes are exogenous liquidity shocks.
+""",
+        "selected_major_risk.md": f"""# Selected-Major Risk Model Card
+
+Purpose: compare selected-major volatility, drawdown, beta, and coverage using canonical IDs.
+
+Procedure: maximum-coverage metrics are reported separately from comparable-window metrics.
+
+Principal finding: {selected_major_headline_stat(p.tables / "selected_major_comparable_window_metrics.csv", p.tables / "selected_major_coverage.csv")}.
+
+Limitations: current daily constituent coverage begins mostly in 2023; HYPE is short-history; TON is sourced only from the canonical local series.
+
+Prohibited claims: full-cycle comparison; selected-major event-response analysis.
+""",
+        "pit_market_structure.md": f"""# PIT Market Structure Model Card
+
+Purpose: describe monthly PIT top-200 composition, concentration, and turnover using canonical ID taxonomy.
+
+Principal finding: {pit_headline_stat(p.tables / "pit_market_structure_summary.csv")}.
+
+Procedure: top-100 shares, top-5/top-10 share, HHI, entries, exits, and rank persistence.
+
+Limitations: monthly snapshots do not provide daily PIT constituent returns.
+
+Prohibited claims: daily historical altseason backtest.
+""",
+        "event_atlas.md": f"""# Event Atlas Model Card
+
+Purpose: report BTC/ETH event-window outcomes with equal-length empirical placebo windows.
+
+Convention: post 10-day return means +1 through +10, excluding event day.
+
+Principal finding: {event_headline_stat(p.tables / "event_inference.csv")}.
+
+Procedure: placebo windows exclude registered-event overlaps and use the same block size as actual event windows.
+
+Prohibited claims: bootstrap confidence interval; causal event effect; forecast rule.
+""",
     }
-    for filename, (title, purpose, prohibited) in cards.items():
-        text = f"""# {title} Model Card
-
-## Purpose and research question
-
-{purpose}
-
-## Outcome definition
-
-See the source tables linked from `outputs/README.md`.
-
-## Exposures/state variables
-
-Configured in `config/feature_registry.yml` and exported to `outputs/tables/feature_registry.csv`.
-
-## Frequency and sample
-
-The pipeline reports the effective sample size in every canonical model table.
-
-## Transformations and timing
-
-Contemporaneous exposure models use same-day TradFi returns/changes to measure co-movement. Lagged liquidity, sentiment, leverage, funding, OI, and exchange-flow variables are labeled lagged-state associations. ETF-era augmented models include ETF flow intensity at lag 0 and lag 1.
-
-## Estimator and uncertainty method
-
-HAC OLS, logistic diagnostics, descriptive summaries, FDR adjustment, VIF/condition diagnostics, accepted weekly robustness models, and local-window correlation distributions where applicable.
-
-## Same-support rule
-
-Model comparisons use the same non-missing row support for the relevant specification.
-
-## Main outputs
-
-See `outputs/tables/` and `outputs/figures/public/`.
-
-## Interpretation
-
-Reduced-form descriptive evidence only.
-
-## Mechanical-link/endogeneity risks
-
-Documented in the evidence ledger and feature registry.
-
-## Robustness checks
-
-Accepted daily/weekly checks, multicollinearity diagnostics, ridge stability, and local-window correlation distributions are included where applicable.
-
-## Prohibited claims
-
-{prohibited}
-
-## Evidence grade
-
-See `outputs/tables/evidence_ledger.csv`.
-
-## Known limitations
-
-Short ETF-era samples, reporting timing, source conventions, and lack of daily PIT constituent OHLCV for true historical altseason analysis.
-
-## Reproduction command
-
-`uv run python scripts/run_all.py`
-"""
+    for filename, text in cards.items():
         write_md(p.model_cards / filename, text)
 
 
@@ -2933,15 +3702,65 @@ def write_reports(root: Path, p: BuildPaths) -> None:
     write_md(root / "docs" / "methodology" / "transformations_and_timing.md", transformations_text())
     write_md(root / "docs" / "methodology" / "attribution_methods.md", attribution_methods_text())
     write_md(root / "docs" / "methodology" / "interpretation_guardrails.md", interpretation_guardrails_text())
-    write_md(p.report / "executive_summary.md", "# Executive Summary\n\nCrypto Market Dynamics examines how crypto market behavior evolved across valuation state, macro integration, ETF access, leverage, liquidity, and concentration from 2020-2026. Findings are descriptive and evidence-graded.")
-    write_md(p.report / "methodology.md", transformations_text())
-    write_md(p.report / "data_atlas.md", "# Data Atlas\n\nSee `outputs/tables/data_source_coverage.csv`, `outputs/tables/feature_registry.csv`, `outputs/tables/provider_data_disposition.csv`, and `DATA_LICENSE.md`. The data-license note documents caveats but does not resolve provider redistribution rights.")
-    write_md(p.report / "results_and_interpretation.md", "# Results And Interpretation\n\nSee `outputs/tables/results_at_a_glance.md` and `outputs/tables/evidence_ledger.csv` for claim-level support.")
+    write_md(p.report / "executive_summary.md", executive_summary_text(p))
+    write_md(p.report / "methodology.md", methodology_report_text())
+    write_md(p.report / "results_and_interpretation.md", results_and_interpretation_text(p))
     write_md(p.report / "limitations.md", limitations_text())
-    write_md(p.report / "final_release_audit.md", final_release_audit_text())
     write_md(p.report / "reproducibility_report.md", reproducibility_report_text())
-    write_md(p.report / "public_readiness.md", public_readiness_text())
-    write_md(p.report / "final_pr_body.md", final_pr_body_text())
+
+
+def executive_summary_text(p: BuildPaths) -> str:
+    return f"""# Executive Summary
+
+Crypto Market Dynamics is a descriptive research-code project covering BTC/ETH valuation mechanics, synchronized TradFi exposure, ETF market plumbing, leverage/tail stress, stablecoin/DeFi state, point-in-time market structure, selected-major risk, and event windows from local 2020-2026 data.
+
+The strongest measurement warning remains MVRV: {mvrv_headline_stat(p.tables / "mvrv_mechanical_link_audit.csv")}. Same-day MVRV therefore stays out of the primary BTC/ETH exposure models and appears only as a mechanics audit and lagged state context.
+
+TradFi exposure is now calendar-synchronized. {tradfi_period_headline_stat(p.tables / "block_delta_r2.csv")}. This is a period comparison of co-movement on common business-date closes, not an ETF-effect estimate.
+
+ETF, leverage, and liquidity results are descriptive and timing-sensitive. {etf_flow_headline_stat(p.tables / "etf_flow_associations.csv")}. {leverage_headline_stat(p.tables / "leverage_tail_risk_summary.csv")}. {liquidity_headline_stat(p.tables / "valuation_contamination_audit.csv")}.
+
+The latest PIT structure headline is {pit_headline_stat(p.tables / "pit_market_structure_summary.csv")}. Selected-major risk is coverage-aware: {selected_major_headline_stat(p.tables / "selected_major_comparable_window_metrics.csv", p.tables / "selected_major_coverage.csv")}. Event outputs remain empirical placebo-window tests: {event_headline_stat(p.tables / "event_inference.csv")}.
+
+Release caveat: `DATA_LICENSE.md` and `provider_data_disposition.csv` document provider-data risk but do not grant redistribution rights. The repository should remain private until uncertain/restricted raw exports are cleared or removed from the public repository and history.
+"""
+
+
+def results_and_interpretation_text(p: BuildPaths) -> str:
+    return f"""# Results And Interpretation
+
+## MVRV Mechanics
+
+{mvrv_headline_stat(p.tables / "mvrv_mechanical_link_audit.csv")}. Interpret MVRV as a mechanically price-linked valuation-state measure. The identity residual is reported with source-convention caveats rather than called small by assumption.
+
+## TradFi Exposure Evolution
+
+{tradfi_period_headline_stat(p.tables / "block_delta_r2.csv")}. Daily exposure models use consecutive common TradFi business-date closes. Weekly TradFi models use Friday-to-Friday returns. Rolling beta and correlation outputs exclude ETF and sparse state features.
+
+## Lagged-State Associations
+
+{lagged_state_headline_stat(p.tables / "frequency_robustness.csv")}. These are lagged-state associations, not exposure betas or forecasts. Raw USD TVL and OI are audited for price content before being used in public language.
+
+## ETF Market Plumbing
+
+{etf_flow_headline_stat(p.tables / "etf_flow_associations.csv")}. Lag 0 is the current ETF trading-date flow intensity; lag 1 is the prior ETF trading-date flow intensity. Flow relationships are association grids and absorption ratios, not causal return estimates.
+
+## Leverage And Tail Stress
+
+{leverage_headline_stat(p.tables / "leverage_tail_risk_summary.csv")}. Liquidations are expressed as percent of prior-day open interest or basis points of prior-day market cap, and post-event returns exclude the same-day liquidation signature.
+
+## Stablecoin And DeFi State
+
+{liquidity_headline_stat(p.tables / "valuation_contamination_audit.csv")}. Stablecoin supply growth is the cleaner local liquidity-state proxy. Raw USD TVL growth is labeled a valuation-sensitive DeFi balance-sheet proxy because deposited-token price appreciation can mechanically raise USD TVL.
+
+## PIT Structure And Selected Majors
+
+{pit_headline_stat(p.tables / "pit_market_structure_summary.csv")}. PIT data is monthly composition/concentration/turnover evidence only. {selected_major_headline_stat(p.tables / "selected_major_comparable_window_metrics.csv", p.tables / "selected_major_coverage.csv")}. Selected-major event responses are not claimed.
+
+## Event Atlas And Deferred Altseason
+
+{event_headline_stat(p.tables / "event_inference.csv")}. Event cells remain missing when unavailable. True PIT historical altseason performance is deferred until daily PIT constituent OHLCV and market-cap histories exist.
+"""
 
 
 def research_charter_text() -> str:
@@ -2949,7 +3768,7 @@ def research_charter_text() -> str:
 
 ## Objective
 
-Crypto Market Dynamics studies whether crypto market behavior evolved from 2020-2026 across native valuation state, macro/risk integration, ETF access, leverage, stablecoin/DeFi liquidity, selected major assets, point-in-time market structure, and event responses.
+Crypto Market Dynamics studies whether crypto market behavior evolved from 2020-2026 across native valuation state, macro/risk integration, ETF access, leverage, stablecoin/DeFi state, selected major assets, point-in-time market structure, and BTC/ETH event windows.
 
 ## Questions
 
@@ -2957,8 +3776,8 @@ Crypto Market Dynamics studies whether crypto market behavior evolved from 2020-
 2. After removing mechanically linked valuation-state measures, how did BTC/ETH exposures to equities, volatility, the dollar, yields, gold, ETF flows, and crypto liquidity evolve?
 3. Are leverage, funding, OI, liquidations, and taker flow more informative for volatility/tail stress than for average returns?
 4. How did ETF access relate to market plumbing, AUM concentration, basis/premium relationships, and risk-market integration?
-5. How do stablecoin and DeFi liquidity states relate to crypto volatility, broad-market capitalization, and market concentration?
-6. How do selected major assets differ in volatility, drawdown, beta, and event response?
+5. How do stablecoin and DeFi state variables relate to BTC/ETH returns and BTC volatility?
+6. How do selected major assets differ in volatility, drawdown, and beta after accounting for coverage?
 7. How did point-in-time market composition, concentration, and turnover evolve around halving and ETF eras?
 8. Which findings are robust, qualified, exploratory, rejected, or data-limited?
 
@@ -2983,6 +3802,19 @@ The project does not forecast prices, present trading strategies, claim causal E
 ## Evidence grades
 
 Grade A is robust descriptive evidence; Grade B is qualified descriptive evidence; Grade C is exploratory; rejected findings are kept in the evidence ledger. True point-in-time daily altseason performance is deferred until historical constituent daily data exists.
+"""
+
+
+def methodology_report_text() -> str:
+    return transformations_text() + """
+
+## Estimation
+
+Full, reduced-block, and feature-drop models are fit on one explicitly constructed complete-case frame per asset, frequency, regime, and model family. The tables report `n_full`, `n_reduced`, `same_support`, sample dates, feature lists, and row-index hashes. The build fails if nested-model R-squared monotonicity or conventional partial-R-squared bounds are violated.
+
+## Evidence Language
+
+Contemporaneous TradFi coefficients are exposure/co-movement estimates. Crypto-native lagged variables are lagged-state associations. ETF flow intensity is a market-plumbing association. Raw USD TVL is a valuation-sensitive DeFi balance-sheet proxy, and OI growth is interpreted through OI/market-cap scaling when treated as USD/notional-valued.
 """
 
 
@@ -3019,10 +3851,15 @@ def transformations_text() -> str:
 
 - Prices use log returns.
 - Rates and index levels use first differences where appropriate.
+- Daily TradFi models use common business-date closes: BTC/ETH returns are recomputed between consecutive common TradFi business dates, then aligned with QQQ, SPY, IWM, DXY, gold, VIX, real-yield, and nominal-yield moves on those same business dates.
+- Weekly TradFi models use Friday-to-Friday BTC/ETH and TradFi returns/changes.
+- Crypto-native weekly liquidity/state analysis uses Sunday-ended crypto weeks.
+- ETF trading-day panels compute BTC/ETH returns from the prior ETF trading date to the current ETF trading date.
 - ETF flows are scaled by prior-period market capitalization and modeled separately at lag 0 and lag 1 in ETF-era augmented specifications.
 - Liquidations are expressed as liquidation USD divided by prior-period open interest in percent and prior-period market cap in basis points.
 - MVRV same-day changes are diagnostic only; lagged MVRV levels, percentiles, z-scores, and regimes are used for state conditioning.
-- Stablecoin and DeFi liquidity features are primary at weekly frequency; weekly returns sum daily log returns, weekly changes sum daily level changes, flows sum over the week and scale by prior week-end denominators, and state variables use prior week-end state.
+- Stablecoin and DeFi state features are primary at weekly frequency; weekly returns sum daily log returns, weekly changes sum daily level changes, flows sum over the week and scale by prior week-end denominators, and state variables use prior week-end state.
+- Raw USD DeFi TVL growth is labeled `valuation_sensitive_defi_tvl_growth` unless price-adjusted. OI growth is audited and OI/market-cap growth is preferred when OI is treated as USD/notional-valued.
 - Monthly PIT market-universe data is joined only for composition, concentration, and turnover analysis.
 - Same-support model comparisons use identical non-missing row sets.
 """
@@ -3057,8 +3894,8 @@ def interpretation_guardrails_text() -> str:
 
 - ETF-flow results are association, exposure, timing, and market-plumbing
   diagnostics. They do not prove ETF flows caused BTC or ETH returns.
-- Lagged stablecoin supply and TVL states are liquidity proxies, not identified liquidity
-  shocks.
+- Lagged stablecoin supply is a liquidity-state proxy; raw USD TVL is a valuation-sensitive
+  DeFi balance-sheet proxy, not identified capital inflow.
 - MVRV is a mechanically price-linked valuation-state diagnostic; same-day MVRV
   changes are excluded from primary BTC/ETH exposure models.
 - `block_delta_r2.csv` reports drop-block delta R-squared, not conventional
@@ -3076,9 +3913,12 @@ def limitations_text() -> str:
 - No causal identification strategy is claimed.
 - ETF, liquidation, stablecoin, and DeFi variables are subject to simultaneity and reporting timing.
 - MVRV and holder-profit metrics contain mechanical price-state content.
+- Raw USD DeFi TVL embeds deposited-asset price effects; no local price-adjusted TVL source is available.
+- CryptoQuant OI is treated as USD/notional-valued unless provider metadata prove otherwise, so OI/market-cap growth is preferred for public state language.
 - Current-top50 daily cohort outputs are exploratory and survivorship-biased.
 - True PIT historical altseason-return analysis is deferred until daily constituent OHLCV and market-cap data exist for every historical PIT constituent.
 - Current selected-major daily constituent coverage begins 2022-12-31/2023 for most assets; HYPE is short-history.
+- The project is not affiliated with CryptoQuant, Artemis, TradingView, DefiLlama, Farside, AlternativeMe, FRED, or other data providers.
 """
 
 
@@ -3125,11 +3965,11 @@ def reproducibility_report_text() -> str:
 
 ```powershell
 uv sync --all-extras
-uv run python scripts/run_all.py
-uv run python scripts/check_public_surface.py
-uv run pytest
-uv run mypy src/cqresearch
 uv run ruff check src/cqresearch scripts tests
+uv run mypy src/cqresearch
+uv run python scripts/run_all.py
+uv run pytest
+uv run python scripts/check_public_surface.py
 ```
 
 ## Data contract
@@ -3138,7 +3978,7 @@ The build reads tracked local source files under `Data/` and generated feature s
 
 ## Determinism
 
-`Data/MASTER_DATA.*` omits wall-clock timestamps so CI can check that rerunning the canonical build does not change the generated inventory after it is committed. `outputs/manifest.json` includes release metadata and the canonical public artifact list.
+CI builds the canonical outputs before pytest so semantic-output tests run against freshly generated artifacts. A second in-run build hashes `Data/`, `outputs/`, and `reports/panels/` before and after regeneration, excluding only `outputs/manifest.json`, to verify deterministic semantic outputs within the runner. The final CI diff gate allows generated `outputs/`, `reports/panels/`, and `Data/MASTER_DATA.*` inventory files to differ from checked-in bytes because rendered figure files and floating-point text can vary by OS/font stack; it fails if the build mutates source files or raw `Data/` files outside the generated inventory.
 """
 
 
@@ -3216,6 +4056,8 @@ The repository code is licensed separately under `LICENSE`.
 
 Tracked data files come from a mix of public, provider-exported, and locally curated sources. `DATA_LICENSE.md` documents known caveats but does not resolve provider redistribution rights.
 
+This project is not affiliated with, endorsed by, or published on behalf of CryptoQuant, Artemis, TradingView, DefiLlama, Farside, AlternativeMe, FRED, or any other data provider.
+
 - FRED macro series are public Federal Reserve Economic Data series with attribution.
 - DefiLlama, AlternativeMe, and Farside-derived files are public web/API sources; cite the providers and verify current terms before redistribution.
 - CryptoQuant, Artemis, and TradingView exports may carry provider-specific or licensed redistribution restrictions. The repository uses them as curated research inputs and documents reproducibility caveats.
@@ -3260,13 +4102,13 @@ def build_public_figures(root: Path = PROJECT_ROOT) -> list[Path]:
     visual_notes = {
         "01_mvrv_mechanics.png": "Observed prior issue: correlation/R2/residual magnitudes were mixed on one bar axis. Resolution: Panel A uses BTC return versus d-log MVRV with a y=x reference and Panel B shows lagged MVRV-state outcomes.",
         "02_factor_strength_by_regime.png": "Observed issue: regime labels are dense. Resolution: use an actual regime-by-block heatmap with rotated concise labels and masked missing cells rather than zero-filled values.",
-        "03_tradfi_integration_over_time.png": "Observed prior issue: rolling model mixed ETF/state variables with TradFi. Resolution: plot contemporaneous TradFi-only rolling beta and correlation panels.",
+        "03_tradfi_integration_over_time.png": "Observed prior issue: rolling model mixed ETF/state variables with TradFi and used crypto calendar returns. Resolution: plot contemporaneous TradFi-only rolling beta and correlation panels on common business-date BTC returns.",
         "04_etf_market_plumbing.png": "Observed prior issue: ETF lag convention was implicit. Resolution: bar labels now distinguish lag 0 and lag 1 flow-return associations.",
         "05_leverage_liquidation_stress.png": "Observed issue: liquidation event IDs are dense. Resolution: use horizontal bars and readable percent-of-lagged-OI units, with post-event response kept in the table.",
-        "06_stablecoin_defi_liquidity.png": "Observed prior issue: weekly transformations needed semantic aggregation. Resolution: figure reads regenerated weekly liquidity tables using corrected weekly transformations.",
-        "07_point_in_time_market_structure.png": "Observed prior issue: taxonomy could be symbol-collision prone. Resolution: figure reads canonical-ID PIT composition and concentration/turnover outputs.",
+        "06_stablecoin_defi_liquidity.png": "Observed prior issue: weekly transformations needed semantic aggregation and raw USD TVL could be overread as inflow. Resolution: figure reads Sunday-ended weekly tables and labels TVL as valuation-sensitive in the source tables/captions.",
+        "07_point_in_time_market_structure.png": "Observed inspection note: the contact sheet legend is small, but the full PNG legend is readable and the chart clearly separates composition from concentration. Resolution: keep full-size PNG/SVG outputs and canonical-ID PIT composition/concentration tables.",
         "08_selected_major_asset_risk.png": "Observed issue: unequal coverage can make point sizes easy to overread. Resolution: marker size reflects coverage and short-history assets are colored separately.",
-        "09_event_response_matrix.png": "Observed prior issue: missing heatmap observations could be confused with zero. Resolution: masked missing cells render gray and observed cells are annotated with percent values.",
+        "09_event_response_matrix.png": "Observed inspection note: all configured BTC/ETH cells render with percent labels in the current data; the code still masks missing cells gray rather than filling zero. Resolution: keep masked-invalid heatmap path and annotated observed values.",
         "public_contact_sheet.png": "Observed contact sheet: all nine panels render and are nonblank; dense labels are confined to Figures 2 and 5 with the rotations/horizontal layout noted above.",
     }
     audit_rows = []
@@ -3298,6 +4140,7 @@ def theme() -> None:
             "axes.grid": True,
             "grid.alpha": 0.22,
             "legend.frameon": False,
+            "svg.hashsalt": "crypto-market-dynamics",
         }
     )
 
@@ -3307,7 +4150,7 @@ def save_public(fig: plt.Figure, p: BuildPaths, filename: str) -> Path:
     svg_path = path.with_suffix(".svg")
     fig.tight_layout()
     fig.savefig(path, bbox_inches="tight")
-    fig.savefig(svg_path, bbox_inches="tight")
+    fig.savefig(svg_path, bbox_inches="tight", metadata={"Date": None})
     strip_text_trailing_whitespace(svg_path)
     plt.close(fig)
     return path
@@ -3422,11 +4265,11 @@ def fig_liquidity(p: BuildPaths) -> Path:
     fig, axes = plt.subplots(1, 2, figsize=(11, 4.2))
     axes[0].plot(pd.to_datetime(features["date"]), features["stablecoin_supply_usd"] / 1e9, label="Stablecoins", color="#10866d")
     axes[0].plot(pd.to_datetime(features["date"]), features["defi_tvl_usd"] / 1e9, label="DeFi TVL", color="#3b82a0")
-    axes[0].set_title("Weekly Liquidity State")
+    axes[0].set_title("Weekly Stablecoin And TVL State")
     axes[0].set_ylabel("USD bn")
     axes[0].legend()
     axes[1].bar(summary["liquidity_regime"].astype(str), summary["btc_vol_median"], color="#6b9f8a")
-    axes[1].set_title("Volatility By Liquidity Regime")
+    axes[1].set_title("Volatility By Stablecoin Regime")
     axes[1].tick_params(axis="x", rotation=25)
     return save_public(fig, p, "06_stablecoin_defi_liquidity.png")
 
@@ -3545,6 +4388,7 @@ def public_table_names() -> set[str]:
         "tables/results_at_a_glance.md",
         "tables/data_source_coverage.csv",
         "tables/provider_data_disposition.csv",
+        "tables/valuation_contamination_audit.csv",
         "tables/feature_registry.csv",
         "tables/mvrv_mechanical_link_audit.csv",
         "tables/btc_ex_mvrv_feature_strength.csv",
@@ -3577,7 +4421,7 @@ def write_main_readme(root: Path, p: BuildPaths) -> None:
 
 ## Factor, Liquidity, Leverage, and Market-Structure Research
 
-Crypto Market Dynamics is a reproducible research-code project studying how crypto market behavior evolved from 2020-2026 across native valuation state, macro integration, ETF access, leverage, stablecoin/DeFi liquidity, selected major assets, point-in-time market structure, and event responses.
+Crypto Market Dynamics is a reproducible research-code project studying how crypto market behavior evolved from 2020-2026 across native valuation state, macro integration, ETF access, leverage, stablecoin/DeFi state, selected major assets, point-in-time market structure, and BTC/ETH event windows.
 
 The project is descriptive. It is not a price-forecasting system, trading strategy, or causal-identification claim.
 
@@ -3587,8 +4431,8 @@ The project is descriptive. It is not a price-forecasting system, trading strate
 2. After removing mechanically linked valuation-state measures, how did BTC/ETH contemporaneous TradFi exposure and lagged-state associations evolve?
 3. Are leverage and liquidation variables more informative for volatility/tail stress than average returns?
 4. How did ETF access relate to market plumbing and risk integration?
-5. How do stablecoin and DeFi liquidity states relate to volatility and concentration?
-6. How do selected major assets differ in volatility, drawdown, beta, and event response?
+5. How do stablecoin and DeFi state variables relate to BTC/ETH returns and BTC volatility?
+6. How do selected major assets differ in volatility, drawdown, and beta after accounting for coverage?
 7. How did PIT market composition, concentration, and turnover evolve?
 
 ## Results At A Glance
@@ -3597,7 +4441,7 @@ The project is descriptive. It is not a price-forecasting system, trading strate
 
 ## Data
 
-The build uses local curated data under `Data/`: CryptoQuant, Artemis, DefiLlama, FRED, Farside, TradingView, AlternativeMe/CMC, and a monthly DefiLlama PIT market-universe file. Data-use caveats are separated in [DATA_LICENSE.md](DATA_LICENSE.md), but that file does not resolve provider redistribution rights. Source coverage is summarized in [data_source_coverage.csv](outputs/tables/data_source_coverage.csv), and provider release risk is classified in [provider_data_disposition.csv](outputs/tables/provider_data_disposition.csv).
+The build uses local curated data under `Data/`: CryptoQuant, Artemis, DefiLlama, FRED, Farside, TradingView, AlternativeMe/CMC, and a monthly DefiLlama PIT market-universe file. This repository is not affiliated with those providers. Data-use caveats are separated in [DATA_LICENSE.md](DATA_LICENSE.md), but that file does not resolve provider redistribution rights. Source coverage is summarized in [data_source_coverage.csv](outputs/tables/data_source_coverage.csv), provider release risk is classified in [provider_data_disposition.csv](outputs/tables/provider_data_disposition.csv), and TVL/OI price-content risk is audited in [valuation_contamination_audit.csv](outputs/tables/valuation_contamination_audit.csv).
 
 ## MVRV Mechanics And On-Chain State
 
@@ -3611,7 +4455,7 @@ Source: [mvrv_mechanical_link_audit.csv](outputs/tables/mvrv_mechanical_link_aud
 
 ![Factor strength by regime](outputs/figures/public/02_factor_strength_by_regime.png)
 
-The exposure tables split economically distinct families: contemporaneous TradFi co-movement models, lagged-state association models, and ETF-era augmented market-plumbing models. Every full/reduced comparison uses one complete-case sample with same-support checks. Drop-block delta R-squared is reported separately from conventional partial R-squared.
+The exposure tables split economically distinct families: contemporaneous TradFi co-movement models, lagged-state association models, and ETF-era augmented market-plumbing models. Daily TradFi models use common business-date BTC/ETH returns; weekly TradFi models use Friday-to-Friday returns. Every full/reduced comparison uses one complete-case sample with same-support checks. Drop-block delta R-squared is reported separately from conventional partial R-squared.
 
 ![TradFi integration over time](outputs/figures/public/03_tradfi_integration_over_time.png)
 
@@ -3637,7 +4481,7 @@ Source: [leverage_tail_risk_summary.csv](outputs/tables/leverage_tail_risk_summa
 
 ![Stablecoin and DeFi liquidity](outputs/figures/public/06_stablecoin_defi_liquidity.png)
 
-Stablecoin and DeFi metrics are weekly liquidity-state proxies. Weekly transformations use summed log returns, week-end levels, week-end level changes, weekly flow scaling, and prior week-end state where applicable. The project does not call changes exogenous liquidity shocks.
+Stablecoin and DeFi metrics use the Sunday-ended crypto weekly panel. Stablecoin supply is the cleaner local liquidity-state proxy; raw USD TVL growth is labeled `valuation_sensitive_defi_tvl_growth` because USD TVL embeds deposited-asset price effects. The project does not call proxy changes exogenous liquidity shocks.
 
 Source: [stablecoin_defi_liquidity_summary.csv](outputs/tables/stablecoin_defi_liquidity_summary.csv)
 
@@ -3677,11 +4521,11 @@ No causal claims are made. MVRV is a valuation-state diagnostic with mechanical 
 
 ```powershell
 uv sync --all-extras
-uv run python scripts/run_all.py
-uv run python scripts/check_public_surface.py
-uv run pytest
-uv run mypy src/cqresearch
 uv run ruff check src/cqresearch scripts tests
+uv run mypy src/cqresearch
+uv run python scripts/run_all.py
+uv run pytest
+uv run python scripts/check_public_surface.py
 ```
 
 ## Repository Structure

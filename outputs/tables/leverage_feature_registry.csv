@@ -1,5 +1,5 @@
 feature_id,clean_label,frequency,timing,scaling,denominator
-btc_oi_growth_lag1,"BTC OI growth, t-1",daily,lagged state for *_lag1 features; same-day stress signature for liquidation ratios,see feature label,
+btc_oi_to_mcap_growth_lag1,"BTC OI/market-cap growth, t-1",daily,lagged state for *_lag1 features; same-day stress signature for liquidation ratios,see feature label,
 btc_funding_z_lag1,"BTC funding z-score, t-1",daily,lagged state for *_lag1 features; same-day stress signature for liquidation ratios,see feature label,
 btc_leverage_ratio_percentile_lag1,Btc Leverage Ratio Percentile Lag1,daily,lagged state for *_lag1 features; same-day stress signature for liquidation ratios,see feature label,
 btc_basis_z,Btc Basis Z,daily,lagged state for *_lag1 features; same-day stress signature for liquidation ratios,see feature label,

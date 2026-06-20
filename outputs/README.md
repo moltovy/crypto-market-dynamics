@@ -35,6 +35,7 @@ This is the canonical public output surface for Crypto Market Dynamics.
 - `tables/selected_major_comparable_window_metrics.csv`
 - `tables/selected_major_risk_metrics.csv`
 - `tables/stablecoin_defi_liquidity_summary.csv`
+- `tables/valuation_contamination_audit.csv`
 
 ## Supporting Tables
 
@@ -81,38 +82,25 @@ This is the canonical public output surface for Crypto Market Dynamics.
 
 ## Reports
 
-- `report/baseline_audit.md`
-- `report/cycle_and_event_atlas.md`
-- `report/data_atlas.md`
-- `report/etf_market_plumbing.md`
 - `report/executive_summary.md`
-- `report/final_pr_body.md`
-- `report/final_release_audit.md`
-- `report/leverage_and_tail_risk.md`
 - `report/limitations.md`
 - `report/market_structure_public_surface_check.md`
 - `report/methodology.md`
-- `report/onchain_valuation_state.md`
-- `report/open_pr_disposition.md`
-- `report/point_in_time_market_structure.md`
 - `report/provider_data_disposition.md`
-- `report/public_readiness.md`
 - `report/reproducibility_report.md`
 - `report/results_and_interpretation.md`
-- `report/selected_major_assets.md`
-- `report/stablecoin_defi_liquidity.md`
-- `report/statistical_robustness.md`
 - `report/visual_quality_audit.md`
 
 ## Model Cards
 
 - `model_cards/etf_market_plumbing.md`
 - `model_cards/event_atlas.md`
-- `model_cards/ex_mvrv_exposure.md`
+- `model_cards/lagged_state_associations.md`
 - `model_cards/leverage_tail_risk.md`
 - `model_cards/mvrv_mechanics.md`
 - `model_cards/pit_market_structure.md`
-- `model_cards/selected_major_assets.md`
-- `model_cards/stablecoin_defi_liquidity.md`
+- `model_cards/selected_major_risk.md`
+- `model_cards/stablecoin_defi_state.md`
+- `model_cards/tradfi_exposure.md`
 
 Current-top50 daily cohort outputs, where present, are exploratory and survivorship-biased. PIT market-structure evidence is monthly composition/concentration/turnover only.

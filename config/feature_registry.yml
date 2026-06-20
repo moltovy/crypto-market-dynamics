@@ -13,6 +13,7 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
@@ -32,6 +33,7 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
@@ -51,6 +53,7 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
@@ -63,18 +66,19 @@ features:
   raw_path_or_endpoint: tracked local repository file
   raw_field: QQQ close
   frequency: daily
-  transformation: log return
-  lag_days: 1
+  transformation: business-date log return
+  lag_days: 0
   scaling_denominator: ''
   first_valid_date: ''
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
-  interpretation: Equity-growth proxy.
+  interpretation: Contemporaneous equity-growth exposure proxy.
 - feature_id: spy_ret
   clean_label: SPY return
   research_block: macro_risk
@@ -82,18 +86,39 @@ features:
   raw_path_or_endpoint: tracked local repository file
   raw_field: SPY close
   frequency: daily
-  transformation: log return
-  lag_days: 1
+  transformation: business-date log return
+  lag_days: 0
   scaling_denominator: ''
   first_valid_date: ''
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
-  interpretation: US equity-market proxy.
+  interpretation: Contemporaneous US equity-market exposure proxy.
+- feature_id: iwm_ret
+  clean_label: IWM return
+  research_block: macro_risk
+  raw_source: TradingView
+  raw_path_or_endpoint: tracked local repository file
+  raw_field: IWM close
+  frequency: daily
+  transformation: business-date log return
+  lag_days: 0
+  scaling_denominator: ''
+  first_valid_date: ''
+  last_valid_date: ''
+  missing_policy: drop from model sample; report effective n
+  mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
+  contemporaneous_endogeneity_risk: low
+  permitted_model_families: descriptive, exposure, state conditioning
+  prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
+    factor
+  interpretation: Contemporaneous small-cap equity exposure proxy where supported.
 - feature_id: vix_d1
   clean_label: VIX change
   research_block: macro_risk
@@ -101,18 +126,19 @@ features:
   raw_path_or_endpoint: tracked local repository file
   raw_field: VIXCLS
   frequency: daily
-  transformation: first difference
-  lag_days: 1
+  transformation: business-date first difference
+  lag_days: 0
   scaling_denominator: ''
   first_valid_date: ''
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
-  interpretation: Equity-volatility proxy.
+  interpretation: Contemporaneous equity-volatility exposure proxy.
 - feature_id: dxy_ret
   clean_label: DXY return
   research_block: macro_risk
@@ -120,18 +146,19 @@ features:
   raw_path_or_endpoint: tracked local repository file
   raw_field: DXY close
   frequency: daily
-  transformation: log return
-  lag_days: 1
+  transformation: business-date log return
+  lag_days: 0
   scaling_denominator: ''
   first_valid_date: ''
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
-  interpretation: Dollar index proxy.
+  interpretation: Contemporaneous dollar index exposure proxy.
 - feature_id: real_yield_d1
   clean_label: Real-yield change
   research_block: macro_risk
@@ -139,18 +166,19 @@ features:
   raw_path_or_endpoint: tracked local repository file
   raw_field: DFII10
   frequency: daily
-  transformation: first difference
-  lag_days: 1
+  transformation: business-date first difference
+  lag_days: 0
   scaling_denominator: ''
   first_valid_date: ''
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
-  interpretation: Real-rate proxy.
+  interpretation: Contemporaneous real-rate exposure proxy.
 - feature_id: nominal_10y_d1
   clean_label: Nominal 10Y yield change
   research_block: macro_risk
@@ -158,18 +186,19 @@ features:
   raw_path_or_endpoint: tracked local repository file
   raw_field: DGS10
   frequency: daily
-  transformation: first difference
-  lag_days: 1
+  transformation: business-date first difference
+  lag_days: 0
   scaling_denominator: ''
   first_valid_date: ''
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
-  interpretation: Nominal-rate proxy.
+  interpretation: Contemporaneous nominal-rate exposure proxy.
 - feature_id: gold_ret
   clean_label: Gold return
   research_block: macro_risk
@@ -177,18 +206,19 @@ features:
   raw_path_or_endpoint: tracked local repository file
   raw_field: GLD or XAUUSD close
   frequency: daily
-  transformation: log return
-  lag_days: 1
+  transformation: business-date log return
+  lag_days: 0
   scaling_denominator: ''
   first_valid_date: ''
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
-  interpretation: Gold proxy.
+  interpretation: Contemporaneous gold exposure proxy.
 - feature_id: btc_etf_flow_intensity_lag0
   clean_label: BTC ETF flow intensity, t
   research_block: etf_institutional
@@ -203,6 +233,7 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: medium
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
@@ -222,6 +253,7 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: medium
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
@@ -241,6 +273,7 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: medium
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
@@ -260,13 +293,14 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: medium
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
   interpretation: Lagged market-plumbing flow proxy.
 - feature_id: btc_oi_growth_lag1
-  clean_label: BTC open-interest growth, t-1
+  clean_label: BTC raw open-interest growth, t-1
   research_block: leverage
   raw_source: CryptoQuant
   raw_path_or_endpoint: tracked local repository file
@@ -278,12 +312,54 @@ features:
   first_valid_date: ''
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
-  mechanical_link_risk: low
+  mechanical_link_risk: medium
+  valuation_contamination_risk: medium_if_usd_notional
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
-  interpretation: Leverage-state proxy.
+  interpretation: Raw leverage-state proxy; retained for audit, not preferred if OI
+    is USD-valued.
+- feature_id: btc_oi_to_mcap_growth_lag1
+  clean_label: BTC OI/market-cap growth, t-1
+  research_block: leverage
+  raw_source: CryptoQuant
+  raw_path_or_endpoint: tracked local repository file
+  raw_field: BTC open interest and market cap
+  frequency: daily
+  transformation: log difference of OI/market-cap ratio lagged one panel step
+  lag_days: 1
+  scaling_denominator: BTC market cap
+  first_valid_date: ''
+  last_valid_date: ''
+  missing_policy: drop from model sample; report effective n
+  mechanical_link_risk: low
+  valuation_contamination_risk: medium_if_usd_notional
+  contemporaneous_endogeneity_risk: low
+  permitted_model_families: descriptive, exposure, state conditioning
+  prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
+    factor
+  interpretation: Preferred lagged leverage-state proxy when OI is USD/notional-valued.
+- feature_id: eth_oi_to_mcap_growth_lag1
+  clean_label: ETH OI/market-cap growth, t-1
+  research_block: leverage
+  raw_source: CryptoQuant
+  raw_path_or_endpoint: tracked local repository file
+  raw_field: ETH open interest and market cap
+  frequency: daily
+  transformation: log difference of OI/market-cap ratio lagged one panel step
+  lag_days: 1
+  scaling_denominator: ETH market cap
+  first_valid_date: ''
+  last_valid_date: ''
+  missing_policy: drop from model sample; report effective n
+  mechanical_link_risk: low
+  valuation_contamination_risk: medium_if_usd_notional
+  contemporaneous_endogeneity_risk: low
+  permitted_model_families: descriptive, exposure, state conditioning
+  prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
+    factor
+  interpretation: Preferred lagged leverage-state proxy when OI is USD/notional-valued.
 - feature_id: btc_funding_z_lag1
   clean_label: BTC funding z-score, t-1
   research_block: leverage
@@ -298,6 +374,7 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
@@ -317,6 +394,7 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: medium_if_usd_notional
   contemporaneous_endogeneity_risk: medium
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
@@ -336,6 +414,7 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: medium
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
@@ -355,6 +434,7 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: medium_if_usd_notional
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
@@ -374,36 +454,38 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: medium_if_usd_notional
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
   interpretation: Lagged liquidity-state proxy.
-- feature_id: defi_tvl_growth
-  clean_label: DeFi TVL growth
+- feature_id: valuation_sensitive_defi_tvl_growth
+  clean_label: Valuation-sensitive DeFi TVL growth
   research_block: liquidity
   raw_source: DefiLlama
   raw_path_or_endpoint: tracked local repository file
-  raw_field: TVL
+  raw_field: USD TVL
   frequency: weekly
-  transformation: log difference
-  lag_days: 1
+  transformation: log difference of USD TVL
+  lag_days: 0
   scaling_denominator: ''
   first_valid_date: ''
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
-  mechanical_link_risk: low
+  mechanical_link_risk: medium
+  valuation_contamination_risk: high_usd_price_content
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
-  interpretation: DeFi balance-sheet proxy.
-- feature_id: defi_tvl_growth_lag1
-  clean_label: Lagged DeFi TVL growth
+  interpretation: Valuation-sensitive DeFi balance-sheet proxy, not pure capital inflow.
+- feature_id: valuation_sensitive_defi_tvl_growth_lag1
+  clean_label: Lagged valuation-sensitive DeFi TVL growth
   research_block: liquidity
   raw_source: DefiLlama
   raw_path_or_endpoint: tracked local repository file
-  raw_field: TVL
+  raw_field: USD TVL
   frequency: weekly
   transformation: weekly log difference lagged one week
   lag_days: 1
@@ -411,12 +493,14 @@ features:
   first_valid_date: ''
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
-  mechanical_link_risk: low
+  mechanical_link_risk: medium
+  valuation_contamination_risk: high_usd_price_content
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
-  interpretation: Lagged DeFi balance-sheet proxy.
+  interpretation: Lagged valuation-sensitive DeFi balance-sheet proxy, not pure capital
+    inflow.
 - feature_id: btc_mvrv_lag1
   clean_label: Lagged BTC MVRV
   research_block: onchain_state
@@ -431,6 +515,7 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: high
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
@@ -450,6 +535,7 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: high
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
@@ -469,6 +555,7 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
@@ -488,6 +575,7 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
@@ -507,6 +595,7 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
@@ -526,6 +615,7 @@ features:
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
   mechanical_link_risk: low
+  valuation_contamination_risk: none_identified
   contemporaneous_endogeneity_risk: low
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return

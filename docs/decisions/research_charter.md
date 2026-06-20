@@ -2,7 +2,7 @@
 
 ## Objective
 
-Crypto Market Dynamics studies whether crypto market behavior evolved from 2020-2026 across native valuation state, macro/risk integration, ETF access, leverage, stablecoin/DeFi liquidity, selected major assets, point-in-time market structure, and event responses.
+Crypto Market Dynamics studies whether crypto market behavior evolved from 2020-2026 across native valuation state, macro/risk integration, ETF access, leverage, stablecoin/DeFi state, selected major assets, point-in-time market structure, and BTC/ETH event windows.
 
 ## Questions
 
@@ -10,8 +10,8 @@ Crypto Market Dynamics studies whether crypto market behavior evolved from 2020-
 2. After removing mechanically linked valuation-state measures, how did BTC/ETH exposures to equities, volatility, the dollar, yields, gold, ETF flows, and crypto liquidity evolve?
 3. Are leverage, funding, OI, liquidations, and taker flow more informative for volatility/tail stress than for average returns?
 4. How did ETF access relate to market plumbing, AUM concentration, basis/premium relationships, and risk-market integration?
-5. How do stablecoin and DeFi liquidity states relate to crypto volatility, broad-market capitalization, and market concentration?
-6. How do selected major assets differ in volatility, drawdown, beta, and event response?
+5. How do stablecoin and DeFi state variables relate to BTC/ETH returns and BTC volatility?
+6. How do selected major assets differ in volatility, drawdown, and beta after accounting for coverage?
 7. How did point-in-time market composition, concentration, and turnover evolve around halving and ETF eras?
 8. Which findings are robust, qualified, exploratory, rejected, or data-limited?
 

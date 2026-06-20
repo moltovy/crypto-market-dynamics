@@ -2,7 +2,7 @@
 
 ## Factor, Liquidity, Leverage, and Market-Structure Research
 
-Crypto Market Dynamics is a reproducible research-code project studying how crypto market behavior evolved from 2020-2026 across native valuation state, macro integration, ETF access, leverage, stablecoin/DeFi liquidity, selected major assets, point-in-time market structure, and event responses.
+Crypto Market Dynamics is a reproducible research-code project studying how crypto market behavior evolved from 2020-2026 across native valuation state, macro integration, ETF access, leverage, stablecoin/DeFi state, selected major assets, point-in-time market structure, and BTC/ETH event windows.
 
 The project is descriptive. It is not a price-forecasting system, trading strategy, or causal-identification claim.
 
@@ -12,23 +12,28 @@ The project is descriptive. It is not a price-forecasting system, trading strate
 2. After removing mechanically linked valuation-state measures, how did BTC/ETH contemporaneous TradFi exposure and lagged-state associations evolve?
 3. Are leverage and liquidation variables more informative for volatility/tail stress than average returns?
 4. How did ETF access relate to market plumbing and risk integration?
-5. How do stablecoin and DeFi liquidity states relate to volatility and concentration?
-6. How do selected major assets differ in volatility, drawdown, beta, and event response?
+5. How do stablecoin and DeFi state variables relate to BTC/ETH returns and BTC volatility?
+6. How do selected major assets differ in volatility, drawdown, and beta after accounting for coverage?
 7. How did PIT market composition, concentration, and turnover evolve?
 
 ## Results At A Glance
 
-| question                   | finding                                                                                             | key_statistic                                                                      | sample_frequency                  | evidence_grade   | interpretation                                                               | caveat                             | source_table                     |
-|:---------------------------|:----------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------|:----------------------------------|:-----------------|:-----------------------------------------------------------------------------|:-----------------------------------|:---------------------------------|
-| MVRV mechanics             | MVRV is retained as a mechanically price-linked valuation-state diagnostic.                         | 0.9932                                                                             | 2020-2026 daily                   | B                | Use lagged state regimes; exclude same-day MVRV from primary BTC/ETH models. | Mechanical target overlap.         | mvrv_mechanical_link_audit.csv   |
-| Ex-MVRV exposure evolution | BTC/ETH exposure tables split contemporaneous TradFi, lagged-state, and ETF-era augmented families. | ETH daily btc_etf_era equity_beta delta R2=0.1076, n=436, 2024-01-11 to 2026-04-10 | effective sample reported per row | B                | Feature blocks are descriptive exposures, not forecasts.                     | Collinearity and short ETF sample. | block_delta_r2.csv               |
-| Leverage and tail stress   | Derivatives variables are framed as stress and volatility-state diagnostics.                        | Q5 high bottom-5pct day rate=7.73%, n=453                                          | daily                             | B                | Lagged state differs from contemporaneous liquidation signature.             | No initiation-cause claim.         | leverage_tail_risk_summary.csv   |
-| PIT market structure       | PIT monthly snapshots support composition, concentration, and turnover evidence.                    | 2026-06-01 top10 share=87.64%, HHI=0.334                                           | monthly                           | A                | Use for market structure only.                                               | No daily PIT performance.          | pit_market_structure_summary.csv |
+| question                  | finding                                                                                     | key_statistic                                                                                                                                                                                                               | sample_frequency                   | evidence_grade   | interpretation                                                               | caveat                                                | source_table                                 |
+|:--------------------------|:--------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------|:-----------------|:-----------------------------------------------------------------------------|:------------------------------------------------------|:---------------------------------------------|
+| MVRV mechanics            | MVRV is retained as a mechanically price-linked valuation-state diagnostic.                 | corr(BTC return, d-log MVRV)=0.9966; R2=0.9932; median abs residual / median abs BTC return=1.14e-07                                                                                                                        | 2020-2026 daily                    | B                | Use lagged state regimes; exclude same-day MVRV from primary BTC/ETH models. | Mechanical target overlap.                            | mvrv_mechanical_link_audit.csv               |
+| TradFi exposure evolution | Contemporaneous exposure comparisons use synchronized business-date and Friday calendars.   | BTC equity block pre-BTC-ETF delta R2=0.0249 (n=797) vs BTC-ETF-era delta R2=0.0884 (n=436); ETH equity block pre-BTC-ETF delta R2=0.0193 (n=797) vs BTC-ETF-era delta R2=0.1076 (n=436); period comparison, not ETF effect | business-date daily; Friday weekly | B                | Period comparison of co-movement, not an ETF-effect estimate.                | Collinearity and overlapping rolling windows.         | block_delta_r2.csv                           |
+| ETF plumbing              | ETF flow intensity is split into lag 0 and lag 1 on ETF trading dates.                      | BTC lag0 return corr=0.379 (n=820) vs lag1=0.049 (n=819); ETH lag0 return corr=0.226 (n=627) vs lag1=0.086 (n=626)                                                                                                          | ETF trading daily                  | B                | Market-plumbing association only.                                            | Short sample and reporting timing.                    | etf_flow_associations.csv                    |
+| Leverage and tail stress  | Tail-day rates are reported for pre-specified Q1/Q3/Q5 leverage states.                     | Q1 low tail-day rate=7.06% (n=453); Q3 tail-day rate=4.20% (n=452); Q5 high tail-day rate=7.73% (n=453); read as U-shaped state pattern                                                                                     | daily                              | B                | U-shaped pattern, not only the highest-leverage quintile.                    | No liquidation initiation-cause claim.                | leverage_tail_risk_summary.csv               |
+| Stablecoin/DeFi state     | Raw USD TVL is valuation-sensitive; stablecoin supply is the cleaner local liquidity proxy. | BTC same-week raw USD TVL corr=0.679 (n=327); ETH same-week raw USD TVL corr=0.761 (n=327); TVL labeled valuation-sensitive                                                                                                 | Sunday weekly                      | B                | Treat TVL as DeFi balance-sheet state, not pure inflow.                      | No price-adjusted TVL source is available locally.    | valuation_contamination_audit.csv            |
+| PIT market structure      | PIT monthly snapshots support composition, concentration, and turnover evidence.            | 2026-06-16 partial snapshot (month=2026-06) top10 share=87.64%, HHI=0.334                                                                                                                                                   | monthly                            | A                | Use for market structure only.                                               | No daily PIT performance.                             | pit_market_structure_summary.csv             |
+| Selected-major risk       | Selected-major risk is coverage-aware and reports comparable-window metrics.                | 10 assets comparable from 2024-11-30 to 2026-06-16; HYPE max-coverage n=564                                                                                                                                                 | daily current-source coverage      | B                | Compare risk only with coverage caveats.                                     | HYPE is short-history; TON is canonical-source only.  | selected_major_comparable_window_metrics.csv |
+| Event atlas               | Configured BTC/ETH events use equal-length empirical placebo windows.                       | BTC,ETH event windows use block size=10; median eligible placebo windows=2007; convention +1 through +10                                                                                                                    | daily                              | C                | Descriptive event-window context.                                            | Not bootstrap causal inference.                       | event_inference.csv                          |
+| Deferred PIT altseason    | True PIT historical altseason return analysis is deferred.                                  | No daily PIT constituent OHLCV/mcap history is available.                                                                                                                                                                   | not available                      | C                | Monthly PIT supports structure, not daily performance.                       | Current-cohort daily outputs are survivorship-biased. | claim_inventory.csv                          |
 
 
 ## Data
 
-The build uses local curated data under `Data/`: CryptoQuant, Artemis, DefiLlama, FRED, Farside, TradingView, AlternativeMe/CMC, and a monthly DefiLlama PIT market-universe file. Data-use caveats are separated in [DATA_LICENSE.md](DATA_LICENSE.md), but that file does not resolve provider redistribution rights. Source coverage is summarized in [data_source_coverage.csv](outputs/tables/data_source_coverage.csv), and provider release risk is classified in [provider_data_disposition.csv](outputs/tables/provider_data_disposition.csv).
+The build uses local curated data under `Data/`: CryptoQuant, Artemis, DefiLlama, FRED, Farside, TradingView, AlternativeMe/CMC, and a monthly DefiLlama PIT market-universe file. This repository is not affiliated with those providers. Data-use caveats are separated in [DATA_LICENSE.md](DATA_LICENSE.md), but that file does not resolve provider redistribution rights. Source coverage is summarized in [data_source_coverage.csv](outputs/tables/data_source_coverage.csv), provider release risk is classified in [provider_data_disposition.csv](outputs/tables/provider_data_disposition.csv), and TVL/OI price-content risk is audited in [valuation_contamination_audit.csv](outputs/tables/valuation_contamination_audit.csv).
 
 ## MVRV Mechanics And On-Chain State
 
@@ -42,7 +47,7 @@ Source: [mvrv_mechanical_link_audit.csv](outputs/tables/mvrv_mechanical_link_aud
 
 ![Factor strength by regime](outputs/figures/public/02_factor_strength_by_regime.png)
 
-The exposure tables split economically distinct families: contemporaneous TradFi co-movement models, lagged-state association models, and ETF-era augmented market-plumbing models. Every full/reduced comparison uses one complete-case sample with same-support checks. Drop-block delta R-squared is reported separately from conventional partial R-squared.
+The exposure tables split economically distinct families: contemporaneous TradFi co-movement models, lagged-state association models, and ETF-era augmented market-plumbing models. Daily TradFi models use common business-date BTC/ETH returns; weekly TradFi models use Friday-to-Friday returns. Every full/reduced comparison uses one complete-case sample with same-support checks. Drop-block delta R-squared is reported separately from conventional partial R-squared.
 
 ![TradFi integration over time](outputs/figures/public/03_tradfi_integration_over_time.png)
 
@@ -68,7 +73,7 @@ Source: [leverage_tail_risk_summary.csv](outputs/tables/leverage_tail_risk_summa
 
 ![Stablecoin and DeFi liquidity](outputs/figures/public/06_stablecoin_defi_liquidity.png)
 
-Stablecoin and DeFi metrics are weekly liquidity-state proxies. Weekly transformations use summed log returns, week-end levels, week-end level changes, weekly flow scaling, and prior week-end state where applicable. The project does not call changes exogenous liquidity shocks.
+Stablecoin and DeFi metrics use the Sunday-ended crypto weekly panel. Stablecoin supply is the cleaner local liquidity-state proxy; raw USD TVL growth is labeled `valuation_sensitive_defi_tvl_growth` because USD TVL embeds deposited-asset price effects. The project does not call proxy changes exogenous liquidity shocks.
 
 Source: [stablecoin_defi_liquidity_summary.csv](outputs/tables/stablecoin_defi_liquidity_summary.csv)
 
@@ -108,11 +113,11 @@ No causal claims are made. MVRV is a valuation-state diagnostic with mechanical 
 
 ```powershell
 uv sync --all-extras
-uv run python scripts/run_all.py
-uv run python scripts/check_public_surface.py
-uv run pytest
-uv run mypy src/cqresearch
 uv run ruff check src/cqresearch scripts tests
+uv run mypy src/cqresearch
+uv run python scripts/run_all.py
+uv run pytest
+uv run python scripts/check_public_surface.py
 ```
 
 ## Repository Structure

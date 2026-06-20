@@ -1,3 +1,3 @@
-asset,first_flow_date,last_flow_date,observations,nonzero_observations,timing_note
-BTC,2024-01-11,2026-04-10,821,563,Farside daily issuer aggregates; holidays/non-reporting days are not treated as zero unless source reports zero.
-ETH,2024-07-23,2026-04-10,627,419,Farside daily issuer aggregates; holidays/non-reporting days are not treated as zero unless source reports zero.
+asset,first_flow_date,last_flow_date,observations,nonzero_observations,calendar,calendar_assumption,timing_note
+BTC,2024-01-11,2026-04-10,821,563,etf_trading_daily,ETF-era daily panel uses dates with ETF flow observations; BTC/ETH returns run from the prior ETF trading date to the current ETF trading date.,Farside daily issuer aggregates; holidays/non-reporting days are not treated as zero unless source reports zero.
+ETH,2024-07-23,2026-04-10,627,419,etf_trading_daily,ETF-era daily panel uses dates with ETF flow observations; BTC/ETH returns run from the prior ETF trading date to the current ETF trading date.,Farside daily issuer aggregates; holidays/non-reporting days are not treated as zero unless source reports zero.

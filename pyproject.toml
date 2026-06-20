@@ -1,11 +1,11 @@
 [project]
-name = "cqresearch"
+name = "crypto-market-dynamics"
 version = "0.1.0"
 description = "Crypto Market Dynamics - reproducible crypto factor, liquidity, leverage, and market-structure analytics."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
-authors = [{ name = "CryptoQuant Research Team" }]
+authors = [{ name = "Crypto Market Dynamics contributors" }]
 
 dependencies = [
     "pandas>=2.2",
@@ -53,15 +53,6 @@ src = ["src", "scripts", "tools", "tests"]
 extend-exclude = [
     "archive",
     "crypto_market_dynamics_final_codex_program",
-    "scripts/audit_market_structure_endpoints.py",
-    "scripts/build_market_structure_outputs.py",
-    "scripts/fetch_market_structure_raw.py",
-    "scripts/ingest_defillama_daily_constituents.py",
-    "scripts/ingest_defillama_monthly_universe.py",
-    "scripts/inspect_core_files.py",
-    "scripts/legacy_ingest_pipeline.py",
-    "scripts/normalize_market_structure_cache.py",
-    "scripts/optional_data",
 ]
 
 [tool.ruff.lint]

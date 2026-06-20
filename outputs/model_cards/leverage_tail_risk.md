@@ -1,61 +1,11 @@
-# Leverage and tail risk Model Card
+# Leverage And Tail Risk Model Card
 
-## Purpose and research question
+Purpose: evaluate leverage/funding/OI state and liquidation signatures as stress diagnostics.
 
-Evaluate derivatives state variables for volatility and lower-tail stress.
+Features and units: lagged OI/market-cap growth, funding z-score, leverage percentile, liquidation USD / lagged OI in percent, and liquidation USD / lagged market cap in basis points.
 
-## Outcome definition
+Principal finding: Q1 low tail-day rate=7.06% (n=453); Q3 tail-day rate=4.20% (n=452); Q5 high tail-day rate=7.73% (n=453); read as U-shaped state pattern.
 
-See the source tables linked from `outputs/README.md`.
+Estimator: descriptive quintiles, lagged logit diagnostics, and top liquidation event response table.
 
-## Exposures/state variables
-
-Configured in `config/feature_registry.yml` and exported to `outputs/tables/feature_registry.csv`.
-
-## Frequency and sample
-
-The pipeline reports the effective sample size in every canonical model table.
-
-## Transformations and timing
-
-Contemporaneous exposure models use same-day TradFi returns/changes to measure co-movement. Lagged liquidity, sentiment, leverage, funding, OI, and exchange-flow variables are labeled lagged-state associations. ETF-era augmented models include ETF flow intensity at lag 0 and lag 1.
-
-## Estimator and uncertainty method
-
-HAC OLS, logistic diagnostics, descriptive summaries, FDR adjustment, VIF/condition diagnostics, accepted weekly robustness models, and local-window correlation distributions where applicable.
-
-## Same-support rule
-
-Model comparisons use the same non-missing row support for the relevant specification.
-
-## Main outputs
-
-See `outputs/tables/` and `outputs/figures/public/`.
-
-## Interpretation
-
-Reduced-form descriptive evidence only.
-
-## Mechanical-link/endogeneity risks
-
-Documented in the evidence ledger and feature registry.
-
-## Robustness checks
-
-Accepted daily/weekly checks, multicollinearity diagnostics, ridge stability, and local-window correlation distributions are included where applicable.
-
-## Prohibited claims
-
-Do not claim liquidations initiated price moves.
-
-## Evidence grade
-
-See `outputs/tables/evidence_ledger.csv`.
-
-## Known limitations
-
-Short ETF-era samples, reporting timing, source conventions, and lack of daily PIT constituent OHLCV for true historical altseason analysis.
-
-## Reproduction command
-
-`uv run python scripts/run_all.py`
+Prohibited claims: liquidations initiated price moves.

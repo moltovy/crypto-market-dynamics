@@ -1,6 +1,6 @@
 {
   "project": "Crypto Market Dynamics",
-  "generated_at_utc": "2026-06-20T04:15:48+00:00",
+  "generated_at_utc": "2026-06-20T05:59:24+00:00",
   "pipeline": "src/cqresearch/pipelines/final_research.py",
   "public_figures": [
     "outputs/figures/public/01_mvrv_mechanics.png",
@@ -72,41 +72,29 @@
     "outputs/tables/selected_major_risk_metrics.csv",
     "outputs/tables/stablecoin_defi_liquidity_summary.csv",
     "outputs/tables/stablecoin_liquidity_features.csv",
-    "outputs/tables/tail_risk_models.csv"
+    "outputs/tables/tail_risk_models.csv",
+    "outputs/tables/valuation_contamination_audit.csv"
   ],
   "reports": [
-    "outputs/report/baseline_audit.md",
-    "outputs/report/cycle_and_event_atlas.md",
-    "outputs/report/data_atlas.md",
-    "outputs/report/etf_market_plumbing.md",
     "outputs/report/executive_summary.md",
-    "outputs/report/final_pr_body.md",
-    "outputs/report/final_release_audit.md",
-    "outputs/report/leverage_and_tail_risk.md",
     "outputs/report/limitations.md",
     "outputs/report/market_structure_public_surface_check.md",
     "outputs/report/methodology.md",
-    "outputs/report/onchain_valuation_state.md",
-    "outputs/report/open_pr_disposition.md",
-    "outputs/report/point_in_time_market_structure.md",
     "outputs/report/provider_data_disposition.md",
-    "outputs/report/public_readiness.md",
     "outputs/report/reproducibility_report.md",
     "outputs/report/results_and_interpretation.md",
-    "outputs/report/selected_major_assets.md",
-    "outputs/report/stablecoin_defi_liquidity.md",
-    "outputs/report/statistical_robustness.md",
     "outputs/report/visual_quality_audit.md"
   ],
   "model_cards": [
     "outputs/model_cards/etf_market_plumbing.md",
     "outputs/model_cards/event_atlas.md",
-    "outputs/model_cards/ex_mvrv_exposure.md",
+    "outputs/model_cards/lagged_state_associations.md",
     "outputs/model_cards/leverage_tail_risk.md",
     "outputs/model_cards/mvrv_mechanics.md",
     "outputs/model_cards/pit_market_structure.md",
-    "outputs/model_cards/selected_major_assets.md",
-    "outputs/model_cards/stablecoin_defi_liquidity.md"
+    "outputs/model_cards/selected_major_risk.md",
+    "outputs/model_cards/stablecoin_defi_state.md",
+    "outputs/model_cards/tradfi_exposure.md"
   ],
   "guardrails": [
     "Same-day MVRV excluded from primary exposure models.",

@@ -1,10 +1,10 @@
-liquidity_feature,outcome,frequency,n,correlation,language
-stablecoin_supply_growth,btc_ret,weekly,327,0.25307717426286325,descriptive_lead_lag_not_shock
-stablecoin_supply_growth,eth_ret,weekly,327,0.24762134352509554,descriptive_lead_lag_not_shock
-stablecoin_supply_growth,btc_realized_vol_30d,weekly,327,0.1562484598613045,descriptive_lead_lag_not_shock
-defi_tvl_growth,btc_ret,weekly,327,0.6787155852085223,descriptive_lead_lag_not_shock
-defi_tvl_growth,eth_ret,weekly,327,0.7612321120213389,descriptive_lead_lag_not_shock
-defi_tvl_growth,btc_realized_vol_30d,weekly,327,-0.32542872636717235,descriptive_lead_lag_not_shock
-stablecoin_to_tvl,btc_ret,weekly,328,0.012709589984789651,descriptive_lead_lag_not_shock
-stablecoin_to_tvl,eth_ret,weekly,328,0.002627713189217107,descriptive_lead_lag_not_shock
-stablecoin_to_tvl,btc_realized_vol_30d,weekly,328,0.14771964078920446,descriptive_lead_lag_not_shock
+liquidity_feature,outcome,frequency,calendar,calendar_assumption,n,correlation,mechanical_link_risk,language
+stablecoin_supply_growth,btc_ret,weekly,crypto_week_sunday,Crypto-native weekly state panel uses Sunday-ended crypto weeks; returns sum daily log returns and state variables use week-end or prior week-end values by semantic type.,327,0.25307717426286325,low,descriptive_state_proxy_not_shock
+stablecoin_supply_growth,eth_ret,weekly,crypto_week_sunday,Crypto-native weekly state panel uses Sunday-ended crypto weeks; returns sum daily log returns and state variables use week-end or prior week-end values by semantic type.,327,0.24762134352509554,low,descriptive_state_proxy_not_shock
+stablecoin_supply_growth,btc_realized_vol_30d,weekly,crypto_week_sunday,Crypto-native weekly state panel uses Sunday-ended crypto weeks; returns sum daily log returns and state variables use week-end or prior week-end values by semantic type.,327,0.1562484598613045,low,descriptive_state_proxy_not_shock
+valuation_sensitive_defi_tvl_growth,btc_ret,weekly,crypto_week_sunday,Crypto-native weekly state panel uses Sunday-ended crypto weeks; returns sum daily log returns and state variables use week-end or prior week-end values by semantic type.,327,0.6787155852085223,high_usd_price_content,descriptive_state_proxy_not_shock
+valuation_sensitive_defi_tvl_growth,eth_ret,weekly,crypto_week_sunday,Crypto-native weekly state panel uses Sunday-ended crypto weeks; returns sum daily log returns and state variables use week-end or prior week-end values by semantic type.,327,0.7612321120213389,high_usd_price_content,descriptive_state_proxy_not_shock
+valuation_sensitive_defi_tvl_growth,btc_realized_vol_30d,weekly,crypto_week_sunday,Crypto-native weekly state panel uses Sunday-ended crypto weeks; returns sum daily log returns and state variables use week-end or prior week-end values by semantic type.,327,-0.32542872636717235,high_usd_price_content,descriptive_state_proxy_not_shock
+stablecoin_to_tvl,btc_ret,weekly,crypto_week_sunday,Crypto-native weekly state panel uses Sunday-ended crypto weeks; returns sum daily log returns and state variables use week-end or prior week-end values by semantic type.,328,0.012709589984789651,high_usd_price_content,descriptive_state_proxy_not_shock
+stablecoin_to_tvl,eth_ret,weekly,crypto_week_sunday,Crypto-native weekly state panel uses Sunday-ended crypto weeks; returns sum daily log returns and state variables use week-end or prior week-end values by semantic type.,328,0.002627713189217107,high_usd_price_content,descriptive_state_proxy_not_shock
+stablecoin_to_tvl,btc_realized_vol_30d,weekly,crypto_week_sunday,Crypto-native weekly state panel uses Sunday-ended crypto weeks; returns sum daily log returns and state variables use week-end or prior week-end values by semantic type.,328,0.14771964078920446,high_usd_price_content,descriptive_state_proxy_not_shock

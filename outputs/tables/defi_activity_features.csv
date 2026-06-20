@@ -1,4 +1,4 @@
-date,defi_tvl_usd,defi_tvl_growth
+date,defi_tvl_usd,valuation_sensitive_defi_tvl_growth
 2020-01-05,611312656.0,
 2020-01-12,616715757.0,0.00879969194251018
 2020-01-19,722303915.0,0.1580377530458108

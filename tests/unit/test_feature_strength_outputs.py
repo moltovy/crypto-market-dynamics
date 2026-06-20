@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import subprocess
+import tomllib
 from pathlib import Path
 
 import numpy as np
@@ -37,6 +38,7 @@ def test_semantic_tables_exist() -> None:
         "selected_major_comparable_window_metrics.csv",
         "selected_major_risk_metrics.csv",
         "stablecoin_defi_liquidity_summary.csv",
+        "valuation_contamination_audit.csv",
     ]
     missing = [name for name in expected_tables if not (TABLES / name).exists()]
     assert not missing
@@ -67,6 +69,7 @@ def test_drop_block_delta_r2_is_not_labeled_partial_r2() -> None:
     assert (block["n_full"] == block["n_reduced"]).all()
     assert (block["full_r2"] + 1e-10 >= block["reduced_r2"]).all()
     assert (block["drop_block_delta_r2"] >= -1e-10).all()
+    assert {"calendar", "calendar_assumption", "close_time_assumption"}.issubset(block.columns)
 
     conventional = pd.read_csv(TABLES / "conventional_partial_r2.csv")
     assert "conventional_partial_r2" in conventional.columns
@@ -74,6 +77,30 @@ def test_drop_block_delta_r2_is_not_labeled_partial_r2() -> None:
     assert conventional["same_support"].all()
     assert (conventional["n_full"] == conventional["n_reduced"]).all()
     assert ((conventional["conventional_partial_r2"] >= -1e-10) & (conventional["conventional_partial_r2"] <= 1 + 1e-10)).all()
+
+
+def test_tradfi_models_use_synchronized_business_and_friday_calendars() -> None:
+    block = pd.read_csv(TABLES / "block_delta_r2.csv")
+    daily = block[
+        block["model_family"].eq("long_sample_contemporaneous_exposure")
+        & block["frequency"].eq("daily")
+    ]
+    weekly = block[
+        block["model_family"].eq("long_sample_contemporaneous_exposure")
+        & block["frequency"].eq("weekly")
+    ]
+    assert set(daily["calendar"]) == {"tradfi_business_daily"}
+    assert set(weekly["calendar"]) == {"tradfi_friday_weekly"}
+    assert daily["calendar_assumption"].str.contains(
+        "consecutive common TradFi business-date", regex=False
+    ).all()
+
+    etf = block[block["model_family"].eq("etf_era_augmented")]
+    assert {"etf_trading_daily", "etf_friday_weekly"}.issubset(set(etf["calendar"]))
+
+    rolling = pd.read_csv(TABLES / "rolling_tradfi_exposures.csv")
+    assert set(rolling["calendar"]) == {"tradfi_business_daily"}
+    assert {180, 365} == set(rolling["window_days"])
 
 
 def test_weekly_models_have_valid_samples_and_transformations() -> None:
@@ -84,7 +111,7 @@ def test_weekly_models_have_valid_samples_and_transformations() -> None:
     long_weekly = weekly_passed[weekly_passed["model_family"] != "etf_era_augmented"]
     assert (long_weekly["n"] >= 100).all()
 
-    # CI runs pytest before the canonical build step, so these checks use committed output CSVs.
+    # CI runs the canonical build before pytest, so these checks validate fresh artifacts.
     liquidity = pd.read_csv(TABLES / "stablecoin_liquidity_features.csv", parse_dates=["date"])
     assert liquidity["date"].is_monotonic_increasing
     assert set(liquidity["date"].dt.dayofweek.dropna().unique()) <= {6}
@@ -95,6 +122,30 @@ def test_weekly_models_have_valid_samples_and_transformations() -> None:
         equal_nan=True,
         atol=1e-12,
     )
+    assert "valuation_sensitive_defi_tvl_growth" in liquidity.columns
+    assert set(liquidity["calendar"].dropna()) == {"crypto_week_sunday"}
+
+
+def test_valuation_contamination_audit_and_oi_scaling() -> None:
+    audit = pd.read_csv(TABLES / "valuation_contamination_audit.csv")
+    tvl = audit[audit["feature_id"].eq("valuation_sensitive_defi_tvl_growth")]
+    assert set(tvl["asset"]) == {"BTC", "ETH"}
+    assert tvl["mechanical_link_risk"].eq("high_usd_price_content").all()
+    assert tvl["unit_disposition"].str.contains("USD TVL embeds asset-price effects").all()
+
+    feature_registry = pd.read_csv(TABLES / "feature_registry.csv")
+    required_features = {
+        "valuation_sensitive_defi_tvl_growth",
+        "valuation_sensitive_defi_tvl_growth_lag1",
+        "btc_oi_to_mcap_growth_lag1",
+        "eth_oi_to_mcap_growth_lag1",
+    }
+    assert required_features.issubset(set(feature_registry["feature_id"]))
+    assert "valuation_contamination_risk" in feature_registry.columns
+    tvl_registry = feature_registry[
+        feature_registry["feature_id"].eq("valuation_sensitive_defi_tvl_growth")
+    ]
+    assert tvl_registry["valuation_contamination_risk"].eq("high_usd_price_content").all()
 
 
 def test_mvrv_identity_terms_are_same_interval_and_scaled() -> None:
@@ -123,7 +174,11 @@ def test_pit_composition_is_point_in_time_and_sums_to_one() -> None:
     assert ((monthly_share - 1).abs() < 1e-9).all()
 
     summary = pd.read_csv(TABLES / "pit_market_structure_summary.csv")
-    assert {"top10_share", "hhi", "rank_persistence"}.issubset(summary.columns)
+    assert {"top10_share", "hhi", "rank_persistence", "snapshot_date", "is_partial_month"}.issubset(summary.columns)
+    latest = summary.sort_values("snapshot_date").iloc[-1]
+    assert latest["snapshot_date"] == "2026-06-16"
+    assert latest["month"] == "2026-06"
+    assert bool(latest["is_partial_month"])
 
     turnover = pd.read_csv(TABLES / "pit_turnover.csv")
     assert {"entries", "exits", "rank_persistence"}.issubset(turnover.columns)
@@ -205,6 +260,9 @@ def test_headline_readme_numbers_match_generated_glance() -> None:
     assert glance in readme
     assert "See block_delta_r2.csv" not in readme
     assert "See leverage_tail_risk_summary.csv" not in readme
+    assert "volatility and concentration" not in readme.lower()
+    assert "event response?" not in readme.lower()
+    assert "2026-06-01" not in readme
 
 
 def test_provider_data_disposition_has_release_risk_categories() -> None:
@@ -232,9 +290,49 @@ def test_readme_content_matches_final_surface() -> None:
     assert "outputs/figures/public/01_mvrv_mechanics.png" in content
     assert "outputs/tables/block_delta_r2.csv" in content
     assert "outputs/tables/claim_inventory.csv" in content
+    assert "outputs/tables/valuation_contamination_audit.csv" in content
+    assert "not affiliated" in content
     assert "v2.0" not in content
     assert "v2.1" not in content
     assert "v2.2" not in content
+
+
+def test_reports_are_consolidated_and_model_cards_are_specific() -> None:
+    report_names = {path.name for path in (OUTPUTS / "report").glob("*.md")}
+    required = {
+        "executive_summary.md",
+        "results_and_interpretation.md",
+        "methodology.md",
+        "limitations.md",
+        "reproducibility_report.md",
+        "provider_data_disposition.md",
+        "visual_quality_audit.md",
+        "market_structure_public_surface_check.md",
+    }
+    assert report_names == required
+
+    for path in (OUTPUTS / "model_cards").glob("*.md"):
+        text = path.read_text(encoding="utf-8")
+        assert "Principal finding:" in text
+        assert "See `outputs/tables/`" not in text
+
+
+def test_package_metadata_has_project_name_and_no_provider_affiliation() -> None:
+    metadata = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
+    assert metadata["name"] == "crypto-market-dynamics"
+    authors = " ".join(author["name"] for author in metadata["authors"])
+    assert "CryptoQuant Research Team" not in authors
+    assert "Crypto Market Dynamics contributors" in authors
+
+
+def test_ci_builds_outputs_before_pytest() -> None:
+    workflow = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+    build_idx = workflow.index("uv run python scripts/run_all.py")
+    pytest_idx = workflow.index("uv run pytest")
+    surface_idx = workflow.index("uv run python scripts/check_public_surface.py")
+    assert build_idx < pytest_idx < surface_idx
+    assert "Generated artifact diff gate" in workflow
+    assert "allowed_prefixes = (\"outputs/\", \"reports/panels/\")" in workflow
 
 
 def test_raw_data_changes_are_limited_to_generated_inventory() -> None:
@@ -246,6 +344,12 @@ def test_raw_data_changes_are_limited_to_generated_inventory() -> None:
         check=True,
     )
     allowed = {"Data/MASTER_DATA.csv", "Data/MASTER_DATA.md", "Data/MASTER_DATA.txt"}
-    changed = {line.strip() for line in result.stdout.splitlines() if line.strip()}
-    changed_paths = {line[3:].strip() for line in changed}
+    changed_paths = set()
+    for line in result.stdout.splitlines():
+        if not line:
+            continue
+        path = line[3:].strip()
+        if " -> " in path:
+            path = path.rsplit(" -> ", maxsplit=1)[-1]
+        changed_paths.add(path)
     assert changed_paths <= allowed, result.stdout

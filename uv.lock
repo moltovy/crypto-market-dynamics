@@ -477,7 +477,7 @@ toml = [
 ]
 
 [[package]]
-name = "cqresearch"
+name = "crypto-market-dynamics"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

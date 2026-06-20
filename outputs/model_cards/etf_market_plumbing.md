@@ -1,61 +1,11 @@
-# ETF market plumbing Model Card
+# ETF Market Plumbing Model Card
 
-## Purpose and research question
+Purpose: describe ETF-era market plumbing through flow intensity, lag timing, and absorption ratios.
 
-Describe ETF flows, absorption, and exposure-period comparisons.
+Calendar and timing: ETF trading-day panel computes BTC/ETH returns from the prior ETF trading date to the current ETF trading date. Lag 0 is current ETF trading-date flow intensity; lag 1 is prior ETF trading-date flow intensity.
 
-## Outcome definition
+Principal finding: BTC lag0 return corr=0.379 (n=820) vs lag1=0.049 (n=819); ETH lag0 return corr=0.226 (n=627) vs lag1=0.086 (n=626).
 
-See the source tables linked from `outputs/README.md`.
+Limitations: short sample, reporting timing, and simultaneity.
 
-## Exposures/state variables
-
-Configured in `config/feature_registry.yml` and exported to `outputs/tables/feature_registry.csv`.
-
-## Frequency and sample
-
-The pipeline reports the effective sample size in every canonical model table.
-
-## Transformations and timing
-
-Contemporaneous exposure models use same-day TradFi returns/changes to measure co-movement. Lagged liquidity, sentiment, leverage, funding, OI, and exchange-flow variables are labeled lagged-state associations. ETF-era augmented models include ETF flow intensity at lag 0 and lag 1.
-
-## Estimator and uncertainty method
-
-HAC OLS, logistic diagnostics, descriptive summaries, FDR adjustment, VIF/condition diagnostics, accepted weekly robustness models, and local-window correlation distributions where applicable.
-
-## Same-support rule
-
-Model comparisons use the same non-missing row support for the relevant specification.
-
-## Main outputs
-
-See `outputs/tables/` and `outputs/figures/public/`.
-
-## Interpretation
-
-Reduced-form descriptive evidence only.
-
-## Mechanical-link/endogeneity risks
-
-Documented in the evidence ledger and feature registry.
-
-## Robustness checks
-
-Accepted daily/weekly checks, multicollinearity diagnostics, ridge stability, and local-window correlation distributions are included where applicable.
-
-## Prohibited claims
-
-Do not make causal ETF price claims.
-
-## Evidence grade
-
-See `outputs/tables/evidence_ledger.csv`.
-
-## Known limitations
-
-Short ETF-era samples, reporting timing, source conventions, and lack of daily PIT constituent OHLCV for true historical altseason analysis.
-
-## Reproduction command
-
-`uv run python scripts/run_all.py`
+Prohibited claims: ETF flows caused BTC or ETH returns.

@@ -4,6 +4,8 @@ The repository code is licensed separately under `LICENSE`.
 
 Tracked data files come from a mix of public, provider-exported, and locally curated sources. `DATA_LICENSE.md` documents known caveats but does not resolve provider redistribution rights.
 
+This project is not affiliated with, endorsed by, or published on behalf of CryptoQuant, Artemis, TradingView, DefiLlama, Farside, AlternativeMe, FRED, or any other data provider.
+
 - FRED macro series are public Federal Reserve Economic Data series with attribution.
 - DefiLlama, AlternativeMe, and Farside-derived files are public web/API sources; cite the providers and verify current terms before redistribution.
 - CryptoQuant, Artemis, and TradingView exports may carry provider-specific or licensed redistribution restrictions. The repository uses them as curated research inputs and documents reproducibility caveats.
