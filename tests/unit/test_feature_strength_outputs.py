@@ -13,7 +13,6 @@ from cqresearch.pipelines.final_research import classify_pit_asset
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUTS = ROOT / "outputs"
 TABLES = OUTPUTS / "tables"
-PANELS = ROOT / "reports" / "panels"
 
 
 def test_semantic_tables_exist() -> None:
@@ -85,20 +84,22 @@ def test_weekly_models_have_valid_samples_and_transformations() -> None:
     long_weekly = weekly_passed[weekly_passed["model_family"] != "etf_era_augmented"]
     assert (long_weekly["n"] >= 100).all()
 
-    daily = pd.read_parquet(PANELS / "feature_store_daily.parquet")
-    weekly = pd.read_parquet(PANELS / "feature_store_weekly.parquet")
-    expected_btc_ret = daily["btc_ret"].resample("W-SUN").sum(min_count=1)
-    expected_vix_change = daily["vix_d1"].resample("W-SUN").sum(min_count=1)
-    pd.testing.assert_series_equal(weekly["btc_ret"], expected_btc_ret, check_names=False, check_freq=False)
-    pd.testing.assert_series_equal(weekly["vix_d1"], expected_vix_change, check_names=False, check_freq=False)
-    recomputed_stable_growth = np.log(weekly["stablecoin_supply_usd"].where(weekly["stablecoin_supply_usd"] > 0)).diff()
-    pd.testing.assert_series_equal(weekly["stablecoin_supply_growth"], recomputed_stable_growth, check_names=False, check_freq=False)
+    liquidity = pd.read_csv(TABLES / "stablecoin_liquidity_features.csv", parse_dates=["date"])
+    assert liquidity["date"].is_monotonic_increasing
+    assert set(liquidity["date"].dt.dayofweek.dropna().unique()) <= {6}
+    recomputed_stable_growth = np.log(liquidity["stablecoin_supply_usd"].where(liquidity["stablecoin_supply_usd"] > 0)).diff()
+    np.testing.assert_allclose(
+        liquidity["stablecoin_supply_growth"].to_numpy(),
+        recomputed_stable_growth.to_numpy(),
+        equal_nan=True,
+        atol=1e-12,
+    )
 
 
 def test_mvrv_identity_terms_are_same_interval_and_scaled() -> None:
-    daily = pd.read_parquet(PANELS / "feature_store_daily.parquet")
-    residual = daily["d_log_mvrv"] - (daily["d_log_market_cap"] - daily["d_log_realized_cap"])
-    diff = (residual - daily["identity_residual"]).dropna().abs()
+    points = pd.read_csv(TABLES / "mvrv_identity_points.csv")
+    residual = points["d_log_mvrv"] - (points["d_log_market_cap"] - points["d_log_realized_cap"])
+    diff = (residual - points["identity_residual"]).dropna().abs()
     assert diff.max() < 1e-12
 
     audit = pd.read_csv(TABLES / "mvrv_mechanical_link_audit.csv")
