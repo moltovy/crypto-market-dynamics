@@ -15,5 +15,6 @@ For readers who need the conventional formula, the separate
 ## Interpretation
 
 Attribution diagnostics can be unstable when feature blocks are correlated. Read
-them as descriptive exposure and sensitivity evidence, not causal contribution
-or forecast importance.
+contemporaneous TradFi models as co-movement/integration evidence and lagged
+state models as lagged-state associations, not causal contribution or forecast
+importance.

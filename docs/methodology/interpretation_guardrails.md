@@ -2,7 +2,7 @@
 
 - ETF-flow results are association, exposure, timing, and market-plumbing
   diagnostics. They do not prove ETF flows caused BTC or ETH returns.
-- Stablecoin supply and TVL are liquidity proxies, not identified liquidity
+- Lagged stablecoin supply and TVL states are liquidity proxies, not identified liquidity
   shocks.
 - MVRV is a mechanically price-linked valuation-state diagnostic; same-day MVRV
   changes are excluded from primary BTC/ETH exposure models.

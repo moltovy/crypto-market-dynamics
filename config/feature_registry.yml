@@ -151,16 +151,54 @@ features:
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
   interpretation: Real-rate proxy.
-- feature_id: btc_etf_flow_intensity
-  clean_label: BTC ETF flow intensity
+- feature_id: nominal_10y_d1
+  clean_label: Nominal 10Y yield change
+  research_block: macro_risk
+  raw_source: FRED
+  raw_path_or_endpoint: tracked local repository file
+  raw_field: DGS10
+  frequency: daily
+  transformation: first difference
+  lag_days: 1
+  scaling_denominator: ''
+  first_valid_date: ''
+  last_valid_date: ''
+  missing_policy: drop from model sample; report effective n
+  mechanical_link_risk: low
+  contemporaneous_endogeneity_risk: low
+  permitted_model_families: descriptive, exposure, state conditioning
+  prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
+    factor
+  interpretation: Nominal-rate proxy.
+- feature_id: gold_ret
+  clean_label: Gold return
+  research_block: macro_risk
+  raw_source: TradingView/FRED
+  raw_path_or_endpoint: tracked local repository file
+  raw_field: GLD or XAUUSD close
+  frequency: daily
+  transformation: log return
+  lag_days: 1
+  scaling_denominator: ''
+  first_valid_date: ''
+  last_valid_date: ''
+  missing_policy: drop from model sample; report effective n
+  mechanical_link_risk: low
+  contemporaneous_endogeneity_risk: low
+  permitted_model_families: descriptive, exposure, state conditioning
+  prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
+    factor
+  interpretation: Gold proxy.
+- feature_id: btc_etf_flow_intensity_lag0
+  clean_label: BTC ETF flow intensity, t
   research_block: etf_institutional
   raw_source: Farside
   raw_path_or_endpoint: tracked local repository file
   raw_field: BTC ETF total
   frequency: daily
   transformation: flow / lagged market cap
-  lag_days: 1
-  scaling_denominator: lagged BTC mcap
+  lag_days: 0
+  scaling_denominator: prior-day BTC market cap
   first_valid_date: ''
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
@@ -170,16 +208,35 @@ features:
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
   interpretation: Market-plumbing flow proxy.
-- feature_id: eth_etf_flow_intensity
-  clean_label: ETH ETF flow intensity
+- feature_id: btc_etf_flow_intensity_lag1
+  clean_label: BTC ETF flow intensity, t-1
+  research_block: etf_institutional
+  raw_source: Farside
+  raw_path_or_endpoint: tracked local repository file
+  raw_field: BTC ETF total
+  frequency: daily
+  transformation: flow / lagged market cap then lag one day
+  lag_days: 1
+  scaling_denominator: prior-day BTC market cap
+  first_valid_date: ''
+  last_valid_date: ''
+  missing_policy: drop from model sample; report effective n
+  mechanical_link_risk: low
+  contemporaneous_endogeneity_risk: medium
+  permitted_model_families: descriptive, exposure, state conditioning
+  prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
+    factor
+  interpretation: Lagged market-plumbing flow proxy.
+- feature_id: eth_etf_flow_intensity_lag0
+  clean_label: ETH ETF flow intensity, t
   research_block: etf_institutional
   raw_source: Farside
   raw_path_or_endpoint: tracked local repository file
   raw_field: ETH ETF total
   frequency: daily
   transformation: flow / lagged market cap
-  lag_days: 1
-  scaling_denominator: lagged ETH mcap
+  lag_days: 0
+  scaling_denominator: prior-day ETH market cap
   first_valid_date: ''
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
@@ -189,14 +246,33 @@ features:
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
   interpretation: Market-plumbing flow proxy.
-- feature_id: btc_oi_growth
-  clean_label: BTC open-interest growth
+- feature_id: eth_etf_flow_intensity_lag1
+  clean_label: ETH ETF flow intensity, t-1
+  research_block: etf_institutional
+  raw_source: Farside
+  raw_path_or_endpoint: tracked local repository file
+  raw_field: ETH ETF total
+  frequency: daily
+  transformation: flow / lagged market cap then lag one day
+  lag_days: 1
+  scaling_denominator: prior-day ETH market cap
+  first_valid_date: ''
+  last_valid_date: ''
+  missing_policy: drop from model sample; report effective n
+  mechanical_link_risk: low
+  contemporaneous_endogeneity_risk: medium
+  permitted_model_families: descriptive, exposure, state conditioning
+  prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
+    factor
+  interpretation: Lagged market-plumbing flow proxy.
+- feature_id: btc_oi_growth_lag1
+  clean_label: BTC open-interest growth, t-1
   research_block: leverage
   raw_source: CryptoQuant
   raw_path_or_endpoint: tracked local repository file
   raw_field: BTC open interest
   frequency: daily
-  transformation: log difference
+  transformation: log difference lagged one day
   lag_days: 1
   scaling_denominator: ''
   first_valid_date: ''
@@ -208,14 +284,14 @@ features:
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
   interpretation: Leverage-state proxy.
-- feature_id: btc_funding_z
-  clean_label: BTC funding z-score
+- feature_id: btc_funding_z_lag1
+  clean_label: BTC funding z-score, t-1
   research_block: leverage
   raw_source: CryptoQuant
   raw_path_or_endpoint: tracked local repository file
   raw_field: BTC funding rates
   frequency: daily
-  transformation: rolling z-score
+  transformation: rolling z-score lagged one day
   lag_days: 1
   scaling_denominator: ''
   first_valid_date: ''
@@ -227,16 +303,16 @@ features:
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
   interpretation: Positioning stress proxy.
-- feature_id: btc_total_liq_intensity
-  clean_label: BTC liquidation intensity
+- feature_id: btc_total_liq_to_lag_oi_pct
+  clean_label: BTC liquidation / lagged OI
   research_block: leverage
   raw_source: CryptoQuant
   raw_path_or_endpoint: tracked local repository file
   raw_field: BTC liquidations USD
   frequency: daily
-  transformation: log1p / lagged OI
-  lag_days: 1
-  scaling_denominator: lagged open interest
+  transformation: liquidation USD / prior-day open interest, percent
+  lag_days: 0
+  scaling_denominator: prior-day open interest
   first_valid_date: ''
   last_valid_date: ''
   missing_policy: drop from model sample; report effective n
@@ -245,7 +321,26 @@ features:
   permitted_model_families: descriptive, exposure, state conditioning
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
-  interpretation: Stress signature.
+  interpretation: Same-day liquidation stress signature.
+- feature_id: btc_total_liq_to_lag_mcap_bps
+  clean_label: BTC liquidation / lagged market cap
+  research_block: leverage
+  raw_source: CryptoQuant
+  raw_path_or_endpoint: tracked local repository file
+  raw_field: BTC liquidations USD
+  frequency: daily
+  transformation: liquidation USD / prior-day market cap, basis points
+  lag_days: 0
+  scaling_denominator: prior-day BTC market cap
+  first_valid_date: ''
+  last_valid_date: ''
+  missing_policy: drop from model sample; report effective n
+  mechanical_link_risk: low
+  contemporaneous_endogeneity_risk: medium
+  permitted_model_families: descriptive, exposure, state conditioning
+  prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
+    factor
+  interpretation: Same-day liquidation stress signature.
 - feature_id: stablecoin_supply_growth
   clean_label: Stablecoin supply growth
   research_block: liquidity
@@ -265,6 +360,25 @@ features:
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
   interpretation: Liquidity-state proxy.
+- feature_id: stablecoin_supply_growth_lag1
+  clean_label: Lagged stablecoin supply growth
+  research_block: liquidity
+  raw_source: DefiLlama
+  raw_path_or_endpoint: tracked local repository file
+  raw_field: stablecoin market caps
+  frequency: weekly
+  transformation: weekly log difference lagged one week
+  lag_days: 1
+  scaling_denominator: ''
+  first_valid_date: ''
+  last_valid_date: ''
+  missing_policy: drop from model sample; report effective n
+  mechanical_link_risk: low
+  contemporaneous_endogeneity_risk: low
+  permitted_model_families: descriptive, exposure, state conditioning
+  prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
+    factor
+  interpretation: Lagged liquidity-state proxy.
 - feature_id: defi_tvl_growth
   clean_label: DeFi TVL growth
   research_block: liquidity
@@ -284,6 +398,25 @@ features:
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
   interpretation: DeFi balance-sheet proxy.
+- feature_id: defi_tvl_growth_lag1
+  clean_label: Lagged DeFi TVL growth
+  research_block: liquidity
+  raw_source: DefiLlama
+  raw_path_or_endpoint: tracked local repository file
+  raw_field: TVL
+  frequency: weekly
+  transformation: weekly log difference lagged one week
+  lag_days: 1
+  scaling_denominator: ''
+  first_valid_date: ''
+  last_valid_date: ''
+  missing_policy: drop from model sample; report effective n
+  mechanical_link_risk: low
+  contemporaneous_endogeneity_risk: low
+  permitted_model_families: descriptive, exposure, state conditioning
+  prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
+    factor
+  interpretation: Lagged DeFi balance-sheet proxy.
 - feature_id: btc_mvrv_lag1
   clean_label: Lagged BTC MVRV
   research_block: onchain_state
@@ -303,6 +436,82 @@ features:
   prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
     factor
   interpretation: Valuation-state conditioning variable.
+- feature_id: d_log_mvrv
+  clean_label: BTC d-log MVRV
+  research_block: onchain_state
+  raw_source: CryptoQuant
+  raw_path_or_endpoint: tracked local repository file
+  raw_field: MVRV Ratio
+  frequency: daily
+  transformation: same-interval log difference
+  lag_days: 0
+  scaling_denominator: ''
+  first_valid_date: ''
+  last_valid_date: ''
+  missing_policy: drop from model sample; report effective n
+  mechanical_link_risk: high
+  contemporaneous_endogeneity_risk: low
+  permitted_model_families: descriptive, exposure, state conditioning
+  prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
+    factor
+  interpretation: Measurement-mechanics diagnostic only.
+- feature_id: d_log_market_cap
+  clean_label: BTC d-log market cap
+  research_block: onchain_state
+  raw_source: CryptoQuant
+  raw_path_or_endpoint: tracked local repository file
+  raw_field: BTC market cap
+  frequency: daily
+  transformation: same-interval log difference
+  lag_days: 0
+  scaling_denominator: ''
+  first_valid_date: ''
+  last_valid_date: ''
+  missing_policy: drop from model sample; report effective n
+  mechanical_link_risk: low
+  contemporaneous_endogeneity_risk: low
+  permitted_model_families: descriptive, exposure, state conditioning
+  prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
+    factor
+  interpretation: MVRV identity component.
+- feature_id: d_log_realized_cap
+  clean_label: BTC d-log realized cap
+  research_block: onchain_state
+  raw_source: CryptoQuant
+  raw_path_or_endpoint: tracked local repository file
+  raw_field: BTC realized cap
+  frequency: daily
+  transformation: same-interval log difference
+  lag_days: 0
+  scaling_denominator: ''
+  first_valid_date: ''
+  last_valid_date: ''
+  missing_policy: drop from model sample; report effective n
+  mechanical_link_risk: low
+  contemporaneous_endogeneity_risk: low
+  permitted_model_families: descriptive, exposure, state conditioning
+  prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
+    factor
+  interpretation: MVRV identity component.
+- feature_id: identity_residual
+  clean_label: MVRV identity residual
+  research_block: onchain_state
+  raw_source: CryptoQuant
+  raw_path_or_endpoint: tracked local repository file
+  raw_field: MVRV and realized cap
+  frequency: daily
+  transformation: d_log_mvrv - (d_log_market_cap - d_log_realized_cap)
+  lag_days: 0
+  scaling_denominator: ''
+  first_valid_date: ''
+  last_valid_date: ''
+  missing_policy: drop from model sample; report effective n
+  mechanical_link_risk: low
+  contemporaneous_endogeneity_risk: low
+  permitted_model_families: descriptive, exposure, state conditioning
+  prohibited_uses: price forecasting; causal claims; same-day MVRV as primary BTC-return
+    factor
+  interpretation: Source-convention residual diagnostic.
 - feature_id: pit_hhi
   clean_label: PIT top-100 HHI
   research_block: market_structure

@@ -18,4 +18,4 @@
 - No instruction-bundle files are included.
 - Raw data changes are limited to generated `Data/MASTER_DATA.*` inventory files.
 - Public README embeds exactly nine canonical figures.
-- ETF-flow and current-top50 cohort claims remain caveated.
+- ETF-flow, liquidation, data-licensing, and current-top50 cohort claims remain caveated.

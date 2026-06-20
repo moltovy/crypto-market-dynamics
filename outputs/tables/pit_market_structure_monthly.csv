@@ -493,7 +493,7 @@ defillama_monthly_universe,2020-05-31,2020-05-01,coingecko:chiliz,chiliz,coingec
 defillama_monthly_universe,2020-05-31,2020-05-01,coingecko:zcoin,zcoin,coingecko:zcoin,FIRO,Firo,4.946281763036456,50626469.68882135,92,92.0,False,other risk assets,True
 defillama_monthly_universe,2020-05-31,2020-05-01,coingecko:golem,golem,coingecko:golem,GLM,Golem,0.0511440924340249,50321325.9216228,93,93.0,False,other risk assets,True
 defillama_monthly_universe,2020-05-31,2020-05-01,coingecko:v-systems,v-systems,coingecko:v-systems,VSYS,V.SYSTEMS,0.0244755877473368,49037562.99603745,94,94.0,False,other risk assets,True
-defillama_monthly_universe,2020-05-31,2020-05-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,2.853576165428106,47385309.57489032,95,95.0,False,other risk assets,True
+defillama_monthly_universe,2020-05-31,2020-05-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,2.853576165428106,47385309.57489032,95,95.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2020-05-31,2020-05-01,coingecko:ardor,ardor,coingecko:ardor,ARDR,Ardor,0.0468791072399303,46857396.8981723,96,96.0,False,other risk assets,True
 defillama_monthly_universe,2020-05-31,2020-05-01,coingecko:wax,wax,coingecko:wax,WAXP,WAX,0.0484048008590282,46308763.550757855,97,97.0,False,other risk assets,True
 defillama_monthly_universe,2020-05-31,2020-05-01,coingecko:aeternity,aeternity,coingecko:aeternity,AE,Aeternity,0.1294210493255723,46220603.13342669,98,98.0,False,other risk assets,True
@@ -2792,7 +2792,7 @@ defillama_monthly_universe,2022-04-30,2022-04-01,coingecko:harmony,harmony,coing
 defillama_monthly_universe,2022-04-30,2022-04-01,coingecko:blockstack,blockstack,coingecko:blockstack,STX,Stacks,1.020009677760073,1073944347.8655384,91,91.0,False,other risk assets,True
 defillama_monthly_universe,2022-04-30,2022-04-01,coingecko:chiliz,chiliz,coingecko:chiliz,CHZ,Chiliz,0.1907484673878334,1018667242.2693176,92,92.0,False,other risk assets,True
 defillama_monthly_universe,2022-04-30,2022-04-01,coingecko:paxos-standard,paxos-standard,coingecko:paxos-standard,USDP,Pax Dollar,1.0014751143659844,1014301934.7568848,93,93.0,False,stable-like assets,True
-defillama_monthly_universe,2022-04-30,2022-04-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,3.1477775026609107,1005515797.6348315,94,94.0,False,other risk assets,True
+defillama_monthly_universe,2022-04-30,2022-04-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,3.1477775026609107,1005515797.6348315,94,94.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2022-04-30,2022-04-01,coingecko:dash,dash,coingecko:dash,DASH,Dash,92.22783518576942,987236779.1230284,95,95.0,False,other risk assets,True
 defillama_monthly_universe,2022-04-30,2022-04-01,coingecko:loopring,loopring,coingecko:loopring,LRC,Loopring,0.7900387610597804,986603649.331376,96,96.0,False,other risk assets,True
 defillama_monthly_universe,2022-04-30,2022-04-01,coingecko:gatechain-token,gatechain-token,coingecko:gatechain-token,GT,Gate,6.429912770100006,976669544.4081192,97,97.0,False,other risk assets,True
@@ -3048,7 +3048,7 @@ defillama_monthly_universe,2022-07-31,2022-07-01,coingecko:theta-token,theta-tok
 defillama_monthly_universe,2022-07-31,2022-07-01,coingecko:aave,aave,coingecko:aave,AAVE,Aave,95.08002791369776,1324568230.6116016,47,47.0,False,other risk assets,True
 defillama_monthly_universe,2022-07-31,2022-07-01,coingecko:eos,eos,coingecko:eos,EOS,EOS,1.3058352005562277,1312502514.1748047,48,48.0,False,other risk assets,True
 defillama_monthly_universe,2022-07-31,2022-07-01,coingecko:elrond-erd-2,elrond-erd-2,coingecko:elrond-erd-2,EGLD,MultiversX,56.88560281092153,1291397258.6293974,49,49.0,False,other risk assets,True
-defillama_monthly_universe,2022-07-31,2022-07-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.341616209731647,1225053585.5460212,50,50.0,False,other risk assets,True
+defillama_monthly_universe,2022-07-31,2022-07-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.341616209731647,1225053585.5460212,50,50.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2022-07-31,2022-07-01,coingecko:bitcoin-cash-sv,bitcoin-cash-sv,coingecko:bitcoin-cash-sv,BSV,Bitcoin SV,62.84656936640248,1197004391.8663268,51,51.0,False,other risk assets,True
 defillama_monthly_universe,2022-07-31,2022-07-01,coingecko:true-usd,true-usd,coingecko:true-usd,TUSD,TrueUSD,1.000165634149972,1188741054.815452,52,52.0,False,stable-like assets,True
 defillama_monthly_universe,2022-07-31,2022-07-01,coingecko:helium,helium,coingecko:helium,HNT,Helium,9.654785534815376,1183169810.8668387,53,53.0,False,other risk assets,True
@@ -3150,7 +3150,7 @@ defillama_monthly_universe,2022-08-31,2022-08-01,coingecko:aave,aave,coingecko:a
 defillama_monthly_universe,2022-08-31,2022-08-01,coingecko:theta-token,theta-token,coingecko:theta-token,THETA,Theta Network,1.1537754147506964,1157237954.454013,49,49.0,False,other risk assets,True
 defillama_monthly_universe,2022-08-31,2022-08-01,coingecko:true-usd,true-usd,coingecko:true-usd,TUSD,TrueUSD,0.9986031761495407,1072697737.70462,50,50.0,False,stable-like assets,True
 defillama_monthly_universe,2022-08-31,2022-08-01,coingecko:chiliz,chiliz,coingecko:chiliz,CHZ,Chiliz,0.2140799058135827,1057764132.6979468,51,51.0,False,other risk assets,True
-defillama_monthly_universe,2022-08-31,2022-08-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.785038017137349,1054972972.403182,52,52.0,False,other risk assets,True
+defillama_monthly_universe,2022-08-31,2022-08-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.785038017137349,1054972972.403182,52,52.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2022-08-31,2022-08-01,coingecko:compound-usd-coin,compound-usd-coin,coingecko:compound-usd-coin,CUSDC,Compound USDC,0.0226375251331216,1021058987.4678276,53,53.0,False,other risk assets,True
 defillama_monthly_universe,2022-08-31,2022-08-01,coingecko:bitcoin-cash-sv,bitcoin-cash-sv,coingecko:bitcoin-cash-sv,BSV,Bitcoin SV,51.84023587485581,998875216.4201608,54,54.0,False,other risk assets,True
 defillama_monthly_universe,2022-08-31,2022-08-01,coingecko:paxos-standard,paxos-standard,coingecko:paxos-standard,USDP,Pax Dollar,0.9985788490216044,963950770.8275338,55,55.0,False,stable-like assets,True
@@ -3250,7 +3250,7 @@ defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:axie-infinity,axie-in
 defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:elrond-erd-2,elrond-erd-2,coingecko:elrond-erd-2,EGLD,MultiversX,47.747149130814,1101393824.1732197,49,49.0,False,other risk assets,True
 defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:theta-token,theta-token,coingecko:theta-token,THETA,Theta Network,1.0923817232708972,1093323084.295367,50,50.0,False,other risk assets,True
 defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:aave,aave,coingecko:aave,AAVE,Aave,76.85041052583995,1083423883.3603835,51,51.0,False,other risk assets,True
-defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.5951810004906477,1039612926.4109836,52,52.0,False,other risk assets,True
+defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.5951810004906477,1039612926.4109836,52,52.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:bitcoin-cash-sv,bitcoin-cash-sv,coingecko:bitcoin-cash-sv,BSV,Bitcoin SV,49.43322238352352,948710097.5644149,53,53.0,False,other risk assets,True
 defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:compound-usd-coin,compound-usd-coin,coingecko:compound-usd-coin,CUSDC,Compound USDC,0.0226617813646943,944514349.384984,54,54.0,False,other risk assets,True
 defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:paxos-standard,paxos-standard,coingecko:paxos-standard,USDP,Pax Dollar,0.9987739639194072,926067803.0744772,55,55.0,False,stable-like assets,True
@@ -3285,7 +3285,7 @@ defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:evmos,evmos,coingecko
 defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:zilliqa,zilliqa,coingecko:zilliqa,ZIL,Zilliqa,0.0314529193315407,468034888.8940227,84,84.0,False,other risk assets,True
 defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:enjincoin,enjincoin,coingecko:enjincoin,ENJ,Enjin Coin,0.4626703008618127,462805065.1915272,85,85.0,False,other risk assets,True
 defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:dash,dash,coingecko:dash,DASH,Dash,42.28676384720957,462248960.9121145,86,86.0,False,other risk assets,True
-defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,24.498019661392508,462012633.12566113,87,87.0,False,other risk assets,True
+defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,24.498019661392508,462012633.12566113,87,87.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:basic-attention-token,basic-attention-token,coingecko:basic-attention-token,BAT,Basic Attention,0.3071988505159251,460804313.1966983,88,88.0,False,other risk assets,True
 defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:arweave,arweave,coingecko:arweave,AR,Arweave,9.069921631103025,455213779.8983357,89,89.0,False,other risk assets,True
 defillama_monthly_universe,2022-09-30,2022-09-01,coingecko:blockstack,blockstack,coingecko:blockstack,STX,Stacks,0.3280186792055697,439376276.9777684,90,90.0,False,other risk assets,True
@@ -3351,7 +3351,7 @@ defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:aave,aave,coingecko:a
 defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:theta-token,theta-token,coingecko:theta-token,THETA,Theta Network,1.1716858877731322,1169025186.996664,50,50.0,False,other risk assets,True
 defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:huobi-token,huobi-token,coingecko:huobi-token,HT,Huobi,8.56,1126436899.726699,51,51.0,False,other risk assets,True
 defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:eos,eos,coingecko:eos,EOS,EOS,1.11,1124087975.04088,52,52.0,False,other risk assets,True
-defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.5556478535684977,1118010039.9041705,53,53.0,False,other risk assets,True
+defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.5556478535684977,1118010039.9041705,53,53.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:chain-2,chain-2,coingecko:chain-2,XCN,Onyxcoin,0.04937014,1061075324.0334938,54,54.0,False,other risk assets,True
 defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:aptos,aptos,coingecko:aptos,APT,Aptos,7.8,1013203781.751866,55,55.0,False,other risk assets,True
 defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:kucoin-shares,kucoin-shares,coingecko:kucoin-shares,KCS,KuCoin,10.031650818706428,977297658.0292864,56,56.0,False,other risk assets,True
@@ -3388,7 +3388,7 @@ defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:pax-gold,pax-gold,coi
 defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:trust-wallet-token,trust-wallet-token,coingecko:trust-wallet-token,TWT,Trust Wallet,1.19,495617162.8734906,87,87.0,False,other risk assets,True
 defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:gemini-dollar,gemini-dollar,coingecko:gemini-dollar,GUSD,Gemini Dollar,0.999424,479447198.004281,88,88.0,False,other risk assets,True
 defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:thorchain,thorchain,coingecko:thorchain,RUNE,THORChain,1.5551404892517382,467441407.737628,89,89.0,False,other risk assets,True
-defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,24.78,467321259.1192143,90,90.0,False,other risk assets,True
+defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,24.78,467321259.1192143,90,90.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:zilliqa,zilliqa,coingecko:zilliqa,ZIL,Zilliqa,0.0309819870772908,464791800.970906,91,91.0,False,other risk assets,True
 defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:bitdao,bitdao,coingecko:bitdao,BIT,BitDAO,0.4312732211833602,463579490.0460117,92,92.0,False,other risk assets,True
 defillama_monthly_universe,2022-10-31,2022-10-01,coingecko:dash,dash,coingecko:dash,DASH,Dash,41.95,460228345.8449677,93,93.0,False,other risk assets,True
@@ -3424,7 +3424,7 @@ defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:wrapped-bitcoin,wrapp
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:leo-token,leo-token,coingecko:leo-token,LEO,LEO Token,3.77,3522134168.831181,23,23.0,False,other risk assets,True
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:cosmos,cosmos,coingecko:cosmos,ATOM,Cosmos Hub,10.199103106363898,2987199914.586438,24,24.0,False,other risk assets,True
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:ethereum-classic,ethereum-classic,coingecko:ethereum-classic,ETC,Ethereum Classic,19.59,2708370972.987344,25,25.0,False,other risk assets,True
-defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.71,2518816499.101063,26,26.0,False,other risk assets,True
+defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.71,2518816499.101063,26,26.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:monero,monero,coingecko:monero,XMR,Monero,137.65470594879918,2500192647.505037,27,27.0,False,other risk assets,True
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:stellar,stellar,coingecko:stellar,XLM,Stellar,0.089316,2290450867.259144,28,28.0,False,other risk assets,True
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:bitcoin-cash,bitcoin-cash,coingecko:bitcoin-cash,BCH,Bitcoin Cash,110.9209095515498,2135344828.5091016,29,29.0,False,other risk assets,True
@@ -3449,7 +3449,7 @@ defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:tezos,tezos,coingecko
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:the-sandbox,the-sandbox,coingecko:the-sandbox,SAND,The Sandbox,0.567537,879865161.8124799,48,48.0,False,other risk assets,True
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:chiliz,chiliz,coingecko:chiliz,CHZ,Chiliz,0.164876,877215924.7954152,49,49.0,False,other risk assets,True
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:aave,aave,coingecko:aave,AAVE,Aave,61.63966824937919,874909504.9528481,50,50.0,False,other risk assets,True
-defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.0991758394104598,861729358.2975231,51,51.0,False,other risk assets,True
+defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.0991758394104598,861729358.2975231,51,51.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:trust-wallet-token,trust-wallet-token,coingecko:trust-wallet-token,TWT,Trust Wallet,2.1,860641746.1870917,52,52.0,False,other risk assets,True
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:bitcoin-cash-sv,bitcoin-cash-sv,coingecko:bitcoin-cash-sv,BSV,Bitcoin SV,42.130309427661686,809201236.8952793,53,53.0,False,other risk assets,True
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:true-usd,true-usd,coingecko:true-usd,TUSD,TrueUSD,1.001,806369853.4517609,54,54.0,False,stable-like assets,True
@@ -3489,7 +3489,7 @@ defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:thorchain,thorchain,c
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:binaryx,binaryx,coingecko:binaryx,BNX,BinaryX [OLD],140.23343666238307,369540314.3082568,88,88.0,False,other risk assets,True
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:nexo,nexo,coingecko:nexo,NEXO,NEXO,0.646498788347885,361725040.21394926,89,89.0,False,other risk assets,True
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:ethereum-name-service,ethereum-name-service,coingecko:ethereum-name-service,ENS,Ethereum Name Service,13.479315408526366,347808660.6154493,90,90.0,False,other risk assets,True
-defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,18.13,344764725.1321802,91,91.0,False,other risk assets,True
+defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,18.13,344764725.1321802,91,91.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:gmx,gmx,coingecko:gmx,GMX,GMX,41.66196909624734,344173206.830097,92,92.0,False,other risk assets,True
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:blockstack,blockstack,coingecko:blockstack,STX,Stacks,0.253415,342667311.1619662,93,93.0,False,other risk assets,True
 defillama_monthly_universe,2022-11-30,2022-11-01,coingecko:basic-attention-token,basic-attention-token,coingecko:basic-attention-token,BAT,Basic Attention,0.226301,337213334.950441,94,94.0,False,other risk assets,True
@@ -3520,7 +3520,7 @@ defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:uniswap,uniswap,coing
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:solana,solana,coingecko:solana,SOL,Solana,9.892997528536382,3630516626.225645,19,19.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:avalanche-2,avalanche-2,coingecko:avalanche-2,AVAX,Avalanche,10.870772143972172,3389683622.2303305,20,20.0,False,other risk assets,True
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:leo-token,leo-token,coingecko:leo-token,LEO,LEO Token,3.5,3262951342.641852,21,21.0,False,other risk assets,True
-defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.0998715445966867,3095986184.670381,22,22.0,False,other risk assets,True
+defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.0998715445966867,3095986184.670381,22,22.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:wrapped-bitcoin,wrapped-bitcoin,coingecko:wrapped-bitcoin,WBTC,Wrapped Bitcoin,16601.076119902373,3041848042.9915824,23,23.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:cosmos,cosmos,coingecko:cosmos,ATOM,Cosmos Hub,9.374536156583796,2740643783.957973,24,24.0,False,other risk assets,True
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:chainlink,chainlink,coingecko:chainlink,LINK,Chainlink,5.471810209110167,2684746721.4677258,25,25.0,False,other risk assets,True
@@ -3543,7 +3543,7 @@ defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:paxos-standard,paxos-
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:terra-luna,terra-luna,coingecko:terra-luna,LUNC,Terra Luna Classic,0.0001434007095367,861273682.1193774,42,42.0,False,other risk assets,True
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:huobi-token,huobi-token,coingecko:huobi-token,HT,Huobi,5.029713147602744,819634016.308081,43,43.0,False,other risk assets,True
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:bitcoin-cash-sv,bitcoin-cash-sv,coingecko:bitcoin-cash-sv,BSV,Bitcoin SV,41.61245031889685,800020013.5230669,44,44.0,False,other risk assets,True
-defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,0.9639170517799636,796878099.4688278,45,45.0,False,other risk assets,True
+defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,0.9639170517799636,796878099.4688278,45,45.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:elrond-erd-2,elrond-erd-2,coingecko:elrond-erd-2,EGLD,MultiversX,32.972781042828764,792134142.9396284,46,46.0,False,other risk assets,True
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:true-usd,true-usd,coingecko:true-usd,TUSD,TrueUSD,1.001,755609842.499605,47,47.0,False,stable-like assets,True
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:aave,aave,coingecko:aave,AAVE,Aave,52.51165811152562,750772235.8051685,48,48.0,False,other risk assets,True
@@ -3579,7 +3579,7 @@ defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:ecash,ecash,coingecko
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:the-graph,the-graph,coingecko:the-graph,GRT,The Graph,0.055369,409491029.8033632,78,78.0,False,other risk assets,True
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:compound-ether,compound-ether,coingecko:compound-ether,CETH,cETH,24.08,391822448.67062455,79,79.0,False,other risk assets,True
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:thorchain,thorchain,coingecko:thorchain,RUNE,THORChain,1.2792830507631447,384844659.0422544,80,80.0,False,other risk assets,True
-defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,19.73155453234532,376260484.5667881,81,81.0,False,other risk assets,True
+defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,19.73155453234532,376260484.5667881,81,81.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:bitdao,bitdao,coingecko:bitdao,BIT,BitDAO,0.3379911671602775,363754056.160988,82,82.0,False,other risk assets,True
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:osmosis,osmosis,coingecko:osmosis,OSMO,Osmosis,0.694761,351788078.234049,83,83.0,False,other risk assets,True
 defillama_monthly_universe,2022-12-31,2022-12-01,coingecko:radix,radix,coingecko:radix,XRD,Radix,0.0347020021317845,349315171.3424466,84,84.0,False,other risk assets,True
@@ -3622,7 +3622,7 @@ defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:uniswap,uniswap,coing
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:wrapped-bitcoin,wrapped-bitcoin,coingecko:wrapped-bitcoin,WBTC,Wrapped Bitcoin,22767.0,4014930615.9946985,21,21.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:cosmos,cosmos,coingecko:cosmos,ATOM,Cosmos Hub,13.08,3813095733.246402,22,22.0,False,other risk assets,True
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:chainlink,chainlink,coingecko:chainlink,LINK,Chainlink,6.914849556157059,3392122579.884637,23,23.0,False,other risk assets,True
-defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.28,3345986543.5699687,24,24.0,False,other risk assets,True
+defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.28,3345986543.5699687,24,24.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:leo-token,leo-token,coingecko:leo-token,LEO,LEO Token,3.58,3336956679.94124,25,25.0,False,other risk assets,True
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:monero,monero,coingecko:monero,XMR,Monero,176.15,3195068071.0654044,26,26.0,False,other risk assets,True
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:ethereum-classic,ethereum-classic,coingecko:ethereum-classic,ETC,Ethereum Classic,21.37193364309228,2968480172.577,27,27.0,False,other risk assets,True
@@ -3634,7 +3634,7 @@ defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:quant-network,quant-n
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:crypto-com-chain,crypto-com-chain,coingecko:crypto-com-chain,CRO,Cronos,0.077869,1962863391.440092,33,33.0,False,other risk assets,True
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:near,near,coingecko:near,NEAR,NEAR Protocol,2.3083501996988773,1953168418.590252,34,34.0,False,other risk assets,True
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:filecoin,filecoin,coingecko:filecoin,FIL,Filecoin,5.11,1913951318.5870245,35,35.0,False,other risk assets,True
-defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.0704177067686604,1728788684.1740618,36,36.0,False,other risk assets,True
+defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.0704177067686604,1728788684.1740618,36,36.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:algorand,algorand,coingecko:algorand,ALGO,Algorand,0.240289,1724782294.2895122,37,37.0,False,other risk assets,True
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:vechain,vechain,coingecko:vechain,VET,VeChain,0.02312916,1670495099.4689467,38,38.0,False,other risk assets,True
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:internet-computer,internet-computer,coingecko:internet-computer,ICP,Internet Computer,5.780831893265274,1643740735.051561,39,39.0,False,other risk assets,True
@@ -3660,7 +3660,7 @@ defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:the-graph,the-graph,c
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:frax-share,frax-share,coingecko:frax-share,FRAX,Frax (prev. FXS),10.17185150341391,745416621.5788562,59,59.0,False,other risk assets,True
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:usdd,usdd,coingecko:usdd,USDD,USDD,0.992219,719599053.1503657,60,60.0,False,stable-like assets,True
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:curve-dao-token,curve-dao-token,coingecko:curve-dao-token,CRV,Curve DAO,0.994226,719070818.869981,61,61.0,False,other risk assets,True
-defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,37.66819180634332,718775103.491861,62,62.0,False,other risk assets,True
+defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,37.66819180634332,718775103.491861,62,62.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:havven,havven,coingecko:havven,SNX,Synthetix,2.291343693106092,715790257.4632267,63,63.0,False,other risk assets,True
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:chiliz,chiliz,coingecko:chiliz,CHZ,Chiliz,0.131638,701638687.2475579,64,64.0,False,other risk assets,True
 defillama_monthly_universe,2023-01-31,2023-01-01,coingecko:bittorrent,bittorrent,coingecko:bittorrent,BTT,BitTorrent,7.11962e-07,686651657.4877261,65,65.0,False,other risk assets,True
@@ -3721,11 +3721,11 @@ defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:dai,dai,coingecko:dai
 defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:uniswap,uniswap,coingecko:uniswap,UNI,Uniswap,6.438052429762808,4856219633.403199,20,20.0,False,other risk assets,True
 defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:wrapped-bitcoin,wrapped-bitcoin,coingecko:wrapped-bitcoin,WBTC,Wrapped Bitcoin,23523.12002228166,3869112749.67724,21,21.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:cosmos,cosmos,coingecko:cosmos,ATOM,Cosmos Hub,12.78,3740976111.68117,22,22.0,False,other risk assets,True
-defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.4498934015671168,3589440266.309703,23,23.0,False,other risk assets,True
+defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.4498934015671168,3589440266.309703,23,23.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:chainlink,chainlink,coingecko:chainlink,LINK,Chainlink,7.278251954595353,3580508517.591533,24,24.0,False,other risk assets,True
 defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:leo-token,leo-token,coingecko:leo-token,LEO,LEO Token,3.33,3100522379.594624,25,25.0,False,other risk assets,True
 defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:ethereum-classic,ethereum-classic,coingecko:ethereum-classic,ETC,Ethereum Classic,21.31,2978627988.433852,26,26.0,False,other risk assets,True
-defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,3.26,2778890409.9277925,27,27.0,False,other risk assets,True
+defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,3.26,2778890409.9277925,27,27.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:monero,monero,coingecko:monero,XMR,Monero,149.73,2716107625.5599904,28,28.0,False,other risk assets,True
 defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:filecoin,filecoin,coingecko:filecoin,FIL,Filecoin,6.86,2699963458.734012,29,29.0,False,other risk assets,True
 defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:bitcoin-cash,bitcoin-cash,coingecko:bitcoin-cash,BCH,Bitcoin Cash,134.83,2605368745.053831,30,30.0,False,other risk assets,True
@@ -3755,7 +3755,7 @@ defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:tezos,tezos,coingecko
 defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:frax,frax,coingecko:frax,FRAX,Legacy Frax Dollar,1.0,1041202923.600532,54,54.0,False,other risk assets,True
 defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:terra-luna,terra-luna,coingecko:terra-luna,LUNC,Terra Luna Classic,0.00016153,955737393.5072428,55,55.0,False,other risk assets,True
 defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:neo,neo,coingecko:neo,NEO,NEO,13.18,932615019.699686,56,56.0,False,other risk assets,True
-defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,48.302023708150415,926828439.2572228,57,57.0,False,other risk assets,True
+defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,48.302023708150415,926828439.2572228,57,57.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:klay-token,klay-token,coingecko:klay-token,KLAY,Klaytn,0.292555,903200346.397047,58,58.0,False,other risk assets,True
 defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:havven,havven,coingecko:havven,SNX,Synthetix,2.81,881902156.3369222,59,59.0,False,other risk assets,True
 defillama_monthly_universe,2023-02-28,2023-02-01,coingecko:kucoin-shares,kucoin-shares,coingecko:kucoin-shares,KCS,KuCoin,8.787338190470972,860899658.479054,60,60.0,False,other risk assets,True
@@ -3822,7 +3822,7 @@ defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:wrapped-bitcoin,wrapp
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:chainlink,chainlink,coingecko:chainlink,LINK,Chainlink,7.24,3743257717.010828,21,21.0,False,other risk assets,True
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:cosmos,cosmos,coingecko:cosmos,ATOM,Cosmos Hub,11.16,3263560716.3457685,22,22.0,False,other risk assets,True
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:leo-token,leo-token,coingecko:leo-token,LEO,LEO Token,3.46,3225087491.709532,23,23.0,False,other risk assets,True
-defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.08,3071513504.4617367,24,24.0,False,other risk assets,True
+defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.08,3071513504.4617367,24,24.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:ethereum-classic,ethereum-classic,coingecko:ethereum-classic,ETC,Ethereum Classic,20.29,2843368721.01552,25,25.0,False,other risk assets,True
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:stellar,stellar,coingecko:stellar,XLM,Stellar,0.106236,2824683785.522888,26,26.0,False,other risk assets,True
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:monero,monero,coingecko:monero,XMR,Monero,155.37,2818964963.159973,27,27.0,False,other risk assets,True
@@ -3831,7 +3831,7 @@ defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:bitcoin-cash,bitcoin-
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:filecoin,filecoin,coingecko:filecoin,FIL,Filecoin,5.57,2281476314.208268,30,30.0,False,other risk assets,True
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:true-usd,true-usd,coingecko:true-usd,TUSD,TrueUSD,1.001,2042732981.645632,31,31.0,False,stable-like assets,True
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:aptos,aptos,coingecko:aptos,APT,Aptos,11.16,2002006135.963415,32,32.0,False,other risk assets,True
-defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.32,1982650448.9325545,33,33.0,False,other risk assets,True
+defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.32,1982650448.9325545,33,33.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:hedera-hashgraph,hedera-hashgraph,coingecko:hedera-hashgraph,HBAR,Hedera,0.065206,1962056605.9891024,34,34.0,False,other risk assets,True
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:quant-network,quant-network,coingecko:quant-network,QNT,Quant,125.18,1815996867.08256,35,35.0,False,other risk assets,True
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:arbitrum,arbitrum,coingecko:arbitrum,ARB,Arbitrum,1.37,1751926505.4151864,36,36.0,False,other risk assets,True
@@ -3857,7 +3857,7 @@ defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:flow,flow,coingecko:f
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:axie-infinity,axie-infinity,coingecko:axie-infinity,AXS,Axie Infinity,8.26,954980718.616297,56,56.0,False,other risk assets,True
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:neo,neo,coingecko:neo,NEO,NEO,12.53,883036748.2786527,57,57.0,False,other risk assets,True
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:conflux-token,conflux-token,coingecko:conflux-token,CFX,Conflux,0.403351,847073795.867465,58,58.0,False,other risk assets,True
-defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,43.01,827982892.004339,59,59.0,False,other risk assets,True
+defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,43.01,827982892.004339,59,59.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:kucoin-shares,kucoin-shares,coingecko:kucoin-shares,KCS,KuCoin,8.3,806328577.9554079,60,60.0,False,other risk assets,True
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:havven,havven,coingecko:havven,SNX,Synthetix,2.44,766389299.6904806,61,61.0,False,other risk assets,True
 defillama_monthly_universe,2023-03-31,2023-03-01,coingecko:whitebit,whitebit,coingecko:whitebit,WBT,WhiteBIT Coin,5.28,762097230.851349,62,62.0,False,other risk assets,True
@@ -3922,7 +3922,7 @@ defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:uniswap,uniswap,coing
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:chainlink,chainlink,coingecko:chainlink,LINK,Chainlink,7.2,3715155767.330896,21,21.0,False,other risk assets,True
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:cosmos,cosmos,coingecko:cosmos,ATOM,Cosmos Hub,11.71,3426700946.4032626,22,22.0,False,other risk assets,True
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:leo-token,leo-token,coingecko:leo-token,LEO,LEO Token,3.57,3321912317.622677,23,23.0,False,other risk assets,True
-defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.17,3198891788.533376,24,24.0,False,other risk assets,True
+defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.17,3198891788.533376,24,24.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:okb,okb,coingecko:okb,OKB,OKB,47.76,2859863952.0304127,25,25.0,False,other risk assets,True
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:internet-computer,internet-computer,coingecko:internet-computer,ICP,Internet Computer,6.51,2831036854.9672103,26,26.0,False,other risk assets,True
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:monero,monero,coingecko:monero,XMR,Monero,154.61,2804430436.5829263,27,27.0,False,other risk assets,True
@@ -3934,7 +3934,7 @@ defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:true-usd,true-usd,coi
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:aptos,aptos,coingecko:aptos,APT,Aptos,10.76,2034667587.2834327,33,33.0,False,other risk assets,True
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:crypto-com-chain,crypto-com-chain,coingecko:crypto-com-chain,CRO,Cronos,0.075372,1901324513.3713336,34,34.0,False,other risk assets,True
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:hedera-hashgraph,hedera-hashgraph,coingecko:hedera-hashgraph,HBAR,Hedera,0.061037,1898961606.1200764,35,35.0,False,other risk assets,True
-defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.1,1838657215.956728,36,36.0,False,other risk assets,True
+defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.1,1838657215.956728,36,36.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:arbitrum,arbitrum,coingecko:arbitrum,ARB,Arbitrum,1.37,1739604999.62876,37,37.0,False,other risk assets,True
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:near,near,coingecko:near,NEAR,NEAR Protocol,1.94,1733561972.9720304,38,38.0,False,other risk assets,True
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:quant-network,quant-network,coingecko:quant-network,QNT,Quant,117.93,1713113302.8424938,39,39.0,False,other risk assets,True
@@ -3957,7 +3957,7 @@ defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:immutable-x,immutable
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:tezos,tezos,coingecko:tezos,XTZ,Tezos,1.033,958876185.8338238,56,56.0,False,other risk assets,True
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:flow,flow,coingecko:flow,FLOW,Flow,0.907261,938317756.450408,57,57.0,False,other risk assets,True
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:axie-infinity,axie-infinity,coingecko:axie-infinity,AXS,Axie Infinity,8.01,924906757.898672,58,58.0,False,other risk assets,True
-defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,47.28,911154006.1212336,59,59.0,False,other risk assets,True
+defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,47.28,911154006.1212336,59,59.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:render-token,render-token,coingecko:render-token,RENDER,Render,2.37,861060739.8525013,60,60.0,False,other risk assets,True
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:kucoin-shares,kucoin-shares,coingecko:kucoin-shares,KCS,KuCoin,8.15,789688780.9152396,61,61.0,False,other risk assets,True
 defillama_monthly_universe,2023-04-30,2023-04-01,coingecko:havven,havven,coingecko:havven,SNX,Synthetix,2.47,782772038.3948777,62,62.0,False,other risk assets,True
@@ -4024,14 +4024,14 @@ defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:leo-token,leo-token,c
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:cosmos,cosmos,coingecko:cosmos,ATOM,Cosmos Hub,10.84,3171440373.751314,23,23.0,False,other risk assets,True
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:okb,okb,coingecko:okb,OKB,OKB,47.08,2824590503.282415,24,24.0,False,other risk assets,True
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:monero,monero,coingecko:monero,XMR,Monero,153.03,2776080769.9001427,25,25.0,False,other risk assets,True
-defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.86,2749099782.3583503,26,26.0,False,other risk assets,True
+defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.86,2749099782.3583503,26,26.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:ethereum-classic,ethereum-classic,coingecko:ethereum-classic,ETC,Ethereum Classic,18.28,2580418546.7620206,27,27.0,False,other risk assets,True
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:stellar,stellar,coingecko:stellar,XLM,Stellar,0.09098,2436445762.137028,28,28.0,False,other risk assets,True
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:bitcoin-cash,bitcoin-cash,coingecko:bitcoin-cash,BCH,Bitcoin Cash,114.07,2217239239.579159,29,29.0,False,other risk assets,True
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:internet-computer,internet-computer,coingecko:internet-computer,ICP,Internet Computer,4.83,2112031578.441389,30,30.0,False,other risk assets,True
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:filecoin,filecoin,coingecko:filecoin,FIL,Filecoin,4.83,2066179615.161625,31,31.0,False,other risk assets,True
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:true-usd,true-usd,coingecko:true-usd,TUSD,TrueUSD,0.999647,2039757551.9375308,32,32.0,False,stable-like assets,True
-defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.16,1899012754.7893767,33,33.0,False,other risk assets,True
+defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.16,1899012754.7893767,33,33.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:quant-network,quant-network,coingecko:quant-network,QNT,Quant,116.79,1699841572.2644749,34,34.0,False,other risk assets,True
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:aptos,aptos,coingecko:aptos,APT,Aptos,8.5,1690476322.9299054,35,35.0,False,other risk assets,True
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:hedera-hashgraph,hedera-hashgraph,coingecko:hedera-hashgraph,HBAR,Hedera,0.052992,1669613030.4074006,36,36.0,False,other risk assets,True
@@ -4047,7 +4047,7 @@ defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:paxos-standard,paxos-
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:eos,eos,coingecko:eos,EOS,EOS,0.913605,1010604494.8122452,46,46.0,False,other risk assets,True
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:frax,frax,coingecko:frax,FRAX,Legacy Frax Dollar,0.99949,1001790786.4506986,47,47.0,False,other risk assets,True
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:aave,aave,coingecko:aave,AAVE,Aave,66.64,961104860.2102212,48,48.0,False,other risk assets,True
-defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,49.34,957560998.3599898,49,49.0,False,other risk assets,True
+defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,49.34,957560998.3599898,49,49.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:elrond-erd-2,elrond-erd-2,coingecko:elrond-erd-2,EGLD,MultiversX,36.98,942973098.6095488,50,50.0,False,other risk assets,True
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:render-token,render-token,coingecko:render-token,RENDER,Render,2.57,942114037.7723815,51,51.0,False,other risk assets,True
 defillama_monthly_universe,2023-05-31,2023-05-01,coingecko:fantom,fantom,coingecko:fantom,FTM,Fantom,0.328457,917342183.0123458,52,52.0,False,other risk assets,True
@@ -4128,10 +4128,10 @@ defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:stellar,stellar,coing
 defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:cosmos,cosmos,coingecko:cosmos,ATOM,Cosmos Hub,8.99,2635081224.6605325,27,27.0,False,other risk assets,True
 defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:okb,okb,coingecko:okb,OKB,OKB,43.4,2599196571.741709,28,28.0,False,other risk assets,True
 defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:ethereum-classic,ethereum-classic,coingecko:ethereum-classic,ETC,Ethereum Classic,18.02,2555074435.846912,29,29.0,False,other risk assets,True
-defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.35,1984892648.247161,30,30.0,False,other risk assets,True
+defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.35,1984892648.247161,30,30.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:internet-computer,internet-computer,coingecko:internet-computer,ICP,Internet Computer,4.04,1771455475.8653514,31,31.0,False,other risk assets,True
 defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:filecoin,filecoin,coingecko:filecoin,FIL,Filecoin,3.83,1663624720.9694295,32,32.0,False,other risk assets,True
-defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.88,1654945069.860384,33,33.0,False,other risk assets,True
+defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.88,1654945069.860384,33,33.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:quant-network,quant-network,coingecko:quant-network,QNT,Quant,106.22,1547925388.8347812,34,34.0,False,other risk assets,True
 defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:hedera-hashgraph,hedera-hashgraph,coingecko:hedera-hashgraph,HBAR,Hedera,0.04828425,1536024989.2944057,35,35.0,False,other risk assets,True
 defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:aptos,aptos,coingecko:aptos,APT,Aptos,7.16,1499028326.0326076,36,36.0,False,other risk assets,True
@@ -4157,7 +4157,7 @@ defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:usdd,usdd,coingecko:u
 defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:bitcoin-cash-sv,bitcoin-cash-sv,coingecko:bitcoin-cash-sv,BSV,Bitcoin SV,38.45,737498157.6495188,56,56.0,False,other risk assets,True
 defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:render-token,render-token,coingecko:render-token,RENDER,Render,1.98,730360501.9367929,57,57.0,False,other risk assets,True
 defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:immutable-x,immutable-x,coingecko:immutable-x,IMX,Immutable,0.698843,727453776.4401007,58,58.0,False,other risk assets,True
-defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,37.33,726422661.6503502,59,59.0,False,other risk assets,True
+defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,37.33,726422661.6503502,59,59.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:tezos,tezos,coingecko:tezos,XTZ,Tezos,0.76905,719816411.5330495,60,60.0,False,other risk assets,True
 defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:havven,havven,coingecko:havven,SNX,Synthetix,2.23,716211593.1727641,61,61.0,False,other risk assets,True
 defillama_monthly_universe,2023-06-30,2023-06-01,coingecko:theta-token,theta-token,coingecko:theta-token,THETA,Theta Network,0.698579,698804836.3604891,62,62.0,False,other risk assets,True
@@ -4220,7 +4220,7 @@ defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:wrapped-bitcoin,wrapp
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:avalanche-2,avalanche-2,coingecko:avalanche-2,AVAX,Avalanche,13.13,4545954890.252018,19,19.0,False,other risk assets,True
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:stellar,stellar,coingecko:stellar,XLM,Stellar,0.156547,4275847140.4649,20,20.0,False,other risk assets,True
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:dai,dai,coingecko:dai,DAI,Dai,0.99956,4156200353.074351,21,21.0,False,stable-like assets,True
-defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.21,4154780236.866182,22,22.0,False,other risk assets,True
+defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.21,4154780236.866182,22,22.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:chainlink,chainlink,coingecko:chainlink,LINK,Chainlink,7.55,4069856369.5033193,23,23.0,False,other risk assets,True
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:binance-usd,binance-usd,coingecko:binance-usd,BUSD,BUSD,1.0,3708764570.276847,24,24.0,False,stable-like assets,True
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:leo-token,leo-token,coingecko:leo-token,LEO,LEO Token,3.97,3698505303.250845,25,25.0,False,other risk assets,True
@@ -4233,7 +4233,7 @@ defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:filecoin,filecoin,coi
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:internet-computer,internet-computer,coingecko:internet-computer,ICP,Internet Computer,4.27,1877320595.361404,32,32.0,False,other risk assets,True
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:hedera-hashgraph,hedera-hashgraph,coingecko:hedera-hashgraph,HBAR,Hedera,0.052947,1715826943.9420953,33,33.0,False,other risk assets,True
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:mantle,mantle,coingecko:mantle,MNT,Mantle,0.519119,1679637081.8025866,34,34.0,False,other risk assets,True
-defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.89,1660148247.5163982,35,35.0,False,other risk assets,True
+defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.89,1660148247.5163982,35,35.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:quant-network,quant-network,coingecko:quant-network,QNT,Quant,111.06,1619207185.9628396,36,36.0,False,other risk assets,True
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:crypto-com-chain,crypto-com-chain,coingecko:crypto-com-chain,CRO,Cronos,0.059174,1553213943.1031077,37,37.0,False,other risk assets,True
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:aptos,aptos,coingecko:aptos,APT,Aptos,7.02,1534869429.1414268,38,38.0,False,other risk assets,True
@@ -4273,7 +4273,7 @@ defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:ecash,ecash,coingecko
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:gatechain-token,gatechain-token,coingecko:gatechain-token,GT,Gate,4.17,579244607.3011608,72,72.0,False,other risk assets,True
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:kava,kava,coingecko:kava,KAVA,Kava,0.873258,578057192.786417,73,73.0,False,other risk assets,True
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:gala,gala,coingecko:gala,GALA,GALA,0.02317606,577133192.081792,74,74.0,False,other risk assets,True
-defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,29.42,574813305.1589456,75,75.0,False,other risk assets,True
+defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,29.42,574813305.1589456,75,75.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:radix,radix,coingecko:radix,XRD,Radix,0.055811,571098340.0747613,76,76.0,False,other risk assets,True
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:kucoin-shares,kucoin-shares,coingecko:kucoin-shares,KCS,KuCoin,5.79,559930968.4729991,77,77.0,False,other risk assets,True
 defillama_monthly_universe,2023-07-31,2023-07-01,coingecko:curve-dao-token,curve-dao-token,coingecko:curve-dao-token,CRV,Curve DAO,0.62767,554826865.7883143,78,78.0,False,other risk assets,True
@@ -4310,7 +4310,7 @@ defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:cardano,cardano,coing
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:dogecoin,dogecoin,coingecko:dogecoin,DOGE,Dogecoin,0.0658722656924274,9273299689.0687,9,9.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:solana,solana,coingecko:solana,SOL,Solana,20.81967667859676,8515043630.644387,10,10.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:tron,tron,coingecko:tron,TRX,TRON,0.0756210395305791,6754875330.317251,11,11.0,False,selected majors ex BTC/ETH,True
-defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.72,5912357418.9831,12,12.0,False,other risk assets,True
+defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.72,5912357418.9831,12,12.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:polkadot,polkadot,coingecko:polkadot,DOT,Polkadot,4.53,5759682580.665459,13,13.0,False,other risk assets,True
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:matic-network,matic-network,coingecko:matic-network,MATIC,MATIC (migrated to POL),0.5749295910253208,5361938414.725122,14,14.0,False,other risk assets,True
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:litecoin,litecoin,coingecko:litecoin,LTC,Litecoin,67.65145797572629,4980252698.138117,15,15.0,False,other risk assets,True
@@ -4334,7 +4334,7 @@ defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:internet-computer,int
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:filecoin,filecoin,coingecko:filecoin,FIL,Filecoin,3.416950866994582,1519000876.093263,33,33.0,False,other risk assets,True
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:quant-network,quant-network,coingecko:quant-network,QNT,Quant,100.91,1466622791.825286,34,34.0,False,other risk assets,True
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:mantle,mantle,coingecko:mantle,MNT,Mantle,0.451574,1459458030.8693504,35,35.0,False,other risk assets,True
-defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.6392315436199247,1456752996.0974092,36,36.0,False,other risk assets,True
+defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.6392315436199247,1456752996.0974092,36,36.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:crypto-com-chain,crypto-com-chain,coingecko:crypto-com-chain,CRO,Cronos,0.051948,1362953094.3912246,37,37.0,False,other risk assets,True
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:aptos,aptos,coingecko:aptos,APT,Aptos,5.79,1319676781.2470543,38,38.0,False,other risk assets,True
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:arbitrum,arbitrum,coingecko:arbitrum,ARB,Arbitrum,0.942564,1204229772.5589702,39,39.0,False,other risk assets,True
@@ -4379,7 +4379,7 @@ defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:pax-gold,pax-gold,coi
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:tether-gold,tether-gold,coingecko:tether-gold,XAUT,Tether Gold,1944.05,479083077.5714667,78,78.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:flow,flow,coingecko:flow,FLOW,Flow,0.4619246561305889,478027043.9092857,79,79.0,False,other risk assets,True
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:compound-ether,compound-ether,coingecko:compound-ether,CETH,cETH,34.26,476720645.2029331,80,80.0,False,other risk assets,True
-defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,23.88,469293082.5026641,81,81.0,False,other risk assets,True
+defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,23.88,469293082.5026641,81,81.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:thorchain,thorchain,coingecko:thorchain,RUNE,THORChain,1.54,462825002.0169664,82,82.0,False,other risk assets,True
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:klay-token,klay-token,coingecko:klay-token,KLAY,Klaytn,0.138599,442431864.81178063,83,83.0,False,other risk assets,True
 defillama_monthly_universe,2023-08-31,2023-08-01,coingecko:chiliz,chiliz,coingecko:chiliz,CHZ,Chiliz,0.063075,440099529.0656484,84,84.0,False,other risk assets,True
@@ -4410,7 +4410,7 @@ defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:dogecoin,dogecoin,coi
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:cardano,cardano,coingecko:cardano,ADA,Cardano,0.2494333718884856,8742941658.175673,9,9.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:solana,solana,coingecko:solana,SOL,Solana,20.28313851803805,8380719360.271232,10,10.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:tron,tron,coingecko:tron,TRX,TRON,0.089097915109796,7936888786.837209,11,11.0,False,selected majors ex BTC/ETH,True
-defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.16014407138775,7455023112.07746,12,12.0,False,other risk assets,True
+defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.16014407138775,7455023112.07746,12,12.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:polkadot,polkadot,coingecko:polkadot,DOT,Polkadot,4.074861106571515,5219381614.1712885,13,13.0,False,other risk assets,True
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:matic-network,matic-network,coingecko:matic-network,MATIC,MATIC (migrated to POL),0.5256817913110577,4887055645.790556,14,14.0,False,other risk assets,True
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:litecoin,litecoin,coingecko:litecoin,LTC,Litecoin,65.5680647742734,4838453161.150652,15,15.0,False,other risk assets,True
@@ -4431,7 +4431,7 @@ defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:binance-usd,binance-u
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:cosmos,cosmos,coingecko:cosmos,ATOM,Cosmos Hub,7.105211372839138,2079948189.840322,30,30.0,False,other risk assets,True
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:hedera-hashgraph,hedera-hashgraph,coingecko:hedera-hashgraph,HBAR,Hedera,0.0495164103324429,1652785308.6027455,31,31.0,False,other risk assets,True
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:filecoin,filecoin,coingecko:filecoin,FIL,Filecoin,3.336979515392309,1507902002.6621077,32,32.0,False,other risk assets,True
-defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.636545761610208,1459395423.7000537,33,33.0,False,other risk assets,True
+defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.636545761610208,1459395423.7000537,33,33.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:internet-computer,internet-computer,coingecko:internet-computer,ICP,Internet Computer,3.1428174488746268,1400516076.2474756,34,34.0,False,other risk assets,True
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:crypto-com-chain,crypto-com-chain,coingecko:crypto-com-chain,CRO,Cronos,0.050741,1335560567.7455866,35,35.0,False,other risk assets,True
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:quant-network,quant-network,coingecko:quant-network,QNT,Quant,90.65,1319025169.8958385,36,36.0,False,other risk assets,True
@@ -4481,7 +4481,7 @@ defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:tether-gold,tether-go
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:apecoin,apecoin,coingecko:apecoin,APE,ApeCoin,1.2070910273690956,446199022.19730335,80,80.0,False,other risk assets,True
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:frax-ether,frax-ether,coingecko:frax-ether,FRXETH,Frax Ether,1663.78,441346518.7677352,81,81.0,False,other risk assets,True
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:kucoin-shares,kucoin-shares,coingecko:kucoin-shares,KCS,KuCoin,4.55,440329132.8118073,82,82.0,False,other risk assets,True
-defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,21.79,431713727.77522886,83,83.0,False,other risk assets,True
+defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,21.79,431713727.77522886,83,83.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:frax-share,frax-share,coingecko:frax-share,FRAX,Frax (prev. FXS),5.724176888276399,424350980.3080825,84,84.0,False,other risk assets,True
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:iota,iota,coingecko:iota,IOTA,IOTA,0.151911,422292786.2254704,85,85.0,False,other risk assets,True
 defillama_monthly_universe,2023-09-30,2023-09-01,coingecko:chiliz,chiliz,coingecko:chiliz,CHZ,Chiliz,0.0596006661069698,415617071.5353242,86,86.0,False,other risk assets,True
@@ -4510,7 +4510,7 @@ defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:solana,solana,coingec
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:cardano,cardano,coingecko:cardano,ADA,Cardano,0.302762,10574441269.69695,9,9.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:dogecoin,dogecoin,coingecko:dogecoin,DOGE,Dogecoin,0.069598,9859172173.408962,10,10.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:tron,tron,coingecko:tron,TRX,TRON,0.095594,8490504008.806474,11,11.0,False,selected majors ex BTC/ETH,True
-defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.12,7319413207.547934,12,12.0,False,other risk assets,True
+defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.12,7319413207.547934,12,12.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:chainlink,chainlink,coingecko:chainlink,LINK,Chainlink,11.230241071653856,6245274438.042555,13,13.0,False,other risk assets,True
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:matic-network,matic-network,coingecko:matic-network,MATIC,MATIC (migrated to POL),0.649906,6005349663.026194,14,14.0,False,other risk assets,True
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:polkadot,polkadot,coingecko:polkadot,DOT,Polkadot,4.53,5839540706.634413,15,15.0,False,other risk assets,True
@@ -4533,7 +4533,7 @@ defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:internet-computer,int
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:hedera-hashgraph,hedera-hashgraph,coingecko:hedera-hashgraph,HBAR,Hedera,0.05374,1800369449.8790617,32,32.0,False,other risk assets,True
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:filecoin,filecoin,coingecko:filecoin,FIL,Filecoin,3.86,1781933819.9767685,33,33.0,False,other risk assets,True
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:aptos,aptos,coingecko:aptos,APT,Aptos,6.87,1699363420.0012004,34,34.0,False,other risk assets,True
-defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.8387288889644893,1635670851.2231438,35,35.0,False,other risk assets,True
+defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.8387288889644893,1635670851.2231438,35,35.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:crypto-com-chain,crypto-com-chain,coingecko:crypto-com-chain,CRO,Cronos,0.061193,1611497047.278293,36,36.0,False,other risk assets,True
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:quant-network,quant-network,coingecko:quant-network,QNT,Quant,105.3,1531202538.360881,37,37.0,False,other risk assets,True
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:vechain,vechain,coingecko:vechain,VET,VeChain,0.01904668,1383346067.949535,38,38.0,False,other risk assets,True
@@ -4586,7 +4586,7 @@ defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:paxos-standard,paxos-
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:pax-gold,pax-gold,coingecko:pax-gold,PAXG,PAX Gold,1977.48,483405311.2720856,85,85.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:chiliz,chiliz,coingecko:chiliz,CHZ,Chiliz,0.068251,475174442.7369873,86,86.0,False,other risk assets,True
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:first-digital-usd,first-digital-usd,coingecko:first-digital-usd,FDUSD,First Digital USD,1.0011257486599985,468693056.0758554,87,87.0,False,stable-like assets,True
-defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,23.59,468000685.0071534,88,88.0,False,other risk assets,True
+defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,23.59,468000685.0071534,88,88.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:tokenize-xchange,tokenize-xchange,coingecko:tokenize-xchange,TKX,Tokenize Xchange,5.77,461042575.3677659,89,89.0,False,other risk assets,True
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:compound-ether,compound-ether,coingecko:compound-ether,CETH,cETH,36.35,459485088.2193428,90,90.0,False,other risk assets,True
 defillama_monthly_universe,2023-10-31,2023-10-01,coingecko:frax-share,frax-share,coingecko:frax-share,FRAX,Frax (prev. FXS),6.01,449982262.9118525,91,91.0,False,other risk assets,True
@@ -4610,7 +4610,7 @@ defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:staked-ether,staked-e
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:cardano,cardano,coingecko:cardano,ADA,Cardano,0.381793,13363940331.308529,9,9.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:dogecoin,dogecoin,coingecko:dogecoin,DOGE,Dogecoin,0.080514,11446816738.493954,10,10.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:tron,tron,coingecko:tron,TRX,TRON,0.103495,9162307441.950945,11,11.0,False,selected majors ex BTC/ETH,True
-defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.41,8291397962.243961,12,12.0,False,other risk assets,True
+defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.41,8291397962.243961,12,12.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:chainlink,chainlink,coingecko:chainlink,LINK,Chainlink,14.5,8089405292.450734,13,13.0,False,other risk assets,True
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:avalanche-2,avalanche-2,coingecko:avalanche-2,AVAX,Avalanche,21.09,7703269384.681253,14,14.0,False,other risk assets,True
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:matic-network,matic-network,coingecko:matic-network,MATIC,MATIC (migrated to POL),0.7575,7028961958.158894,15,15.0,False,other risk assets,True
@@ -4633,7 +4633,7 @@ defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:crypto-com-chain,cryp
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:filecoin,filecoin,coingecko:filecoin,FIL,Filecoin,4.43,2099772336.238317,32,32.0,False,other risk assets,True
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:internet-computer,internet-computer,coingecko:internet-computer,ICP,Internet Computer,4.51,2027901205.57056,33,33.0,False,other risk assets,True
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:hedera-hashgraph,hedera-hashgraph,coingecko:hedera-hashgraph,HBAR,Hedera,0.060169,2016535918.6420991,34,34.0,False,other risk assets,True
-defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.26,2010709968.36476,35,35.0,False,other risk assets,True
+defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.26,2010709968.36476,35,35.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:aptos,aptos,coingecko:aptos,APT,Aptos,7.02,1948520168.4633973,36,36.0,False,other risk assets,True
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:thorchain,thorchain,coingecko:thorchain,RUNE,THORChain,6.37,1915730436.269256,37,37.0,False,other risk assets,True
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:near,near,coingecko:near,NEAR,NEAR Protocol,1.8,1803448077.6298416,38,38.0,False,other risk assets,True
@@ -4693,7 +4693,7 @@ defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:radix,radix,coingecko
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:ecash,ecash,coingecko:ecash,XEC,eCash,2.885e-05,565700514.3785809,92,92.0,False,other risk assets,True
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:blur,blur,coingecko:blur,BLUR,Blur,0.504268,562185183.37112,93,93.0,False,other risk assets,True
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:fetch-ai,fetch-ai,coingecko:fetch-ai,FET,Artificial Superintelligence Alliance,0.522608,546139345.6776342,94,94.0,False,other risk assets,True
-defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,27.23,542083546.2504088,95,95.0,False,other risk assets,True
+defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:rocket-pool,rocket-pool,coingecko:rocket-pool,RPL,Rocket Pool,27.23,542083546.2504088,95,95.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:frax-share,frax-share,coingecko:frax-share,FRAX,Frax (prev. FXS),7.08,533997837.82324624,96,96.0,False,other risk assets,True
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:gas,gas,coingecko:gas,GAS,Gas,7.99,520613708.7947359,97,97.0,False,other risk assets,True
 defillama_monthly_universe,2023-11-30,2023-11-01,coingecko:pancakeswap-token,pancakeswap-token,coingecko:pancakeswap-token,CAKE,PancakeSwap,2.22,516521086.8236244,98,98.0,False,other risk assets,True
@@ -4714,7 +4714,7 @@ defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:polkadot,polkadot,coi
 defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:tron,tron,coingecko:tron,TRX,TRON,0.105927,9355609430.484058,13,13.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:matic-network,matic-network,coingecko:matic-network,MATIC,MATIC (migrated to POL),0.951366,8846855579.845633,14,14.0,False,other risk assets,True
 defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:chainlink,chainlink,coingecko:chainlink,LINK,Chainlink,15.17,8462433624.019181,15,15.0,False,other risk assets,True
-defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.36,8199854972.269494,16,16.0,False,other risk assets,True
+defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.36,8199854972.269494,16,16.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:wrapped-bitcoin,wrapped-bitcoin,coingecko:wrapped-bitcoin,WBTC,Wrapped Bitcoin,42213.0,6681627103.073897,17,17.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,1.046e-05,6166358153.974249,18,18.0,False,other risk assets,True
 defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:internet-computer,internet-computer,coingecko:internet-computer,ICP,Internet Computer,12.32,5614232680.28688,19,19.0,False,other risk assets,True
@@ -4738,7 +4738,7 @@ defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:aptos,aptos,coingecko
 defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:crypto-com-chain,crypto-com-chain,coingecko:crypto-com-chain,CRO,Cronos,0.098605,2613682293.5286536,37,37.0,False,other risk assets,True
 defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:kaspa,kaspa,coingecko:kaspa,KAS,Kaspa,0.117474,2603853110.045105,38,38.0,False,other risk assets,True
 defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:vechain,vechain,coingecko:vechain,VET,VeChain,0.03568407,2602848574.6237154,39,39.0,False,other risk assets,True
-defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.73,2438736241.883404,40,40.0,False,other risk assets,True
+defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.73,2438736241.883404,40,40.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:true-usd,true-usd,coingecko:true-usd,TUSD,TrueUSD,0.999234,2307615419.76848,41,41.0,False,stable-like assets,True
 defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:quant-network,quant-network,coingecko:quant-network,QNT,Quant,148.1,2119386418.7311,42,42.0,False,other risk assets,True
 defillama_monthly_universe,2023-12-31,2023-12-01,coingecko:mantle,mantle,coingecko:mantle,MNT,Mantle,0.654797,2057262368.649559,43,43.0,False,other risk assets,True
@@ -4814,7 +4814,7 @@ defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:tron,tron,coingecko:t
 defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:polkadot,polkadot,coingecko:polkadot,DOT,Polkadot,6.85,9067901749.047453,13,13.0,False,other risk assets,True
 defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:chainlink,chainlink,coingecko:chainlink,LINK,Chainlink,15.51,8751010890.410454,14,14.0,False,other risk assets,True
 defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:matic-network,matic-network,coingecko:matic-network,MATIC,MATIC (migrated to POL),0.800279,7416299650.493295,15,15.0,False,other risk assets,True
-defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.08,7204754713.571733,16,16.0,False,other risk assets,True
+defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.08,7204754713.571733,16,16.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:wrapped-bitcoin,wrapped-bitcoin,coingecko:wrapped-bitcoin,WBTC,Wrapped Bitcoin,42821.0,6747894320.153051,17,17.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:internet-computer,internet-computer,coingecko:internet-computer,ICP,Internet Computer,11.74,5360329456.384522,18,18.0,False,other risk assets,True
 defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,9.05e-06,5329241966.226942,19,19.0,False,other risk assets,True
@@ -4834,7 +4834,7 @@ defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:optimism,optimism,coi
 defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:monero,monero,coingecko:monero,XMR,Monero,160.29,2907245850.873288,33,33.0,False,other risk assets,True
 defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:celestia,celestia,coingecko:celestia,TIA,Celestia,17.87,2868780401.8023577,34,34.0,False,other risk assets,True
 defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:immutable-x,immutable-x,coingecko:immutable-x,IMX,Immutable,2.01,2710051366.0343904,35,35.0,False,other risk assets,True
-defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,3.03,2685906176.732265,36,36.0,False,other risk assets,True
+defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,3.03,2685906176.732265,36,36.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:bittensor,bittensor,coingecko:bittensor,TAO,Bittensor,423.2,2588675519.236298,37,37.0,False,other risk assets,True
 defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:filecoin,filecoin,coingecko:filecoin,FIL,Filecoin,5.16,2579505749.820738,38,38.0,False,other risk assets,True
 defillama_monthly_universe,2024-01-31,2024-01-01,coingecko:first-digital-usd,first-digital-usd,coingecko:first-digital-usd,FDUSD,First Digital USD,0.999995,2563497637.57146,39,39.0,False,stable-like assets,True
@@ -4915,7 +4915,7 @@ defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:chainlink,chainlink,c
 defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:polkadot,polkadot,coingecko:polkadot,DOT,Polkadot,8.35,11193776933.533855,14,14.0,False,other risk assets,True
 defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:wrapped-bitcoin,wrapped-bitcoin,coingecko:wrapped-bitcoin,WBTC,Wrapped Bitcoin,62369.0,9761901470.211344,15,15.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:matic-network,matic-network,coingecko:matic-network,MATIC,MATIC (migrated to POL),1.011,9387800917.929996,16,16.0,False,other risk assets,True
-defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.51,8805553508.43862,17,17.0,False,other risk assets,True
+defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.51,8805553508.43862,17,17.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:uniswap,uniswap,coingecko:uniswap,UNI,Uniswap,10.93,8245708444.203665,18,18.0,False,other risk assets,True
 defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,1.175e-05,6941038781.676881,19,19.0,False,other risk assets,True
 defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:bitcoin-cash,bitcoin-cash,coingecko:bitcoin-cash,BCH,Bitcoin Cash,296.64,5833698162.053222,20,20.0,False,other risk assets,True
@@ -4939,7 +4939,7 @@ defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:vechain,vechain,coing
 defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:stellar,stellar,coingecko:stellar,XLM,Stellar,0.12099,3451158860.49234,38,38.0,False,other risk assets,True
 defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:first-digital-usd,first-digital-usd,coingecko:first-digital-usd,FDUSD,First Digital USD,0.999071,3301378830.24968,39,39.0,False,stable-like assets,True
 defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:okb,okb,coingecko:okb,OKB,OKB,52.31,3139699315.9077034,40,40.0,False,other risk assets,True
-defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,3.42,3058990895.838725,41,41.0,False,other risk assets,True
+defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,3.42,3058990895.838725,41,41.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:mantle,mantle,coingecko:mantle,MNT,Mantle,0.945309,3050608262.992264,42,42.0,False,other risk assets,True
 defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:render-token,render-token,coingecko:render-token,RENDER,Render,8.0,3032815796.770239,43,43.0,False,other risk assets,True
 defillama_monthly_universe,2024-02-29,2024-02-01,coingecko:crypto-com-chain,crypto-com-chain,coingecko:crypto-com-chain,CRO,Cronos,0.104202,2760044057.242761,44,44.0,False,other risk assets,True
@@ -5010,7 +5010,7 @@ defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:usd-coin,usd-coin,coi
 defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:dogecoin,dogecoin,coingecko:dogecoin,DOGE,Dogecoin,0.199419,28740799674.7999,9,9.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:cardano,cardano,coingecko:cardano,ADA,Cardano,0.643963,22715036680.597885,10,10.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:avalanche-2,avalanche-2,coingecko:avalanche-2,AVAX,Avalanche,52.97430773150084,19992827909.61244,11,11.0,False,other risk assets,True
-defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),5.26,18263555867.564304,12,12.0,False,other risk assets,True
+defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),5.26,18263555867.564304,12,12.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,2.983e-05,17573991691.754986,13,13.0,False,other risk assets,True
 defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:polkadot,polkadot,coingecko:polkadot,DOT,Polkadot,9.43,12700355330.75223,14,14.0,False,other risk assets,True
 defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:bitcoin-cash,bitcoin-cash,coingecko:bitcoin-cash,BCH,Bitcoin Cash,596.94,11751780726.908718,15,15.0,False,other risk assets,True
@@ -5053,7 +5053,7 @@ defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:fantom,fantom,coingec
 defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:first-digital-usd,first-digital-usd,coingecko:first-digital-usd,FDUSD,First Digital USD,1.0060881982462946,2566237972.153528,52,52.0,False,stable-like assets,True
 defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:celestia,celestia,coingecko:celestia,TIA,Celestia,14.46,2519039434.662573,53,53.0,False,other risk assets,True
 defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:gala,gala,coingecko:gala,GALA,GALA,0.067385,2515439064.748233,54,54.0,False,other risk assets,True
-defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.784349660439672,2478200378.656164,55,55.0,False,other risk assets,True
+defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.784349660439672,2478200378.656164,55,55.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:arweave,arweave,coingecko:arweave,AR,Arweave,37.8,2473105636.6988792,56,56.0,False,other risk assets,True
 defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:floki,floki,coingecko:floki,FLOKI,FLOKI,0.00024355,2359916817.788685,57,57.0,False,other risk assets,True
 defillama_monthly_universe,2024-03-31,2024-03-01,coingecko:monero,monero,coingecko:monero,XMR,Monero,129.05266843450468,2340027097.286253,58,58.0,False,other risk assets,True
@@ -5108,7 +5108,7 @@ defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:usd-coin,usd-coin,coi
 defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:staked-ether,staked-ether,coingecko:staked-ether,STETH,Lido Staked Ether,3214.063386722068,30025195926.779152,7,7.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:ripple,ripple,coingecko:ripple,XRP,XRP,0.514782,28447759625.968727,8,8.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:dogecoin,dogecoin,coingecko:dogecoin,DOGE,Dogecoin,0.143453,20690016920.043755,9,9.0,False,selected majors ex BTC/ETH,True
-defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),5.310239331375126,18432415272.779774,10,10.0,False,other risk assets,True
+defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),5.310239331375126,18432415272.779774,10,10.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:cardano,cardano,coingecko:cardano,ADA,Cardano,0.4571728684042193,16153257571.051529,11,11.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,2.412e-05,14221931397.193846,12,12.0,False,other risk assets,True
 defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:avalanche-2,avalanche-2,coingecko:avalanche-2,AVAX,Avalanche,35.340408451193206,13485101779.00378,13,13.0,False,other risk assets,True
@@ -5155,7 +5155,7 @@ defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:injective-protocol,in
 defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:fetch-ai,fetch-ai,coingecko:fetch-ai,FET,Artificial Superintelligence Alliance,2.17,2262476997.037156,54,54.0,False,other risk assets,True
 defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:theta-token,theta-token,coingecko:theta-token,THETA,Theta Network,2.18,2178945957.415564,55,55.0,False,other risk assets,True
 defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:fantom,fantom,coingecko:fantom,FTM,Fantom,0.7165161792855111,2009225958.6343768,56,56.0,False,other risk assets,True
-defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.1969753250366737,1956523011.3748813,57,57.0,False,other risk assets,True
+defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.1969753250366737,1956523011.3748813,57,57.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:coredaoorg,coredaoorg,coingecko:coredaoorg,CORE,Core,2.11,1876748232.348756,58,58.0,False,other risk assets,True
 defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:rocket-pool-eth,rocket-pool-eth,coingecko:rocket-pool-eth,RETH,Rocket Pool ETH,3554.44,1835900712.368576,59,59.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-04-30,2024-04-01,coingecko:sei-network,sei-network,coingecko:sei-network,SEI,Sei,0.635793,1777830852.3948703,60,60.0,False,other risk assets,True
@@ -5209,7 +5209,7 @@ defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:usd-coin,usd-coin,coi
 defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:ripple,ripple,coingecko:ripple,XRP,XRP,0.5186552923144545,28781483247.09154,8,8.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:dogecoin,dogecoin,coingecko:dogecoin,DOGE,Dogecoin,0.159415,23056540377.67561,9,9.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:cardano,cardano,coingecko:cardano,ADA,Cardano,0.446449,15786163356.64552,10,10.0,False,selected majors ex BTC/ETH,True
-defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),6.459628529964243,15592567433.98316,11,11.0,False,other risk assets,True
+defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),6.459628529964243,15592567433.98316,11,11.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,2.589e-05,15264804733.745155,12,12.0,False,other risk assets,True
 defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:avalanche-2,avalanche-2,coingecko:avalanche-2,AVAX,Avalanche,35.98,14127265332.258348,13,13.0,False,other risk assets,True
 defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:wrapped-bitcoin,wrapped-bitcoin,coingecko:wrapped-bitcoin,WBTC,Wrapped Bitcoin,68340.0,10609290872.044683,14,14.0,False,productized/wrapped assets,True
@@ -5259,7 +5259,7 @@ defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:bonk,bonk,coingecko:b
 defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:fantom,fantom,coingecko:fantom,FTM,Fantom,0.78165,2192567869.145092,58,58.0,False,other risk assets,True
 defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:theta-token,theta-token,coingecko:theta-token,THETA,Theta Network,2.19,2191582589.192493,59,59.0,False,other risk assets,True
 defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:thorchain,thorchain,coingecko:thorchain,RUNE,THORChain,6.396695985602909,2141658730.398345,60,60.0,False,other risk assets,True
-defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.39,2124570203.9022267,61,61.0,False,other risk assets,True
+defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.39,2124570203.9022267,61,61.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:rocket-pool-eth,rocket-pool-eth,coingecko:rocket-pool-eth,RETH,Rocket Pool ETH,4149.19,2108554301.4172564,62,62.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:celestia,celestia,coingecko:celestia,TIA,Celestia,10.675202839139716,2001377070.5279512,63,63.0,False,other risk assets,True
 defillama_monthly_universe,2024-05-31,2024-05-01,coingecko:bitget-token,bitget-token,coingecko:bitget-token,BGB,Bitget Token,1.3724074028001092,1919987990.341415,64,64.0,False,other risk assets,True
@@ -5307,7 +5307,7 @@ defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:solana,solana,coingec
 defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:staked-ether,staked-ether,coingecko:staked-ether,STETH,Lido Staked Ether,3371.99,32787455198.44272,6,6.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:usd-coin,usd-coin,coingecko:usd-coin,USDC,USDC,0.999957,32264498272.947235,7,7.0,False,stable-like assets,True
 defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:ripple,ripple,coingecko:ripple,XRP,XRP,0.471819,26253286526.95896,8,8.0,False,selected majors ex BTC/ETH,True
-defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),7.589783778092226,18645815186.76105,9,9.0,False,other risk assets,True
+defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),7.589783778092226,18645815186.76105,9,9.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:dogecoin,dogecoin,coingecko:dogecoin,DOGE,Dogecoin,0.121705,17626378208.02659,10,10.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:cardano,cardano,coingecko:cardano,ADA,Cardano,0.3835261651613048,13591948873.875372,11,11.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:tron,tron,coingecko:tron,TRX,TRON,0.125342,10927987817.715546,12,12.0,False,selected majors ex BTC/ETH,True
@@ -5355,7 +5355,7 @@ defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:sui,sui,coingecko:sui
 defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:rocket-pool-eth,rocket-pool-eth,coingecko:rocket-pool-eth,RETH,Rocket Pool ETH,3745.38,1883527039.6648824,54,54.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:bittensor,bittensor,coingecko:bittensor,TAO,Bittensor,259.6145840971103,1816060790.9344664,55,55.0,False,other risk assets,True
 defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:arweave,arweave,coingecko:arweave,AR,Arweave,27.78628906267242,1812851677.5741308,56,56.0,False,other risk assets,True
-defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.91953942952658,1713498524.385416,57,57.0,False,other risk assets,True
+defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.91953942952658,1713498524.385416,57,57.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:mantle-staked-ether,mantle-staked-ether,coingecko:mantle-staked-ether,METH,Mantle Staked Ether,3500.86,1602151810.1934698,58,58.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:ondo-finance,ondo-finance,coingecko:ondo-finance,ONDO,Ondo,1.105706194918255,1599744640.7873769,59,59.0,False,other risk assets,True
 defillama_monthly_universe,2024-06-30,2024-06-01,coingecko:bitget-token,bitget-token,coingecko:bitget-token,BGB,Bitget Token,1.14,1599151052.3415186,60,60.0,False,other risk assets,True
@@ -5408,7 +5408,7 @@ defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:ripple,ripple,coingec
 defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:usd-coin,usd-coin,coingecko:usd-coin,USDC,USDC,0.999626,33470597704.76612,7,7.0,False,stable-like assets,True
 defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:staked-ether,staked-ether,coingecko:staked-ether,STETH,Lido Staked Ether,3277.225711255034,32240714201.628643,8,8.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:dogecoin,dogecoin,coingecko:dogecoin,DOGE,Dogecoin,0.125481,18236805797.53368,9,9.0,False,selected majors ex BTC/ETH,True
-defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),6.73,16931691139.13678,10,10.0,False,other risk assets,True
+defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),6.73,16931691139.13678,10,10.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:cardano,cardano,coingecko:cardano,ADA,Cardano,0.4014444502497502,14299794003.35211,11,11.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:tron,tron,coingecko:tron,TRX,TRON,0.132881,11574617697.257595,12,12.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:avalanche-2,avalanche-2,coingecko:avalanche-2,AVAX,Avalanche,26.33,10400398116.91978,13,13.0,False,other risk assets,True
@@ -5463,7 +5463,7 @@ defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:aave,aave,coingecko:a
 defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:thorchain,thorchain,coingecko:thorchain,RUNE,THORChain,4.57,1541241219.9611285,62,62.0,False,other risk assets,True
 defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:jasmycoin,jasmycoin,coingecko:jasmycoin,JASMY,JasmyCoin,0.03045817,1476276496.6356957,63,63.0,False,other risk assets,True
 defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:whitebit,whitebit,coingecko:whitebit,WBT,WhiteBIT Coin,10.23,1471179779.706481,64,64.0,False,other risk assets,True
-defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.58,1417105715.236158,65,65.0,False,other risk assets,True
+defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.58,1417105715.236158,65,65.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:jupiter-exchange-solana,jupiter-exchange-solana,coingecko:jupiter-exchange-solana,JUP,Jupiter,1.045,1406287695.8718004,66,66.0,False,other risk assets,True
 defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:theta-token,theta-token,coingecko:theta-token,THETA,Theta Network,1.4,1396384685.290005,67,67.0,False,other risk assets,True
 defillama_monthly_universe,2024-07-31,2024-07-01,coingecko:ondo-finance,ondo-finance,coingecko:ondo-finance,ONDO,Ondo,0.948077,1365807241.9926312,68,68.0,False,other risk assets,True
@@ -5509,7 +5509,7 @@ defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:ripple,ripple,coingec
 defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:staked-ether,staked-ether,coingecko:staked-ether,STETH,Lido Staked Ether,2522.97,24763890620.40028,8,8.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:dogecoin,dogecoin,coingecko:dogecoin,DOGE,Dogecoin,0.102036,14878559890.89034,9,9.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:tron,tron,coingecko:tron,TRX,TRON,0.1598654613411678,13872490337.472317,10,10.0,False,selected majors ex BTC/ETH,True
-defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),5.37,13620232150.123377,11,11.0,False,other risk assets,True
+defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),5.37,13620232150.123377,11,11.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:cardano,cardano,coingecko:cardano,ADA,Cardano,0.346911,12379403829.20932,12,12.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:wrapped-steth,wrapped-steth,coingecko:wrapped-steth,WSTETH,Wrapped stETH,2974.3,10433314080.37056,13,13.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:avalanche-2,avalanche-2,coingecko:avalanche-2,AVAX,Avalanche,23.28,9434579208.009983,14,14.0,False,other risk assets,True
@@ -5575,7 +5575,7 @@ defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:kucoin-shares,kucoin-
 defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:paypal-usd,paypal-usd,coingecko:paypal-usd,PYUSD,PayPal USD,0.998692,981891965.5531948,74,74.0,False,stable-like assets,True
 defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:gatechain-token,gatechain-token,coingecko:gatechain-token,GT,Gate,7.47,974045985.7511784,75,75.0,False,other risk assets,True
 defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:sei-network,sei-network,coingecko:sei-network,SEI,Sei,0.2938394271635151,971082050.7624544,76,76.0,False,other risk assets,True
-defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.069,958539724.0726773,77,77.0,False,other risk assets,True
+defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.069,958539724.0726773,77,77.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:renzo-restaked-eth,renzo-restaked-eth,coingecko:renzo-restaked-eth,EZETH,Renzo Restaked ETH,2566.65,952964066.3097,78,78.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:jasmycoin,jasmycoin,coingecko:jasmycoin,JASMY,JasmyCoin,0.01939452,940016806.2950886,79,79.0,False,other risk assets,True
 defillama_monthly_universe,2024-08-31,2024-08-01,coingecko:ondo-finance,ondo-finance,coingecko:ondo-finance,ONDO,Ondo,0.650377,939698320.0344516,80,80.0,False,other risk assets,True
@@ -5608,7 +5608,7 @@ defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:ripple,ripple,coingec
 defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:usd-coin,usd-coin,coingecko:usd-coin,USDC,USDC,0.99968,36242038149.597855,7,7.0,False,stable-like assets,True
 defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:staked-ether,staked-ether,coingecko:staked-ether,STETH,Lido Staked Ether,2656.67,26011989480.287216,8,8.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:dogecoin,dogecoin,coingecko:dogecoin,DOGE,Dogecoin,0.124462,18237685842.99425,9,9.0,False,selected majors ex BTC/ETH,True
-defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),5.84,14824953661.023289,10,10.0,False,other risk assets,True
+defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),5.84,14824953661.023289,10,10.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:cardano,cardano,coingecko:cardano,ADA,Cardano,0.397414,14188309271.84096,11,11.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:tron,tron,coingecko:tron,TRX,TRON,0.156413,13550194097.808071,12,12.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:avalanche-2,avalanche-2,coingecko:avalanche-2,AVAX,Avalanche,29.05,11813501265.241451,13,13.0,False,other risk assets,True
@@ -5673,7 +5673,7 @@ defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:helium,helium,coingec
 defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:celestia,celestia,coingecko:celestia,TIA,Celestia,6.01,1289414612.144728,72,72.0,False,other risk assets,True
 defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:jupiter-exchange-solana,jupiter-exchange-solana,coingecko:jupiter-exchange-solana,JUP,Jupiter,0.917765,1243076369.148775,73,73.0,False,other risk assets,True
 defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:matic-network,matic-network,coingecko:matic-network,MATIC,MATIC (migrated to POL),0.418738,1216716594.6262803,74,74.0,False,other risk assets,True
-defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.33,1188484401.8308942,75,75.0,False,other risk assets,True
+defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.33,1188484401.8308942,75,75.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:algorand,algorand,coingecko:algorand,ALGO,Algorand,0.140908,1166625002.01308,76,76.0,False,other risk assets,True
 defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:ondo-finance,ondo-finance,coingecko:ondo-finance,ONDO,Ondo,0.808086,1160541607.5292234,77,77.0,False,other risk assets,True
 defillama_monthly_universe,2024-09-30,2024-09-01,coingecko:gatechain-token,gatechain-token,coingecko:gatechain-token,GT,Gate,9.01,1157186611.7058144,78,78.0,False,other risk assets,True
@@ -5710,7 +5710,7 @@ defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:staked-ether,staked-e
 defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:dogecoin,dogecoin,coingecko:dogecoin,DOGE,Dogecoin,0.16836,24707320750.15557,9,9.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:tron,tron,coingecko:tron,TRX,TRON,0.169128,14626527170.243626,10,10.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:cardano,cardano,coingecko:cardano,ADA,Cardano,0.354877,12693763136.654655,11,11.0,False,selected majors ex BTC/ETH,True
-defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),4.99,12689896204.66097,12,12.0,False,other risk assets,True
+defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),4.99,12689896204.66097,12,12.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:wrapped-steth,wrapped-steth,coingecko:wrapped-steth,WSTETH,Wrapped stETH,3148.77,11288386301.370337,13,13.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,1.84428099555e-05,10873132193.019882,14,14.0,False,other risk assets,True
 defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:avalanche-2,avalanche-2,coingecko:avalanche-2,AVAX,Avalanche,26.18,10668991827.085337,15,15.0,False,other risk assets,True
@@ -5779,7 +5779,7 @@ defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:arweave,arweave,coing
 defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:maker,maker,coingecko:maker,MKR,Maker,1245.27,1084846018.2993257,78,78.0,False,other risk assets,True
 defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:kucoin-shares,kucoin-shares,coingecko:kucoin-shares,KCS,KuCoin,8.99,1081949207.5166714,79,79.0,False,other risk assets,True
 defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:ondo-finance,ondo-finance,coingecko:ondo-finance,ONDO,Ondo,0.725775,1045070378.1360126,80,80.0,False,other risk assets,True
-defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.13,1011979940.3264034,81,81.0,False,other risk assets,True
+defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.13,1011979940.3264034,81,81.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:algorand,algorand,coingecko:algorand,ALGO,Algorand,0.120662,1005986807.074105,82,82.0,False,other risk assets,True
 defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:bitcoin-cash-sv,bitcoin-cash-sv,coingecko:bitcoin-cash-sv,BSV,Bitcoin SV,50.75,1003023405.879178,83,83.0,False,other risk assets,True
 defillama_monthly_universe,2024-10-31,2024-10-01,coingecko:ethena,ethena,coingecko:ethena,ENA,Ethena,0.361392,993646424.8621095,84,84.0,False,other risk assets,True
@@ -5812,7 +5812,7 @@ defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:staked-ether,staked-e
 defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:avalanche-2,avalanche-2,coingecko:avalanche-2,AVAX,Avalanche,44.95,18410524575.29285,11,11.0,False,other risk assets,True
 defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:tron,tron,coingecko:tron,TRX,TRON,0.20457,17654324065.100704,12,12.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:stellar,stellar,coingecko:stellar,XLM,Stellar,0.547025435176832,16565761890.034412,13,13.0,False,other risk assets,True
-defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),6.46123980229341,16461821001.071749,14,14.0,False,other risk assets,True
+defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),6.46123980229341,16461821001.071749,14,14.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,2.60758558814e-05,15355235179.714285,15,15.0,False,other risk assets,True
 defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:wrapped-steth,wrapped-steth,coingecko:wrapped-steth,WSTETH,Wrapped stETH,4261.96,15333496354.635468,16,16.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:polkadot,polkadot,coingecko:polkadot,DOT,Polkadot,9.03,13694855320.51304,17,17.0,False,other risk assets,True
@@ -5880,7 +5880,7 @@ defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:gala,gala,coingecko:g
 defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:raydium,raydium,coingecko:raydium,RAY,Raydium,5.69,1656409828.0604713,79,79.0,False,other risk assets,True
 defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:maker,maker,coingecko:maker,MKR,Maker,1810.37,1603151112.2653842,80,80.0,False,other risk assets,True
 defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:the-sandbox,the-sandbox,coingecko:the-sandbox,SAND,The Sandbox,0.6556279708357331,1590385341.7320912,81,81.0,False,other risk assets,True
-defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.75,1572854011.8722107,82,82.0,False,other risk assets,True
+defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.75,1572854011.8722107,82,82.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:jupiter-exchange-solana,jupiter-exchange-solana,coingecko:jupiter-exchange-solana,JUP,Jupiter,1.16,1568111847.4910529,83,83.0,False,other risk assets,True
 defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:flow,flow,coingecko:flow,FLOW,Flow,0.9880725982117275,1549343628.4916446,84,84.0,False,other risk assets,True
 defillama_monthly_universe,2024-11-30,2024-11-01,coingecko:renzo-restaked-eth,renzo-restaked-eth,coingecko:renzo-restaked-eth,EZETH,Renzo Restaked ETH,3679.77,1540377376.6677444,85,85.0,False,productized/wrapped assets,True
@@ -5911,7 +5911,7 @@ defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:staked-ether,staked-e
 defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:cardano,cardano,coingecko:cardano,ADA,Cardano,0.859919,30753991424.009167,10,10.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:tron,tron,coingecko:tron,TRX,TRON,0.253066,21799296460.4826,11,11.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:avalanche-2,avalanche-2,coingecko:avalanche-2,AVAX,Avalanche,35.92,14704857248.57316,12,12.0,False,other risk assets,True
-defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),5.58,14231561470.913689,13,13.0,False,other risk assets,True
+defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),5.58,14231561470.913689,13,13.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:wrapped-steth,wrapped-steth,coingecko:wrapped-steth,WSTETH,Wrapped stETH,3983.12,13986333556.912706,14,14.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:chainlink,chainlink,coingecko:chainlink,LINK,Chainlink,20.59,12979228211.474392,15,15.0,False,other risk assets,True
 defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,2.112e-05,12423225209.450556,16,16.0,False,other risk assets,True
@@ -5979,7 +5979,7 @@ defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:worldcoin-wld,worldco
 defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:sei-network,sei-network,coingecko:sei-network,SEI,Sei,0.40305,1694044180.878032,78,78.0,False,other risk assets,True
 defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:kelp-dao-restaked-eth,kelp-dao-restaked-eth,coingecko:kelp-dao-restaked-eth,RSETH,Kelp DAO Restaked ETH,3439.33,1679804583.0965853,79,79.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:floki,floki,coingecko:floki,FLOKI,FLOKI,0.00017412,1679621754.310459,80,80.0,False,other risk assets,True
-defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.87,1677019242.573907,81,81.0,False,other risk assets,True
+defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.87,1677019242.573907,81,81.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:coinbase-wrapped-btc,coinbase-wrapped-btc,coingecko:coinbase-wrapped-btc,CBBTC,Coinbase Wrapped BTC,92668.42866225092,1635673594.5529935,82,82.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:jasmycoin,jasmycoin,coingecko:jasmycoin,JASMY,JasmyCoin,0.03231979,1563291780.122275,83,83.0,False,other risk assets,True
 defillama_monthly_universe,2024-12-31,2024-12-01,coingecko:quant-network,quant-network,coingecko:quant-network,QNT,Quant,106.83,1557984724.244074,84,84.0,False,other risk assets,True
@@ -6017,7 +6017,7 @@ defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:wrapped-steth,wrapped
 defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:stellar,stellar,coingecko:stellar,XLM,Stellar,0.4296994302876347,13153117690.564331,16,16.0,False,other risk assets,True
 defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:sui,sui,coingecko:sui,SUI,Sui,4.12,12406170303.320894,17,17.0,False,other risk assets,True
 defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:hedera-hashgraph,hedera-hashgraph,coingecko:hedera-hashgraph,HBAR,Hedera,0.315995,12112933847.417048,18,18.0,False,other risk assets,True
-defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),4.82,12005063730.858671,19,19.0,False,other risk assets,True
+defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),4.82,12005063730.858671,19,19.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,1.8681549309e-05,11021205783.05829,20,20.0,False,other risk assets,True
 defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:litecoin,litecoin,coingecko:litecoin,LTC,Litecoin,129.86,9814440680.173134,21,21.0,False,other risk assets,True
 defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:weth,weth,coingecko:weth,WETH,WETH,3246.34,9621642461.047754,22,22.0,False,productized/wrapped assets,True
@@ -6070,7 +6070,7 @@ defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:injective-protocol,in
 defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:lombard-staked-btc,lombard-staked-btc,coingecko:lombard-staked-btc,LBTC,Lombard Staked BTC,104537.0,1929214958.8516943,69,69.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:binance-staked-sol,binance-staked-sol,coingecko:binance-staked-sol,BNSOL,Binance Staked SOL,246.19,1920023844.9132087,70,70.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:bonk,bonk,coingecko:bonk,BONK,Bonk,2.49145567213e-05,1910469231.3688133,71,71.0,False,other risk assets,True
-defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.09,1882775015.3018584,72,72.0,False,other risk assets,True
+defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,2.09,1882775015.3018584,72,72.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:jupiter-exchange-solana,jupiter-exchange-solana,coingecko:jupiter-exchange-solana,JUP,Jupiter,1.097,1852983516.8248785,73,73.0,False,other risk assets,True
 defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:kelp-dao-restaked-eth,kelp-dao-restaked-eth,coingecko:kelp-dao-restaked-eth,RSETH,Kelp DAO Restaked ETH,3379.52,1832229281.7665825,74,74.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2025-01-31,2025-01-01,coingecko:movement,movement,coingecko:movement,MOVE,Movement,0.7918,1830341067.0739872,75,75.0,False,other risk assets,True
@@ -6118,7 +6118,7 @@ defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:avalanche-2,avalanche
 defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:stellar,stellar,coingecko:stellar,XLM,Stellar,0.283023,8680362204.804611,17,17.0,False,other risk assets,True
 defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:sui,sui,coingecko:sui,SUI,Sui,2.79,8602728002.186287,18,18.0,False,other risk assets,True
 defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:leo-token,leo-token,coingecko:leo-token,LEO,LEO Token,9.22,8519787174.545895,19,19.0,False,other risk assets,True
-defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),3.41,8511399913.545348,20,20.0,False,other risk assets,True
+defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),3.41,8511399913.545348,20,20.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,1.441e-05,8504562873.65687,21,21.0,False,other risk assets,True
 defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:hedera-hashgraph,hedera-hashgraph,coingecko:hedera-hashgraph,HBAR,Hedera,0.19944,8352069138.092846,22,22.0,False,other risk assets,True
 defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:usds,usds,coingecko:usds,USDS,USDS,1.0,7506453997.623078,23,23.0,False,stable-like assets,True
@@ -6180,7 +6180,7 @@ defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:solv-btc,solv-btc,coi
 defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:immutable-x,immutable-x,coingecko:immutable-x,IMX,Immutable,0.704927,1233557868.0274754,79,79.0,False,other risk assets,True
 defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:nexo,nexo,coingecko:nexo,NEXO,NEXO,1.22,1221719684.064958,80,80.0,False,other risk assets,True
 defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:worldcoin-wld,worldcoin-wld,coingecko:worldcoin-wld,WLD,Worldcoin,1.15,1218356315.127638,81,81.0,False,other risk assets,True
-defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.35,1205944294.2407303,82,82.0,False,other risk assets,True
+defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:lido-dao,lido-dao,coingecko:lido-dao,LDO,Lido DAO,1.35,1205944294.2407303,82,82.0,False,governance/infrastructure risk assets,True
 defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:sei-network,sei-network,coingecko:sei-network,SEI,Sei,0.256692,1195935375.3893268,83,83.0,False,other risk assets,True
 defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:the-graph,the-graph,coingecko:the-graph,GRT,The Graph,0.123289,1177405589.728921,84,84.0,False,other risk assets,True
 defillama_monthly_universe,2025-02-28,2025-02-01,coingecko:theta-token,theta-token,coingecko:theta-token,THETA,Theta Network,1.17,1173582407.88697,85,85.0,False,other risk assets,True
@@ -6211,7 +6211,7 @@ defillama_monthly_universe,2025-03-31,2025-03-01,coingecko:cardano,cardano,coing
 defillama_monthly_universe,2025-03-31,2025-03-01,coingecko:tron,tron,coingecko:tron,TRX,TRON,0.231482,21958920161.01636,10,10.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2025-03-31,2025-03-01,coingecko:staked-ether,staked-ether,coingecko:staked-ether,STETH,Lido Staked Ether,1807.07,16885963800.833118,11,11.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2025-03-31,2025-03-01,coingecko:wrapped-bitcoin,wrapped-bitcoin,coingecko:wrapped-bitcoin,WBTC,Wrapped Bitcoin,82108.0,10585513922.829794,12,12.0,False,productized/wrapped assets,True
-defillama_monthly_universe,2025-03-31,2025-03-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),3.9,9677419190.285816,13,13.0,False,other risk assets,True
+defillama_monthly_universe,2025-03-31,2025-03-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),3.9,9677419190.285816,13,13.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2025-03-31,2025-03-01,coingecko:chainlink,chainlink,coingecko:chainlink,LINK,Chainlink,13.39,8527310805.780023,14,14.0,False,other risk assets,True
 defillama_monthly_universe,2025-03-31,2025-03-01,coingecko:leo-token,leo-token,coingecko:leo-token,LEO,LEO Token,9.11,8396476463.706349,15,15.0,False,other risk assets,True
 defillama_monthly_universe,2025-03-31,2025-03-01,coingecko:stellar,stellar,coingecko:stellar,XLM,Stellar,0.266705,8202716111.986291,16,16.0,False,other risk assets,True
@@ -6316,7 +6316,7 @@ defillama_monthly_universe,2025-04-30,2025-04-01,coingecko:chainlink,chainlink,c
 defillama_monthly_universe,2025-04-30,2025-04-01,coingecko:avalanche-2,avalanche-2,coingecko:avalanche-2,AVAX,Avalanche,21.54,8949003299.794483,15,15.0,False,other risk assets,True
 defillama_monthly_universe,2025-04-30,2025-04-01,coingecko:stellar,stellar,coingecko:stellar,XLM,Stellar,0.278136,8581566468.272145,16,16.0,False,other risk assets,True
 defillama_monthly_universe,2025-04-30,2025-04-01,coingecko:leo-token,leo-token,coingecko:leo-token,LEO,LEO Token,8.98,8297416760.908881,17,17.0,False,other risk assets,True
-defillama_monthly_universe,2025-04-30,2025-04-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),3.189139210489275,8017315038.627866,18,18.0,False,other risk assets,True
+defillama_monthly_universe,2025-04-30,2025-04-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),3.189139210489275,8017315038.627866,18,18.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2025-04-30,2025-04-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,1.342e-05,7899830947.874831,19,19.0,False,other risk assets,True
 defillama_monthly_universe,2025-04-30,2025-04-01,coingecko:hedera-hashgraph,hedera-hashgraph,coingecko:hedera-hashgraph,HBAR,Hedera,0.18616,7865315519.817879,20,20.0,False,other risk assets,True
 defillama_monthly_universe,2025-04-30,2025-04-01,coingecko:usds,usds,coingecko:usds,USDS,USDS,0.999874,7642602491.539845,21,21.0,False,stable-like assets,True
@@ -6417,7 +6417,7 @@ defillama_monthly_universe,2025-05-31,2025-05-01,coingecko:avalanche-2,avalanche
 defillama_monthly_universe,2025-05-31,2025-05-01,coingecko:stellar,stellar,coingecko:stellar,XLM,Stellar,0.2652561592195583,8276150932.540179,16,16.0,False,other risk assets,True
 defillama_monthly_universe,2025-05-31,2025-05-01,coingecko:leo-token,leo-token,coingecko:leo-token,LEO,LEO Token,8.74,8072948579.669768,17,17.0,False,other risk assets,True
 defillama_monthly_universe,2025-05-31,2025-05-01,coingecko:bitcoin-cash,bitcoin-cash,coingecko:bitcoin-cash,BCH,Bitcoin Cash,399.94,7953196315.946228,18,18.0,False,other risk assets,True
-defillama_monthly_universe,2025-05-31,2025-05-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),3.09945076431921,7661724837.454911,19,19.0,False,other risk assets,True
+defillama_monthly_universe,2025-05-31,2025-05-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),3.09945076431921,7661724837.454911,19,19.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2025-05-31,2025-05-01,coingecko:hedera-hashgraph,hedera-hashgraph,coingecko:hedera-hashgraph,HBAR,Hedera,0.167247,7066385180.638119,20,20.0,False,other risk assets,True
 defillama_monthly_universe,2025-05-31,2025-05-01,coingecko:usds,usds,coingecko:usds,USDS,USDS,0.999821,7040300380.649201,21,21.0,False,stable-like assets,True
 defillama_monthly_universe,2025-05-31,2025-05-01,coingecko:weth,weth,coingecko:weth,WETH,WETH,2526.56,6658415850.194332,22,22.0,False,productized/wrapped assets,True
@@ -6519,7 +6519,7 @@ defillama_monthly_universe,2025-06-30,2025-06-01,coingecko:chainlink,chainlink,c
 defillama_monthly_universe,2025-06-30,2025-06-01,coingecko:leo-token,leo-token,coingecko:leo-token,LEO,LEO Token,9.11,8391816528.628042,18,18.0,False,other risk assets,True
 defillama_monthly_universe,2025-06-30,2025-06-01,coingecko:avalanche-2,avalanche-2,coingecko:avalanche-2,AVAX,Avalanche,18.75,7914835291.076334,19,19.0,False,other risk assets,True
 defillama_monthly_universe,2025-06-30,2025-06-01,coingecko:stellar,stellar,coingecko:stellar,XLM,Stellar,0.240187,7509555288.382584,20,20.0,False,other risk assets,True
-defillama_monthly_universe,2025-06-30,2025-06-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.91,7189905993.135407,21,21.0,False,other risk assets,True
+defillama_monthly_universe,2025-06-30,2025-06-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.91,7189905993.135407,21,21.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2025-06-30,2025-06-01,coingecko:usds,usds,coingecko:usds,USDS,USDS,0.999798,7079000320.251244,22,22.0,False,stable-like assets,True
 defillama_monthly_universe,2025-06-30,2025-06-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,1.186e-05,6992045366.8769245,23,23.0,False,other risk assets,True
 defillama_monthly_universe,2025-06-30,2025-06-01,coingecko:weth,weth,coingecko:weth,WETH,WETH,2502.61,6784971298.938555,24,24.0,False,productized/wrapped assets,True
@@ -6624,7 +6624,7 @@ defillama_monthly_universe,2025-07-31,2025-07-01,coingecko:avalanche-2,avalanche
 defillama_monthly_universe,2025-07-31,2025-07-01,coingecko:weth,weth,coingecko:weth,WETH,WETH,3804.77,8555497580.293103,23,23.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2025-07-31,2025-07-01,coingecko:litecoin,litecoin,coingecko:litecoin,LTC,Litecoin,110.51,8421261216.24909,24,24.0,False,other risk assets,True
 defillama_monthly_universe,2025-07-31,2025-07-01,coingecko:leo-token,leo-token,coingecko:leo-token,LEO,LEO Token,8.96,8267929469.181659,25,25.0,False,other risk assets,True
-defillama_monthly_universe,2025-07-31,2025-07-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),3.41,8244847757.746327,26,26.0,False,other risk assets,True
+defillama_monthly_universe,2025-07-31,2025-07-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),3.41,8244847757.746327,26,26.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2025-07-31,2025-07-01,coingecko:ethena-usde,ethena-usde,coingecko:ethena-usde,USDE,Ethena USDe,1.001,8162030993.729211,27,27.0,False,stable-like assets,True
 defillama_monthly_universe,2025-07-31,2025-07-01,coingecko:usds,usds,coingecko:usds,USDS,USDS,0.999814,7715539947.413311,28,28.0,False,stable-like assets,True
 defillama_monthly_universe,2025-07-31,2025-07-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,1.286e-05,7585862890.324293,29,29.0,False,other risk assets,True
@@ -6726,7 +6726,7 @@ defillama_monthly_universe,2025-08-31,2025-08-01,coingecko:hedera-hashgraph,hede
 defillama_monthly_universe,2025-08-31,2025-08-01,coingecko:weth,weth,coingecko:weth,WETH,WETH,4373.9168548886855,9465881627.417995,25,25.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2025-08-31,2025-08-01,coingecko:leo-token,leo-token,coingecko:leo-token,LEO,LEO Token,9.55,8813652667.935997,26,26.0,False,other risk assets,True
 defillama_monthly_universe,2025-08-31,2025-08-01,coingecko:litecoin,litecoin,coingecko:litecoin,LTC,Litecoin,110.79,8447462670.754602,27,27.0,False,other risk assets,True
-defillama_monthly_universe,2025-08-31,2025-08-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),3.13,8026963304.225357,28,28.0,False,other risk assets,True
+defillama_monthly_universe,2025-08-31,2025-08-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),3.13,8026963304.225357,28,28.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2025-08-31,2025-08-01,coingecko:usds,usds,coingecko:usds,USDS,USDS,0.999661,7995125211.763313,29,29.0,False,stable-like assets,True
 defillama_monthly_universe,2025-08-31,2025-08-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,1.234e-05,7270860281.270216,30,30.0,False,other risk assets,True
 defillama_monthly_universe,2025-08-31,2025-08-01,coingecko:binance-bridged-usdt-bnb-smart-chain,binance-bridged-usdt-bnb-smart-chain,coingecko:binance-bridged-usdt-bnb-smart-chain,BSC-USD,Binance Bridged USDT (BNB Smart Chain),1.0,6782063168.429647,31,31.0,False,other risk assets,True
@@ -6831,7 +6831,7 @@ defillama_monthly_universe,2025-09-30,2025-09-01,coingecko:usds,usds,coingecko:u
 defillama_monthly_universe,2025-09-30,2025-09-01,coingecko:usdt0,usdt0,coingecko:usdt0,USDT0,USDT0,1.0,7642487586.793833,30,30.0,False,stable-like assets,True
 defillama_monthly_universe,2025-09-30,2025-09-01,coingecko:coinbase-wrapped-btc,coinbase-wrapped-btc,coingecko:coinbase-wrapped-btc,CBBTC,Coinbase Wrapped BTC,114307.0,7093360673.467408,31,31.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2025-09-30,2025-09-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,1.197e-05,7056538699.435513,32,32.0,False,other risk assets,True
-defillama_monthly_universe,2025-09-30,2025-09-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.7,6876227120.144975,33,33.0,False,other risk assets,True
+defillama_monthly_universe,2025-09-30,2025-09-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.7,6876227120.144975,33,33.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2025-09-30,2025-09-01,coingecko:crypto-com-chain,crypto-com-chain,coingecko:crypto-com-chain,CRO,Cronos,0.19024,6624596079.673168,34,34.0,False,other risk assets,True
 defillama_monthly_universe,2025-09-30,2025-09-01,coingecko:mantle,mantle,coingecko:mantle,MNT,Mantle,1.92,6229218451.874617,35,35.0,False,other risk assets,True
 defillama_monthly_universe,2025-09-30,2025-09-01,coingecko:whitebit,whitebit,coingecko:whitebit,WBT,WhiteBIT Coin,42.19,6079947391.784959,36,36.0,False,other risk assets,True
@@ -6933,7 +6933,7 @@ defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:whitebit,whitebit,coi
 defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:monero,monero,coingecko:monero,XMR,Monero,322.84487169170336,5955436752.638301,32,32.0,False,other risk assets,True
 defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,9.7292902086e-06,5732861398.922422,33,33.0,False,other risk assets,True
 defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:zcash,zcash,coingecko:zcash,ZEC,Zcash,345.49293921302456,5651899227.820012,34,34.0,False,other risk assets,True
-defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.15389821977246,5418571180.057853,35,35.0,False,other risk assets,True
+defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),2.15389821977246,5418571180.057853,35,35.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:crypto-com-chain,crypto-com-chain,coingecko:crypto-com-chain,CRO,Cronos,0.1459618466792967,5251233656.201128,36,36.0,False,other risk assets,True
 defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:ethena-staked-usde,ethena-staked-usde,coingecko:ethena-staked-usde,SUSDE,Ethena Staked USDe,1.201213488348006,5018423012.196878,37,37.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:mantle,mantle,coingecko:mantle,MNT,Mantle,1.4417248013570196,4681166856.178325,38,38.0,False,other risk assets,True
@@ -6955,7 +6955,7 @@ defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:paypal-usd,paypal-usd
 defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:pepe,pepe,coingecko:pepe,PEPE,Pepe,6.4377043302e-06,2704782704.744606,54,54.0,False,other risk assets,True
 defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:near,near,coingecko:near,NEAR,NEAR Protocol,2.098102452623558,2681789912.991569,55,55.0,False,other risk assets,True
 defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:jito-staked-sol,jito-staked-sol,coingecko:jito-staked-sol,JITOSOL,Jito Staked SOL,228.76428582077955,2610538583.100488,56,56.0,False,productized/wrapped assets,True
-defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,184.5306001059968,2383402549.780279,57,57.0,False,selected majors ex BTC/ETH,True
+defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,184.5306001059968,2383402549.780279,57,57.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:ethereum-classic,ethereum-classic,coingecko:ethereum-classic,ETC,Ethereum Classic,15.39883767104537,2373319822.348186,58,58.0,False,other risk assets,True
 defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:aptos,aptos,coingecko:aptos,APT,Aptos,3.204519744143875,2304912355.3035736,59,59.0,False,other risk assets,True
 defillama_monthly_universe,2025-10-31,2025-10-01,coingecko:binance-peg-weth,binance-peg-weth,coingecko:binance-peg-weth,WETH,Binance-Peg WETH,3802.859046392361,2299729703.9586887,60,60.0,False,productized/wrapped assets,True
@@ -7038,7 +7038,7 @@ defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:world-liberty-financi
 defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:susds,susds,coingecko:susds,SUSDS,sUSDS,1.07531597084672,4011779920.81912,37,37.0,False,other risk assets,True
 defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:crypto-com-chain,crypto-com-chain,coingecko:crypto-com-chain,CRO,Cronos,0.1071833851309483,4001045968.5468974,38,38.0,False,other risk assets,True
 defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:ethena-staked-usde,ethena-staked-usde,coingecko:ethena-staked-usde,SUSDE,Ethena Staked USDe,1.2060167475700885,3940492644.0928087,39,39.0,False,productized/wrapped assets,True
-defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.5799942516990868,3934820461.318004,40,40.0,False,other risk assets,True
+defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.5799942516990868,3934820461.318004,40,40.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:paypal-usd,paypal-usd,coingecko:paypal-usd,PYUSD,PayPal USD,0.9994607881040636,3872338025.787528,41,41.0,False,stable-like assets,True
 defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:uniswap,uniswap,coingecko:uniswap,UNI,Uniswap,6.062087048409185,3818731494.930709,42,42.0,False,other risk assets,True
 defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:polkadot,polkadot,coingecko:polkadot,DOT,Polkadot,2.260052009267373,3706455019.016946,43,43.0,False,other risk assets,True
@@ -7065,7 +7065,7 @@ defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:jito-staked-sol,jito-
 defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:binance-peg-weth,binance-peg-weth,coingecko:binance-peg-weth,WETH,Binance-Peg WETH,2989.9715344775523,1809574574.1909928,64,64.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:pump-fun,pump-fun,coingecko:pump-fun,PUMP,Pump.fun,0.0028983759712445,1707415700.411374,65,65.0,False,other risk assets,True
 defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:jupiter-perpetuals-liquidity-provider-token,jupiter-perpetuals-liquidity-provider-token,coingecko:jupiter-perpetuals-liquidity-provider-token,JLP,Jupiter Perpetuals Liquidity Provider Token,4.6774773972687385,1705189262.8409045,66,66.0,False,other risk assets,True
-defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,135.89716300090282,1671192029.3080814,67,67.0,False,selected majors ex BTC/ETH,True
+defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,135.89716300090282,1671192029.3080814,67,67.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:htx-dao,htx-dao,coingecko:htx-dao,HTX,HTX DAO,1.7682346953e-06,1645212635.7003076,68,68.0,False,other risk assets,True
 defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:rain,rain,coingecko:rain,RAIN,Rain,0.0068926248728751,1635159101.5787437,69,69.0,False,other risk assets,True
 defillama_monthly_universe,2025-11-30,2025-11-01,coingecko:ondo-finance,ondo-finance,coingecko:ondo-finance,ONDO,Ondo,0.5110824504518929,1611442489.192686,70,70.0,False,other risk assets,True
@@ -7137,7 +7137,7 @@ defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:usdt0,usdt0,coingecko
 defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:dai,dai,coingecko:dai,DAI,Dai,0.9992098051069824,4227201528.265194,36,36.0,False,stable-like assets,True
 defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,7.0950877215e-06,4179601514.528753,37,37.0,False,other risk assets,True
 defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:susds,susds,coingecko:susds,SUSDS,sUSDS,1.080814532591344,4107099603.4849215,38,38.0,False,other risk assets,True
-defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.6237922173447723,3984600818.972011,39,39.0,False,other risk assets,True
+defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.6237922173447723,3984600818.972011,39,39.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:world-liberty-financial,world-liberty-financial,coingecko:world-liberty-financial,WLFI,World Liberty Financial,0.144145576879406,3926992197.966599,40,40.0,False,other risk assets,True
 defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:uniswap,uniswap,coingecko:uniswap,UNI,Uniswap,5.918764894665616,3727179903.940392,41,41.0,False,other risk assets,True
 defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:crypto-com-chain,crypto-com-chain,coingecko:crypto-com-chain,CRO,Cronos,0.0924618928265201,3566795149.782095,42,42.0,False,other risk assets,True
@@ -7165,7 +7165,7 @@ defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:midnight-3,midnight-3
 defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:aster-2,aster-2,coingecko:aster-2,ASTER,Aster,0.6880434453369432,1633570949.4603643,64,64.0,False,other risk assets,True
 defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:pax-gold,pax-gold,coingecko:pax-gold,PAXG,PAX Gold,4354.123240047248,1599374533.0643902,65,65.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:ethena,ethena,coingecko:ethena,ENA,Ethena,0.2035936290051172,1565964760.8182943,66,66.0,False,other risk assets,True
-defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,124.95136842112755,1555762389.5373995,67,67.0,False,selected majors ex BTC/ETH,True
+defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,124.95136842112755,1555762389.5373995,67,67.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:internet-computer,internet-computer,coingecko:internet-computer,ICP,Internet Computer,2.8332761532939217,1546709436.402337,68,68.0,False,other risk assets,True
 defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:hash-2,hash-2,coingecko:hash-2,HASH,Provenance Blockchain,0.0291263721882212,1540183292.0818534,69,69.0,False,other risk assets,True
 defillama_monthly_universe,2025-12-31,2025-12-01,coingecko:hashnote-usyc,hashnote-usyc,coingecko:hashnote-usyc,USYC,Circle USYC,1.1107664237662482,1536650944.3523705,70,70.0,False,other risk assets,True
@@ -7241,7 +7241,7 @@ defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:hedera-hashgraph,hede
 defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:world-liberty-financial,world-liberty-financial,coingecko:world-liberty-financial,WLFI,World Liberty Financial,0.1537792881823592,4188981705.6864576,40,40.0,False,other risk assets,True
 defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:ethena-staked-usde,ethena-staked-usde,coingecko:ethena-staked-usde,SUSDE,Ethena Staked USDe,1.215637094813424,3774062077.3348136,41,41.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:paypal-usd,paypal-usd,coingecko:paypal-usd,PYUSD,PayPal USD,0.9988156186707374,3598509368.0805182,42,42.0,False,stable-like assets,True
-defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.4556375963602088,3546077462.8940334,43,43.0,False,other risk assets,True
+defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.4556375963602088,3546077462.8940334,43,43.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:crypto-com-chain,crypto-com-chain,coingecko:crypto-com-chain,CRO,Cronos,0.0836086355962001,3329071492.3153067,44,44.0,False,other risk assets,True
 defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:rain,rain,coingecko:rain,RAIN,Rain,0.0094240572885957,3201710245.9796004,45,45.0,False,other risk assets,True
 defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:polkadot,polkadot,coingecko:polkadot,DOT,Polkadot,1.687037025001635,2801568727.6287384,46,46.0,False,other risk assets,True
@@ -7268,7 +7268,7 @@ defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:kelp-dao-restaked-eth
 defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:binance-peg-weth,binance-peg-weth,coingecko:binance-peg-weth,WETH,Binance-Peg WETH,2702.008292090601,1635069078.5539658,67,67.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:htx-dao,htx-dao,coingecko:htx-dao,HTX,HTX DAO,1.7736262223e-06,1625016127.2939682,68,68.0,False,other risk assets,True
 defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:global-dollar,global-dollar,coingecko:global-dollar,USDG,Global Dollar,0.999769411746388,1593747050.7691052,69,69.0,False,other risk assets,True
-defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,117.34967071975872,1541990937.1618884,70,70.0,False,selected majors ex BTC/ETH,True
+defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,117.34967071975872,1541990937.1618884,70,70.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:ondo-finance,ondo-finance,coingecko:ondo-finance,ONDO,Ondo,0.3111402310213109,1515103550.2567618,71,71.0,False,other risk assets,True
 defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:aster-2,aster-2,coingecko:aster-2,ASTER,Aster,0.6045989473681607,1484119244.7850769,72,72.0,False,other risk assets,True
 defillama_monthly_universe,2026-01-31,2026-01-01,coingecko:sky,sky,coingecko:sky,SKY,Sky,0.0635211667843868,1459967964.5179858,73,73.0,False,other risk assets,True
@@ -7341,7 +7341,7 @@ defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:zcash,zcash,coingecko
 defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:ethena-staked-usde,ethena-staked-usde,coingecko:ethena-staked-usde,SUSDE,Ethena Staked USDe,1.220435477000382,3513039742.8878245,40,40.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:sui,sui,coingecko:sui,SUI,Sui,0.8999777148138484,3460454611.190023,41,41.0,False,other risk assets,True
 defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,5.7878851314e-06,3410642433.664422,42,42.0,False,other risk assets,True
-defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.2986944151343192,3185375530.98131,43,43.0,False,other risk assets,True
+defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.2986944151343192,3185375530.98131,43,43.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:crypto-com-chain,crypto-com-chain,coingecko:crypto-com-chain,CRO,Cronos,0.0756831029807633,3109171621.74232,44,44.0,False,other risk assets,True
 defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:world-liberty-financial,world-liberty-financial,coingecko:world-liberty-financial,WLFI,World Liberty Financial,0.1110935717374748,3068221748.9523506,45,45.0,False,other risk assets,True
 defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:tether-gold,tether-gold,coingecko:tether-gold,XAUT,Tether Gold,5259.012409049261,2739528738.657448,46,46.0,False,productized/wrapped assets,True
@@ -7383,7 +7383,7 @@ defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:pump-fun,pump-fun,coi
 defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:jito-staked-sol,jito-staked-sol,coingecko:jito-staked-sol,JITOSOL,Jito Staked SOL,103.57123419018134,1037439351.740897,82,82.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:wbnb,wbnb,coingecko:wbnb,WBNB,Wrapped BNB,614.0344032243861,1033231862.562869,83,83.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:morpho,morpho,coingecko:morpho,MORPHO,Morpho,1.8203692613943203,1007063431.0973768,84,84.0,False,other risk assets,True
-defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,81.92236243813703,993372228.9282812,85,85.0,False,selected majors ex BTC/ETH,True
+defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,81.92236243813703,993372228.9282812,85,85.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:midnight-3,midnight-3,coingecko:midnight-3,NIGHT,Midnight,0.0586369102165037,974845715.2420828,86,86.0,False,other risk assets,True
 defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:bridged-usdc-polygon-pos-bridge,bridged-usdc-polygon-pos-bridge,coingecko:bridged-usdc-polygon-pos-bridge,USDC.E,Polygon Bridged USDC (Polygon PoS),0.999991150373552,972604784.4273374,87,87.0,False,other risk assets,True
 defillama_monthly_universe,2026-02-28,2026-02-01,coingecko:quant-network,quant-network,coingecko:quant-network,QNT,Quant,64.18724038103669,936486341.3400187,88,88.0,False,other risk assets,True
@@ -7443,7 +7443,7 @@ defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:rain,rain,coingecko:r
 defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:ethena-staked-usde,ethena-staked-usde,coingecko:ethena-staked-usde,SUSDE,Ethena Staked USDe,1.2243534681708708,3540298442.393037,42,42.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,5.9214979393e-06,3489461486.5029764,43,43.0,False,other risk assets,True
 defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:sui,sui,coingecko:sui,SUI,Sui,0.8626989834642331,3363579438.974811,44,44.0,False,other risk assets,True
-defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.2273300558503524,3022925498.78157,45,45.0,False,other risk assets,True
+defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.2273300558503524,3022925498.78157,45,45.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:bittensor,bittensor,coingecko:bittensor,TAO,Bittensor,311.07684863013185,2984353814.5589385,46,46.0,False,other risk assets,True
 defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:crypto-com-chain,crypto-com-chain,coingecko:crypto-com-chain,CRO,Cronos,0.0697305509723635,2950450941.090405,47,47.0,False,other risk assets,True
 defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:world-liberty-financial,world-liberty-financial,coingecko:world-liberty-financial,WLFI,World Liberty Financial,0.0984744419092154,2832612696.216052,48,48.0,False,other risk assets,True
@@ -7476,7 +7476,7 @@ defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:ethereum-classic,ethe
 defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:internet-computer,internet-computer,coingecko:internet-computer,ICP,Internet Computer,2.2436480921069712,1235538729.7018766,75,75.0,False,other risk assets,True
 defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:siren-2,siren-2,coingecko:siren-2,SIREN,Siren,1.693623457554995,1232734489.9904656,76,76.0,False,other risk assets,True
 defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:binance-peg-weth,binance-peg-weth,coingecko:binance-peg-weth,WETH,Binance-Peg WETH,2020.8645640918603,1224368576.698277,77,77.0,False,productized/wrapped assets,True
-defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,82.45273833075639,1155454375.3143845,78,78.0,False,selected majors ex BTC/ETH,True
+defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,82.45273833075639,1155454375.3143845,78,78.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:wrapped-tron,wrapped-tron,coingecko:wrapped-tron,WTRX,Wrapped Tron,0.3190140423226936,1142326520.7777526,79,79.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:gatechain-token,gatechain-token,coingecko:gatechain-token,GT,Gate,6.541165783266061,1133103428.1424007,80,80.0,False,other risk assets,True
 defillama_monthly_universe,2026-03-31,2026-03-01,coingecko:janus-henderson-anemoy-treasury-fund,janus-henderson-anemoy-treasury-fund,coingecko:janus-henderson-anemoy-treasury-fund,JTRSY,Janus Henderson Anemoy Treasury Fund,1.098681,1115645979.1496542,81,81.0,False,other risk assets,True
@@ -7542,7 +7542,7 @@ defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:rain,rain,coingecko:r
 defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:shiba-inu,shiba-inu,coingecko:shiba-inu,SHIB,Shiba Inu,6.1541918365e-06,3626434524.399024,41,41.0,False,other risk assets,True
 defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:sui,sui,coingecko:sui,SUI,Sui,0.9067366110570024,3584772286.672788,42,42.0,False,other risk assets,True
 defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:paypal-usd,paypal-usd,coingecko:paypal-usd,PYUSD,PayPal USD,0.9999330040562994,3373453125.2333093,43,43.0,False,stable-like assets,True
-defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.320891008074176,3296031738.3785686,44,44.0,False,other risk assets,True
+defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.320891008074176,3296031738.3785686,44,44.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:crypto-com-chain,crypto-com-chain,coingecko:crypto-com-chain,CRO,Cronos,0.0684219463871351,2980704953.0293465,45,45.0,False,other risk assets,True
 defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:hashnote-usyc,hashnote-usyc,coingecko:hashnote-usyc,USYC,Circle USYC,1.1226777757721198,2920188591.2207623,46,46.0,False,other risk assets,True
 defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:tether-gold,tether-gold,coingecko:tether-gold,XAUT,Tether Gold,4556.353918547095,2550498983.5504503,47,47.0,False,productized/wrapped assets,True
@@ -7586,7 +7586,7 @@ defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:bridged-usdc-polygon-
 defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:wbnb,wbnb,coingecko:wbnb,WBNB,Wrapped BNB,617.2161858374869,1089822581.427384,85,85.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:clbtc,clbtc,coingecko:clbtc,CLBTC,clBTC,77030.50495209983,1075046794.5247636,86,86.0,False,other risk assets,True
 defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:united-stables,united-stables,coingecko:united-stables,U,United Stables,0.9998252700113348,1027501899.5148675,87,87.0,False,stable-like assets,True
-defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,83.00406117293188,1024209322.3464196,88,88.0,False,selected majors ex BTC/ETH,True
+defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,83.00406117293188,1024209322.3464196,88,88.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:quant-network,quant-network,coingecko:quant-network,QNT,Quant,70.10455131549999,1019319366.2194344,89,89.0,False,other risk assets,True
 defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:polygon-ecosystem-token,polygon-ecosystem-token,coingecko:polygon-ecosystem-token,POL,POL (ex-MATIC),0.0930094563782997,989127235.7260144,90,90.0,False,other risk assets,True
 defillama_monthly_universe,2026-04-30,2026-04-01,coingecko:algorand,algorand,coingecko:algorand,ALGO,Algorand,0.1105171361040489,984109122.8531402,91,91.0,False,other risk assets,True
@@ -7628,7 +7628,7 @@ defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:coinbase-wrapped-btc,
 defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:susds,susds,coingecko:susds,SUSDS,sUSDS,1.0977775945251922,6177678005.910539,27,27.0,False,other risk assets,True
 defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:bitcoin-cash,bitcoin-cash,coingecko:bitcoin-cash,BCH,Bitcoin Cash,303.0183804193038,6069629700.214048,28,28.0,False,other risk assets,True
 defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:canton-network,canton-network,coingecko:canton-network,CC,Canton,0.1538423655633861,5950230374.890638,29,29.0,False,other risk assets,True
-defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.8130206182837367,4892785002.304243,30,30.0,False,other risk assets,True
+defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.8130206182837367,4892785002.304243,30,30.0,False,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:weth,weth,coingecko:weth,WETH,WETH,2018.238066457788,4755927994.918696,31,31.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:usd1-wlfi,usd1-wlfi,coingecko:usd1-wlfi,USD1,USD1,0.998414010926548,4727257399.817148,32,32.0,False,stable-like assets,True
 defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:ethena-usde,ethena-usde,coingecko:ethena-usde,USDE,Ethena USDe,0.9989982214336548,4500878229.098343,33,33.0,False,stable-like assets,True
@@ -7659,7 +7659,7 @@ defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:okb,okb,coingecko:okb
 defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:uniswap,uniswap,coingecko:uniswap,UNI,Uniswap,3.0480628414659234,1936689798.533177,58,58.0,False,other risk assets,True
 defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:aster-2,aster-2,coingecko:aster-2,ASTER,Aster,0.7389041844468229,1906039577.8162456,59,59.0,False,other risk assets,True
 defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:world-liberty-financial,world-liberty-financial,coingecko:world-liberty-financial,WLFI,World Liberty Financial,0.0592111537718558,1883392175.0037968,60,60.0,False,other risk assets,True
-defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,82.5501505734661,1849200427.7963653,61,61.0,False,selected majors ex BTC/ETH,True
+defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,82.5501505734661,1849200427.7963653,61,61.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:ondo-finance,ondo-finance,coingecko:ondo-finance,ONDO,Ondo,0.3740582390798063,1821565367.774957,62,62.0,False,other risk assets,True
 defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:ethena-staked-usde,ethena-staked-usde,coingecko:ethena-staked-usde,SUSDE,Ethena Staked USDe,1.230600357098777,1790591580.8708236,63,63.0,False,productized/wrapped assets,True
 defillama_monthly_universe,2026-05-31,2026-05-01,coingecko:ripple-usd,ripple-usd,coingecko:ripple-usd,RLUSD,Ripple USD,0.9998781448566176,1698103791.440894,64,64.0,False,other risk assets,True
@@ -7727,7 +7727,7 @@ defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:canton-network,canton
 defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:susds,susds,coingecko:susds,SUSDS,sUSDS,1.0995528201306997,6172729778.312942,26,26.0,True,other risk assets,True
 defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:chainlink,chainlink,coingecko:chainlink,LINK,Chainlink,8.295039392515646,6031547126.024245,27,27.0,True,other risk assets,True
 defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:coinbase-wrapped-btc,coinbase-wrapped-btc,coingecko:coinbase-wrapped-btc,CBBTC,Coinbase Wrapped BTC,66290.33601521046,5643847286.923026,28,28.0,True,productized/wrapped assets,True
-defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.7165608062570197,4608974996.586979,29,29.0,True,other risk assets,True
+defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),1.7165608062570197,4608974996.586979,29,29.0,True,selected majors ex BTC/ETH,True
 defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:bitcoin-cash,bitcoin-cash,coingecko:bitcoin-cash,BCH,Bitcoin Cash,224.47906536937936,4501812164.436624,30,30.0,True,other risk assets,True
 defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:usd1-wlfi,usd1-wlfi,coingecko:usd1-wlfi,USD1,USD1,1.0001505947907736,4498395453.461183,31,31.0,True,stable-like assets,True
 defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:ethena-usde,ethena-usde,coingecko:ethena-usde,USDE,Ethena USDe,0.9994049107401222,4490247148.598378,32,32.0,True,stable-like assets,True
@@ -7760,7 +7760,7 @@ defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:uniswap,uniswap,coing
 defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:aster-2,aster-2,coingecko:aster-2,ASTER,Aster,0.6509085533578316,1740802623.5997818,59,59.0,True,other risk assets,True
 defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:ethena-staked-usde,ethena-staked-usde,coingecko:ethena-staked-usde,SUSDE,Ethena Staked USDe,1.234574085687678,1728364894.25186,60,60.0,True,productized/wrapped assets,True
 defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:polkadot,polkadot,coingecko:polkadot,DOT,Polkadot,1.0104334313365508,1706459002.0813105,61,61.0,True,other risk assets,True
-defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,73.98127338396797,1653485304.068094,62,62.0,True,selected majors ex BTC/ETH,True
+defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,73.98127338396797,1653485304.068094,62,62.0,True,productized/wrapped assets,True
 defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:ripple-usd,ripple-usd,coingecko:ripple-usd,RLUSD,Ripple USD,0.9998326249121292,1646852735.029493,63,63.0,True,other risk assets,True
 defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:staked-tao-root,staked-tao-root,coingecko:staked-tao-root,SN0,Staked TAO (Root),266.20288978201165,1615178567.076034,64,64.0,True,productized/wrapped assets,True
 defillama_monthly_universe,2026-06-16,2026-06-01,coingecko:binance-bridged-usdc-bnb-smart-chain,binance-bridged-usdc-bnb-smart-chain,coingecko:binance-bridged-usdc-bnb-smart-chain,USDC,Binance Bridged USDC (BNB Smart Chain),0.9997932775236994,1588758640.157805,65,65.0,True,stable-like assets,True

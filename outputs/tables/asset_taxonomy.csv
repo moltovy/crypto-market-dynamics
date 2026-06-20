@@ -27,7 +27,7 @@ coingecko:canton-network,canton-network,coingecko:canton-network,CC,Canton,other
 coingecko:susds,susds,coingecko:susds,SUSDS,sUSDS,other risk assets
 coingecko:chainlink,chainlink,coingecko:chainlink,LINK,Chainlink,other risk assets
 coingecko:coinbase-wrapped-btc,coinbase-wrapped-btc,coingecko:coinbase-wrapped-btc,CBBTC,Coinbase Wrapped BTC,productized/wrapped assets
-coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),other risk assets
+coingecko:the-open-network,the-open-network,coingecko:the-open-network,GRAM,Gram (prev. Toncoin),selected majors ex BTC/ETH
 coingecko:bitcoin-cash,bitcoin-cash,coingecko:bitcoin-cash,BCH,Bitcoin Cash,other risk assets
 coingecko:usd1-wlfi,usd1-wlfi,coingecko:usd1-wlfi,USD1,USD1,stable-like assets
 coingecko:ethena-usde,ethena-usde,coingecko:ethena-usde,USDE,Ethena USDe,stable-like assets
@@ -60,7 +60,7 @@ coingecko:uniswap,uniswap,coingecko:uniswap,UNI,Uniswap,other risk assets
 coingecko:aster-2,aster-2,coingecko:aster-2,ASTER,Aster,other risk assets
 coingecko:ethena-staked-usde,ethena-staked-usde,coingecko:ethena-staked-usde,SUSDE,Ethena Staked USDe,productized/wrapped assets
 coingecko:polkadot,polkadot,coingecko:polkadot,DOT,Polkadot,other risk assets
-coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,selected majors ex BTC/ETH
+coingecko:wrapped-solana,wrapped-solana,coingecko:wrapped-solana,SOL,Wrapped SOL,productized/wrapped assets
 coingecko:ripple-usd,ripple-usd,coingecko:ripple-usd,RLUSD,Ripple USD,other risk assets
 coingecko:staked-tao-root,staked-tao-root,coingecko:staked-tao-root,SN0,Staked TAO (Root),productized/wrapped assets
 coingecko:binance-bridged-usdc-bnb-smart-chain,binance-bridged-usdc-bnb-smart-chain,coingecko:binance-bridged-usdc-bnb-smart-chain,USDC,Binance Bridged USDC (BNB Smart Chain),stable-like assets
@@ -155,7 +155,7 @@ coingecko:lighter,lighter,coingecko:lighter,LIT,Lighter,other risk assets
 coingecko:virtual-protocol,virtual-protocol,coingecko:virtual-protocol,VIRTUAL,Virtuals Protocol,other risk assets
 coingecko:syrupusdt,syrupusdt,coingecko:syrupusdt,SYRUPUSDT,syrupUSDT,other risk assets
 coingecko:aerodrome-finance,aerodrome-finance,coingecko:aerodrome-finance,AERO,Aerodrome Finance,other risk assets
-coingecko:binance-peg-xrp,binance-peg-xrp,coingecko:binance-peg-xrp,XRP,Binance-Peg XRP,selected majors ex BTC/ETH
+coingecko:binance-peg-xrp,binance-peg-xrp,coingecko:binance-peg-xrp,XRP,Binance-Peg XRP,productized/wrapped assets
 coingecko:wrapped-flare,wrapped-flare,coingecko:wrapped-flare,WFLR,Wrapped Flare,productized/wrapped assets
 coingecko:jupiter-staked-sol,jupiter-staked-sol,coingecko:jupiter-staked-sol,JUPSOL,Jupiter Staked SOL,productized/wrapped assets
 coingecko:hastra-prime,hastra-prime,coingecko:hastra-prime,PRIME,PRIME,other risk assets
@@ -180,7 +180,7 @@ coingecko:spx6900,spx6900,coingecko:spx6900,SPX,SPX6900,other risk assets
 coingecko:ethgas-2,ethgas-2,coingecko:ethgas-2,GWEI,ETHGas,other risk assets
 coingecko:pyth-network,pyth-network,coingecko:pyth-network,PYTH,Pyth Network,other risk assets
 coingecko:wrapped-ether-mantle-bridge,wrapped-ether-mantle-bridge,coingecko:wrapped-ether-mantle-bridge,WETH,Mantle Bridged WETH (Mantle),productized/wrapped assets
-coingecko:ether-fi,ether-fi,coingecko:ether-fi,ETHFI,Ether.fi,other risk assets
+coingecko:ether-fi,ether-fi,coingecko:ether-fi,ETHFI,Ether.fi,governance/infrastructure risk assets
 coingecko:susdai,susdai,coingecko:susdai,SUSDAI,Staked USDai,productized/wrapped assets
 coingecko:unibase,unibase,coingecko:unibase,UB,Unibase,other risk assets
 coingecko:gnosis,gnosis,coingecko:gnosis,GNO,Gnosis,other risk assets

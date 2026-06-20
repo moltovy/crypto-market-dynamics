@@ -24,11 +24,15 @@ This is the canonical public output surface for Crypto Market Dynamics.
 - `tables/evidence_ledger.csv`
 - `tables/feature_registry.csv`
 - `tables/leverage_tail_risk_summary.csv`
+- `tables/local_window_correlation_distribution.csv`
 - `tables/mvrv_mechanical_link_audit.csv`
 - `tables/pit_market_structure_summary.csv`
+- `tables/provider_data_disposition.csv`
 - `tables/results_at_a_glance.md`
 - `tables/robustness_summary.csv`
 - `tables/rolling_exposure_summary.csv`
+- `tables/rolling_tradfi_exposures.csv`
+- `tables/selected_major_comparable_window_metrics.csv`
 - `tables/selected_major_risk_metrics.csv`
 - `tables/stablecoin_defi_liquidity_summary.csv`
 
@@ -37,7 +41,6 @@ This is the canonical public output surface for Crypto Market Dynamics.
 - `tables/asset_identity_audit.csv`
 - `tables/asset_taxonomy.csv`
 - `tables/block_delta_r2.csv`
-- `tables/bootstrap_robustness.csv`
 - `tables/chain_activity_associations.csv`
 - `tables/chain_fundamental_panel_summary.csv`
 - `tables/claim_inventory.csv`
@@ -61,6 +64,7 @@ This is the canonical public output surface for Crypto Market Dynamics.
 - `tables/liquidity_associations.csv`
 - `tables/liquidity_regime_summary.csv`
 - `tables/multicollinearity_diagnostics.csv`
+- `tables/mvrv_identity_points.csv`
 - `tables/mvrv_regime_outcomes.csv`
 - `tables/onchain_state_regimes.csv`
 - `tables/pit_composition.csv`
@@ -91,6 +95,7 @@ This is the canonical public output surface for Crypto Market Dynamics.
 - `report/onchain_valuation_state.md`
 - `report/open_pr_disposition.md`
 - `report/point_in_time_market_structure.md`
+- `report/provider_data_disposition.md`
 - `report/public_readiness.md`
 - `report/reproducibility_report.md`
 - `report/results_and_interpretation.md`

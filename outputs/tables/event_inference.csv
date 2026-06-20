@@ -1,21 +1,21 @@
-event_id,asset,actual_post_10d_return,bootstrap_p_value,method
-btc_spot_etf_launch,BTC,-0.1154409854037226,0.19,moving_block_placebo_windows
-btc_spot_etf_launch,ETH,-0.050647081910497604,0.642,moving_block_placebo_windows
-eth_spot_etf_launch,BTC,-0.09477474553454357,0.25,moving_block_placebo_windows
-eth_spot_etf_launch,ETH,-0.14056125044113266,0.208,moving_block_placebo_windows
-bitcoin_halving_2024,BTC,-0.050946241849414875,0.492,moving_block_placebo_windows
-bitcoin_halving_2024,ETH,-0.014174771306553424,0.902,moving_block_placebo_windows
-dencun_upgrade,BTC,-0.11013731920273528,0.208,moving_block_placebo_windows
-dencun_upgrade,ETH,-0.17788528219947608,0.122,moving_block_placebo_windows
-luna_collapse_2022,BTC,-0.11640352352537242,0.186,moving_block_placebo_windows
-luna_collapse_2022,ETH,-0.22171753880668366,0.076,moving_block_placebo_windows
-ftx_collapse_2022,BTC,-0.20853829877278862,0.038,moving_block_placebo_windows
-ftx_collapse_2022,ETH,-0.25745413949971585,0.042,moving_block_placebo_windows
-svb_crisis_2023,BTC,0.30659933101958536,0.004,moving_block_placebo_windows
-svb_crisis_2023,ETH,0.18705806908155687,0.106,moving_block_placebo_windows
-yen_carry_unwind_2024,BTC,-0.010435952476624877,0.878,moving_block_placebo_windows
-yen_carry_unwind_2024,ETH,-0.0452172865951308,0.676,moving_block_placebo_windows
-sec_generic_etp_listing_standards_2025,BTC,-0.06318008059215963,0.4,moving_block_placebo_windows
-sec_generic_etp_listing_standards_2025,ETH,-0.1132983298108563,0.338,moving_block_placebo_windows
-crypto_liquidation_tariff_shock_2025,BTC,-0.09614555049876827,0.238,moving_block_placebo_windows
-crypto_liquidation_tariff_shock_2025,ETH,-0.09333545684668287,0.414,moving_block_placebo_windows
+event_id,asset,actual_post_10d_return,actual_observations,block_size,placebo_window_count,placebo_p_value,eligible_start_date,eligible_end_date,event_window_convention,method
+btc_spot_etf_launch,BTC,-0.10872726673251698,10,10,2007,0.2147483806676632,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+btc_spot_etf_launch,ETH,-0.06357928783040023,10,10,2007,0.5595416043846537,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+eth_spot_etf_launch,BTC,-0.07071004457212204,10,10,2007,0.38066766317887396,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+eth_spot_etf_launch,ETH,-0.1528211750266344,10,10,2007,0.2062780269058296,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+bitcoin_halving_2024,BTC,-0.06852060225750023,10,10,2007,0.39461883408071746,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+bitcoin_halving_2024,ETH,-0.04603713049695557,10,10,2007,0.6571998006975586,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+dencun_upgrade,BTC,-0.1330039150848794,10,10,2007,0.15097159940209268,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+dencun_upgrade,ETH,-0.18474642147683085,10,10,2007,0.1439960139511709,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+luna_collapse_2022,BTC,0.007107691849618902,10,10,2007,0.9177877428998505,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+luna_collapse_2022,ETH,-0.09928304096956353,10,10,2007,0.3846537120079721,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+ftx_collapse_2022,BTC,-0.1048733249529814,10,10,2007,0.22820129546586945,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+ftx_collapse_2022,ETH,-0.09656375704722997,10,10,2007,0.3936223218734429,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+svb_crisis_2023,BTC,0.3194274668025354,10,10,2007,0.01195814648729447,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+svb_crisis_2023,ETH,0.19522750446483705,10,10,2007,0.1290483308420528,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+yen_carry_unwind_2024,BTC,0.06328523427322885,10,10,2007,0.42750373692077726,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+yen_carry_unwind_2024,ETH,0.060262098791102225,10,10,2007,0.57847533632287,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+sec_generic_etp_listing_standards_2025,BTC,-0.060276182939755785,10,10,2007,0.44245142002989535,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+sec_generic_etp_listing_standards_2025,ETH,-0.1329610299880919,10,10,2007,0.2670652715495765,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+crypto_liquidation_tariff_shock_2025,BTC,-0.02128088405598305,10,10,2007,0.7608370702541106,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+crypto_liquidation_tariff_shock_2025,ETH,0.037594009095284875,10,10,2007,0.7095166915794718,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events

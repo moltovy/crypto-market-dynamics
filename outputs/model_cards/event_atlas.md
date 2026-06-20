@@ -18,11 +18,11 @@ The pipeline reports the effective sample size in every canonical model table.
 
 ## Transformations and timing
 
-Predictive/tail-state regressors are lagged where used as state variables. Contemporaneous diagnostics are labeled separately.
+Contemporaneous exposure models use same-day TradFi returns/changes to measure co-movement. Lagged liquidity, sentiment, leverage, funding, OI, and exchange-flow variables are labeled lagged-state associations. ETF-era augmented models include ETF flow intensity at lag 0 and lag 1.
 
 ## Estimator and uncertainty method
 
-HAC OLS, logistic diagnostics, descriptive summaries, FDR adjustment, VIF/condition diagnostics, and moving-block robustness where applicable.
+HAC OLS, logistic diagnostics, descriptive summaries, FDR adjustment, VIF/condition diagnostics, accepted weekly robustness models, and local-window correlation distributions where applicable.
 
 ## Same-support rule
 
@@ -42,7 +42,7 @@ Documented in the evidence ledger and feature registry.
 
 ## Robustness checks
 
-Daily/weekly checks, multicollinearity diagnostics, ridge stability, and moving-block robustness are included where applicable.
+Accepted daily/weekly checks, multicollinearity diagnostics, ridge stability, and local-window correlation distributions are included where applicable.
 
 ## Prohibited claims
 

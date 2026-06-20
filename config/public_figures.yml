@@ -32,7 +32,7 @@ figures:
   filename: outputs/figures/public/03_tradfi_integration_over_time.png
   status: public
   research_question: How did TradFi exposure evolve over time?
-  source_tables: outputs/tables/rolling_exposures.csv
+  source_tables: outputs/tables/rolling_tradfi_exposures.csv
   chart_type: generated
   units: see axes
   caption: How did TradFi exposure evolve over time?

@@ -1,0 +1,5 @@
+feature_id,full_sample_correlation,local_window_days,window_count,local_corr_p05,local_corr_median,local_corr_p95,first_window_end,last_window_end,method
+qqq_ret,0.3758733464436909,20,2272,-0.16682647648435556,0.3632800609956688,0.7096793767711128,2020-01-22,2026-04-11,distribution_of_overlapping_20_day_local_window_correlations_not_bootstrap_ci
+vix_d1,-0.3728537262353668,20,2272,-0.6982406663843811,-0.34943182951884727,0.1799732000950805,2020-01-22,2026-04-11,distribution_of_overlapping_20_day_local_window_correlations_not_bootstrap_ci
+btc_etf_flow_intensity_lag0,0.3740610704405447,20,802,-0.10521645897110064,0.39675090796255136,0.7526181675289884,2024-01-30,2026-04-10,distribution_of_overlapping_20_day_local_window_correlations_not_bootstrap_ci
+stablecoin_supply_growth_lag1,0.02157507180763428,20,2272,-0.35991255763983965,0.017997070547681803,0.3429727599727513,2020-01-22,2026-04-11,distribution_of_overlapping_20_day_local_window_correlations_not_bootstrap_ci

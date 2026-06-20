@@ -1,5 +1,5 @@
 model,feature_id,n,coef,z_stat,p_value,class_balance,interpretation
-lagged_logit_bottom5,btc_oi_growth,2020,2.3119697656197244,1.1397257893952657,0.2544005593919657,0.05198019801980198,Lagged leverage-state association with bottom-5pct BTC return days.
-lagged_logit_bottom5,btc_funding_z,2020,-0.09566887838884965,-1.1708444927740576,0.2416612899552646,0.05198019801980198,Lagged leverage-state association with bottom-5pct BTC return days.
-lagged_logit_bottom5,btc_leverage_ratio_percentile,2020,0.26386481301163384,0.5529103642512703,0.5803247901129935,0.05198019801980198,Lagged leverage-state association with bottom-5pct BTC return days.
-lagged_logit_bottom5,btc_basis_z,2020,0.4754060274869208,7.071500304309711,1.5326746767994345e-12,0.05198019801980198,Lagged leverage-state association with bottom-5pct BTC return days.
+lagged_logit_bottom5,btc_oi_growth_lag1,2020,1.368303133184233,0.6520473676047627,0.5143706158267297,0.05198019801980198,Lagged leverage-state association with bottom-5pct BTC return days.
+lagged_logit_bottom5,btc_funding_z_lag1,2020,-0.10244446730493664,-1.253024947776009,0.21019662761369995,0.05198019801980198,Lagged leverage-state association with bottom-5pct BTC return days.
+lagged_logit_bottom5,btc_leverage_ratio_percentile_lag1,2020,0.03486889164549597,0.07449703464813894,0.9406149006203551,0.05198019801980198,Lagged leverage-state association with bottom-5pct BTC return days.
+lagged_logit_bottom5,btc_basis_z,2020,0.3725718775552341,5.430034387036442,5.634319445852799e-08,0.05198019801980198,Lagged leverage-state association with bottom-5pct BTC return days.

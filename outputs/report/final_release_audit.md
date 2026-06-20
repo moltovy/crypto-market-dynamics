@@ -10,6 +10,7 @@ Pass, pending reviewer approval and merge.
 - Semantic table and report surface under `outputs/`.
 - Public figure surface limited to nine canonical figures under `outputs/figures/public/`.
 - MVRV same-day features removed from primary BTC/ETH exposure models.
+- Contemporaneous TradFi exposure, lagged-state association, and ETF-era augmented model families are separated.
 - ETF flows framed as market-plumbing associations, not causal return drivers.
 - Monthly PIT market-structure data used for composition, concentration, and turnover only.
 - Current-top50 daily cohort marked exploratory and survivorship-biased.
