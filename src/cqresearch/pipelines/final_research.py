@@ -25,6 +25,9 @@ import yaml
 from config.paths import PROJECT_ROOT
 from matplotlib.ticker import PercentFormatter
 
+from cqresearch.data.panel_builder import build_master_panel as build_source_master_panel
+from cqresearch.data.panel_builder import write_panel as write_source_panel
+
 TABLE_SCHEMA_COLUMNS = {
     "evidence_ledger": [
         "claim_id",
@@ -680,6 +683,9 @@ def feature_registry_rows() -> list[dict[str, Any]]:
 
 def load_master_panel(root: Path = PROJECT_ROOT) -> pd.DataFrame:
     panel_path = root / "reports" / "panels" / "master_daily.parquet"
+    if not panel_path.exists():
+        panel, report = build_source_master_panel()
+        write_source_panel(panel, report, panel_path.parent)
     panel = pd.read_parquet(panel_path)
     panel.index = pd.to_datetime(panel.index)
     panel.index.name = "date"
