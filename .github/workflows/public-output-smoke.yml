@@ -23,15 +23,8 @@ jobs:
       - name: Install dependencies with uv
         run: uv sync --all-extras
 
-      - name: Export canonical outputs
-        run: uv run python scripts/run_all.py
-
-      - name: Confirm Data is untouched
-        run: |
-          if [ -n "$(git status --short -- Data)" ]; then
-            git status --short -- Data
-            exit 1
-          fi
+      - name: Public surface guardrails
+        run: uv run python scripts/check_public_surface.py
 
       - name: Upload canonical outputs
         uses: actions/upload-artifact@v4

@@ -20,7 +20,6 @@ import pandas as pd
 
 from cqresearch.features.returns import first_diff, log_return
 
-
 PRICE_COLS = [
     "btc_close", "eth_close",
     "spy_close", "qqq_close", "gld_close", "xlk_close",

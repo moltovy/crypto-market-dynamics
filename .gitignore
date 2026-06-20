@@ -43,16 +43,16 @@ desktop.ini
 .vscode/settings.json
 
 # --- Project outputs that should NOT be tracked
-# Parquet panels are large and regenerable -- keep out of git (use git-lfs or DVC later if needed)
-reports/panels/*.parquet
-reports/panels/**/*.parquet
+# Local provider data and regenerable panels stay on disk but out of git.
+Data/
+data_local/
+data_cache/
+reports/panels/
+*.parquet
 
 # Ad-hoc exports
 tmp/
 *.tmp
-
-# Local API/cache payloads for optional market-structure refreshes.
-data_cache/
 
 # --- Never commit secrets or API-key material
 *.key

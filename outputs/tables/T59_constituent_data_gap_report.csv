@@ -1,2 +1,0 @@
-dataset,status,reason,row_count,market_cap_missing_or_nonpositive_rows,market_cap_missing_or_nonpositive_share,guardrail
-daily_constituent_ohlcv,available,Current-top50 exploratory daily OHLCV cohort is present.,50449,2226,0.04412376855834605,current_top50_exploratory_survivorship_biased_not_primary_altseason

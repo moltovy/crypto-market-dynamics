@@ -1,0 +1,11 @@
+symbol,canonical_name,coingecko_id,source_symbols,first_valid_date,last_valid_date,observations,coverage_note
+ADA,Cardano,coingecko:cardano,ADA,2022-12-31,2026-06-16,1263,Current daily constituent coverage begins 2022-12-31/2023 for most selected assets; use comparable-window metrics for cross-asset comparisons.
+BNB,BNB,coingecko:binancecoin,BNB,2022-12-31,2026-06-16,1263,Current daily constituent coverage begins 2022-12-31/2023 for most selected assets; use comparable-window metrics for cross-asset comparisons.
+BTC,Bitcoin,coingecko:bitcoin,BTC,2022-12-31,2026-06-16,1263,Current daily constituent coverage begins 2022-12-31/2023 for most selected assets; use comparable-window metrics for cross-asset comparisons.
+DOGE,Dogecoin,coingecko:dogecoin,DOGE,2022-12-31,2026-06-16,1263,Current daily constituent coverage begins 2022-12-31/2023 for most selected assets; use comparable-window metrics for cross-asset comparisons.
+ETH,Ethereum,coingecko:ethereum,ETH,2022-12-31,2026-06-16,1263,Current daily constituent coverage begins 2022-12-31/2023 for most selected assets; use comparable-window metrics for cross-asset comparisons.
+HYPE,Hyperliquid,coingecko:hyperliquid,HYPE,2024-11-29,2026-06-16,564,Short-history asset; do not compare as full-cycle history.
+SOL,Solana,coingecko:solana,SOL,2022-12-31,2026-06-16,1263,Current daily constituent coverage begins 2022-12-31/2023 for most selected assets; use comparable-window metrics for cross-asset comparisons.
+TON,Toncoin,coingecko:the-open-network,GRAM,2022-12-31,2026-06-16,1263,Sourced by canonical coingecko_id coingecko:the-open-network; local source symbol is GRAM.
+TRX,TRON,coingecko:tron,TRX,2022-12-31,2026-06-16,1263,Current daily constituent coverage begins 2022-12-31/2023 for most selected assets; use comparable-window metrics for cross-asset comparisons.
+XRP,XRP,coingecko:ripple,XRP,2022-12-31,2026-06-16,1263,Current daily constituent coverage begins 2022-12-31/2023 for most selected assets; use comparable-window metrics for cross-asset comparisons.

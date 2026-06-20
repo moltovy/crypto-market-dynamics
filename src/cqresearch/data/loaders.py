@@ -13,12 +13,11 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
 
 import numpy as np
 import pandas as pd
+from config.paths import DATA_DIR, provider_data_dir
 
-from config.paths import DATA_DIR
 from cqresearch.data.calendars import to_daily_utc
 
 
@@ -68,10 +67,21 @@ def _finalize(df: pd.DataFrame, name: str, path: Path) -> LoadResult:
 
 
 # ---------------------------------------------------------------------------
+# Provider roots
+# ---------------------------------------------------------------------------
+CRYPTOQUANT_DIR = provider_data_dir("cryptoquant")
+TRADINGVIEW_DIR = provider_data_dir("tradingview")
+FARSIDE_DIR = provider_data_dir("farside")
+DEFILLAMA_DIR = provider_data_dir("defillama")
+FRED_DIR = provider_data_dir("fred")
+ALTERNATIVEME_DIR = provider_data_dir("alternativeme")
+
+
+# ---------------------------------------------------------------------------
 # Price / market data  (CryptoQuant exports)
 # ---------------------------------------------------------------------------
 def load_btc_price() -> LoadResult:
-    path = DATA_DIR / "CryptoQuant/BTC/Market Data/Bitcoin Price & Volume - Spot, All Exchanges, BTC-USD - Day.csv"
+    path = CRYPTOQUANT_DIR / "BTC/Market Data/Bitcoin Price & Volume - Spot, All Exchanges, BTC-USD - Day.csv"
     df = pd.read_csv(path)
     df = _canonical(df, "date")
     df = df.rename(columns={c: f"btc_{c.lower()}" for c in df.columns})
@@ -83,7 +93,7 @@ def load_btc_price() -> LoadResult:
 
 
 def load_eth_price() -> LoadResult:
-    path = DATA_DIR / "CryptoQuant/ETH/Market Data/Ethereum Price & Volume - Spot, All Exchanges, ETH-USD - Day.csv"
+    path = CRYPTOQUANT_DIR / "ETH/Market Data/Ethereum Price & Volume - Spot, All Exchanges, ETH-USD - Day.csv"
     df = pd.read_csv(path)
     df = _canonical(df, "date")
     df = df.rename(columns={c: f"eth_{c.lower()}" for c in df.columns})
@@ -96,7 +106,7 @@ def load_eth_price() -> LoadResult:
 def load_btc_mcap() -> LoadResult:
     """USD market capitalization (full dollars, not millions)."""
 
-    path = DATA_DIR / "CryptoQuant/BTC/Market Data/Bitcoin Market Cap - Day.csv"
+    path = CRYPTOQUANT_DIR / "BTC/Market Data/Bitcoin Market Cap - Day.csv"
     df = pd.read_csv(path)
     df = _canonical(df, "date")
     df = df.rename(columns={"Market Cap": "btc_mcap_usd"})
@@ -106,7 +116,7 @@ def load_btc_mcap() -> LoadResult:
 
 
 def load_eth_mcap() -> LoadResult:
-    path = DATA_DIR / "CryptoQuant/ETH/Market Data/Ethereum Market Cap - Day.csv"
+    path = CRYPTOQUANT_DIR / "ETH/Market Data/Ethereum Market Cap - Day.csv"
     df = pd.read_csv(path)
     df = _canonical(df, "date")
     df = df.rename(columns={"Market Cap": "eth_mcap_usd"})
@@ -117,8 +127,8 @@ def load_eth_mcap() -> LoadResult:
 
 def load_btc_exchange_netflow() -> LoadResult:
     path = (
-        DATA_DIR
-        / "CryptoQuant/BTC/Exchange Flows/Bitcoin Exchange Netflow (Total) - All Exchanges - Day.csv"
+        CRYPTOQUANT_DIR
+        / "BTC/Exchange Flows/Bitcoin Exchange Netflow (Total) - All Exchanges - Day.csv"
     )
     df = pd.read_csv(path)
     df = _canonical(df, "date")
@@ -129,8 +139,8 @@ def load_btc_exchange_netflow() -> LoadResult:
 
 def load_btc_miner_to_exchange() -> LoadResult:
     path = (
-        DATA_DIR
-        / "CryptoQuant/BTC/Miner Flows/Bitcoin Miner to Exchange Flow (Total) - All Miners, All Exchanges - Day.csv"
+        CRYPTOQUANT_DIR
+        / "BTC/Miner Flows/Bitcoin Miner to Exchange Flow (Total) - All Miners, All Exchanges - Day.csv"
     )
     df = pd.read_csv(path)
     df = _canonical(df, "date")
@@ -142,7 +152,7 @@ def load_btc_miner_to_exchange() -> LoadResult:
 
 
 def load_btc_mvrv() -> LoadResult:
-    path = DATA_DIR / "CryptoQuant/BTC/Market Indicator/Bitcoin MVRV Ratio - Day.csv"
+    path = CRYPTOQUANT_DIR / "BTC/Market Indicator/Bitcoin MVRV Ratio - Day.csv"
     df = pd.read_csv(path)
     df = _canonical(df, "date")
     df = df.rename(columns={"MVRV Ratio": "btc_mvrv"})
@@ -154,7 +164,7 @@ def load_btc_mvrv() -> LoadResult:
 # Macro (FRED panel)
 # ---------------------------------------------------------------------------
 def load_fred() -> LoadResult:
-    path = DATA_DIR / "FRED/fred_macro_panel__daily.csv"
+    path = FRED_DIR / "fred_macro_panel__daily.csv"
     df = pd.read_csv(path)
     df = _canonical(df, "date")
     return _finalize(df, "fred_macro", path)
@@ -163,7 +173,7 @@ def load_fred() -> LoadResult:
 # ---------------------------------------------------------------------------
 # Tradingview daily OHLC family  (equities, DXY, DVOL, CME basis, etc.)
 # ---------------------------------------------------------------------------
-TV_DIR = DATA_DIR / "Tradingview" / "Daily"
+TV_DIR = TRADINGVIEW_DIR / "Daily"
 
 
 def load_tv_close(name: str, prefix: str) -> LoadResult:
@@ -203,7 +213,7 @@ def load_farside(asset: str) -> LoadResult:
         "btc": "farside_btc_etf_flows__daily.csv",
         "eth": "farside_eth_etf_flows__daily.csv",
     }[asset.lower()]
-    path = DATA_DIR / "Farside ETF Data" / file
+    path = FARSIDE_DIR / file
     df = pd.read_csv(path)
     df = _canonical(df, "date")
     # Coerce numeric; strings like "-" should have been cleaned upstream.
@@ -217,7 +227,7 @@ def load_farside(asset: str) -> LoadResult:
 # DeFi / stablecoins
 # ---------------------------------------------------------------------------
 def load_tvl_all() -> LoadResult:
-    path = DATA_DIR / "DefiLlama/TVL/Daily/tvl_all_chains_daily.csv"
+    path = DEFILLAMA_DIR / "TVL/Daily/tvl_all_chains_daily.csv"
     df = pd.read_csv(path)
     df = _canonical(df, "date")
     df = df.rename(columns={"TVL": "defi_tvl_usd"})
@@ -233,7 +243,7 @@ def load_stablecoin_total() -> LoadResult:
     treat NaN as 0 when summing so the total reflects the cross-section at
     each date."""
 
-    path = DATA_DIR / "DefiLlama/Stablecoins/stablecoin_mcap_by_defillama_id__daily.csv"
+    path = DEFILLAMA_DIR / "Stablecoins/stablecoin_mcap_by_defillama_id__daily.csv"
     df = pd.read_csv(path)
     df = _canonical(df, "date")
     totals = df.fillna(0).sum(axis=1).rename("stables_total_usd")
@@ -246,7 +256,7 @@ def load_stablecoin_total() -> LoadResult:
 # Sentiment
 # ---------------------------------------------------------------------------
 def load_fear_greed() -> LoadResult:
-    path = DATA_DIR / "AlternativeMe/fear_greed_index__daily.csv"
+    path = ALTERNATIVEME_DIR / "fear_greed_index__daily.csv"
     df = pd.read_csv(path)
     df = _canonical(df, "date")
     df = df.rename(columns={"fng_value": "fng_value"})

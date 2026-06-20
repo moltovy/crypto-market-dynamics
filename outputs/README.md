@@ -1,161 +1,103 @@
-# Canonical Outputs
+# Outputs
 
-`outputs/` is the canonical public artifact packet for Crypto Market Factor Lab. Historical release packets and internal planning material live under `archive/`.
+This is the canonical public output surface for Crypto Market Dynamics.
+
+## Public Figures
+
+- `figures/public/01_mvrv_mechanics.png`
+- `figures/public/02_tradfi_exposure_shift.png`
+- `figures/public/03_etf_market_plumbing.png`
+- `figures/public/04_leverage_tail_stress.png`
+- `figures/public/05_point_in_time_market_structure.png`
+- `figures/public/06_selected_major_asset_risk.png`
+
+## Public Summary Tables
+
+- `tables/btc_ex_mvrv_feature_strength.csv`
+- `tables/data_source_coverage.csv`
+- `tables/etf_market_plumbing_summary.csv`
+- `tables/eth_feature_strength.csv`
+- `tables/event_response_matrix.csv`
+- `tables/evidence_ledger.csv`
+- `tables/feature_registry.csv`
+- `tables/leverage_tail_risk_summary.csv`
+- `tables/local_window_correlation_distribution.csv`
+- `tables/mvrv_mechanical_link_audit.csv`
+- `tables/pit_market_structure_summary.csv`
+- `tables/provider_data_disposition.csv`
+- `tables/results_at_a_glance.md`
+- `tables/robustness_summary.csv`
+- `tables/rolling_exposure_summary.csv`
+- `tables/rolling_tradfi_exposures.csv`
+- `tables/selected_major_comparable_window_metrics.csv`
+- `tables/selected_major_risk_metrics.csv`
+- `tables/stablecoin_defi_liquidity_summary.csv`
+- `tables/valuation_contamination_audit.csv`
+
+## Supporting Tables
+
+- `tables/asset_identity_audit.csv`
+- `tables/asset_taxonomy.csv`
+- `tables/block_delta_r2.csv`
+- `tables/chain_activity_associations.csv`
+- `tables/chain_fundamental_panel_summary.csv`
+- `tables/claim_inventory.csv`
+- `tables/conventional_partial_r2.csv`
+- `tables/cycle_state_summary.csv`
+- `tables/defi_activity_features.csv`
+- `tables/etf_absorption_metrics.csv`
+- `tables/etf_data_timing_audit.csv`
+- `tables/etf_era_exposure_comparison.csv`
+- `tables/etf_flow_associations.csv`
+- `tables/etf_flow_shock_days.csv`
+- `tables/event_atlas.csv`
+- `tables/event_inference.csv`
+- `tables/exposure_regime_comparison.csv`
+- `tables/fdr_adjusted_inference.csv`
+- `tables/feature_coverage.csv`
+- `tables/frequency_robustness.csv`
+- `tables/leverage_feature_registry.csv`
+- `tables/leverage_state_summary.csv`
+- `tables/liquidation_event_responses.csv`
+- `tables/liquidity_associations.csv`
+- `tables/liquidity_regime_summary.csv`
+- `tables/multicollinearity_diagnostics.csv`
+- `tables/mvrv_identity_points.csv`
+- `tables/mvrv_regime_outcomes.csv`
+- `tables/onchain_state_regimes.csv`
+- `tables/pit_composition.csv`
+- `tables/pit_concentration.csv`
+- `tables/pit_market_structure_monthly.csv`
+- `tables/pit_period_comparison.csv`
+- `tables/pit_turnover.csv`
+- `tables/ridge_stability.csv`
+- `tables/rolling_exposures.csv`
+- `tables/selected_major_betas.csv`
+- `tables/selected_major_coverage.csv`
+- `tables/stablecoin_liquidity_features.csv`
+- `tables/tail_risk_models.csv`
 
 ## Reports
 
 - `report/executive_summary.md`
-- `report/technical_report.md`
-- `report/methodology.md`
-- `report/data_atlas.md`
 - `report/limitations.md`
-- `report/reorganization_summary.md`
+- `report/market_structure_public_surface_check.md`
+- `report/methodology.md`
+- `report/provider_data_disposition.md`
+- `report/reproducibility_report.md`
+- `report/results_and_interpretation.md`
+- `report/visual_quality_audit.md`
 
-## Figures
+## Model Cards
 
-- `figures/F01_mvrv_sensitivity_by_regime_v2.png`
-- `figures/F02_same_support_ablation.png`
-- `figures/F03_btc_ex_mvrv_strength.png`
-- `figures/F04_etf_flow_lead_lag.png`
-- `figures/F05_core_correlation_matrix.png`
-- `figures/F06_rolling_correlations.png`
-- `figures/F07_feature_strength_heatmap.png`
-- `figures/F08_connectedness_robustness.png`
-- `figures/gallery/G01_native_state_detail.png`
-- `figures/gallery/G02_liquidity_context.png`
+- `model_cards/etf_market_plumbing.md`
+- `model_cards/event_atlas.md`
+- `model_cards/lagged_state_associations.md`
+- `model_cards/leverage_tail_risk.md`
+- `model_cards/mvrv_mechanics.md`
+- `model_cards/pit_market_structure.md`
+- `model_cards/selected_major_risk.md`
+- `model_cards/stablecoin_defi_state.md`
+- `model_cards/tradfi_exposure.md`
 
-## Tables
-
-- `tables/README.md`
-- `tables/T01_source_inventory.csv`
-- `tables/T02_panel_coverage.csv`
-- `tables/T03_block_attribution.csv`
-- `tables/T03_rolling_block_partial_r2_btc_180d.csv`
-- `tables/T04_etf_lead_lag.csv`
-- `tables/T05_correlation_regime.csv`
-- `tables/T05_rolling_correlations.csv`
-- `tables/T06_stablecoin_liquidity.csv`
-- `tables/T07_native_factor_ablation.csv`
-- `tables/T07_native_factor_registry.csv`
-- `tables/T07_btc_native_correlations.csv`
-- `tables/T08_structural_breaks.csv`
-- `tables/T09_connectedness.csv`
-- `tables/T09_rolling_connectedness.csv`
-- `tables/T10_robustness.csv`
-- `tables/T11_results_at_a_glance.md`
-- `tables/T12_regime_definitions.csv`
-- `tables/T13_factor_dictionary.md`
-- `tables/T13_factor_dictionary.csv`
-- `tables/T14_feature_strength_btc_full.csv`
-- `tables/T15_feature_strength_btc_ex_mvrv.csv`
-- `tables/T16_feature_strength_eth.csv`
-- `tables/T17_feature_strength_by_regime.csv`
-- `tables/T18_block_strength_by_regime.csv`
-- `tables/T19_same_support_ablation_btc.csv`
-- `tables/T20_same_support_ablation_eth.csv`
-- `tables/T21_top_correlations_btc.csv`
-- `tables/T22_top_correlations_eth.csv`
-- `tables/T23_core_correlation_matrix.csv`
-- `tables/T24_pre_post_correlation_delta.csv`
-- `tables/T25_mvrv_sensitivity_by_regime.csv`
-- `tables/T26_etf_era_feature_strength.csv`
-- `tables/T27_rolling_feature_rank_stability.csv`
-
-## Dashboard
-
-- `dashboard/index.html`
-
-## Reproduce
-
-```powershell
-uv sync --all-extras
-uv run pytest
-uv run mypy src/cqresearch
-uv run python scripts/run_all.py
-```
-
-## Market-Structure Extension
-
-The additive market-structure layer integrates tracked DefiLlama/AlternativeMe/TradingView context with optional DefiLlama, Binance, and CoinMarketCap cache. It does not require API keys for the public build.
-
-Reports:
-
-- `report/altseason_rotation_lab.md`
-- `report/market_evolution_thesis.md`
-- `report/market_structure_modeling_thesis.md`
-- `report/market_structure_methodology.md`
-- `report/market_structure_data_inventory.md`
-- `report/market_structure_limitations.md`
-- `report/market_structure_fetch_diagnostics.md`
-- `report/market_structure_next_data_needed.md`
-
-Figures:
-
-- `figures/F30_market_structure_dashboard.png`
-- `figures/F31_stablecoin_tvl_regimes.png`
-- `figures/F32_sentiment_comparison.png`
-- `figures/F33_cex_dex_activity.png`
-- `figures/F34_binance_liquidity_universe.png`
-- `figures/F35_btc_dominance_cycle_overlay.png`
-- `figures/F36_rwa_dat_growth.png`
-- `figures/F37_market_cap_top100_gap.png`
-- `figures/F38_market_structure_composition.png`
-- `figures/F39_top100_concentration.png`
-- `figures/F40_rank_turnover.png`
-- `figures/F41_cycle_phase_market_structure.png`
-- `figures/F42_market_evolution_dashboard.png`
-- `figures/F43_market_structure_monthly_features.png`
-- `figures/F44_market_structure_return_regimes.png`
-- `figures/F45_market_structure_composition_shift.png`
-- `figures/F46_market_structure_turnover_by_phase.png`
-- `figures/F47_market_structure_modeling_dashboard.png`
-- `figures/F48_altseason_breadth.png`
-- `figures/F49_constituent_return_indexes.png`
-- `figures/F50_return_dispersion.png`
-- `figures/F51_rolling_beta_to_btc.png`
-- `figures/F52_event_response_top50.png`
-- `figures/F53_rotation_dashboard.png`
-
-Tables:
-
-- `tables/T28_market_structure_source_capabilities.csv`
-- `tables/T29_asset_classification.csv`
-- `tables/T30_binance_liquidity_top100.csv`
-- `tables/T31_sentiment_comparison.csv`
-- `tables/T32_stablecoin_tvl_regimes.csv`
-- `tables/T33_cex_dex_activity.csv`
-- `tables/T34_btc_cycle_overlay.csv`
-- `tables/T35_rwa_dat_growth.csv`
-- `tables/T36_market_cap_top100_gap.csv`
-- `tables/T37_market_structure_feature_panel.csv`
-- `tables/T38_fear_greed_blended_daily.csv`
-- `tables/T39_fear_greed_source_overlap_summary.csv`
-- `tables/T40_crypto_universe_monthly.csv`
-- `tables/T41_clean_risk_top100_monthly.csv`
-- `tables/T42_market_structure_composition.csv`
-- `tables/T43_rank_turnover.csv`
-- `tables/T44_cycle_phase_market_structure.csv`
-- `tables/T45_market_evolution_summary.md`
-- `tables/T46_market_structure_monthly_features.csv`
-- `tables/T47_market_structure_daily_context.csv`
-- `tables/T48_market_structure_return_regimes.csv`
-- `tables/T49_market_structure_composition_shift.csv`
-- `tables/T50_market_structure_turnover_by_phase.csv`
-- `tables/T51_market_structure_modeling_summary.md`
-- `tables/T52_constituent_daily_ohlcv.csv`
-- `tables/T53_altseason_breadth.csv`
-- `tables/T54_constituent_return_indexes.csv`
-- `tables/T55_return_dispersion.csv`
-- `tables/T56_rolling_beta_to_btc_eth.csv`
-- `tables/T57_category_rotation_returns.csv`
-- `tables/T58_event_response_top50.csv`
-- `tables/T59_constituent_data_gap_report.csv`
-- `tables/T60_altseason_rotation_summary.md`
-
-Guardrails:
-
-- Binance top100 is exchange-liquidity based, not historical market-cap rank.
-- CMC live fetch requires `CMC_API_KEY`; cached CMC history is included when present.
-- Monthly PIT universe snapshots are the primary market-structure evidence and support composition and turnover analysis, not daily performance or event-return claims.
-- Daily constituent diagnostics are a current-top50 exploratory cohort, not a point-in-time top100 panel or primary altseason backtest.
-- Raw source responses stay in gitignored `data_cache/`.
+Current-top50 daily cohort outputs, where present, are exploratory and survivorship-biased. PIT market-structure evidence is monthly composition/concentration/turnover only.

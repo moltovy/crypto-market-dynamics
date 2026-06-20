@@ -1,30 +1,24 @@
-# Methodology
+# Transformations And Timing
 
-## 1. Feature Construction & Stationarity
-To avoid spurious regressions, all non-stationary series are transformed:
-- **Price series** (BTC, ETH, SPY, QQQ, GLD): Log differences ($r_t = \ln(P_t) - \ln(P_{t-1})$).
-- **Yields, Spreads, Sentiment, and On-chain Levels** (DGS10, DGS2, VIX, MVRV, Exchange Netflow, Miner-to-Exchange flow): First differences ($\Delta X_t = X_t - X_{t-1}$).
-- **ETF-Flow Intensity**: Scaled as daily net USD flow divided by prior-day total asset market capitalization. This normalizes flow magnitudes relative to the growing scale of the market.
+- Prices use log returns.
+- Rates and index levels use first differences where appropriate.
+- Daily TradFi models use common business-date closes: BTC/ETH returns are recomputed between consecutive common TradFi business dates, then aligned with QQQ, SPY, IWM, DXY, gold, VIX, real-yield, and nominal-yield moves on those same business dates.
+- Weekly TradFi models use Friday-to-Friday BTC/ETH and TradFi returns/changes.
+- Crypto-native weekly liquidity/state analysis uses Sunday-ended crypto weeks.
+- ETF trading-day panels compute BTC/ETH returns from the prior ETF trading date to the current ETF trading date.
+- ETF flows are scaled by prior-period market capitalization and modeled separately at lag 0 and lag 1 in ETF-era augmented specifications.
+- Liquidations are expressed as liquidation USD divided by prior-period open interest in percent and prior-period market cap in basis points.
+- MVRV same-day changes are diagnostic only; lagged MVRV levels, percentiles, z-scores, and regimes are used for state conditioning.
+- Stablecoin and DeFi state features are primary at weekly frequency; weekly returns sum daily log returns, weekly changes sum daily level changes, flows sum over the week and scale by prior week-end denominators, and state variables use prior week-end state.
+- Raw USD DeFi TVL growth is labeled `valuation_sensitive_defi_tvl_growth` unless price-adjusted. OI growth is audited and OI/market-cap growth is preferred when OI is treated as USD/notional-valued.
+- Monthly PIT market-universe data is joined only for composition, concentration, and turnover analysis.
+- Same-support model comparisons use identical non-missing row sets.
 
-## 2. Regime Definitions (`src/cqresearch/analysis/regimes.py`)
-To analyze structural shifts through time and conditions, we define the following boolean masks over the dataset:
-- **Temporal Regimes**:
-  - `full`: 2020-01-01 to 2026-04-11
-  - `pre_btc_etf`: dates before 2024-01-11
-  - `post_btc_etf`: dates on or after 2024-01-11
-  - `post_eth_etf`: dates on or after 2024-07-23
-  - `year_2020` through `year_2026_ytd`
-- **Volatility Regimes**:
-  - `high_vol`: Days in the top quartile of rolling 30-day annualized realized volatility.
-  - `low_vol`: Days in the bottom quartile of rolling 30-day annualized realized volatility.
 
-## 3. Statistical Diagnostic Framework
-- **HAC OLS Regressions**: OLS models are estimated using Newey-West standard errors. This corrects for autocorrelation and heteroskedasticity in daily financial time series.
-- **Univariate vs. Multivariate Feature Strength**:
-  - *Univariate*: Static correlation and standalone single-variable regressions.
-  - *Multivariate*: Standardized betas (coefficients estimated after standardizing variables to unit variance, allowing direct magnitude comparison) and drop-one $\Delta R^2$.
-- **Same-Support Ablation Constraint**:
-  - When comparing models (e.g., full model vs. ex-MVRV model vs. native-only model), any rows containing missing data in any feature of the *full model* are dropped across *all* compared models. This forces estimation on an identical sample $S$, ensuring differences in $R^2$ reflect feature information, not sample composition.
+## Estimation
 
-## 4. Connectedness and Spillovers
-Cross-asset connectedness uses a Vector Autoregressive (VAR) model framework. The system estimates daily Forecast Error Variance Decompositions (FEVD) to compute the Directional Connectedness Index (DCI) and Net Spillover effects among core market segments.
+Full, reduced-block, and feature-drop models are fit on one explicitly constructed complete-case frame per asset, frequency, regime, and model family. The tables report `n_full`, `n_reduced`, `same_support`, sample dates, feature lists, and row-index hashes. The build fails if nested-model R-squared monotonicity or conventional partial-R-squared bounds are violated.
+
+## Evidence Language
+
+Contemporaneous TradFi coefficients are exposure/co-movement estimates. Crypto-native lagged variables are lagged-state associations. ETF flow intensity is a market-plumbing association. Raw USD TVL is a valuation-sensitive DeFi balance-sheet proxy, and OI growth is interpreted through OI/market-cap scaling when treated as USD/notional-valued.

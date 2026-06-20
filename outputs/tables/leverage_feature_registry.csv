@@ -1,0 +1,8 @@
+feature_id,clean_label,frequency,timing,scaling,denominator
+btc_oi_to_mcap_growth_lag1,"BTC OI/market-cap growth, t-1",daily,lagged state for *_lag1 features; same-day stress signature for liquidation ratios,see feature label,
+btc_funding_z_lag1,"BTC funding z-score, t-1",daily,lagged state for *_lag1 features; same-day stress signature for liquidation ratios,see feature label,
+btc_leverage_ratio_percentile_lag1,Btc Leverage Ratio Percentile Lag1,daily,lagged state for *_lag1 features; same-day stress signature for liquidation ratios,see feature label,
+btc_basis_z,Btc Basis Z,daily,lagged state for *_lag1 features; same-day stress signature for liquidation ratios,see feature label,
+btc_total_liq_to_lag_oi_pct,BTC liquidation / lag OI (%),daily,lagged state for *_lag1 features; same-day stress signature for liquidation ratios,liquidation_usd / prior-day open interest expressed as percent; liquidation_usd / prior-day market cap expressed as basis points,prior-day open interest or prior-day BTC market cap
+btc_total_liq_to_lag_mcap_bps,BTC liquidation / lag mcap (bp),daily,lagged state for *_lag1 features; same-day stress signature for liquidation ratios,liquidation_usd / prior-day open interest expressed as percent; liquidation_usd / prior-day market cap expressed as basis points,prior-day open interest or prior-day BTC market cap
+btc_taker_buy_ratio,Btc Taker Buy Ratio,daily,lagged state for *_lag1 features; same-day stress signature for liquidation ratios,see feature label,

@@ -1,23 +1,13 @@
 # Executive Summary
 
-The Crypto Market Factor Lab evaluates the factors explaining BTC and ETH returns using a frozen daily panel from 2020-01-01 through 2026-04-11 (2,293 observations, 63 features). The primary objective is to separate structural price co-movements (valuation state) from exogenous risk factors (macro, liquidity, TradFi) and market-plumbing elements (ETF flows).
+Crypto Market Dynamics is a descriptive research-code project covering BTC/ETH valuation mechanics, synchronized TradFi exposure, ETF market plumbing, leverage/tail stress, stablecoin/DeFi state, point-in-time market structure, selected-major risk, and event windows from local 2020-2026 data.
 
-## Core Findings
+The strongest measurement warning remains MVRV: corr(BTC return, d-log MVRV)=0.9966; R2=0.9932; median abs residual / median abs BTC return=1.14e-07. Same-day MVRV therefore stays out of the primary BTC/ETH exposure models and appears only as a mechanics audit and lagged state context.
 
-1. **MVRV Dominance & Valuation-State Sensitivity**
-   - The full BTC model achieves an $R^2 \approx 0.921$, but removing the BTC MVRV block collapses the reduced model's fit to $R^2 \approx 0.146$.
-   - The block partial $R^2$ ($\Delta R^2$) for MVRV is $0.775$. Standalone, an MVRV-only model yields $R^2 \approx 0.912$. This indicates that the high model fit is not a broad factor structure but is almost entirely driven by the first-differenced MVRV valuation-state variable, which has a $0.955$ daily correlation with BTC returns.
+TradFi exposure is now calendar-synchronized. BTC equity block pre-BTC-ETF delta R2=0.0249 (n=797) vs BTC-ETF-era delta R2=0.0884 (n=436); ETH equity block pre-BTC-ETF delta R2=0.0193 (n=797) vs BTC-ETF-era delta R2=0.1076 (n=436); period comparison, not ETF effect. This is a period comparison of co-movement on common business-date closes, not an ETF-effect estimate.
 
-2. **Native ex-MVRV Features**
-   - Daily crypto-native flow and structure variables—such as CME futures basis (`cme_btc_basis_close_d1`), exchange netflow (`btc_exchange_netflow_d1`), and miner-to-exchange flows (`btc_miner_to_exchange_flow_d1`)—exhibit near-zero contemporaneous correlation with BTC returns.
-   - Standardized OLS coefficients and standalone regressions yield $R^2 \approx 0.0037$ for these variables. This confirms that daily native flows (excluding MVRV) do not explain daily returns in a linear same-day specification.
+ETF, leverage, and liquidity results are descriptive and timing-sensitive. BTC lag0 return corr=0.379 (n=820) vs lag1=0.049 (n=819); ETH lag0 return corr=0.226 (n=627) vs lag1=0.086 (n=626). Q1 low tail-day rate=7.06% (n=453); Q3 tail-day rate=4.20% (n=452); Q5 high tail-day rate=7.73% (n=453); read as U-shaped state pattern. BTC same-week raw USD TVL corr=0.679 (n=327); ETH same-week raw USD TVL corr=0.761 (n=327); TVL labeled valuation-sensitive.
 
-3. **ETF Flow Plumbing & Timing**
-   - ETF-flow intensity is strongly associated with same-day returns ($t\text{-stat} \approx 10.22$, standalone $R^2 \approx 0.271$). However, negative lags (excluding lag -1) are weak, and lag +1 is also strong, highlighting that this association represents contemporaneous market-plumbing co-movement rather than predictive ex-ante causality.
+The latest PIT structure headline is 2026-06-16 partial snapshot (month=2026-06) top10 share=87.64%, HHI=0.334. Selected-major risk is coverage-aware: 10 assets comparable from 2024-11-30 to 2026-06-16; HYPE max-coverage n=564. Event outputs remain empirical placebo-window tests: BTC,ETH event windows use block size=10; median eligible placebo windows=2007; convention +1 through +10.
 
-4. **Regime and Temporal Stability**
-   - MVRV dominance persists across regimes but exhibits temporal shifts. In the post-ETF era (2024–2026), MVRV's standalone explanatory power is still dominant but declines slightly as TradFi integration and ETF flow associations grow.
-   - Realized volatility regimes (high vs. low vol quartiles) show that macro and TradFi risk exposures are regime-dependent, with stronger TradFi betas observed during low-volatility regimes.
-
-5. **Analytical Infrastructure & Same-Support Comparisons**
-   - In previous iterations, model comparisons were biased by varying sample sizes (differing $n$). The new implementation introduces same-support ablation tables ($T19$ and $T20$), ensuring all model combinations are estimated on identical observation samples to guarantee apples-to-apples comparisons.
+Release caveat: `DATA_LICENSE.md` and `provider_data_disposition.csv` document provider-data risk but do not grant redistribution rights. The repository should remain private until uncertain/restricted raw exports are cleared or removed from the public repository and history.

@@ -1,6 +1,7 @@
 """Shared pytest fixtures.
 
-Keeps tests side-effect-free and fast. Fixtures here must NOT touch ``Data/``.
+Keeps tests side-effect-free and fast. Fixtures here must NOT touch local
+provider-data folders such as ``data_local/`` or legacy ``Data/``.
 """
 from __future__ import annotations
 

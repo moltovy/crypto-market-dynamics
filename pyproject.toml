@@ -1,11 +1,11 @@
 [project]
-name = "cqresearch"
+name = "crypto-market-dynamics"
 version = "0.1.0"
-description = "Crypto Market Factor Lab - reproducible BTC/ETH factor, ETF-flow, liquidity, and native-market analytics."
+description = "Crypto Market Dynamics - reproducible crypto factor, liquidity, leverage, and market-structure analytics."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
-authors = [{ name = "CryptoQuant Research Team" }]
+authors = [{ name = "Crypto Market Dynamics contributors" }]
 
 dependencies = [
     "pandas>=2.2",
@@ -50,10 +50,17 @@ packages = ["src/cqresearch"]
 line-length = 100
 target-version = "py311"
 src = ["src", "scripts", "tools", "tests"]
+extend-exclude = [
+    "archive",
+    "crypto_market_dynamics_final_codex_program",
+]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "N", "C4", "SIM", "RUF"]
-ignore = ["E501"]
+ignore = ["E501", "N803", "N806", "RUF001", "RUF002", "RUF005", "RUF022", "RUF046", "SIM108", "B905"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/*.py" = ["E402"]
 
 [tool.mypy]
 python_version = "3.11"

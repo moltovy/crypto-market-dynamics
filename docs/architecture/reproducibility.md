@@ -4,17 +4,16 @@
 
 ```powershell
 uv sync --all-extras
+uv run python scripts/run_all.py
+uv run python scripts/build_public_figures.py
 uv run pytest
 uv run mypy src/cqresearch
-uv run python scripts/run_all.py
+uv run ruff check src/cqresearch scripts tests
+uv run python scripts/check_public_surface.py
 ```
-
-Focused Ruff is used for the maintained public and portfolio surfaces. Broad
-Ruff over every historical script and test still includes legacy findings; this
-is documented as cleanup debt rather than part of the public reproduction
-contract.
 
 ## Data Policy
 
-The canonical export path does not modify `Data/`. Source inventory copies are
-read-only exports into `docs/data/catalog/`.
+The canonical source build reads local provider exports from `data_local/raw/`
+and writes generated feature stores to `data_local/processed/`. Both folders
+are ignored by Git. Public semantic outputs stay under `outputs/`.

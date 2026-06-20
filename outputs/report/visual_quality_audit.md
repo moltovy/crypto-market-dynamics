@@ -1,0 +1,16 @@
+# Visual Quality Audit
+
+Contact sheet is QA-only and is not embedded in the README.
+
+| figure                                | analytical_question                                                                | changed_from_previous                                                          | manual_visual_check                                                                                                                         | status   |
+|:--------------------------------------|:-----------------------------------------------------------------------------------|:-------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------|:---------|
+| 01_mvrv_mechanics.png                 | How much of same-day d-log MVRV is mechanically tied to BTC returns?               | Replaced mixed-stat bar axis with relationship scatter and lagged-state bars.  | Two panels, readable percent axes, y=x reference visible, no dense legend.                                                                  | pass     |
+| 02_tradfi_exposure_shift.png          | How did equity block delta R-squared compare pre-BTC-ETF versus BTC-ETF era?       | Replaced regime heatmap with grouped bars and direct labels.                   | No rotated labels, four bars only, values labeled directly.                                                                                 | pass     |
+| 03_etf_market_plumbing.png            | How do scaled ETF flows and lag timing relate to returns?                          | Kept two timing panels with explicit lag-0/lag-1 convention.                   | Axes identify flow-to-market-cap scaling and correlations; legend is compact.                                                               | pass     |
+| 04_leverage_tail_stress.png           | Do Q1/Q3/Q5 lagged leverage states and top liquidation dates show stress patterns? | Removed synthetic liquidation event ids from the visual and uses actual dates. | Readable percent units, actual dates on y-axis, no dense liquidation table.                                                                 | pass     |
+| 05_point_in_time_market_structure.png | How did top-100 composition and concentration evolve?                              | Collapsed taxonomy to six public categories and paired it with concentration.  | Legend sits below composition panel, categories are readable, latest partial snapshot uses a callout that does not collide with the legend. | pass     |
+| 06_selected_major_asset_risk.png      | How do selected majors compare on volatility, drawdown, and coverage?              | Larger canvas, offset labels, and HYPE short-history marker.                   | Point labels are offset and readable; short-history encoding is visible.                                                                    | pass     |
+
+Appendix figure moved to gallery: `outputs/figures/gallery/appendix_event_response_matrix.png`.
+
+Manual checklist applied to every public figure: no dashboards, no 3x3 public grids, no spaghetti charts, no tiny fonts, no rotated category labels, no dense legends, no paragraph titles, one analytical message per figure.

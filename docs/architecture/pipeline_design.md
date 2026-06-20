@@ -8,9 +8,10 @@ uv run pytest
 uv run python scripts/run_all.py
 ```
 
-`scripts/run_all.py` delegates to `scripts/export_outputs.py`, which copies the
-tracked, maintained analysis artifacts into the canonical `outputs/` layout and
-writes `outputs/manifest.json`.
+`scripts/run_all.py` delegates to the maintained
+`src/cqresearch/pipelines/final_research.py` orchestration path, which rebuilds
+the canonical feature stores, tables, reports, figures, README, licenses, and
+`outputs/manifest.json`.
 
-Legacy analysis scripts remain available for deeper regeneration and audit
-work, but the README exposes one public command path.
+Legacy portfolio/release packet builders are not active maintained source; use
+Git history or `archive/` for historical context.

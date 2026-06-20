@@ -27,7 +27,6 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 import yaml
-
 from config.paths import CALENDARS_YML
 
 SeriesKind = Literal["stock", "flow", "rate"]

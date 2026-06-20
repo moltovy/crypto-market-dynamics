@@ -1,0 +1,9 @@
+source_group,file_count,csv_count,total_bytes,first_date,last_date,license_note
+AlternativeMe,2,1,71121,2018-02-01,2026-04-17,Public Fear and Greed index data; cite provider.
+Artemis,49,48,6898444,2010-01-01,2026-04-30,Provider/export data; redistribution rights may be restricted.
+CryptoQuant,389,345,43255960,2006-04-11,2026-04-12,Provider export; redistribution rights may be restricted.
+DefiLlama,54,44,40289431,2016-04-19,2026-04-19,Public API and curated files; cite DefiLlama and respect terms.
+FRED,23,21,3582890,1947-01-01,2026-04-17,Federal Reserve Economic Data; generally public source with attribution.
+Farside ETF Data,5,3,70347,2024-01-11,2026-04-10,Public web data; cite Farside Investors and verify reuse terms.
+MarketStructure,15,10,24469535,2018-02-01,2026-06-18,Curated local summaries from public/optional sources.
+Tradingview,47,44,5687160,1967-01-29,2026-04-19,Chart/export data; redistribution rights may be restricted.

@@ -1,466 +1,103 @@
 {
-  "generated_at_utc": "2026-06-19T05:02:52.931876+00:00",
-  "git_commit": "1eafee2",
-  "artifact_root": "outputs",
-  "figure_bundle": {
-    "style": "institutional_dark_research_cards",
-    "generated_from": "canonical output tables plus archived supplemental tables",
-    "export_formats": [
-      "png",
-      "svg"
-    ],
-    "dashboard": "outputs/dashboard/index.html"
-  },
-  "panel": {
-    "start": "2020-01-01",
-    "end": "2026-04-11",
-    "n_rows": 2293,
-    "n_cols": 63
-  },
-  "commands_to_reproduce": [
-    "uv sync --all-extras",
-    "uv run pytest",
-    "uv run mypy src/cqresearch",
-    "uv run python scripts/run_all.py"
-  ],
-  "figures": [
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F01_mvrv_sensitivity_by_regime_v2.png"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F01_mvrv_sensitivity_by_regime_v2.svg"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F02_same_support_ablation.png"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F02_same_support_ablation.svg"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F03_btc_ex_mvrv_strength.png"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F03_btc_ex_mvrv_strength.svg"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F04_etf_flow_lead_lag.png"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F04_etf_flow_lead_lag.svg"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F05_core_correlation_matrix.png"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F05_core_correlation_matrix.svg"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F06_rolling_correlations.png"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F06_rolling_correlations.svg"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F07_feature_strength_heatmap.png"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F07_feature_strength_heatmap.svg"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F08_connectedness_robustness.png"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/F08_connectedness_robustness.svg"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/gallery/G01_native_state_detail.png"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/gallery/G01_native_state_detail.svg"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/gallery/G02_liquidity_context.png"
-    },
-    {
-      "source": "generated from canonical output tables and archived supplemental tables",
-      "output": "outputs/figures/gallery/G02_liquidity_context.svg"
-    }
+  "project": "Crypto Market Dynamics",
+  "generated_at_utc": "2026-06-20T06:43:23+00:00",
+  "pipeline": "src/cqresearch/pipelines/final_research.py",
+  "public_figures": [
+    "outputs/figures/public/01_mvrv_mechanics.png",
+    "outputs/figures/public/02_tradfi_exposure_shift.png",
+    "outputs/figures/public/03_etf_market_plumbing.png",
+    "outputs/figures/public/04_leverage_tail_stress.png",
+    "outputs/figures/public/05_point_in_time_market_structure.png",
+    "outputs/figures/public/06_selected_major_asset_risk.png"
   ],
   "tables": [
-    {
-      "source": "Data/MASTER_DATA.csv",
-      "output": "outputs/tables/T01_source_inventory.csv"
-    },
-    {
-      "source": "generated from frozen panel metadata",
-      "output": "outputs/tables/T02_panel_coverage.csv",
-      "rows": 1
-    },
-    {
-      "sources": [
-        "archived_release_artifact/tables/block_partial_r2_btc.csv",
-        "archived_release_artifact/tables/block_partial_r2_eth.csv"
-      ],
-      "output": "outputs/tables/T03_block_attribution.csv",
-      "rows": 41
-    },
-    {
-      "sources": [
-        "archived_release_artifact/tables/etf_lead_lag_btc.csv",
-        "archived_release_artifact/tables/etf_lead_lag_eth.csv"
-      ],
-      "output": "outputs/tables/T04_etf_lead_lag.csv",
-      "rows": 44
-    },
-    {
-      "sources": [
-        "archived_release_artifact/tables/correlation_delta_pre_post_btc_etf.csv",
-        "archived_release_artifact/tables/correlation_delta_pre_post_eth_etf.csv"
-      ],
-      "output": "outputs/tables/T05_correlation_regime.csv",
-      "rows": 72
-    },
-    {
-      "source": "archived_release_artifact/tables/stablecoin_liquidity_features.csv",
-      "output": "outputs/tables/T06_stablecoin_liquidity.csv"
-    },
-    {
-      "source": "archived_release_artifact/tables/btc_native_ablation.csv",
-      "output": "outputs/tables/T07_native_factor_ablation.csv"
-    },
-    {
-      "source": "archived_release_artifact/tables/baseline_structural_breaks_summary.csv",
-      "output": "outputs/tables/T08_structural_breaks.csv"
-    },
-    {
-      "source": "archived_release_artifact/tables/baseline_fevd_10d_compact.csv",
-      "output": "outputs/tables/T09_connectedness.csv"
-    },
-    {
-      "source": "archived_release_artifact/tables/rolling_block_partial_r2_btc_180d.csv",
-      "output": "outputs/tables/T03_rolling_block_partial_r2_btc_180d.csv"
-    },
-    {
-      "source": "archived_release_artifact/tables/rolling_correlations.csv",
-      "output": "outputs/tables/T05_rolling_correlations.csv"
-    },
-    {
-      "source": "archived_release_artifact/tables/native_factor_registry.csv",
-      "output": "outputs/tables/T07_native_factor_registry.csv"
-    },
-    {
-      "source": "archived_release_artifact/tables/btc_native_correlations.csv",
-      "output": "outputs/tables/T07_btc_native_correlations.csv"
-    },
-    {
-      "source": "archived_release_artifact/tables/rolling_connectedness.csv",
-      "output": "outputs/tables/T09_rolling_connectedness.csv"
-    },
-    {
-      "source": "archived_release_artifact/tables/robustness_grid.csv",
-      "output": "outputs/tables/T10_robustness.csv"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T11_results_at_a_glance.md"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T12_regime_definitions.csv"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T13_factor_dictionary.md"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T13_factor_dictionary.csv"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T14_feature_strength_btc_full.csv"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T15_feature_strength_btc_ex_mvrv.csv"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T16_feature_strength_eth.csv"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T17_feature_strength_by_regime.csv"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T18_block_strength_by_regime.csv"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T19_same_support_ablation_btc.csv"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T20_same_support_ablation_eth.csv"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T21_top_correlations_btc.csv"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T22_top_correlations_eth.csv"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T23_core_correlation_matrix.csv"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T24_pre_post_correlation_delta.csv"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T25_mvrv_sensitivity_by_regime.csv"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T26_etf_era_feature_strength.csv"
-    },
-    {
-      "source": "generated by scripts/06_feature_strength.py",
-      "output": "outputs/tables/T27_rolling_feature_rank_stability.csv"
-    },
-    {
-      "source": "generated key-results presentation table",
-      "output": "outputs/tables/README.md"
-    }
+    "outputs/tables/asset_identity_audit.csv",
+    "outputs/tables/asset_taxonomy.csv",
+    "outputs/tables/block_delta_r2.csv",
+    "outputs/tables/btc_ex_mvrv_feature_strength.csv",
+    "outputs/tables/chain_activity_associations.csv",
+    "outputs/tables/chain_fundamental_panel_summary.csv",
+    "outputs/tables/claim_inventory.csv",
+    "outputs/tables/conventional_partial_r2.csv",
+    "outputs/tables/cycle_state_summary.csv",
+    "outputs/tables/data_source_coverage.csv",
+    "outputs/tables/defi_activity_features.csv",
+    "outputs/tables/etf_absorption_metrics.csv",
+    "outputs/tables/etf_data_timing_audit.csv",
+    "outputs/tables/etf_era_exposure_comparison.csv",
+    "outputs/tables/etf_flow_associations.csv",
+    "outputs/tables/etf_flow_shock_days.csv",
+    "outputs/tables/etf_market_plumbing_summary.csv",
+    "outputs/tables/eth_feature_strength.csv",
+    "outputs/tables/event_atlas.csv",
+    "outputs/tables/event_inference.csv",
+    "outputs/tables/event_response_matrix.csv",
+    "outputs/tables/evidence_ledger.csv",
+    "outputs/tables/exposure_regime_comparison.csv",
+    "outputs/tables/fdr_adjusted_inference.csv",
+    "outputs/tables/feature_coverage.csv",
+    "outputs/tables/feature_registry.csv",
+    "outputs/tables/frequency_robustness.csv",
+    "outputs/tables/leverage_feature_registry.csv",
+    "outputs/tables/leverage_state_summary.csv",
+    "outputs/tables/leverage_tail_risk_summary.csv",
+    "outputs/tables/liquidation_event_responses.csv",
+    "outputs/tables/liquidity_associations.csv",
+    "outputs/tables/liquidity_regime_summary.csv",
+    "outputs/tables/local_window_correlation_distribution.csv",
+    "outputs/tables/multicollinearity_diagnostics.csv",
+    "outputs/tables/mvrv_identity_points.csv",
+    "outputs/tables/mvrv_mechanical_link_audit.csv",
+    "outputs/tables/mvrv_regime_outcomes.csv",
+    "outputs/tables/onchain_state_regimes.csv",
+    "outputs/tables/pit_composition.csv",
+    "outputs/tables/pit_concentration.csv",
+    "outputs/tables/pit_market_structure_monthly.csv",
+    "outputs/tables/pit_market_structure_summary.csv",
+    "outputs/tables/pit_period_comparison.csv",
+    "outputs/tables/pit_turnover.csv",
+    "outputs/tables/provider_data_disposition.csv",
+    "outputs/tables/results_at_a_glance.md",
+    "outputs/tables/ridge_stability.csv",
+    "outputs/tables/robustness_summary.csv",
+    "outputs/tables/rolling_exposure_summary.csv",
+    "outputs/tables/rolling_exposures.csv",
+    "outputs/tables/rolling_tradfi_exposures.csv",
+    "outputs/tables/selected_major_betas.csv",
+    "outputs/tables/selected_major_comparable_window_metrics.csv",
+    "outputs/tables/selected_major_coverage.csv",
+    "outputs/tables/selected_major_risk_metrics.csv",
+    "outputs/tables/stablecoin_defi_liquidity_summary.csv",
+    "outputs/tables/stablecoin_liquidity_features.csv",
+    "outputs/tables/tail_risk_models.csv",
+    "outputs/tables/valuation_contamination_audit.csv"
   ],
   "reports": [
-    {
-      "source": "generated canonical narrative",
-      "output": "outputs/report/executive_summary.md"
-    },
-    {
-      "source": "generated canonical narrative",
-      "output": "outputs/report/technical_report.md"
-    },
-    {
-      "source": "generated canonical narrative",
-      "output": "outputs/report/methodology.md"
-    },
-    {
-      "source": "generated canonical narrative",
-      "output": "outputs/report/data_atlas.md"
-    },
-    {
-      "source": "generated canonical narrative",
-      "output": "outputs/report/limitations.md"
-    },
-    {
-      "source": "generated canonical narrative",
-      "output": "outputs/report/reorganization_summary.md"
-    },
-    {
-      "source": "generated canonical narrative",
-      "output": "outputs/README.md"
-    },
-    {
-      "source": "generated visual QA narrative",
-      "output": "outputs/report/visual_audit.md"
-    },
-    {
-      "source": "generated visual QA narrative",
-      "output": "outputs/report/visual_quality_check.md"
-    }
+    "outputs/report/executive_summary.md",
+    "outputs/report/limitations.md",
+    "outputs/report/market_structure_public_surface_check.md",
+    "outputs/report/methodology.md",
+    "outputs/report/provider_data_disposition.md",
+    "outputs/report/reproducibility_report.md",
+    "outputs/report/results_and_interpretation.md",
+    "outputs/report/visual_quality_audit.md"
   ],
   "model_cards": [
-    {
-      "source": "archived_release_artifact/model_cards/static_ols.md",
-      "output": "outputs/model_cards/factor_exposure.md"
-    },
-    {
-      "source": "archived_release_artifact/model_cards/block_partial_r2.md",
-      "output": "outputs/model_cards/block_attribution.md"
-    },
-    {
-      "source": "archived_release_artifact/model_cards/etf_flow_lead_lag.md",
-      "output": "outputs/model_cards/etf_flow_lead_lag.md"
-    },
-    {
-      "source": "archived_release_artifact/model_cards/rolling_correlations.md",
-      "output": "outputs/model_cards/rolling_correlations.md"
-    },
-    {
-      "source": "archived_release_artifact/model_cards/stablecoin_liquidity.md",
-      "output": "outputs/model_cards/stablecoin_liquidity.md"
-    },
-    {
-      "source": "archived_release_artifact/model_cards/btc_native_factor_lab.md",
-      "output": "outputs/model_cards/btc_native_factors.md"
-    },
-    {
-      "source": "archived_release_artifact/model_cards/structural_breaks.md",
-      "output": "outputs/model_cards/structural_breaks.md"
-    },
-    {
-      "source": "archived_release_artifact/model_cards/var_fevd.md",
-      "output": "outputs/model_cards/connectedness.md"
-    },
-    {
-      "source": "archived_release_artifact/model_cards/shapley_r2.md",
-      "output": "outputs/model_cards/advanced_attribution.md"
-    },
-    {
-      "source": "archived_release_artifact/model_cards/robustness_grid.md",
-      "output": "outputs/model_cards/robustness.md"
-    }
-  ],
-  "dashboard": [
-    {
-      "source": "generated static dashboard",
-      "output": "outputs/dashboard/index.html"
-    }
-  ],
-  "data_catalog": [
-    {
-      "source": "Data/MASTER_DATA.md",
-      "output": "docs/data/catalog/MASTER_DATA.md"
-    },
-    {
-      "source": "Data/MASTER_DATA.csv",
-      "output": "docs/data/catalog/MASTER_DATA.csv"
-    },
-    {
-      "source": "Data/_meta/curation_log.md",
-      "output": "docs/data/catalog/curation_log.md"
-    },
-    {
-      "source": "generated canonical narrative",
-      "output": "docs/data/README.md"
-    }
+    "outputs/model_cards/etf_market_plumbing.md",
+    "outputs/model_cards/event_atlas.md",
+    "outputs/model_cards/lagged_state_associations.md",
+    "outputs/model_cards/leverage_tail_risk.md",
+    "outputs/model_cards/mvrv_mechanics.md",
+    "outputs/model_cards/pit_market_structure.md",
+    "outputs/model_cards/selected_major_risk.md",
+    "outputs/model_cards/stablecoin_defi_state.md",
+    "outputs/model_cards/tradfi_exposure.md"
   ],
   "guardrails": [
-    "Data/ is not modified by the canonical export pipeline.",
-    "ETF-flow diagnostics are reduced-form association, not causal identification.",
-    "Stablecoin and TVL features are liquidity proxies, not identified shocks.",
-    "Structural-break diagnostics are Chow plus single-break sup-F, not full Bai-Perron.",
-    "Block attribution is full-vs-reduced partial R2; exact Shapley R2 is labeled advanced diagnostics.",
-    "Historical release packets and manager notes are archived outside the public surface."
-  ],
-  "market_structure": {
-    "generated_at_utc": "2026-06-19T05:03:20.921795+00:00",
-    "source_table_bundle_date": "2026-06-19",
-    "figure_bundle_start": "F30",
-    "table_bundle_start": "T28",
-    "commands": [
-      "uv run python scripts/audit_market_structure_endpoints.py --dry-run",
-      "uv run python scripts/fetch_market_structure_raw.py --dry-run",
-      "uv run python scripts/fetch_market_structure_raw.py --cache-only",
-      "uv run python scripts/ingest_defillama_monthly_universe.py",
-      "uv run python scripts/ingest_defillama_daily_constituents.py",
-      "uv run python scripts/normalize_market_structure_cache.py --cache-only",
-      "uv run python scripts/build_market_structure_outputs.py"
-    ],
-    "outputs": [
-      "outputs/tables/T28_market_structure_source_capabilities.csv",
-      "outputs/tables/T29_asset_classification.csv",
-      "outputs/tables/T29_asset_classification_summary.csv",
-      "outputs/tables/T30_binance_liquidity_top100.csv",
-      "outputs/tables/T31_sentiment_comparison.csv",
-      "outputs/tables/T38_fear_greed_blended_daily.csv",
-      "outputs/tables/T39_fear_greed_source_overlap_summary.csv",
-      "outputs/tables/T32_stablecoin_tvl_regimes.csv",
-      "outputs/tables/T33_cex_dex_activity.csv",
-      "outputs/tables/T34_btc_cycle_overlay.csv",
-      "outputs/tables/T35_rwa_dat_growth.csv",
-      "outputs/tables/T40_crypto_universe_monthly.csv",
-      "outputs/tables/T41_clean_risk_top100_monthly.csv",
-      "outputs/tables/T42_market_structure_composition.csv",
-      "outputs/tables/T43_rank_turnover.csv",
-      "outputs/tables/T44_cycle_phase_market_structure.csv",
-      "outputs/tables/T45_market_evolution_summary.md",
-      "outputs/tables/T46_market_structure_monthly_features.csv",
-      "outputs/tables/T47_market_structure_daily_context.csv",
-      "outputs/tables/T48_market_structure_return_regimes.csv",
-      "outputs/tables/T49_market_structure_composition_shift.csv",
-      "outputs/tables/T50_market_structure_turnover_by_phase.csv",
-      "outputs/tables/T51_market_structure_modeling_summary.md",
-      "outputs/report/market_structure_modeling_thesis.md",
-      "outputs/tables/T52_constituent_daily_ohlcv.csv",
-      "outputs/tables/T53_altseason_breadth.csv",
-      "outputs/tables/T54_constituent_return_indexes.csv",
-      "outputs/tables/T55_return_dispersion.csv",
-      "outputs/tables/T56_rolling_beta_to_btc_eth.csv",
-      "outputs/tables/T57_category_rotation_returns.csv",
-      "outputs/tables/T58_event_response_top50.csv",
-      "outputs/tables/T59_constituent_data_gap_report.csv",
-      "outputs/tables/T60_altseason_rotation_summary.md",
-      "outputs/report/altseason_rotation_lab.md",
-      "outputs/tables/T36_market_cap_top100_gap.csv",
-      "outputs/tables/T37_market_structure_feature_panel.csv",
-      "outputs/report/market_evolution_thesis.md",
-      "outputs/report/market_structure_methodology.md",
-      "outputs/report/market_structure_data_inventory.md",
-      "outputs/report/market_structure_next_data_needed.md",
-      "outputs/report/market_structure_limitations.md",
-      "outputs/report/market_structure_fetch_diagnostics.md",
-      "outputs/figures/F30_market_structure_dashboard.png",
-      "outputs/figures/F31_stablecoin_tvl_regimes.png",
-      "outputs/figures/F32_sentiment_comparison.png",
-      "outputs/figures/F33_cex_dex_activity.png",
-      "outputs/figures/F34_binance_liquidity_universe.png",
-      "outputs/figures/F35_btc_dominance_cycle_overlay.png",
-      "outputs/figures/F36_rwa_dat_growth.png",
-      "outputs/figures/F37_market_cap_top100_gap.png",
-      "outputs/figures/F38_market_structure_composition.png",
-      "outputs/figures/F39_top100_concentration.png",
-      "outputs/figures/F40_rank_turnover.png",
-      "outputs/figures/F41_cycle_phase_market_structure.png",
-      "outputs/figures/F42_market_evolution_dashboard.png",
-      "outputs/figures/F43_market_structure_monthly_features.png",
-      "outputs/figures/F44_market_structure_return_regimes.png",
-      "outputs/figures/F45_market_structure_composition_shift.png",
-      "outputs/figures/F46_market_structure_turnover_by_phase.png",
-      "outputs/figures/F47_market_structure_modeling_dashboard.png",
-      "outputs/figures/F48_altseason_breadth.png",
-      "outputs/figures/F49_constituent_return_indexes.png",
-      "outputs/figures/F50_return_dispersion.png",
-      "outputs/figures/F51_rolling_beta_to_btc.png",
-      "outputs/figures/F52_event_response_top50.png",
-      "outputs/figures/F53_rotation_dashboard.png",
-      "outputs/README.md"
-    ],
-    "skipped": [
-      "Binance liquidity top100 skipped because no spot kline cache exists."
-    ],
-    "guardrails": [
-      "Binance top100 is exchange-liquidity based, not market-cap based.",
-      "CMC live fetch requires CMC_API_KEY; cached CMC history is included when present.",
-      "Monthly point-in-time universes are the primary market-structure evidence and support composition and turnover, not daily return-performance claims.",
-      "Daily constituent diagnostics use a current-top50 exploratory ex-stablecoin cohort and are not the primary altseason backtest.",
-      "Raw API payloads stay in data_cache/ and are not committed.",
-      "No API keys are written to outputs or manifests."
-    ]
-  }
+    "Same-day MVRV excluded from primary exposure models.",
+    "ETF flow language is market-plumbing association only.",
+    "Stablecoin/DeFi liquidity is weekly and proxy-based.",
+    "PIT monthly universe used for composition/concentration/turnover only.",
+    "Current-top50 daily cohort is exploratory and survivorship-biased."
+  ]
 }
