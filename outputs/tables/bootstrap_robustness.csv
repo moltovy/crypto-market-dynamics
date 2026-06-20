@@ -1,0 +1,5 @@
+feature_id,estimate,ci_low,ci_high,method
+qqq_ret,0.3758733464436909,-0.18815198938869857,0.699901852198153,moving_block_correlation_windows
+vix_d1,-0.3728537262353668,-0.6925959234200865,0.17016486736540684,moving_block_correlation_windows
+btc_etf_flow_intensity,0.3740610704405447,-0.0752422784244627,0.7009231971366698,moving_block_correlation_windows
+stablecoin_supply_growth,0.015604181028574965,-0.46175805386417373,0.3616062856227318,moving_block_correlation_windows

@@ -25,45 +25,17 @@ jobs:
       - name: Install dependencies with uv
         run: uv sync --all-extras
 
-      - name: Pytest
-        run: uv run pytest
+      - name: Ruff
+        run: uv run ruff check src/cqresearch scripts tests
 
       - name: Mypy
         run: uv run mypy src/cqresearch
 
-      - name: Focused Ruff
-        run: |
-          uv run ruff check \
-            scripts/export_outputs.py \
-            scripts/run_all.py \
-            scripts/run_portfolio_pipeline.py \
-            scripts/run_portfolio_v2_1_pipeline.py \
-            scripts/run_portfolio_v2_2_pipeline.py \
-            scripts/optional_data \
-            src/cqresearch/analysis/native_factors.py \
-            src/cqresearch/analysis/portfolio_v2_1.py \
-            src/cqresearch/analysis/portfolio_v2_2.py \
-            src/cqresearch/features/volatility.py \
-            src/cqresearch/modeling/partial_r2.py \
-            src/cqresearch/modeling/ablation.py \
-            src/cqresearch/modeling/lead_lag.py \
-            src/cqresearch/modeling/pca_blocks.py \
-            src/cqresearch/modeling/shapley_r2.py \
-            src/cqresearch/modeling/cusum.py \
-            src/cqresearch/modeling/fevd_sensitivity.py \
-            src/cqresearch/modeling/rolling_connectedness.py \
-            src/cqresearch/modeling/robustness_grid.py \
-            src/cqresearch/optional_data \
-            tests/unit/test_partial_r2.py \
-            tests/unit/test_lead_lag.py \
-            tests/unit/test_ablation.py \
-            tests/unit/test_volatility.py \
-            tests/unit/test_pca_blocks.py \
-            tests/unit/test_shapley_r2.py \
-            tests/unit/test_cusum.py \
-            tests/unit/test_fevd_sensitivity.py \
-            tests/unit/test_rolling_connectedness.py \
-            tests/unit/test_robustness_grid.py \
-            tests/unit/test_portfolio_v2_1_pipeline.py \
-            tests/unit/test_portfolio_v2_2_pipeline.py \
-            tests/unit/test_optional_data_sources.py
+      - name: Pytest
+        run: uv run pytest
+
+      - name: Canonical offline build
+        run: uv run python scripts/run_all.py
+
+      - name: Public surface guardrails
+        run: uv run python scripts/check_public_surface.py

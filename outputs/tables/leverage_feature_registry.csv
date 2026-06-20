@@ -1,0 +1,7 @@
+feature_id,clean_label,frequency,timing,scaling
+btc_oi_growth,BTC OI growth,daily,lagged for state models; contemporaneous liquidation signatures reported separately,liquidations use log1p and lagged OI/market-cap denominators where available
+btc_funding_z,BTC funding z-score,daily,lagged for state models; contemporaneous liquidation signatures reported separately,liquidations use log1p and lagged OI/market-cap denominators where available
+btc_leverage_ratio_percentile,Btc Leverage Ratio Percentile,daily,lagged for state models; contemporaneous liquidation signatures reported separately,liquidations use log1p and lagged OI/market-cap denominators where available
+btc_total_liq_intensity,Btc Total Liq Intensity,daily,lagged for state models; contemporaneous liquidation signatures reported separately,liquidations use log1p and lagged OI/market-cap denominators where available
+btc_basis_z,Btc Basis Z,daily,lagged for state models; contemporaneous liquidation signatures reported separately,liquidations use log1p and lagged OI/market-cap denominators where available
+btc_taker_buy_ratio,Btc Taker Buy Ratio,daily,lagged for state models; contemporaneous liquidation signatures reported separately,liquidations use log1p and lagged OI/market-cap denominators where available

@@ -1,0 +1,13 @@
+date,btc_ret,btc_realized_vol_30d,btc_total_liq_usd,btc_funding_z,event_id,note
+2021-04-18,-0.06553708032913086,0.5830298774080338,2465212739.195429,-1.328565711963699,top_liquidation_01,Contemporaneous liquidation signature; not evidence that liquidation initiated the move.
+2021-05-19,-0.154575011444809,1.0104952892985597,2105525453.1866968,-2.5954901146964593,top_liquidation_02,Contemporaneous liquidation signature; not evidence that liquidation initiated the move.
+2021-02-22,-0.06023579992399952,0.9356409450945613,1593669460.0556314,1.025559847724528,top_liquidation_03,Contemporaneous liquidation signature; not evidence that liquidation initiated the move.
+2021-03-15,-0.058340222146009424,0.849653008219883,1382051770.3395252,-0.08452474878809153,top_liquidation_04,Contemporaneous liquidation signature; not evidence that liquidation initiated the move.
+2025-10-10,-0.07486466644278522,0.39864906174443854,1184176426.9977555,-1.037595984916214,top_liquidation_05,Contemporaneous liquidation signature; not evidence that liquidation initiated the move.
+2021-02-23,-0.101181428837263,1.0227338235727417,1125242356.4184017,-0.5943478296948055,top_liquidation_06,Contemporaneous liquidation signature; not evidence that liquidation initiated the move.
+2020-03-12,-0.49318212017963425,1.7910989457058073,1094699985.5948346,-5.6883137386941405,top_liquidation_07,Contemporaneous liquidation signature; not evidence that liquidation initiated the move.
+2025-11-14,-0.050323994139240824,0.4103558328935401,1072919163.9846264,-0.1924967905996884,top_liquidation_08,Contemporaneous liquidation signature; not evidence that liquidation initiated the move.
+2021-01-11,-0.07434290823278289,0.7931160986149368,1053041673.3151681,3.4774999473879658,top_liquidation_09,Contemporaneous liquidation signature; not evidence that liquidation initiated the move.
+2020-03-13,0.1487033739593162,1.8885989139152624,1028084563.3994993,-6.925868026102745,top_liquidation_10,Contemporaneous liquidation signature; not evidence that liquidation initiated the move.
+2025-11-21,-0.017065145143227767,0.4357337205977745,974412721.8652534,-0.20384756100454252,top_liquidation_11,Contemporaneous liquidation signature; not evidence that liquidation initiated the move.
+2026-02-05,-0.15045529778814526,0.6684808134050673,893240946.5417113,-0.5541774238404735,top_liquidation_12,Contemporaneous liquidation signature; not evidence that liquidation initiated the move.

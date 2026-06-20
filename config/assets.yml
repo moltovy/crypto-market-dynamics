@@ -1,0 +1,135 @@
+assets:
+- asset_key: coingecko:bitcoin
+  symbol: BTC
+  name: Bitcoin
+  coingecko_id: bitcoin
+  defillama_id: bitcoin
+  asset_type: base_network_asset
+  primary_chain: Bitcoin
+  first_valid_date: '2009-01-03'
+  selected_major: true
+  stable_like: false
+  wrapped_or_productized: false
+  aliases:
+  - BTC
+  - XBT
+- asset_key: coingecko:ethereum
+  symbol: ETH
+  name: Ethereum
+  coingecko_id: ethereum
+  defillama_id: ethereum
+  asset_type: base_network_asset
+  primary_chain: Ethereum
+  first_valid_date: '2015-07-30'
+  selected_major: true
+  stable_like: false
+  wrapped_or_productized: false
+  aliases:
+  - ETH
+- asset_key: coingecko:binancecoin
+  symbol: BNB
+  name: BNB
+  coingecko_id: binancecoin
+  defillama_id: binancecoin
+  asset_type: exchange_chain_asset
+  primary_chain: BNB Chain
+  first_valid_date: '2017-07-25'
+  selected_major: true
+  stable_like: false
+  wrapped_or_productized: false
+  aliases:
+  - BNB
+- asset_key: coingecko:solana
+  symbol: SOL
+  name: Solana
+  coingecko_id: solana
+  defillama_id: solana
+  asset_type: base_network_asset
+  primary_chain: Solana
+  first_valid_date: '2020-04-10'
+  selected_major: true
+  stable_like: false
+  wrapped_or_productized: false
+  aliases:
+  - SOL
+- asset_key: coingecko:ripple
+  symbol: XRP
+  name: XRP
+  coingecko_id: ripple
+  defillama_id: ripple
+  asset_type: base_network_asset
+  primary_chain: XRPL
+  first_valid_date: '2013-08-04'
+  selected_major: true
+  stable_like: false
+  wrapped_or_productized: false
+  aliases:
+  - XRP
+- asset_key: coingecko:dogecoin
+  symbol: DOGE
+  name: Dogecoin
+  coingecko_id: dogecoin
+  defillama_id: dogecoin
+  asset_type: base_network_asset
+  primary_chain: Dogecoin
+  first_valid_date: '2013-12-06'
+  selected_major: true
+  stable_like: false
+  wrapped_or_productized: false
+  aliases:
+  - DOGE
+- asset_key: coingecko:tron
+  symbol: TRX
+  name: TRON
+  coingecko_id: tron
+  defillama_id: tron
+  asset_type: base_network_asset
+  primary_chain: Tron
+  first_valid_date: '2017-09-13'
+  selected_major: true
+  stable_like: false
+  wrapped_or_productized: false
+  aliases:
+  - TRX
+- asset_key: coingecko:the-open-network
+  symbol: TON
+  name: Toncoin
+  coingecko_id: the-open-network
+  defillama_id: ton
+  asset_type: base_network_asset
+  primary_chain: TON
+  first_valid_date: '2021-08-26'
+  selected_major: true
+  stable_like: false
+  wrapped_or_productized: false
+  aliases:
+  - TON
+  - Toncoin
+  not_aliases:
+  - Tokamak Network
+- asset_key: coingecko:cardano
+  symbol: ADA
+  name: Cardano
+  coingecko_id: cardano
+  defillama_id: cardano
+  asset_type: base_network_asset
+  primary_chain: Cardano
+  first_valid_date: '2017-10-01'
+  selected_major: true
+  stable_like: false
+  wrapped_or_productized: false
+  aliases:
+  - ADA
+- asset_key: coingecko:hyperliquid
+  symbol: HYPE
+  name: Hyperliquid
+  coingecko_id: hyperliquid
+  defillama_id: hyperliquid
+  asset_type: base_network_asset
+  primary_chain: Hyperliquid
+  first_valid_date: '2024-11-29'
+  selected_major: true
+  stable_like: false
+  wrapped_or_productized: false
+  aliases:
+  - HYPE

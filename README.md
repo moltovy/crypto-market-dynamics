@@ -1,396 +1,126 @@
-# Crypto Market Factor Lab
+# Crypto Market Dynamics
 
-> A reproducible Python analytics system for BTC/ETH factor regimes, ETF-flow
-> market plumbing, stablecoin liquidity, cross-asset connectedness, and
-> crypto-native market structure using a frozen 2020–2026 multi-source panel.
+## Factor, Liquidity, Leverage, and Market-Structure Research
 
-## Results at a Glance
+Crypto Market Dynamics is a reproducible research-code project studying how crypto market behavior evolved from 2020-2026 across native valuation state, macro integration, ETF access, leverage, stablecoin/DeFi liquidity, selected major assets, point-in-time market structure, and event responses.
 
-BTC daily-return models are extremely sensitive to MVRV-style valuation state.
-In the current daily linear setup, `btc_mvrv_d1` has correlation ≈ 0.955 with
-`btc_ret`, and removing MVRV from the full model drops R² from 0.921 to 0.146.
-This is not surprising — MVRV is a close proxy for price-level variation — but
-it dominates all other blocks by an order of magnitude.
+The project is descriptive. It is not a price-forecasting system, trading strategy, or causal-identification claim.
 
-We report both full and ex-MVRV models because MVRV is a valuation-state
-variable highly correlated with BTC returns, not a clean exogenous factor.
+## Research Questions
 
-| Diagnostic | Value | Source |
-|---|---:|---|
-| BTC full-model R² | 0.921 | [T03](outputs/tables/T03_block_attribution.csv) |
-| BTC R² without MVRV | 0.146 | [T03](outputs/tables/T03_block_attribution.csv) |
-| BTC MVRV-only standalone R² | 0.915 | [T19](outputs/tables/T19_same_support_ablation_btc.csv) |
-| BTC native-ex-MVRV standalone R² | 0.004 | [T19](outputs/tables/T19_same_support_ablation_btc.csv) |
-| BTC–MVRV correlation | 0.955 | [T21](outputs/tables/T21_top_correlations_btc.csv) |
-| ETF-flow lag 0 HAC t-stat | 10.22 | [T04](outputs/tables/T04_etf_lead_lag.csv) |
-| BTC Chow test p-value (ETF date) | 0.624 | [T08](outputs/tables/T08_structural_breaks.csv) |
-| Mean VAR connectedness index | 39.3% | [T09](outputs/tables/T09_rolling_connectedness.csv) |
+1. How mechanically linked are MVRV and holder-profit metrics to BTC price/returns?
+2. After removing mechanically linked valuation-state measures, how did BTC/ETH exposures evolve?
+3. Are leverage and liquidation variables more informative for volatility/tail stress than average returns?
+4. How did ETF access relate to market plumbing and risk integration?
+5. How do stablecoin and DeFi liquidity states relate to volatility and concentration?
+6. How do selected major assets differ in volatility, drawdown, beta, and event response?
+7. How did PIT market composition, concentration, and turnover evolve?
 
-ETF-flow intensity has strong same-day association with BTC returns
-(lag 0 t = 10.22), but daily data cannot identify causal flow impact. The
-evidence is framed as market-plumbing and lead-lag diagnostics.
+## Results At A Glance
 
-Non-MVRV native variables, macro, TradFi, and liquidity blocks each contribute
-ΔR² < 0.01 in the full model. In the ex-MVRV specification, macro and TradFi
-blocks become the largest contributors, but ex-MVRV model R² remains low
-(~0.15).
+| question                   | finding                                                                          | key_statistic                        | sample_frequency   | evidence_grade   | interpretation                                                               | caveat                             | source_table                     |
+|:---------------------------|:---------------------------------------------------------------------------------|:-------------------------------------|:-------------------|:-----------------|:-----------------------------------------------------------------------------|:-----------------------------------|:---------------------------------|
+| MVRV mechanics             | MVRV is retained as a mechanically price-linked valuation-state diagnostic.      | 0.9932                               | 2020-2026 daily    | B                | Use lagged state regimes; exclude same-day MVRV from primary BTC/ETH models. | Mechanical target overlap.         | mvrv_mechanical_link_audit.csv   |
+| Ex-MVRV exposure evolution | Primary BTC/ETH exposure tables are ex-MVRV and same-support.                    | See block_delta_r2.csv               | daily and weekly   | B                | Feature blocks are descriptive exposures, not forecasts.                     | Collinearity and short ETF sample. | block_delta_r2.csv               |
+| Leverage and tail stress   | Derivatives variables are framed as stress and volatility-state diagnostics.     | See leverage_tail_risk_summary.csv   | daily              | B                | Lagged state differs from contemporaneous liquidation signature.             | No initiation-cause claim.         | leverage_tail_risk_summary.csv   |
+| PIT market structure       | PIT monthly snapshots support composition, concentration, and turnover evidence. | See pit_market_structure_summary.csv | monthly            | A                | Use for market structure only.                                               | No daily PIT performance.          | pit_market_structure_summary.csv |
 
-### MVRV Dominance Across Regimes
-
-MVRV dominance persists across all time windows but varies in magnitude:
-
-| Regime | Full R² | Ex-MVRV R² | MVRV-only R² | ΔR² |
-|---|---:|---:|---:|---:|
-| Full 2020–2026 | 0.921 | 0.146 | 0.915 | 0.775 |
-| Pre-BTC ETF | 0.904 | 0.146 | 0.897 | 0.759 |
-| Post-BTC ETF | 0.971 | 0.168 | 0.968 | 0.803 |
-| 2024 | 0.980 | 0.164 | 0.978 | 0.816 |
-| 2025 | 0.987 | 0.220 | 0.985 | 0.766 |
-| 2026 YTD | 0.978 | 0.429 | 0.967 | 0.549 |
-
-Source: [T25_mvrv_sensitivity_by_regime.csv](outputs/tables/T25_mvrv_sensitivity_by_regime.csv) — all models on same-support samples.
-
-The trend shows weakening MVRV dominance in 2026 YTD (ΔR² = 0.549) as
-ex-MVRV factors gain explanatory power (R² = 0.429). This could reflect
-changing market structure post-ETF institutionalization or sample-size effects
-in a short window.
 
 ## Data
 
-The public artifact packet uses a frozen daily panel from 2020-01-01 through
-2026-04-11 with 2,293 rows and 63 columns. Frozen data keeps the project
-reproducible without paid data, live API calls, or source refresh drift.
+The build uses local curated data under `Data/`: CryptoQuant, Artemis, DefiLlama, FRED, Farside, TradingView, AlternativeMe/CMC, and a monthly DefiLlama PIT market-universe file. Data-use caveats are separated in [DATA_LICENSE.md](DATA_LICENSE.md). Source coverage is summarized in [data_source_coverage.csv](outputs/tables/data_source_coverage.csv).
 
-| Source | Role |
-|---|---|
-| CryptoQuant | BTC/ETH native, on-chain, and market-structure indicators |
-| Farside ETF Data | BTC and ETH ETF flows |
-| DefiLlama | TVL, stablecoin, and DeFi liquidity context |
-| FRED | Macro, rates, dollar, and volatility variables |
-| TradingView | Cross-asset market data |
-| Artemis | ETF, DeFi, and chain context |
-| AlternativeMe | Sentiment |
+## MVRV Mechanics And On-Chain State
 
-The clean catalog entry point is [`docs/data/catalog/`](docs/data/catalog/).
-The historical source-data tree remains under `Data/` for compatibility with
-existing scripts.
+![MVRV mechanics](outputs/figures/public/01_mvrv_mechanics.png)
 
-### Market-Structure Extension
+MVRV is a valuation-state diagnostic with mechanical price-state content. Same-day MVRV change is excluded from the primary BTC/ETH exposure models; lagged MVRV state appears as conditioning context.
 
-The additive market-structure layer under [`Data/MarketStructure/`](Data/MarketStructure/)
-and [`outputs/`](outputs/) integrates tracked DefiLlama, AlternativeMe, and
-TradingView context with optional DefiLlama, Binance, and CoinMarketCap cache.
-It runs without API keys by writing explicit skip diagnostics. Raw API payloads
-and large pulls stay in gitignored `data_cache/`.
+Source: [mvrv_mechanical_link_audit.csv](outputs/tables/mvrv_mechanical_link_audit.csv)
 
-Binance outputs are labeled as exchange-liquidity ranks based on rolling quote
-volume. They are not market-cap ranks. Historical market-cap top100 output is
-skipped unless point-in-time market-cap snapshots are provided.
+## BTC/ETH Ex-MVRV Exposure Evolution
 
-The repo supports a local DefiLlama monthly top200 universe at
-`data_cache/defillama/crypto_universe_monthly_2020_2026.csv`. When supplied and
-ingested, it builds full, ex-stable, and clean-risk top100 market-cap universes
-with internal classification overrides. Monthly snapshots support composition,
-concentration, rank-turnover, and cycle-phase structure; daily OHLCV is still
-required for returns, breadth, volatility, beta, drawdowns, dispersion, and
-event-return analysis.
+![Factor strength by regime](outputs/figures/public/02_factor_strength_by_regime.png)
 
-## Methodology
+Primary exposure models use lagged ex-MVRV features, same-support samples, HAC uncertainty, FDR adjustment, VIF/condition diagnostics, and daily/weekly robustness. Drop-block delta R-squared is reported separately from conventional partial R-squared.
 
-- Feature engineering for returns, differences, ETF-flow intensity, realized
-  volatility, and BTC-native variables.
-- HAC OLS for reduced-form BTC/ETH factor exposure.
-- Full-vs-reduced block partial R² for factor-block attribution.
-- Same-support nested ablation (all models on identical non-missing rows).
-- Regime-stratified feature-strength metrics (correlation, HAC t-stat,
-  drop-one ΔR², standardized betas) across full, pre/post ETF, yearly, and
-  volatility regimes.
-- ETF-flow and stablecoin lead-lag regressions with explicit lag convention.
-- Rolling cross-asset correlations and pre/post event deltas.
-- Stablecoin supply and DeFi TVL liquidity proxy diagnostics.
-- BTC-native factor registry, correlations, and ablations.
-- Chow tests and single-break sup-F scans for structural-break diagnostics.
-- VAR/FEVD connectedness and event-study diagnostics.
-- Model robustness grids across window, HAC lag, winsorization, and calendar.
+![TradFi integration over time](outputs/figures/public/03_tradfi_integration_over_time.png)
 
-Method details live in [`docs/methodology/`](docs/methodology/).
+Source: [block_delta_r2.csv](outputs/tables/block_delta_r2.csv), [rolling_exposures.csv](outputs/tables/rolling_exposures.csv)
 
-## Key Result Tables
+## ETF Institutionalization And Market Plumbing
 
-| Table | Description |
-|---|---|
-| [T11](outputs/tables/T11_results_at_a_glance.md) | Results at a glance summary |
-| [T03](outputs/tables/T03_block_attribution.csv) | Block attribution and ablation |
-| [T04](outputs/tables/T04_etf_lead_lag.csv) | ETF lead-lag grid |
-| [T05](outputs/tables/T05_correlation_regime.csv) | Rolling and pre/post correlation diagnostics |
-| [T06](outputs/tables/T06_stablecoin_liquidity.csv) | Stablecoin and TVL proxies |
-| [T07](outputs/tables/T07_native_factor_ablation.csv) | Native registry and ablation |
-| [T08](outputs/tables/T08_structural_breaks.csv) | Chow and single-break sup-F |
-| [T09](outputs/tables/T09_connectedness.csv) | VAR/FEVD connectedness |
-| [T10](outputs/tables/T10_robustness.csv) | Sensitivity grid |
-| [T12](outputs/tables/T12_regime_definitions.csv) | Regime definitions and sample sizes |
-| [T13](outputs/tables/T13_factor_dictionary.csv) | Factor dictionary |
-| [T14](outputs/tables/T14_feature_strength_btc_full.csv) | BTC full-model feature strength |
-| [T15](outputs/tables/T15_feature_strength_btc_ex_mvrv.csv) | BTC ex-MVRV feature strength |
-| [T16](outputs/tables/T16_feature_strength_eth.csv) | ETH feature strength |
-| [T17](outputs/tables/T17_feature_strength_by_regime.csv) | Feature strength × regime cross-tab |
-| [T18](outputs/tables/T18_block_strength_by_regime.csv) | Block-level R² by regime |
-| [T19](outputs/tables/T19_same_support_ablation_btc.csv) | Same-support BTC ablation |
-| [T20](outputs/tables/T20_same_support_ablation_eth.csv) | Same-support ETH ablation |
-| [T21](outputs/tables/T21_top_correlations_btc.csv) | Top BTC correlations |
-| [T22](outputs/tables/T22_top_correlations_eth.csv) | Top ETH correlations |
-| [T23](outputs/tables/T23_core_correlation_matrix.csv) | Core correlation matrix |
-| [T24](outputs/tables/T24_pre_post_correlation_delta.csv) | Pre/post correlation deltas |
-| [T25](outputs/tables/T25_mvrv_sensitivity_by_regime.csv) | MVRV sensitivity by regime |
-| [T26](outputs/tables/T26_etf_era_feature_strength.csv) | ETF-era feature strength |
-| [T27](outputs/tables/T27_rolling_feature_rank_stability.csv) | Rolling feature rankings |
-| [T28](outputs/tables/T28_market_structure_source_capabilities.csv) | Market-structure source capability audit |
-| [T29](outputs/tables/T29_asset_classification.csv) | Internal asset classification |
-| [T30](outputs/tables/T30_binance_liquidity_top100.csv) | Binance exchange-liquidity universe |
-| [T31](outputs/tables/T31_sentiment_comparison.csv) | AlternativeMe and optional CMC Fear & Greed |
-| [T32](outputs/tables/T32_stablecoin_tvl_regimes.csv) | Stablecoin/TVL liquidity regimes |
-| [T33](outputs/tables/T33_cex_dex_activity.csv) | CEX/DEX activity context |
-| [T36](outputs/tables/T36_market_cap_top100_gap.csv) | Market-cap universe availability guardrail |
-| [T37](outputs/tables/T37_market_structure_feature_panel.csv) | Market-structure feature availability summary |
-| [T38](outputs/tables/T38_fear_greed_blended_daily.csv) | Blended Fear & Greed series with source flags |
-| [T39](outputs/tables/T39_fear_greed_source_overlap_summary.csv) | AlternativeMe vs CMC overlap diagnostics |
-| [T40](outputs/tables/T40_crypto_universe_monthly.csv) | Point-in-time monthly top200 market-cap universe |
-| [T41](outputs/tables/T41_clean_risk_top100_monthly.csv) | Internally rebuilt clean-risk top100 |
-| [T42](outputs/tables/T42_market_structure_composition.csv) | Full/ex-stable/clean-risk composition |
-| [T43](outputs/tables/T43_rank_turnover.csv) | Monthly entries, exits, and rank movement |
-| [T44](outputs/tables/T44_cycle_phase_market_structure.csv) | Cycle/ETF phase composition |
-| [T45](outputs/tables/T45_market_evolution_summary.md) | Market evolution summary |
-| [T46](outputs/tables/T46_market_structure_monthly_features.csv) | Monthly market-structure feature layer |
-| [T47](outputs/tables/T47_market_structure_daily_context.csv) | Lagged/as-of daily market-structure context |
-| [T48](outputs/tables/T48_market_structure_return_regimes.csv) | BTC/ETH descriptive return regimes |
-| [T49](outputs/tables/T49_market_structure_composition_shift.csv) | ETF-era composition-shift diagnostics |
-| [T50](outputs/tables/T50_market_structure_turnover_by_phase.csv) | Clean-risk turnover by cycle/ETF phase |
-| [T51](outputs/tables/T51_market_structure_modeling_summary.md) | Market-structure modeling summary |
-| [T52](outputs/tables/T52_constituent_daily_ohlcv.csv) | Current-top50 exploratory cohort OHLCV sample |
-| [T53](outputs/tables/T53_altseason_breadth.csv) | Exploratory current-cohort 90-day breadth |
-| [T54](outputs/tables/T54_constituent_return_indexes.csv) | BTC, ETH, current top50, and current top10 rotation indexes |
-| [T55](outputs/tables/T55_return_dispersion.csv) | Current-cohort clean-risk daily return dispersion |
-| [T56](outputs/tables/T56_rolling_beta_to_btc_eth.csv) | Current-cohort rolling beta/correlation to BTC and ETH |
-| [T57](outputs/tables/T57_category_rotation_returns.csv) | Exploratory current-cohort 90-day category rotation returns |
-| [T58](outputs/tables/T58_event_response_top50.csv) | Event-window response for the current top50 cohort |
-| [T59](outputs/tables/T59_constituent_data_gap_report.csv) | Daily constituent data-gap audit |
-| [T60](outputs/tables/T60_altseason_rotation_summary.md) | Current-cohort rotation lab summary |
+![ETF market plumbing](outputs/figures/public/04_etf_market_plumbing.png)
 
-## Figures
+ETF flows are market-plumbing variables with reporting-timing caveats. Flow-return grids and absorption ratios are descriptive associations, not causal valuation statements.
 
-### MVRV Sensitivity by Regime
+Source: [etf_market_plumbing_summary.csv](outputs/tables/etf_market_plumbing_summary.csv)
 
-![MVRV sensitivity by regime](outputs/figures/F01_mvrv_sensitivity_by_regime_v2.png)
+## Leverage And Liquidation Stress
 
-Panel A shows standalone model R² for three specifications (full with MVRV,
-MVRV-only, ex-MVRV) across time regimes. Panel B shows the ΔR² from removing
-MVRV — the incremental contribution of the MVRV block. MVRV dominance persists
-across all regimes but weakens in 2026 YTD.
+![Leverage and liquidation stress](outputs/figures/public/05_leverage_liquidation_stress.png)
 
-Source: [T25_mvrv_sensitivity_by_regime.csv](outputs/tables/T25_mvrv_sensitivity_by_regime.csv)
+Leverage, funding, OI, and liquidation variables are evaluated as stress and volatility-state measures. Lagged state models are separated from contemporaneous liquidation event signatures.
 
-### Same-Support Model Ablation
+Source: [leverage_tail_risk_summary.csv](outputs/tables/leverage_tail_risk_summary.csv)
 
-![Same-support BTC ablation](outputs/figures/F02_same_support_ablation.png)
+## Stablecoin And DeFi Liquidity
 
-Nested model ablation where every model is estimated on the same set of 1,940
-non-missing rows. The R² jump from M5 (+ native-ex-MVRV, R² = 0.146) to M6
-(+ MVRV, R² = 0.921) confirms MVRV as the dominant explanatory variable.
-MVRV-only achieves R² = 0.915, close to the full model.
+![Stablecoin and DeFi liquidity](outputs/figures/public/06_stablecoin_defi_liquidity.png)
 
-Source: [T19_same_support_ablation_btc.csv](outputs/tables/T19_same_support_ablation_btc.csv)
+Stablecoin and DeFi metrics are weekly liquidity-state proxies. The project separates supply, TVL, and activity proxies and does not call changes exogenous liquidity shocks.
 
-### BTC Feature Strength (ex-MVRV)
+Source: [stablecoin_defi_liquidity_summary.csv](outputs/tables/stablecoin_defi_liquidity_summary.csv)
 
-![BTC feature strength ex-MVRV](outputs/figures/F03_btc_ex_mvrv_strength.png)
+## Point-In-Time Market Structure
 
-Which features matter once MVRV is excluded? Panel A shows absolute correlation,
-Panel B shows multivariate HAC t-statistics. The t = 2 threshold highlights
-statistically significant contributors in the ex-MVRV specification.
+![Point-in-time market structure](outputs/figures/public/07_point_in_time_market_structure.png)
 
-Source: [T15_feature_strength_btc_ex_mvrv.csv](outputs/tables/T15_feature_strength_btc_ex_mvrv.csv)
+The monthly PIT top-200 source is used for composition, concentration, and turnover. It is not used for daily historical altseason performance.
 
-### ETF Flow Lead-Lag
+Source: [pit_market_structure_summary.csv](outputs/tables/pit_market_structure_summary.csv)
 
-![ETF flow lead-lag](outputs/figures/F04_etf_flow_lead_lag.png)
+## Selected Major Assets
 
-HAC t-statistics for the lead-lag pattern between ETF-flow intensity and BTC
-returns. The strongest signal is contemporaneous (lag 0, t = 10.22). Lagged
-relationships are reduced-form association, not predictive causality.
+![Selected major asset risk](outputs/figures/public/08_selected_major_asset_risk.png)
 
-Source: [T04_etf_lead_lag.csv](outputs/tables/T04_etf_lead_lag.csv)
+Selected major assets use canonical IDs and explicit coverage windows. HYPE is marked as short-history; unequal histories are not treated as directly comparable total-return samples.
 
-### Core Correlation Matrix
+Source: [selected_major_risk_metrics.csv](outputs/tables/selected_major_risk_metrics.csv)
 
-![Core correlation matrix](outputs/figures/F05_core_correlation_matrix.png)
+## Cycle And Event Atlas
 
-Pairwise correlations among core features. The BTC–MVRV correlation (0.955)
-dominates all other entries. BTC–SPY and BTC–QQQ correlations reflect
-time-varying crypto-equity integration.
+![Event response matrix](outputs/figures/public/09_event_response_matrix.png)
 
-Source: [T23_core_correlation_matrix.csv](outputs/tables/T23_core_correlation_matrix.csv)
+Event windows are descriptive and dependence-aware. The small number of halvings and ETF-era events is not enough for forecast rules or causal structural claims.
 
-### Rolling Correlations
+Source: [event_response_matrix.csv](outputs/tables/event_response_matrix.csv)
 
-![Rolling correlations](outputs/figures/F06_rolling_correlations.png)
+## Methods And Evidence Standards
 
-Small multiples of 180-day rolling correlations illustrate regime variation
-between BTC and TradFi/Macro assets. These are descriptive co-movements
-across crypto beta, equity risk, and volatility regimes.
+Public claims map to [evidence_ledger.csv](outputs/tables/evidence_ledger.csv) and claim dispositions are summarized in [claim_inventory.csv](outputs/tables/claim_inventory.csv). Evidence grades follow the project charter in [research_charter.md](docs/decisions/research_charter.md).
 
-Source: [T05_rolling_correlations.csv](outputs/tables/T05_rolling_correlations.csv)
+## Limitations
 
-### Feature Strength by Regime
-
-![Feature strength heatmap](outputs/figures/F07_feature_strength_heatmap.png)
-
-Multivariate HAC t-statistics for the ex-MVRV model across time and volatility
-regimes. Color intensity shows where specific features become stronger or
-weaker across different market conditions.
-
-Source: [T17_feature_strength_by_regime.csv](outputs/tables/T17_feature_strength_by_regime.csv)
-
-### Connectedness and Robustness
-
-![Connectedness and robustness](outputs/figures/F08_connectedness_robustness.png)
-
-Left: Rolling VAR/FEVD connectedness index. Right: Model R² with and without
-MVRV across different estimation windows — robustness confirmation.
-
-Source: [T09_rolling_connectedness.csv](outputs/tables/T09_rolling_connectedness.csv) and [T10_robustness.csv](outputs/tables/T10_robustness.csv)
-
-*Supplementary figures (native state detail, liquidity context) are in [`outputs/figures/gallery/`](outputs/figures/gallery/).*
-
-### Market-Structure Dashboard
-
-![Market-structure dashboard](outputs/figures/F30_market_structure_dashboard.png)
-
-The extension surfaces source coverage, sentiment, stablecoin/TVL regimes,
-CEX/DEX activity, BTC dominance cycle markers, RWA/DAT context, Binance
-liquidity-rank availability, and a point-in-time monthly market-cap universe.
-The monthly PIT universe is the primary market-structure evidence in this
-release.
-The universe is based on 78 monthly top200 snapshots from January 2020 through
-the partial June 16, 2026 snapshot.
-
-![Market evolution dashboard](outputs/figures/F42_market_evolution_dashboard.png)
-
-Latest monthly-universe readout: BTC plus ETH are 65.3% of full top100 market
-cap, the top10 are 87.6%, stable/synthetic/stable-yield assets are 13.8%, and
-the clean-risk asset share is 82.3%. Latest clean-risk top100 turnover is 5
-entrants and 5 exits.
-
-![Market-structure modeling dashboard](outputs/figures/F47_market_structure_modeling_dashboard.png)
-
-The monthly universe is also converted into a lagged/as-of daily context layer
-for descriptive BTC/ETH regime diagnostics. These outputs describe how daily
-returns and volatility line up with prior monthly market-structure states; they
-do not claim that composition shifts caused BTC or ETH returns.
-
-### Exploratory Current-Cohort Lab
-
-![Current-top50 exploratory rotation dashboard](outputs/figures/F53_rotation_dashboard.png)
-
-The daily lab is deliberately secondary. It adds exploratory breadth,
-dispersion, rolling beta, rotation indexes, and event-window diagnostics using
-the available DefiLlama current-top50 ex-stablecoin OHLCV sample. It is a
-current-cohort view of how today's large caps behaved historically. It is not a
-point-in-time top100/top200 panel, is survivorship-biased, and is not the
-primary altseason backtest.
-
-True historical top100 breadth, risk top100 returns, category rotation,
-drawdowns, and event response require daily OHLCV/market-cap/volume for every
-asset that ever appears in the point-in-time monthly top100/top200 universe.
-
-Source: [T60_altseason_rotation_summary.md](outputs/tables/T60_altseason_rotation_summary.md)
-
-Key figures:
-
-- [F31 stablecoin/TVL regimes](outputs/figures/F31_stablecoin_tvl_regimes.png)
-- [F32 sentiment comparison](outputs/figures/F32_sentiment_comparison.png)
-- [F33 CEX/DEX activity](outputs/figures/F33_cex_dex_activity.png)
-- [F34 Binance liquidity universe](outputs/figures/F34_binance_liquidity_universe.png)
-- [F35 BTC dominance cycle overlay](outputs/figures/F35_btc_dominance_cycle_overlay.png)
-- [F37 market-cap top100 gap](outputs/figures/F37_market_cap_top100_gap.png)
-- [F38 market-structure composition](outputs/figures/F38_market_structure_composition.png)
-- [F39 top100 concentration](outputs/figures/F39_top100_concentration.png)
-- [F40 rank turnover](outputs/figures/F40_rank_turnover.png)
-- [F41 cycle-phase market structure](outputs/figures/F41_cycle_phase_market_structure.png)
-- [F42 market evolution dashboard](outputs/figures/F42_market_evolution_dashboard.png)
-- [F43 monthly market-structure features](outputs/figures/F43_market_structure_monthly_features.png)
-- [F44 BTC/ETH return regimes](outputs/figures/F44_market_structure_return_regimes.png)
-- [F45 ETF-era composition shift](outputs/figures/F45_market_structure_composition_shift.png)
-- [F46 turnover by phase](outputs/figures/F46_market_structure_turnover_by_phase.png)
-- [F47 market-structure modeling dashboard](outputs/figures/F47_market_structure_modeling_dashboard.png)
-- [F48 current-cohort exploratory breadth](outputs/figures/F48_altseason_breadth.png)
-- [F49 current-cohort rotation indexes](outputs/figures/F49_constituent_return_indexes.png)
-- [F50 current-cohort clean-risk return dispersion](outputs/figures/F50_return_dispersion.png)
-- [F51 current-cohort rolling beta to BTC](outputs/figures/F51_rolling_beta_to_btc.png)
-- [F52 current-cohort event response](outputs/figures/F52_event_response_top50.png)
-- [F53 current-top50 exploratory rotation dashboard](outputs/figures/F53_rotation_dashboard.png)
+No causal claims are made. MVRV is a valuation-state diagnostic with mechanical price-state content. ETF and liquidation variables are contemporaneous and timing-sensitive. Stablecoin/DeFi variables are proxies. Current-top50 daily cohort analysis is exploratory and survivorship-biased. True PIT historical altseason performance is deferred until constituent daily data exists.
 
 ## Reproduce
 
 ```powershell
 uv sync --all-extras
-uv run python scripts/06_feature_strength.py
-uv run python scripts/make_hero_figures.py
+uv run python scripts/run_all.py
+uv run python scripts/check_public_surface.py
 uv run pytest
 uv run mypy src/cqresearch
-uv run python scripts/audit_market_structure_endpoints.py --dry-run
-uv run python scripts/fetch_market_structure_raw.py --cache-only
-uv run python scripts/ingest_defillama_monthly_universe.py
-uv run python scripts/ingest_defillama_daily_constituents.py
-uv run python scripts/normalize_market_structure_cache.py --cache-only
-uv run python scripts/build_market_structure_outputs.py
-uv run python scripts/run_all.py
+uv run ruff check src/cqresearch scripts tests
 ```
 
 ## Repository Structure
 
-```text
-README.md              public project overview
-Data/                  frozen source-data tree
-docs/                  methodology, architecture, data, and decisions
-outputs/               canonical reports, figures, tables, model cards, manifest
-scripts/               reproducible entry points and legacy-compatible pipelines
-src/cqresearch/        reusable Python package
-tests/                 unit tests
-archive/               retained provenance, not the public workflow
-```
-
-## Outputs
-
-- Reports: [`outputs/report/`](outputs/report/)
-- Figures: [`outputs/figures/`](outputs/figures/)
-- Tables: [`outputs/tables/`](outputs/tables/)
-- Model cards: [`outputs/model_cards/`](outputs/model_cards/)
-- Dashboard: [`outputs/dashboard/index.html`](outputs/dashboard/index.html)
-- Manifest: [`outputs/manifest.json`](outputs/manifest.json)
-
-## Limitations
-
-- Daily data cannot identify intraday mechanisms or order flow.
-- ETF-flow, stablecoin, and native-factor outputs are reduced-form diagnostics,
-  not causal identification.
-- MVRV is a valuation-state variable highly correlated with BTC returns. Its
-  dominance in the full model reflects near-price co-movement, not an
-  independent explanatory factor.
-- Stablecoin supply and TVL are proxies, not proven liquidity shocks.
-- Structural-break diagnostics use Chow and single-break sup-F tests, not full
-  Bai-Perron multiple-break estimation.
-- Advanced attribution depends on block definitions and the selected feature
-  set.
-- Frozen data makes the project reproducible, but it is not a live market
-  monitor.
-- Binance top100 is exchange-liquidity based, not market-cap based.
-- CoinMarketCap Fear & Greed live refresh requires `CMC_API_KEY`; cached CMC
-  history is included when present, otherwise AlternativeMe remains the
-  tracked sentiment baseline.
-
-## Data and License Notes
-
-Code and generated artifacts are organized for reproducible research review.
-External datasets and third-party references retain their upstream terms. See
-the source catalog under [`docs/data/catalog/`](docs/data/catalog/) for the
-frozen data inventory.
+- `Data/` curated local source data.
+- `config/` asset, event, feature, and figure registries.
+- `src/cqresearch/` maintained data, feature, modeling, analysis, reporting, visualization, and pipeline code.
+- `scripts/` thin CLI entry points.
+- `outputs/` generated public tables, figures, reports, and model cards.
+- `docs/` methodology, data, architecture, and decisions.
+- `archive/` historical material excluded from public indexing.

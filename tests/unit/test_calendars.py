@@ -14,7 +14,7 @@ def test_get_master_ffill_limit_reads_config() -> None:
 
 
 def test_align_to_master_respects_ffill_limit() -> None:
-    from cqresearch.data.calendars import align_to_master, crypto_index, get_master_ffill_limit
+    from cqresearch.data.calendars import align_to_master, get_master_ffill_limit
 
     idx = pd.date_range("2024-01-01", periods=10, freq="D")
     # Fri value only — weekend + Mon should fill within limit

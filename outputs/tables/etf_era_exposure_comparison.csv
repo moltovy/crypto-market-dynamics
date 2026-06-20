@@ -1,0 +1,13 @@
+asset,regime,n,r2,feature_count,method_note
+BTC,2020-2022,0,,13,"Lagged ex-MVRV exposure model, descriptive regime split."
+BTC,2023,0,,13,"Lagged ex-MVRV exposure model, descriptive regime split."
+BTC,btc_etf_era,821,0.019499867989787423,13,"Lagged ex-MVRV exposure model, descriptive regime split."
+BTC,high_volatility,232,0.10380384648240992,13,"Lagged ex-MVRV exposure model, descriptive regime split."
+BTC,low_mvrv_state,143,0.18870685371831364,13,"Lagged ex-MVRV exposure model, descriptive regime split."
+BTC,high_mvrv_state,598,0.022875497707271264,13,"Lagged ex-MVRV exposure model, descriptive regime split."
+ETH,2020-2022,0,,13,"Lagged ex-MVRV exposure model, descriptive regime split."
+ETH,2023,0,,13,"Lagged ex-MVRV exposure model, descriptive regime split."
+ETH,btc_etf_era,627,0.021764658591596264,13,"Lagged ex-MVRV exposure model, descriptive regime split."
+ETH,high_volatility,149,0.1463664753970917,13,"Lagged ex-MVRV exposure model, descriptive regime split."
+ETH,low_mvrv_state,143,0.15522426506102427,13,"Lagged ex-MVRV exposure model, descriptive regime split."
+ETH,high_mvrv_state,405,0.05077701637102705,13,"Lagged ex-MVRV exposure model, descriptive regime split."

@@ -4,30 +4,31 @@ import re
 from pathlib import Path
 
 import numpy as np
+import yaml
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
-FIGURES = ROOT / "outputs" / "figures"
+PUBLIC_FIGURES = ROOT / "outputs" / "figures" / "public"
 
 EXPECTED_FIGURES = [
-    "F00_project_summary_card.png",
-    "F01_data_coverage.png",
-    "F02_btc_block_attribution.png",
-    "F03_btc_etf_lead_lag.png",
-    "F04_btc_rolling_correlations.png",
-    "F05_stablecoin_supply_tvl.png",
-    "F06_btc_native_dashboard.png",
-    "F07_connectedness.png",
-    "F08_robustness_grid.png",
-    "F09_key_results_cards.png",
-    "T00_key_results_table.png",
+    "01_mvrv_mechanics.png",
+    "02_factor_strength_by_regime.png",
+    "03_tradfi_integration_over_time.png",
+    "04_etf_market_plumbing.png",
+    "05_leverage_liquidation_stress.png",
+    "06_stablecoin_defi_liquidity.png",
+    "07_point_in_time_market_structure.png",
+    "08_selected_major_asset_risk.png",
+    "09_event_response_matrix.png",
 ]
 
 
-def test_canonical_visual_outputs_exist_and_are_readme_ready() -> None:
+def test_public_visual_outputs_are_exactly_the_canonical_nine() -> None:
+    png_names = sorted(path.name for path in PUBLIC_FIGURES.glob("*.png"))
+    assert png_names == EXPECTED_FIGURES
+
     for filename in EXPECTED_FIGURES:
-        path = FIGURES / filename
-        assert path.exists(), filename
+        path = PUBLIC_FIGURES / filename
         assert path.stat().st_size > 20_000, filename
         assert path.with_suffix(".svg").exists(), filename
         with Image.open(path) as image:
@@ -38,12 +39,15 @@ def test_canonical_visual_outputs_exist_and_are_readme_ready() -> None:
         assert float(pixels.std()) > 3.0, filename
 
 
-def test_readme_image_links_resolve_to_public_outputs() -> None:
+def test_public_figure_registry_matches_files_and_readme() -> None:
+    registry = yaml.safe_load((ROOT / "config" / "public_figures.yml").read_text(encoding="utf-8"))
+    registry_paths = [Path(item["filename"]).name for item in registry["figures"]]
+    assert registry_paths == EXPECTED_FIGURES
+
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     image_paths = re.findall(r"!\[[^\]]*\]\(([^)]+)\)", readme)
-    assert image_paths
+    assert image_paths == [f"outputs/figures/public/{name}" for name in EXPECTED_FIGURES]
     for raw_path in image_paths:
         assert "archive/" not in raw_path
         assert "portfolio_v2" not in raw_path
-        path = ROOT / raw_path
-        assert path.exists(), raw_path
+        assert (ROOT / raw_path).exists(), raw_path

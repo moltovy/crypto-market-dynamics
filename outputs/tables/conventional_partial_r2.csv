@@ -1,0 +1,21 @@
+asset,frequency,block,n,conventional_partial_r2,formula
+BTC,daily,macro_risk,821,0.0036295636857363337,(SSE_reduced - SSE_full) / SSE_reduced
+BTC,daily,etf_institutional,821,0.7812252541450617,(SSE_reduced - SSE_full) / SSE_reduced
+BTC,daily,liquidity,821,0.004458061904295588,(SSE_reduced - SSE_full) / SSE_reduced
+BTC,daily,sentiment,821,0.0005682120365225198,(SSE_reduced - SSE_full) / SSE_reduced
+BTC,daily,native_flows,821,0.006653053078597094,(SSE_reduced - SSE_full) / SSE_reduced
+BTC,weekly,macro_risk,0,,(SSE_reduced - SSE_full) / SSE_reduced
+BTC,weekly,etf_institutional,0,,(SSE_reduced - SSE_full) / SSE_reduced
+BTC,weekly,liquidity,0,,(SSE_reduced - SSE_full) / SSE_reduced
+BTC,weekly,sentiment,0,,(SSE_reduced - SSE_full) / SSE_reduced
+BTC,weekly,native_flows,0,,(SSE_reduced - SSE_full) / SSE_reduced
+ETH,daily,macro_risk,627,0.008418373223900787,(SSE_reduced - SSE_full) / SSE_reduced
+ETH,daily,etf_institutional,627,0.7919871812711936,(SSE_reduced - SSE_full) / SSE_reduced
+ETH,daily,liquidity,627,0.0028876995916873533,(SSE_reduced - SSE_full) / SSE_reduced
+ETH,daily,sentiment,627,0.0002821417547544949,(SSE_reduced - SSE_full) / SSE_reduced
+ETH,daily,native_flows,627,0.003237637488014856,(SSE_reduced - SSE_full) / SSE_reduced
+ETH,weekly,macro_risk,0,,(SSE_reduced - SSE_full) / SSE_reduced
+ETH,weekly,etf_institutional,0,,(SSE_reduced - SSE_full) / SSE_reduced
+ETH,weekly,liquidity,0,,(SSE_reduced - SSE_full) / SSE_reduced
+ETH,weekly,sentiment,0,,(SSE_reduced - SSE_full) / SSE_reduced
+ETH,weekly,native_flows,0,,(SSE_reduced - SSE_full) / SSE_reduced

@@ -1,0 +1,8 @@
+metric,value,n,interpretation
+corr_d_log_mvrv_btc_return,0.9966004845067129,2292,High same-day correlation is mechanical price-state overlap.
+same_day_mvrv_r2,0.9932125257190153,2292,"Diagnostic upper bound, excluded from primary exposure model."
+identity_residual_mean,2.1693657409790367e-05,2290,Residual from dlog(MVRV)=dlog(mcap)-dlog(realized cap).
+identity_residual_abs_median,0.02404363925032099,2290,Small residual supports mechanical identity within source conventions.
+corr_btc_nupl_lag1_btc_return,-0.004635063328760065,1927,Related holder-profit state measure; not exogenous return factor.
+corr_btc_supply_profit_pct_lag1_btc_return,0.017742224299128227,1927,Related holder-profit state measure; not exogenous return factor.
+corr_btc_realized_price_gap_lag1_btc_return,0.0013100329940532172,1927,Related holder-profit state measure; not exogenous return factor.

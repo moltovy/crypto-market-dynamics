@@ -1,7 +1,0 @@
-regime,n,full_with_mvrv_r2,ex_mvrv_r2,mvrv_only_r2,delta_r2,note
-full,1940,0.9207,0.146,0.9154,0.7748,same_support
-pre_btc_etf,1210,0.9044,0.1455,0.8965,0.7589,same_support
-post_btc_etf,730,0.9707,0.1682,0.9681,0.8026,same_support
-year_2024,337,0.9801,0.1639,0.9781,0.8162,same_support
-year_2025,320,0.9865,0.2201,0.9853,0.7664,same_support
-year_2026_ytd,83,0.9779,0.4293,0.9668,0.5485,same_support

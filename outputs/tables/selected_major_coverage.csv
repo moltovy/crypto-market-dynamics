@@ -1,0 +1,11 @@
+symbol,coingecko_id,first_valid_date,last_valid_date,observations,coverage_note
+ADA,coingecko:cardano,2022-12-31,2026-06-16,1263,Coverage-aware selected-major sample.
+BNB,coingecko:binancecoin,2022-12-31,2026-06-16,1263,Coverage-aware selected-major sample.
+BTC,coingecko:bitcoin,2022-12-31,2026-06-16,1263,Coverage-aware selected-major sample.
+DOGE,coingecko:dogecoin,2022-12-31,2026-06-16,1263,Coverage-aware selected-major sample.
+ETH,coingecko:ethereum,2022-12-31,2026-06-16,1263,Coverage-aware selected-major sample.
+HYPE,coingecko:hyperliquid,2024-11-29,2026-06-16,564,Short-history asset; do not compare as full-cycle history.
+SOL,coingecko:solana,2022-12-31,2026-06-16,1263,Coverage-aware selected-major sample.
+TRX,coingecko:tron,2022-12-31,2026-06-16,1263,Coverage-aware selected-major sample.
+XRP,coingecko:ripple,2022-12-31,2026-06-16,1263,Coverage-aware selected-major sample.
+TON,coingecko:the-open-network,,,0,Skipped: requested selected major is not present in the current daily constituent source.

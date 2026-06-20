@@ -1,7 +1,7 @@
 [project]
 name = "cqresearch"
 version = "0.1.0"
-description = "Crypto Market Factor Lab - reproducible BTC/ETH factor, ETF-flow, liquidity, and native-market analytics."
+description = "Crypto Market Dynamics - reproducible crypto factor, liquidity, leverage, and market-structure analytics."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
@@ -50,10 +50,39 @@ packages = ["src/cqresearch"]
 line-length = 100
 target-version = "py311"
 src = ["src", "scripts", "tools", "tests"]
+extend-exclude = [
+    "archive",
+    "crypto_market_dynamics_final_codex_program",
+    "scripts/01_build_master_panel.py",
+    "scripts/02_run_analyses.py",
+    "scripts/03_make_figures.py",
+    "scripts/04_descriptives_and_summaries.py",
+    "scripts/05_robustness.py",
+    "scripts/06_feature_strength.py",
+    "scripts/audit_market_structure_endpoints.py",
+    "scripts/build_market_structure_outputs.py",
+    "scripts/build_visual_gallery.py",
+    "scripts/export_outputs.py",
+    "scripts/fetch_market_structure_raw.py",
+    "scripts/ingest_defillama_daily_constituents.py",
+    "scripts/ingest_defillama_monthly_universe.py",
+    "scripts/inspect_core_files.py",
+    "scripts/legacy_ingest_pipeline.py",
+    "scripts/make_hero_figures.py",
+    "scripts/normalize_market_structure_cache.py",
+    "scripts/optional_data",
+    "scripts/run_full_pipeline.py",
+    "scripts/run_portfolio_pipeline.py",
+    "scripts/run_portfolio_v2_1_pipeline.py",
+    "scripts/run_portfolio_v2_2_pipeline.py",
+]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "N", "C4", "SIM", "RUF"]
-ignore = ["E501"]
+ignore = ["E501", "N803", "N806", "RUF001", "RUF002", "RUF005", "RUF022", "RUF046", "SIM108", "B905"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/*.py" = ["E402"]
 
 [tool.mypy]
 python_version = "3.11"

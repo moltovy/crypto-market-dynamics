@@ -1,0 +1,40 @@
+stable_like:
+- USDT
+- USDC
+- DAI
+- FDUSD
+- BUSD
+- TUSD
+- USDE
+- USDS
+- PYUSD
+- USDP
+- USDD
+- USDT0
+- USDC.E
+productized_wrapped:
+- WBTC
+- WETH
+- CBBTC
+- STETH
+- WSTETH
+- RETH
+- WEETH
+- WBETH
+- CBETH
+- PAXG
+- XAUT
+governance_or_infrastructure_risk:
+- LDO
+- RPL
+- EIGEN
+- ETHFI
+selected_majors_ex_btc_eth:
+- BNB
+- SOL
+- XRP
+- DOGE
+- TRX
+- TON
+- ADA
+- HYPE

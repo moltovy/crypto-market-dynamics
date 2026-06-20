@@ -1,0 +1,128 @@
+figures:
+- figure_id: mvrv_mechanics
+  filename: outputs/figures/public/01_mvrv_mechanics.png
+  status: public
+  research_question: How mechanically linked is MVRV to BTC price/returns?
+  source_tables: outputs/tables/mvrv_mechanical_link_audit.csv; outputs/tables/mvrv_regime_outcomes.csv
+  chart_type: generated
+  units: see axes
+  caption: How mechanically linked is MVRV to BTC price/returns?
+  caveat: Public figure shows mechanics and lagged-state outcomes; MVRV is not a same-day
+    factor.
+  width_px: 1800
+  height_px: 1200
+  svg_required: true
+  readme_section: mvrv_mechanics
+  visual_qa_status: generated_pending_review
+- figure_id: factor_strength_by_regime
+  filename: outputs/figures/public/02_factor_strength_by_regime.png
+  status: public
+  research_question: How do ex-MVRV feature blocks vary by regime?
+  source_tables: outputs/tables/block_delta_r2.csv
+  chart_type: generated
+  units: see axes
+  caption: How do ex-MVRV feature blocks vary by regime?
+  caveat: Drop-block delta R-squared, not conventional partial R-squared.
+  width_px: 1800
+  height_px: 1200
+  svg_required: true
+  readme_section: factor_strength_by_regime
+  visual_qa_status: generated_pending_review
+- figure_id: tradfi_integration_over_time
+  filename: outputs/figures/public/03_tradfi_integration_over_time.png
+  status: public
+  research_question: How did TradFi exposure evolve over time?
+  source_tables: outputs/tables/rolling_exposures.csv
+  chart_type: generated
+  units: see axes
+  caption: How did TradFi exposure evolve over time?
+  caveat: Rolling-window points overlap and are descriptive.
+  width_px: 1800
+  height_px: 1200
+  svg_required: true
+  readme_section: tradfi_integration_over_time
+  visual_qa_status: generated_pending_review
+- figure_id: etf_market_plumbing
+  filename: outputs/figures/public/04_etf_market_plumbing.png
+  status: public
+  research_question: How did ETF access relate to market plumbing?
+  source_tables: outputs/tables/etf_absorption_metrics.csv; outputs/tables/etf_flow_associations.csv
+  chart_type: generated
+  units: see axes
+  caption: How did ETF access relate to market plumbing?
+  caveat: ETF flow relationships are associations, not causal price effects.
+  width_px: 1800
+  height_px: 1200
+  svg_required: true
+  readme_section: etf_market_plumbing
+  visual_qa_status: generated_pending_review
+- figure_id: leverage_liquidation_stress
+  filename: outputs/figures/public/05_leverage_liquidation_stress.png
+  status: public
+  research_question: Do leverage/liquidation states align with tail stress?
+  source_tables: outputs/tables/leverage_tail_risk_summary.csv; outputs/tables/liquidation_event_responses.csv
+  chart_type: generated
+  units: see axes
+  caption: Do leverage/liquidation states align with tail stress?
+  caveat: Lagged state and contemporaneous liquidation signatures are separated.
+  width_px: 1800
+  height_px: 1200
+  svg_required: true
+  readme_section: leverage_liquidation_stress
+  visual_qa_status: generated_pending_review
+- figure_id: stablecoin_defi_liquidity
+  filename: outputs/figures/public/06_stablecoin_defi_liquidity.png
+  status: public
+  research_question: How did stablecoin and DeFi liquidity regimes evolve?
+  source_tables: outputs/tables/stablecoin_defi_liquidity_summary.csv
+  chart_type: generated
+  units: see axes
+  caption: How did stablecoin and DeFi liquidity regimes evolve?
+  caveat: Weekly liquidity proxies are not exogenous liquidity shocks.
+  width_px: 1800
+  height_px: 1200
+  svg_required: true
+  readme_section: stablecoin_defi_liquidity
+  visual_qa_status: generated_pending_review
+- figure_id: point_in_time_market_structure
+  filename: outputs/figures/public/07_point_in_time_market_structure.png
+  status: public
+  research_question: How did PIT composition and concentration evolve?
+  source_tables: outputs/tables/pit_market_structure_summary.csv; outputs/tables/pit_composition.csv
+  chart_type: generated
+  units: see axes
+  caption: How did PIT composition and concentration evolve?
+  caveat: Monthly PIT data supports composition/turnover, not daily performance.
+  width_px: 1800
+  height_px: 1200
+  svg_required: true
+  readme_section: point_in_time_market_structure
+  visual_qa_status: generated_pending_review
+- figure_id: selected_major_asset_risk
+  filename: outputs/figures/public/08_selected_major_asset_risk.png
+  status: public
+  research_question: How do selected major assets differ in risk?
+  source_tables: outputs/tables/selected_major_risk_metrics.csv
+  chart_type: generated
+  units: see axes
+  caption: How do selected major assets differ in risk?
+  caveat: Coverage differs by asset; HYPE is short-history.
+  width_px: 1800
+  height_px: 1200
+  svg_required: true
+  readme_section: selected_major_asset_risk
+  visual_qa_status: generated_pending_review
+- figure_id: event_response_matrix
+  filename: outputs/figures/public/09_event_response_matrix.png
+  status: public
+  research_question: What do configured event windows show?
+  source_tables: outputs/tables/event_response_matrix.csv
+  chart_type: generated
+  units: see axes
+  caption: What do configured event windows show?
+  caveat: Event responses are descriptive and not causal identification.
+  width_px: 1800
+  height_px: 1200
+  svg_required: true
+  readme_section: event_response_matrix
+  visual_qa_status: generated_pending_review

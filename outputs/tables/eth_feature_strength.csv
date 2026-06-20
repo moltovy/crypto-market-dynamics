@@ -1,0 +1,27 @@
+asset,frequency,feature_id,feature_label,block,n,correlation_lag1,univariate_r2,standardized_beta,hac_t,p_value,fdr_q_value,drop_feature_delta_r2,model_family
+ETH,daily,qqq_ret,QQQ return,macro_risk,627,-0.039837,0.0015869521424066724,0.027110398326785162,0.13471389258695018,0.8928380886258901,0.9280677086827966,4.7066125338224296e-05,ex_mvrv_primary_exposure
+ETH,daily,spy_ret,SPY return,macro_risk,627,-0.041185,0.0016962221221414886,-0.0627602533284318,-0.2802970461936426,0.7792496167910661,0.9280677086827966,0.00018403136139200083,ex_mvrv_primary_exposure
+ETH,daily,vix_d1,VIX change,macro_risk,627,0.036417,0.0013262299079912498,0.02010914836045084,0.30919561569493553,0.7571727287866122,0.9280677086827966,0.00014925390267095384,ex_mvrv_primary_exposure
+ETH,daily,dxy_ret,DXY return,macro_risk,627,-0.075015,0.005627319585508883,0.013080507871887102,0.28526881593049075,0.7754382019585361,0.9280677086827966,0.00020791589405677602,ex_mvrv_primary_exposure
+ETH,daily,real_yield_d1,Real-yield change,macro_risk,627,0.001752,3.070592535125982e-06,0.02911296352837727,0.3011420448855102,0.7633061810156903,0.9280677086827966,0.0001104003697396383,ex_mvrv_primary_exposure
+ETH,daily,nominal_10y_d1,10Y yield change,macro_risk,627,0.003678,1.3524172179590899e-05,0.04918115708176536,0.5807435439316483,0.5614133097448123,0.9280677086827966,0.0004070897603041246,ex_mvrv_primary_exposure
+ETH,daily,gold_ret,Gold return,macro_risk,627,-0.026885,0.0007228054824708341,-0.002950683329130268,-0.0902762300496396,0.9280677086827968,0.9280677086827966,1.8417715338725493e-05,ex_mvrv_primary_exposure
+ETH,daily,eth_etf_flow_intensity,ETH ETF flow / lag mcap,etf_institutional,627,0.086413,0.007467144173751494,0.0759744764296886,2.181050661363654,0.02917966955368521,0.37933570419790774,0.005714048273014138,ex_mvrv_primary_exposure
+ETH,daily,stablecoin_supply_growth,Stablecoin supply growth,liquidity,627,0.041214,0.0016985644322613513,0.09778655402056464,1.0358344858441786,0.30027936596175064,0.9280677086827966,0.0015004834258057764,ex_mvrv_primary_exposure
+ETH,daily,defi_tvl_growth,DeFi TVL growth,liquidity,627,0.003454,1.1932808173575893e-05,-0.04507666515520539,-0.9082091989647321,0.3637677048656609,0.9280677086827966,0.0016342573967382812,ex_mvrv_primary_exposure
+ETH,daily,fear_greed_altme,Fear Greed Altme,sentiment,627,0.052755,0.002783089264630778,-0.016056607085112314,-0.48240518685338535,0.6295181372028438,0.9280677086827966,0.00027607892918157795,ex_mvrv_primary_exposure
+ETH,daily,eth_oi_growth,Eth Oi Growth,native_flows,627,-0.043167,0.0018634272310827926,0.011039661287588393,0.23322920100746145,0.8155834318848381,0.9280677086827966,8.806289904672582e-05,ex_mvrv_primary_exposure
+ETH,daily,eth_funding_z,Eth Funding Z,native_flows,627,0.02202,0.0004848875771501504,0.05278390075080395,1.5048508475690305,0.1323624276068388,0.8603557794444523,0.0027164231896266156,ex_mvrv_primary_exposure
+ETH,weekly,qqq_ret,QQQ return,macro_risk,0,,0.01034081193299119,,,,,,ex_mvrv_primary_exposure
+ETH,weekly,spy_ret,SPY return,macro_risk,0,,0.010368033519713937,,,,,,ex_mvrv_primary_exposure
+ETH,weekly,vix_d1,VIX change,macro_risk,0,,0.0,,,,,,ex_mvrv_primary_exposure
+ETH,weekly,dxy_ret,DXY return,macro_risk,0,,0.0015853615859933168,,,,,,ex_mvrv_primary_exposure
+ETH,weekly,real_yield_d1,Real-yield change,macro_risk,0,,0.0,,,,,,ex_mvrv_primary_exposure
+ETH,weekly,nominal_10y_d1,10Y yield change,macro_risk,0,,0.0,,,,,,ex_mvrv_primary_exposure
+ETH,weekly,gold_ret,Gold return,macro_risk,0,,0.000904295886923645,,,,,,ex_mvrv_primary_exposure
+ETH,weekly,eth_etf_flow_intensity,ETH ETF flow / lag mcap,etf_institutional,0,,0.0,,,,,,ex_mvrv_primary_exposure
+ETH,weekly,stablecoin_supply_growth,Stablecoin supply growth,liquidity,0,,0.008182758623407227,,,,,,ex_mvrv_primary_exposure
+ETH,weekly,defi_tvl_growth,DeFi TVL growth,liquidity,0,,0.008111189162008148,,,,,,ex_mvrv_primary_exposure
+ETH,weekly,fear_greed_altme,Fear Greed Altme,sentiment,0,,0.017557213147203488,,,,,,ex_mvrv_primary_exposure
+ETH,weekly,eth_oi_growth,Eth Oi Growth,native_flows,0,,0.00527421817628726,,,,,,ex_mvrv_primary_exposure
+ETH,weekly,eth_funding_z,Eth Funding Z,native_flows,0,,0.007630647341619556,,,,,,ex_mvrv_primary_exposure

@@ -1,0 +1,21 @@
+module,statistic,value,robustness_note,evidence_grade_hint
+ex_mvrv_exposure,BTC daily macro_risk delta_r2,0.0035717515728072,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,BTC daily etf_institutional delta_r2,-0.0002587039485224,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,BTC daily liquidity delta_r2,0.0043907043173216,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,BTC daily sentiment delta_r2,0.0005574487258963,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,BTC daily native_flows delta_r2,0.0065670100885222,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,BTC weekly macro_risk delta_r2,,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,BTC weekly etf_institutional delta_r2,,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,BTC weekly liquidity delta_r2,,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,BTC weekly sentiment delta_r2,,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,BTC weekly native_flows delta_r2,,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,ETH daily macro_risk delta_r2,0.0083050653445049,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,ETH daily etf_institutional delta_r2,0.0057140482730141,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,ETH daily liquidity delta_r2,0.0028330307376637,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,ETH daily sentiment delta_r2,0.0002760789291815,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,ETH daily native_flows delta_r2,0.00317745887341,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,ETH weekly macro_risk delta_r2,,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,ETH weekly etf_institutional delta_r2,,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,ETH weekly liquidity delta_r2,,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,ETH weekly sentiment delta_r2,,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B
+ex_mvrv_exposure,ETH weekly native_flows delta_r2,,Compared daily/weekly and reviewed multicollinearity/FDR tables.,B

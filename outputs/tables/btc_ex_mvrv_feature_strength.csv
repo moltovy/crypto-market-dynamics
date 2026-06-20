@@ -1,0 +1,27 @@
+asset,frequency,feature_id,feature_label,block,n,correlation_lag1,univariate_r2,standardized_beta,hac_t,p_value,fdr_q_value,drop_feature_delta_r2,model_family
+BTC,daily,qqq_ret,QQQ return,macro_risk,821,-0.052103,0.0027146813701133254,0.004963618516982636,0.030006745645759468,0.9760616733471811,0.9760616733471811,2.0286040234296365e-06,ex_mvrv_primary_exposure
+BTC,daily,spy_ret,SPY return,macro_risk,821,-0.056175,0.003155582117818412,-0.049383766334517236,-0.272236222195586,0.7854403919368148,0.9760616733471811,0.00013891651237452063,ex_mvrv_primary_exposure
+BTC,daily,vix_d1,VIX change,macro_risk,821,0.047991,0.0023031721614764633,0.009111100432603391,0.19435164652405196,0.8459005484293003,0.9760616733471811,3.364094958735464e-05,ex_mvrv_primary_exposure
+BTC,daily,dxy_ret,DXY return,macro_risk,821,-0.095535,0.009127017056108633,-0.03010833217748237,-0.8641692257890815,0.38749493500601007,0.8395723591796885,0.0012294911985851753,ex_mvrv_primary_exposure
+BTC,daily,real_yield_d1,Real-yield change,macro_risk,821,0.002171,4.714657021454016e-06,0.009086533012051465,0.1246620870170411,0.9007910733717386,0.9760616733471811,1.3016453294878438e-05,ex_mvrv_primary_exposure
+BTC,daily,nominal_10y_d1,10Y yield change,macro_risk,821,0.004845,2.347299348459675e-05,-0.0019983651265669308,-0.03227704456076106,0.9742511154515247,0.9760616733471811,8.41127538619979e-07,ex_mvrv_primary_exposure
+BTC,daily,gold_ret,Gold return,macro_risk,821,-0.01929,0.0003721010414845516,-0.003039241123197428,-0.10919140439518528,0.9130506778441628,0.9760616733471811,2.096197559264823e-05,ex_mvrv_primary_exposure
+BTC,daily,btc_etf_flow_intensity,BTC ETF flow / lag mcap,etf_institutional,821,0.033802,0.0011425954554322715,0.05403406607020895,1.629544541751037,0.10319779366444497,0.4471904392125949,-0.00025870394852245404,ex_mvrv_primary_exposure
+BTC,daily,stablecoin_supply_growth,Stablecoin supply growth,liquidity,821,0.021575,0.0004654837235047449,0.13115483261902636,1.8436456631680809,0.06523479664184105,0.4471904392125949,0.0031405905067172224,ex_mvrv_primary_exposure
+BTC,daily,defi_tvl_growth,DeFi TVL growth,liquidity,821,-0.006628,4.393296947491354e-05,-0.04054589351468457,-1.2360679756256896,0.21643329745882278,0.5627265733929392,0.0016891354088431898,ex_mvrv_primary_exposure
+BTC,daily,fear_greed_altme,Fear Greed Altme,sentiment,821,0.037832,0.0014312865049913581,-0.021044427481798345,-0.7077435311414427,0.47910453923441265,0.8897655728639092,0.000557448725896359,ex_mvrv_primary_exposure
+BTC,daily,btc_oi_growth,BTC OI growth,native_flows,821,-0.039831,0.0015865389953753084,-0.07538035834297654,-1.7538014371465716,0.0794645367372224,0.4471904392125949,0.0050414615306264565,ex_mvrv_primary_exposure
+BTC,daily,btc_funding_z,BTC funding z-score,native_flows,821,0.004807,2.3107203191319314e-05,0.04088147867038429,1.2924002920831112,0.1962185556171101,0.5627265733929392,0.002060954059560083,ex_mvrv_primary_exposure
+BTC,weekly,qqq_ret,QQQ return,macro_risk,0,,0.006948713235472859,,,,,,ex_mvrv_primary_exposure
+BTC,weekly,spy_ret,SPY return,macro_risk,0,,0.004864590393494961,,,,,,ex_mvrv_primary_exposure
+BTC,weekly,vix_d1,VIX change,macro_risk,0,,0.0,,,,,,ex_mvrv_primary_exposure
+BTC,weekly,dxy_ret,DXY return,macro_risk,0,,3.977850105052472e-05,,,,,,ex_mvrv_primary_exposure
+BTC,weekly,real_yield_d1,Real-yield change,macro_risk,0,,0.0,,,,,,ex_mvrv_primary_exposure
+BTC,weekly,nominal_10y_d1,10Y yield change,macro_risk,0,,0.0,,,,,,ex_mvrv_primary_exposure
+BTC,weekly,gold_ret,Gold return,macro_risk,0,,0.0004908678957477042,,,,,,ex_mvrv_primary_exposure
+BTC,weekly,btc_etf_flow_intensity,BTC ETF flow / lag mcap,etf_institutional,0,,-2.220446049250313e-16,,,,,,ex_mvrv_primary_exposure
+BTC,weekly,stablecoin_supply_growth,Stablecoin supply growth,liquidity,0,,0.003238823252555867,,,,,,ex_mvrv_primary_exposure
+BTC,weekly,defi_tvl_growth,DeFi TVL growth,liquidity,0,,0.0029485528533044203,,,,,,ex_mvrv_primary_exposure
+BTC,weekly,fear_greed_altme,Fear Greed Altme,sentiment,0,,0.009871949053317453,,,,,,ex_mvrv_primary_exposure
+BTC,weekly,btc_oi_growth,BTC OI growth,native_flows,0,,8.321470281735799e-07,,,,,,ex_mvrv_primary_exposure
+BTC,weekly,btc_funding_z,BTC funding z-score,native_flows,0,,0.006907483552229365,,,,,,ex_mvrv_primary_exposure

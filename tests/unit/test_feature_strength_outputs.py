@@ -1,4 +1,5 @@
-"""Unit tests for the new Feature Strength and Regime Analysis outputs."""
+"""Contract tests for the final semantic research outputs."""
+
 from __future__ import annotations
 
 import subprocess
@@ -9,125 +10,117 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUTS = ROOT / "outputs"
 TABLES = OUTPUTS / "tables"
-FIGURES = OUTPUTS / "figures"
 
 
-def test_tables_exist():
-    """Verify that all new T11-T27 tables are generated and present in the outputs directory."""
+def test_semantic_tables_exist() -> None:
     expected_tables = [
-        "T11_results_at_a_glance.md",
-        "T12_regime_definitions.csv",
-        "T13_factor_dictionary.csv",
-        "T13_factor_dictionary.md",
-        "T14_feature_strength_btc_full.csv",
-        "T15_feature_strength_btc_ex_mvrv.csv",
-        "T16_feature_strength_eth.csv",
-        "T17_feature_strength_by_regime.csv",
-        "T18_block_strength_by_regime.csv",
-        "T19_same_support_ablation_btc.csv",
-        "T20_same_support_ablation_eth.csv",
-        "T21_top_correlations_btc.csv",
-        "T22_top_correlations_eth.csv",
-        "T23_core_correlation_matrix.csv",
-        "T24_pre_post_correlation_delta.csv",
-        "T25_mvrv_sensitivity_by_regime.csv",
-        "T26_etf_era_feature_strength.csv",
-        "T27_rolling_feature_rank_stability.csv",
+        "asset_identity_audit.csv",
+        "asset_taxonomy.csv",
+        "block_delta_r2.csv",
+        "bootstrap_robustness.csv",
+        "btc_ex_mvrv_feature_strength.csv",
+        "claim_inventory.csv",
+        "conventional_partial_r2.csv",
+        "data_source_coverage.csv",
+        "eth_feature_strength.csv",
+        "evidence_ledger.csv",
+        "feature_registry.csv",
+        "mvrv_mechanical_link_audit.csv",
+        "pit_composition.csv",
+        "pit_market_structure_summary.csv",
+        "selected_major_coverage.csv",
+        "selected_major_risk_metrics.csv",
+        "stablecoin_defi_liquidity_summary.csv",
     ]
-    for table in expected_tables:
-        path = TABLES / table
-        assert path.exists(), f"Missing table: {table}"
+    missing = [name for name in expected_tables if not (TABLES / name).exists()]
+    assert not missing
 
 
-def test_t25_regimes_and_columns():
-    """Verify that T25 contains the correct regimes and all expected columns."""
-    t25_path = TABLES / "T25_mvrv_sensitivity_by_regime.csv"
-    assert t25_path.exists()
+def test_primary_feature_strength_tables_exclude_same_day_mvrv() -> None:
+    for table_name in ["btc_ex_mvrv_feature_strength.csv", "eth_feature_strength.csv"]:
+        frame = pd.read_csv(TABLES / table_name)
+        assert not frame["feature_id"].str.contains("mvrv", case=False, na=False).any()
+        assert set(frame["model_family"]) == {"ex_mvrv_primary_exposure"}
 
-    df = pd.read_csv(t25_path)
-
-    # Check expected columns
-    expected_cols = {
-        "regime", "n", "full_with_mvrv_r2", "ex_mvrv_r2",
-        "mvrv_only_r2", "delta_r2", "note"
-    }
-    assert expected_cols.issubset(df.columns), f"Missing columns in T25: {expected_cols - set(df.columns)}"
-
-    # Check expected regimes
-    expected_regimes = {
-        "full", "pre_btc_etf", "post_btc_etf",
-        "year_2024", "year_2025", "year_2026_ytd"
-    }
-    assert expected_regimes.issubset(df["regime"].values), f"Missing regimes in T25: {expected_regimes - set(df['regime'].values)}"
+    mvrv = pd.read_csv(TABLES / "mvrv_mechanical_link_audit.csv")
+    assert "same_day_mvrv_r2" in set(mvrv["metric"])
+    row = mvrv.loc[mvrv["metric"] == "same_day_mvrv_r2"].iloc[0]
+    assert "excluded from primary exposure model" in row["interpretation"]
 
 
-def test_feature_strength_metrics():
-    """Verify that T14 and T15 contain the expected feature-strength diagnostic columns."""
-    for table_name in ["T14_feature_strength_btc_full.csv", "T15_feature_strength_btc_ex_mvrv.csv"]:
-        path = TABLES / table_name
-        assert path.exists()
-        df = pd.read_csv(path)
+def test_drop_block_delta_r2_is_not_labeled_partial_r2() -> None:
+    block = pd.read_csv(TABLES / "block_delta_r2.csv")
+    assert "drop_block_delta_r2" in block.columns
+    assert not any("partial" in column.lower() for column in block.columns)
+    assert block["method_note"].str.contains("not conventional partial", case=False).all()
 
-        expected_cols = {
-            "feature", "block", "correlation", "abs_correlation",
-            "univariate_beta", "univariate_hac_t", "univariate_r2",
-            "standardized_multivar_beta", "multivar_hac_t", "multivar_p",
-            "drop_one_delta_r2", "rank_by_abs_corr", "rank_by_abs_t", "rank_by_delta_r2"
-        }
-        assert expected_cols.issubset(df.columns), f"Missing columns in {table_name}: {expected_cols - set(df.columns)}"
+    conventional = pd.read_csv(TABLES / "conventional_partial_r2.csv")
+    assert "conventional_partial_r2" in conventional.columns
+    assert conventional["formula"].str.contains("SSE_reduced").all()
 
 
-def test_top_btc_correlations():
-    """Verify that top correlations for BTC includes MVRV and is sorted descending."""
-    path = TABLES / "T21_top_correlations_btc.csv"
-    assert path.exists()
+def test_pit_composition_is_point_in_time_and_sums_to_one() -> None:
+    composition = pd.read_csv(TABLES / "pit_composition.csv")
+    monthly_share = composition.groupby("month")["share"].sum()
+    assert ((monthly_share - 1).abs() < 1e-9).all()
 
-    df = pd.read_csv(path)
-    assert "btc_mvrv_d1" in df["feature"].values
+    summary = pd.read_csv(TABLES / "pit_market_structure_summary.csv")
+    assert {"top10_share", "hhi", "rank_persistence"}.issubset(summary.columns)
 
-    # Check sorting of absolute correlations
-    corrs = df["abs_correlation"].values
-    assert all(corrs[i] >= corrs[i+1] for i in range(len(corrs)-1)), "T21 is not sorted descending by absolute correlation"
-
-
-def test_readme_content():
-    """Verify that the public README.md contains 'Results at a Glance', links new tables/figures, and avoids AI slop."""
-    readme_path = ROOT / "README.md"
-    assert readme_path.exists()
-    content = readme_path.read_text(encoding="utf-8")
-
-    # Check for core narrative section
-    assert "Results at a Glance" in content, "README missing 'Results at a Glance'"
-
-    # Check for some new figures/tables references
-    assert "T11_results_at_a_glance.md" in content, "README missing reference to T11"
-    assert "F01_mvrv_sensitivity_by_regime" in content, "README missing reference to F01"
-    assert "F02_same_support_ablation" in content, "README missing reference to F02"
-
-    # Check for legacy version strings (should be removed or updated)
-    assert "v2.1" not in content, "README should not mention 'v2.1'"
-    assert "v2.2" not in content, "README should not mention 'v2.2'"
-    assert "v2.0" not in content, "README should not mention 'v2.0'"
+    turnover = pd.read_csv(TABLES / "pit_turnover.csv")
+    assert {"entries", "exits", "rank_persistence"}.issubset(turnover.columns)
 
 
-def test_data_untouched():
-    """Ensure raw Data/ remains untouched except allowed market-structure inventory outputs."""
+def test_selected_major_identity_and_coverage_caveats() -> None:
+    audit = pd.read_csv(TABLES / "asset_identity_audit.csv")
+    checks = set(audit["check_id"])
+    assert {
+        "toncoin_not_tokamak",
+        "sol_not_wrapped_sol",
+        "xrp_not_binance_peg_xrp",
+        "doge_not_binance_peg_doge",
+    }.issubset(checks)
+    assert (audit.loc[audit["check_id"] == "toncoin_not_tokamak", "status"] == "pass").all()
+
+    coverage = pd.read_csv(TABLES / "selected_major_coverage.csv")
+    ton = coverage.loc[coverage["symbol"] == "TON"].iloc[0]
+    assert int(ton["observations"]) == 0
+    assert "not present in the current daily constituent source" in ton["coverage_note"]
+
+    risk = pd.read_csv(TABLES / "selected_major_risk_metrics.csv")
+    assert risk.loc[risk["symbol"] == "TON", "status"].iloc[0] == "skipped_insufficient_data"
+
+
+def test_claim_inventory_demotes_current_top50_daily_returns() -> None:
+    claims = pd.read_csv(TABLES / "claim_inventory.csv")
+    row = claims.loc[
+        claims["claim"] == "Current-top50 daily returns are historical altseason evidence."
+    ].iloc[0]
+    assert row["disposition"] == "demote"
+    assert "PIT monthly" in row["replacement"]
+
+
+def test_readme_content_matches_final_surface() -> None:
+    content = (ROOT / "README.md").read_text(encoding="utf-8")
+    assert "Crypto Market Dynamics" in content
+    assert "MVRV is a valuation-state diagnostic" in content
+    assert "outputs/figures/public/01_mvrv_mechanics.png" in content
+    assert "outputs/tables/block_delta_r2.csv" in content
+    assert "outputs/tables/claim_inventory.csv" in content
+    assert "v2.0" not in content
+    assert "v2.1" not in content
+    assert "v2.2" not in content
+
+
+def test_raw_data_changes_are_limited_to_generated_inventory() -> None:
     result = subprocess.run(
         ["git", "status", "--short", "--", "Data"],
         cwd=ROOT,
         capture_output=True,
         text=True,
-        check=True
+        check=True,
     )
-    allowed = {
-        "M Data/MASTER_DATA.csv",
-        "M Data/MASTER_DATA.md",
-        "?? Data/MarketStructure/",
-    }
+    allowed = {"Data/MASTER_DATA.csv", "Data/MASTER_DATA.md", "Data/MASTER_DATA.txt"}
     changed = {line.strip() for line in result.stdout.splitlines() if line.strip()}
-    unexpected = {
-        line
-        for line in changed - allowed
-        if " Data/MarketStructure/" not in line and "?? Data/MarketStructure/" not in line
-    }
-    assert not unexpected, f"Raw Data/ folder has unexpected modifications: {result.stdout}"
+    changed_paths = {line[3:].strip() for line in changed}
+    assert changed_paths <= allowed, result.stdout

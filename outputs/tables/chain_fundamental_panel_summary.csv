@@ -1,0 +1,51 @@
+metric,chain,observations,first_date,last_date,panel_status
+market_cap,Aptos,1275,2022-10-19,2026-04-15,adequate_for_descriptive_panel
+market_cap,Avalanche C-Chain,2032,2020-09-22,2026-04-15,adequate_for_descriptive_panel
+market_cap,Ethereum,3903,2015-08-07,2026-04-15,adequate_for_descriptive_panel
+market_cap,Near,2010,2020-10-14,2026-04-15,adequate_for_descriptive_panel
+market_cap,Sui,1079,2023-05-03,2026-04-15,adequate_for_descriptive_panel
+market_cap,Polygon PoS,904,2023-10-25,2026-04-15,adequate_for_descriptive_panel
+market_cap,Solana,2196,2020-04-11,2026-04-15,adequate_for_descriptive_panel
+market_cap,TON,1693,2021-08-27,2026-04-15,adequate_for_descriptive_panel
+market_cap,Acala,1542,2022-01-25,2026-04-15,adequate_for_descriptive_panel
+market_cap,Aioz Network,1839,2021-04-03,2026-04-15,adequate_for_descriptive_panel
+market_cap,Aleo,574,2024-09-19,2026-04-15,adequate_for_descriptive_panel
+market_cap,Algorand,2491,2019-06-21,2026-04-15,adequate_for_descriptive_panel
+fees,Aptos,1274,2022-10-19,2026-04-14,adequate_for_descriptive_panel
+fees,Avalanche C-Chain,2030,2020-09-23,2026-04-14,adequate_for_descriptive_panel
+fees,Ethereum,3904,2015-08-07,2026-04-14,adequate_for_descriptive_panel
+fees,Near,2009,2020-10-14,2026-04-14,adequate_for_descriptive_panel
+fees,Sui,1078,2023-05-03,2026-04-14,adequate_for_descriptive_panel
+fees,Polygon PoS,902,2023-10-25,2026-04-13,adequate_for_descriptive_panel
+fees,Solana,1810,2021-05-01,2026-04-14,adequate_for_descriptive_panel
+fees,TON,1387,2022-06-28,2026-04-14,adequate_for_descriptive_panel
+fees,Abstract,537,2024-10-25,2026-04-14,adequate_for_descriptive_panel
+fees,Acala,1579,2021-12-18,2026-04-14,adequate_for_descriptive_panel
+fees,Aleo,573,2024-09-19,2026-04-14,adequate_for_descriptive_panel
+fees,Algorand,2490,2019-06-21,2026-04-14,adequate_for_descriptive_panel
+revenue,Aptos,912,2023-10-16,2026-04-14,adequate_for_descriptive_panel
+revenue,Avalanche C-Chain,2030,2020-09-23,2026-04-14,adequate_for_descriptive_panel
+revenue,Ethereum,3912,2015-07-30,2026-04-14,adequate_for_descriptive_panel
+revenue,Near,2094,2020-07-21,2026-04-14,adequate_for_descriptive_panel
+revenue,Sui,1099,2023-04-12,2026-04-14,adequate_for_descriptive_panel
+revenue,Polygon PoS,902,2023-10-25,2026-04-13,adequate_for_descriptive_panel
+revenue,Solana,1810,2021-05-01,2026-04-14,adequate_for_descriptive_panel
+revenue,TON,1387,2022-06-28,2026-04-14,adequate_for_descriptive_panel
+revenue,Abstract,537,2024-10-25,2026-04-14,adequate_for_descriptive_panel
+revenue,Acala,1579,2021-12-18,2026-04-14,adequate_for_descriptive_panel
+revenue,Aleo,573,2024-09-19,2026-04-14,adequate_for_descriptive_panel
+revenue,Algorand,2490,2019-06-21,2026-04-14,adequate_for_descriptive_panel
+stablecoin_supply,Aptos,559,2024-10-01,2026-04-13,adequate_for_descriptive_panel
+stablecoin_supply,Avalanche C-Chain,1899,2021-02-01,2026-04-14,adequate_for_descriptive_panel
+stablecoin_supply,Ethereum,3059,2017-11-28,2026-04-13,adequate_for_descriptive_panel
+stablecoin_supply,Near,1309,2022-09-13,2026-04-13,adequate_for_descriptive_panel
+stablecoin_supply,Sui,775,2024-02-28,2026-04-12,adequate_for_descriptive_panel
+stablecoin_supply,Polygon PoS,2037,2020-09-15,2026-04-13,adequate_for_descriptive_panel
+stablecoin_supply,Solana,1904,2020-10-16,2026-04-13,adequate_for_descriptive_panel
+stablecoin_supply,TON,729,2024-04-16,2026-04-14,adequate_for_descriptive_panel
+active_addresses_new,Avalanche C-Chain,1961,2020-09-23,2026-04-14,adequate_for_descriptive_panel
+active_addresses_new,Ethereum,3904,2015-08-07,2026-04-14,adequate_for_descriptive_panel
+active_addresses_new,Near,2074,2020-07-21,2026-04-14,adequate_for_descriptive_panel
+active_addresses_new,Sui,1086,2023-04-12,2026-04-14,adequate_for_descriptive_panel
+active_addresses_new,Polygon PoS,2113,2020-05-30,2026-04-14,adequate_for_descriptive_panel
+active_addresses_new,Solana,1810,2021-05-01,2026-04-14,adequate_for_descriptive_panel

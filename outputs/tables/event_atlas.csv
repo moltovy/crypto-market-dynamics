@@ -1,0 +1,11 @@
+event_id,date,category,description,source,confidence
+btc_spot_etf_launch,2024-01-11,primary,"US BTC spot-ETF trading begins (IBIT, FBTC, BITB, ARKB, ...).",SEC approval 2024-01-10; first trading day 2024-01-11.,pre_registered
+eth_spot_etf_launch,2024-07-23,primary,US ETH spot-ETF trading begins.,SEC final approval 2024-05-23; first trading day 2024-07-23.,pre_registered
+bitcoin_halving_2024,2024-04-20,primary,Fourth Bitcoin halving (block 840000).,On-chain block timestamp.,pre_registered
+dencun_upgrade,2024-03-13,secondary,Ethereum Dencun upgrade (EIP-4844 blobs) — lowers L2 cost; possible ETH-L1/L2 break.,,exploratory
+luna_collapse_2022,2022-05-09,secondary,Terra/Luna collapse; reference stress episode.,,exploratory
+ftx_collapse_2022,2022-11-08,secondary,FTX bankruptcy; reference stress episode.,,exploratory
+svb_crisis_2023,2023-03-10,secondary,SVB failure and stablecoin-depeg episode.,,exploratory
+yen_carry_unwind_2024,2024-08-05,secondary,Yen-carry unwind; global vol spike.,,exploratory
+sec_generic_etp_listing_standards_2025,2025-09-17,secondary,"SEC approves generic listing standards for commodity-based trust shares, including crypto asset commodity ETP context.","SEC press release 2025-121, published 2025-09-17.",exploratory
+crypto_liquidation_tariff_shock_2025,2025-10-10,secondary,Reported crypto liquidation shock around US-China tariff escalation; reference stress episode.,Market reports around 2025-10-10 tariff/liquidation shock.,exploratory

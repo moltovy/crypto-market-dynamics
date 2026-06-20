@@ -1,0 +1,21 @@
+asset,frequency,block,n,full_r2,reduced_r2,drop_block_delta_r2,method_note
+BTC,daily,macro_risk,821,0.019499867989787534,0.01592811641698033,0.0035717515728072025,R2_full - R2_reduced; not conventional partial R-squared
+BTC,daily,etf_institutional,821,0.019499867989787534,0.019758571938309988,-0.00025870394852245404,R2_full - R2_reduced; not conventional partial R-squared
+BTC,daily,liquidity,821,0.019499867989787534,0.015109163672465842,0.004390704317321692,R2_full - R2_reduced; not conventional partial R-squared
+BTC,daily,sentiment,821,0.019499867989787534,0.018942419263891175,0.000557448725896359,R2_full - R2_reduced; not conventional partial R-squared
+BTC,daily,native_flows,821,0.019499867989787534,0.012932857901265304,0.006567010088522229,R2_full - R2_reduced; not conventional partial R-squared
+BTC,weekly,macro_risk,0,,,,R2_full - R2_reduced; not conventional partial R-squared
+BTC,weekly,etf_institutional,0,,,,R2_full - R2_reduced; not conventional partial R-squared
+BTC,weekly,liquidity,0,,,,R2_full - R2_reduced; not conventional partial R-squared
+BTC,weekly,sentiment,0,,,,R2_full - R2_reduced; not conventional partial R-squared
+BTC,weekly,native_flows,0,,,,R2_full - R2_reduced; not conventional partial R-squared
+ETH,daily,macro_risk,627,0.021764658591596153,0.013459593247091228,0.008305065344504925,R2_full - R2_reduced; not conventional partial R-squared
+ETH,daily,etf_institutional,627,0.021764658591596153,0.016050610318582015,0.005714048273014138,R2_full - R2_reduced; not conventional partial R-squared
+ETH,daily,liquidity,627,0.021764658591596153,0.01893162785393243,0.002833030737663722,R2_full - R2_reduced; not conventional partial R-squared
+ETH,daily,sentiment,627,0.021764658591596153,0.021488579662414575,0.00027607892918157795,R2_full - R2_reduced; not conventional partial R-squared
+ETH,daily,native_flows,627,0.021764658591596153,0.01858719971818612,0.003177458873410033,R2_full - R2_reduced; not conventional partial R-squared
+ETH,weekly,macro_risk,0,,,,R2_full - R2_reduced; not conventional partial R-squared
+ETH,weekly,etf_institutional,0,,,,R2_full - R2_reduced; not conventional partial R-squared
+ETH,weekly,liquidity,0,,,,R2_full - R2_reduced; not conventional partial R-squared
+ETH,weekly,sentiment,0,,,,R2_full - R2_reduced; not conventional partial R-squared
+ETH,weekly,native_flows,0,,,,R2_full - R2_reduced; not conventional partial R-squared
