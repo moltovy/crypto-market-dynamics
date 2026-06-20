@@ -5,14 +5,11 @@ This is the canonical public output surface for Crypto Market Dynamics.
 ## Public Figures
 
 - `figures/public/01_mvrv_mechanics.png`
-- `figures/public/02_factor_strength_by_regime.png`
-- `figures/public/03_tradfi_integration_over_time.png`
-- `figures/public/04_etf_market_plumbing.png`
-- `figures/public/05_leverage_liquidation_stress.png`
-- `figures/public/06_stablecoin_defi_liquidity.png`
-- `figures/public/07_point_in_time_market_structure.png`
-- `figures/public/08_selected_major_asset_risk.png`
-- `figures/public/09_event_response_matrix.png`
+- `figures/public/02_tradfi_exposure_shift.png`
+- `figures/public/03_etf_market_plumbing.png`
+- `figures/public/04_leverage_tail_stress.png`
+- `figures/public/05_point_in_time_market_structure.png`
+- `figures/public/06_selected_major_asset_risk.png`
 
 ## Public Summary Tables
 

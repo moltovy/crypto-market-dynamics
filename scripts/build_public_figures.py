@@ -1,4 +1,4 @@
-"""Build the nine public figures and public contact sheet."""
+"""Build the six README figures, gallery appendix, and QA contact sheet."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
-from cqresearch.pipelines.final_research import build_public_figures
+from cqresearch.viz.public_figures import build_public_figures
 
 if __name__ == "__main__":
     build_public_figures()

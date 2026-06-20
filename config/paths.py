@@ -14,8 +14,23 @@ from pathlib import Path
 PROJECT_ROOT: Path = Path(__file__).resolve().parent.parent
 
 # --- Top-level folders (all relative to PROJECT_ROOT)
-DATA_DIR: Path = PROJECT_ROOT / "Data"
-DATA_META_DIR: Path = DATA_DIR / "_meta"
+DATA_LOCAL_DIR: Path = PROJECT_ROOT / "data_local"
+DATA_LOCAL_RAW_DIR: Path = DATA_LOCAL_DIR / "raw"
+DATA_LOCAL_INTERIM_DIR: Path = DATA_LOCAL_DIR / "interim"
+DATA_LOCAL_PROCESSED_DIR: Path = DATA_LOCAL_DIR / "processed"
+DATA_LOCAL_CURATED_DIR: Path = DATA_LOCAL_DIR / "curated"
+DATA_LOCAL_METADATA_DIR: Path = DATA_LOCAL_DIR / "metadata"
+LEGACY_DATA_DIR: Path = PROJECT_ROOT / "Data"
+
+
+def _active_raw_data_dir() -> Path:
+    """Return the local raw-data root, falling back to the legacy layout."""
+
+    return DATA_LOCAL_RAW_DIR if DATA_LOCAL_RAW_DIR.exists() else LEGACY_DATA_DIR
+
+
+DATA_DIR: Path = _active_raw_data_dir()
+DATA_META_DIR: Path = DATA_LOCAL_METADATA_DIR if DATA_LOCAL_METADATA_DIR.exists() else LEGACY_DATA_DIR / "_meta"
 
 CONFIG_DIR: Path = PROJECT_ROOT / "config"
 SRC_DIR: Path = PROJECT_ROOT / "src" / "cqresearch"
@@ -26,7 +41,7 @@ TESTS_DIR: Path = PROJECT_ROOT / "tests"
 PROMPTS_DIR: Path = PROJECT_ROOT / "prompts"
 
 REPORTS_DIR: Path = PROJECT_ROOT / "reports"
-REPORTS_PANELS_DIR: Path = REPORTS_DIR / "panels"
+REPORTS_PANELS_DIR: Path = DATA_LOCAL_PROCESSED_DIR if DATA_LOCAL_PROCESSED_DIR.exists() else REPORTS_DIR / "panels"
 REPORTS_FIGURES_DIR: Path = REPORTS_DIR / "figures"
 REPORTS_TABLES_DIR: Path = REPORTS_DIR / "tables"
 REPORTS_DRAFTS_DIR: Path = REPORTS_DIR / "drafts"
@@ -61,6 +76,36 @@ EVENTS_YML: Path = CONFIG_DIR / "events.yml"
 CURATION_SNAPSHOTS_YML: Path = CONFIG_DIR / "curation_snapshots.yml"
 
 
+def provider_data_dir(provider: str) -> Path:
+    """Resolve a provider raw-data directory in the local or legacy layout."""
+
+    local_map = {
+        "cryptoquant": "cryptoquant",
+        "artemis": "artemis",
+        "tradingview": "tradingview",
+        "defillama": "defillama",
+        "farside": "farside",
+        "fred": "fred",
+        "alternativeme": "alternativeme",
+        "market_structure": "market_structure",
+    }
+    legacy_map = {
+        "cryptoquant": "CryptoQuant",
+        "artemis": "Artemis",
+        "tradingview": "Tradingview",
+        "defillama": "DefiLlama",
+        "farside": "Farside ETF Data",
+        "fred": "FRED",
+        "alternativeme": "AlternativeMe",
+        "market_structure": "MarketStructure",
+    }
+    key = provider.lower()
+    if key not in local_map:
+        raise KeyError(f"Unknown data provider: {provider}")
+    local = DATA_LOCAL_RAW_DIR / local_map[key]
+    return local if local.exists() else LEGACY_DATA_DIR / legacy_map[key]
+
+
 def ensure_exists(*paths: Path) -> None:
     """Create any of the given directories that do not exist. Idempotent."""
     for p in paths:
@@ -69,6 +114,13 @@ def ensure_exists(*paths: Path) -> None:
 
 __all__ = [
     "PROJECT_ROOT",
+    "DATA_LOCAL_DIR",
+    "DATA_LOCAL_RAW_DIR",
+    "DATA_LOCAL_INTERIM_DIR",
+    "DATA_LOCAL_PROCESSED_DIR",
+    "DATA_LOCAL_CURATED_DIR",
+    "DATA_LOCAL_METADATA_DIR",
+    "LEGACY_DATA_DIR",
     "DATA_DIR",
     "DATA_META_DIR",
     "CONFIG_DIR",
@@ -107,4 +159,5 @@ __all__ = [
     "EVENTS_YML",
     "CURATION_SNAPSHOTS_YML",
     "ensure_exists",
+    "provider_data_dir",
 ]

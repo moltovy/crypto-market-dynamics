@@ -1,17 +1,14 @@
 {
   "project": "Crypto Market Dynamics",
-  "generated_at_utc": "2026-06-20T05:59:24+00:00",
+  "generated_at_utc": "2026-06-20T06:43:23+00:00",
   "pipeline": "src/cqresearch/pipelines/final_research.py",
   "public_figures": [
     "outputs/figures/public/01_mvrv_mechanics.png",
-    "outputs/figures/public/02_factor_strength_by_regime.png",
-    "outputs/figures/public/03_tradfi_integration_over_time.png",
-    "outputs/figures/public/04_etf_market_plumbing.png",
-    "outputs/figures/public/05_leverage_liquidation_stress.png",
-    "outputs/figures/public/06_stablecoin_defi_liquidity.png",
-    "outputs/figures/public/07_point_in_time_market_structure.png",
-    "outputs/figures/public/08_selected_major_asset_risk.png",
-    "outputs/figures/public/09_event_response_matrix.png"
+    "outputs/figures/public/02_tradfi_exposure_shift.png",
+    "outputs/figures/public/03_etf_market_plumbing.png",
+    "outputs/figures/public/04_leverage_tail_stress.png",
+    "outputs/figures/public/05_point_in_time_market_structure.png",
+    "outputs/figures/public/06_selected_major_asset_risk.png"
   ],
   "tables": [
     "outputs/tables/asset_identity_audit.csv",

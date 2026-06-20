@@ -1,141 +1,155 @@
-"""Matplotlib and optional Plotly theme helpers for public artifacts."""
+"""Shared visual design system for public research figures."""
 
 from __future__ import annotations
 
-from typing import Any
+from collections.abc import Iterable
 
 import matplotlib as mpl
 import matplotlib.axes
+import matplotlib.figure
 import matplotlib.pyplot as plt
+import seaborn as sns
 
-from cqresearch.viz.design_system import COLORS, EXPORT_DPI, FONT_FAMILY, MONO_FONT_FAMILY
+FONT_FAMILY = ["Aptos", "Inter", "Segoe UI", "DejaVu Sans", "Arial", "sans-serif"]
+MONO_FONT_FAMILY = ["DejaVu Sans Mono", "Consolas", "Menlo", "monospace"]
+
+TOKENS = {
+    "background": "#FFFFFF",
+    "panel": "#FFFFFF",
+    "ink": "#1F2430",
+    "muted": "#6F768A",
+    "grid": "#E8EBF2",
+    "axis": "#D7DBE7",
+}
+
+PALETTE = {
+    "btc": "#F0986E",
+    "btc_dark": "#804126",
+    "eth": "#5477C4",
+    "eth_dark": "#2E4780",
+    "stable": "#71B436",
+    "stable_dark": "#386411",
+    "stress": "#B85C5C",
+    "stress_dark": "#7A3333",
+    "risk": "#7A828F",
+    "risk_dark": "#464C55",
+    "gold": "#FFE15B",
+    "slate": "#C5CAD3",
+    "slate_light": "#E2E5EA",
+    "other": "#A3BEFA",
+    "wrapped": "#BD569B",
+    "major": "#B8A037",
+}
+
+README_FIGSIZE = (12.0, 6.75)
+TWO_PANEL_FIGSIZE = (14.0, 6.0)
+EXPORT_DPI = 190
 
 
-def apply_institutional_mpl_theme() -> None:
-    """Apply the institutional Matplotlib theme used for public figures."""
+def apply_theme() -> None:
+    """Apply the static public-chart theme."""
 
-    mpl.rcParams.update(
-        {
+    sns.set_theme(
+        style="whitegrid",
+        rc={
             "figure.dpi": EXPORT_DPI,
             "savefig.dpi": EXPORT_DPI,
-            "savefig.bbox": None,
-            "savefig.facecolor": COLORS["bg"],
-            "savefig.edgecolor": COLORS["bg"],
-            "figure.facecolor": COLORS["bg"],
-            "figure.edgecolor": COLORS["bg"],
-            "axes.facecolor": COLORS["surface"],
-            "axes.edgecolor": COLORS["axis"],
-            "axes.labelcolor": COLORS["muted"],
-            "axes.titlecolor": COLORS["text"],
+            "figure.facecolor": TOKENS["background"],
+            "figure.edgecolor": TOKENS["background"],
+            "savefig.facecolor": TOKENS["background"],
+            "savefig.edgecolor": TOKENS["background"],
+            "axes.facecolor": TOKENS["panel"],
+            "axes.edgecolor": TOKENS["axis"],
+            "axes.labelcolor": TOKENS["ink"],
             "axes.grid": True,
             "axes.spines.top": False,
             "axes.spines.right": False,
-            "axes.spines.left": False,
-            "axes.spines.bottom": False,
-            "grid.color": COLORS["grid"],
-            "grid.linewidth": 0.7,
-            "grid.alpha": 0.55,
-            "xtick.color": COLORS["muted"],
-            "ytick.color": COLORS["muted"],
-            "text.color": COLORS["text"],
-            "legend.facecolor": COLORS["surface"],
-            "legend.edgecolor": COLORS["grid"],
+            "axes.titlelocation": "left",
+            "grid.color": TOKENS["grid"],
+            "grid.linewidth": 0.8,
+            "grid.alpha": 1.0,
+            "xtick.color": TOKENS["muted"],
+            "ytick.color": TOKENS["muted"],
+            "text.color": TOKENS["ink"],
+            "legend.facecolor": TOKENS["panel"],
+            "legend.edgecolor": TOKENS["panel"],
             "legend.framealpha": 0.0,
             "font.family": "sans-serif",
             "font.sans-serif": FONT_FAMILY,
             "font.monospace": MONO_FONT_FAMILY,
-            "font.size": 9,
-            "axes.labelsize": 9,
-            "xtick.labelsize": 8,
-            "ytick.labelsize": 8,
-            "legend.fontsize": 8,
-            "patch.linewidth": 0.8,
-        }
+            "font.size": 11,
+            "axes.labelsize": 12,
+            "xtick.labelsize": 10,
+            "ytick.labelsize": 10,
+            "legend.fontsize": 10,
+            "patch.linewidth": 1.0,
+            "svg.hashsalt": "crypto-market-dynamics-public-viz",
+        },
     )
 
 
-def get_plotly_template() -> Any:
-    """Return a Plotly template when Plotly is available.
+def apply_institutional_mpl_theme() -> None:
+    """Backward-compatible alias for older plotting helpers."""
 
-    Plotly is optional for this project. Static README figures are rendered with
-    Matplotlib, so this helper intentionally fails softly for environments
-    without Plotly.
-    """
-
-    try:
-        import plotly.graph_objects as go
-    except Exception:
-        return {
-            "layout": {
-                "paper_bgcolor": COLORS["bg"],
-                "plot_bgcolor": COLORS["surface"],
-                "font": {"color": COLORS["text"], "family": ", ".join(FONT_FAMILY[:3])},
-            }
-        }
-
-    return go.layout.Template(
-        layout={
-            "paper_bgcolor": COLORS["bg"],
-            "plot_bgcolor": COLORS["surface"],
-            "font": {"color": COLORS["text"], "family": ", ".join(FONT_FAMILY[:3])},
-            "xaxis": {"gridcolor": COLORS["grid"], "zerolinecolor": COLORS["axis"]},
-            "yaxis": {"gridcolor": COLORS["grid"], "zerolinecolor": COLORS["axis"]},
-            "colorway": [
-                COLORS["btc"],
-                COLORS["eth"],
-                COLORS["institutional"],
-                COLORS["liquidity"],
-                COLORS["native"],
-                COLORS["gold"],
-            ],
-        }
-    )
+    apply_theme()
 
 
-def style_axis(ax: matplotlib.axes.Axes, *, title: str | None = None, subtitle: str | None = None) -> None:
-    """Style one axis without adding a Matplotlib default title block."""
+def style_axis(ax: matplotlib.axes.Axes, *, y_grid: bool = True, x_grid: bool = False) -> None:
+    """Apply quiet axis styling with visible left/bottom anchors."""
 
-    ax.set_facecolor(COLORS["surface"])
-    for spine in ax.spines.values():
-        spine.set_visible(False)
-    ax.tick_params(axis="both", colors=COLORS["muted"], length=0)
-    ax.grid(color=COLORS["grid"], alpha=0.45, linewidth=0.7)
-    if title:
+    ax.set_facecolor(TOKENS["panel"])
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.spines["left"].set_color(TOKENS["axis"])
+    ax.spines["bottom"].set_color(TOKENS["axis"])
+    ax.tick_params(axis="both", colors=TOKENS["muted"], length=0)
+    if y_grid:
+        ax.grid(axis="y", visible=True, color=TOKENS["grid"], linewidth=0.8)
+    else:
+        ax.grid(axis="y", visible=False)
+    if x_grid:
+        ax.grid(axis="x", visible=True, color=TOKENS["grid"], linewidth=0.8)
+    else:
+        ax.grid(axis="x", visible=False)
+
+
+def add_figure_header(
+    fig: matplotlib.figure.Figure,
+    title: str,
+    subtitle: str,
+    *,
+    left: float = 0.06,
+    title_size: int = 16,
+) -> None:
+    """Add a consistent title/subtitle block."""
+
+    fig.text(left, 0.975, title, ha="left", va="top", fontsize=title_size, fontweight="semibold", color=TOKENS["ink"])
+    fig.text(left, 0.925, subtitle, ha="left", va="top", fontsize=11, color=TOKENS["muted"])
+
+
+def direct_label_bars(
+    ax: matplotlib.axes.Axes,
+    bars: Iterable[mpl.patches.Rectangle],
+    labels: Iterable[str],
+    *,
+    padding: float = 0.006,
+) -> None:
+    """Place compact numeric labels above vertical bars."""
+
+    ymax = ax.get_ylim()[1]
+    for bar, label in zip(bars, labels, strict=True):
+        height = float(bar.get_height())
         ax.text(
-            0,
-            1.03 if subtitle is None else 1.08,
-            title,
-            transform=ax.transAxes,
-            ha="left",
+            bar.get_x() + bar.get_width() / 2,
+            height + ymax * padding,
+            label,
+            ha="center",
             va="bottom",
             fontsize=10,
-            fontweight="semibold",
-            color=COLORS["text"],
+            color=TOKENS["ink"],
+            fontfamily=MONO_FONT_FAMILY[0],
         )
-    if subtitle:
-        ax.text(
-            0,
-            1.025,
-            subtitle,
-            transform=ax.transAxes,
-            ha="left",
-            va="bottom",
-            fontsize=8,
-            color=COLORS["muted"],
-        )
-
-
-def style_legend(ax: matplotlib.axes.Axes, *, ncol: int = 3, loc: str = "upper left") -> None:
-    """Apply compact institutional legend styling."""
-
-    legend = ax.legend(loc=loc, ncol=ncol, frameon=False)
-    if legend is None:
-        return
-    for text in legend.get_texts():
-        text.set_color(COLORS["muted"])
 
 
 def close(fig: plt.Figure) -> None:
-    """Small wrapper used by scripts after saving figures."""
-
     plt.close(fig)

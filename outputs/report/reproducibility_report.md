@@ -13,8 +13,8 @@ uv run python scripts/check_public_surface.py
 
 ## Data contract
 
-The build reads tracked local source files under `Data/` and generated feature stores under `reports/panels/`. The only generated files written under `Data/` are `MASTER_DATA.csv`, `MASTER_DATA.md`, and `MASTER_DATA.txt`, which inventory the tracked source files.
+The local reproducible build reads provider exports from `data_local/raw/` and writes generated feature stores to `data_local/processed/`. Both locations are ignored by Git. Public-safe semantic tables remain under `outputs/tables/`, and source inventories are written to `data_local/metadata/`.
 
 ## Determinism
 
-CI builds the canonical outputs before pytest so semantic-output tests run against freshly generated artifacts. A second in-run build hashes `Data/`, `outputs/`, and `reports/panels/` before and after regeneration, excluding only `outputs/manifest.json`, to verify deterministic semantic outputs within the runner. The final CI diff gate allows generated `outputs/`, `reports/panels/`, and `Data/MASTER_DATA.*` inventory files to differ from checked-in bytes because rendered figure files and floating-point text can vary by OS/font stack; it fails if the build mutates source files or raw `Data/` files outside the generated inventory.
+Public CI validates code, committed derived outputs, and public-surface guardrails without requiring licensed local provider exports. On a machine with `data_local/raw/`, the canonical build is run before semantic-output tests so tests can exercise freshly regenerated artifacts. Determinism checks compare generated semantic outputs while excluding timestamp metadata.

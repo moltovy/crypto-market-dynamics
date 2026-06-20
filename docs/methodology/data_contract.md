@@ -1,9 +1,9 @@
 # Data Contract
 
-Crypto Market Factor Lab uses a frozen daily panel spanning 2020-01-01 through
-2026-04-11 with 2,293 rows and 63 columns. The frozen panel is the public
-reproduction contract: public outputs can be regenerated without paid data,
-live API calls, or raw-data mutation.
+Crypto Market Dynamics uses local provider exports to generate derived semantic
+tables, reports, and figures. Raw and curated provider files are not part of
+the public Git contract; they live under ignored `data_local/` folders on
+machines with source access.
 
 ## Source Families
 
@@ -15,5 +15,7 @@ live API calls, or raw-data mutation.
 - Artemis: ETF, DeFi, and chain context.
 - AlternativeMe: sentiment.
 
-Raw and curated source files remain under `Data/` for compatibility. The clean
-catalog entry point is `docs/data/catalog/`.
+Local raw provider buckets live under `data_local/raw/<provider>`. Generated
+feature stores live under `data_local/processed/`. Final public semantic tables
+remain under `outputs/tables/`, with provider coverage and disposition metadata
+tracked in this repository.

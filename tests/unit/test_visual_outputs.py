@@ -12,28 +12,27 @@ PUBLIC_FIGURES = ROOT / "outputs" / "figures" / "public"
 
 EXPECTED_FIGURES = [
     "01_mvrv_mechanics.png",
-    "02_factor_strength_by_regime.png",
-    "03_tradfi_integration_over_time.png",
-    "04_etf_market_plumbing.png",
-    "05_leverage_liquidation_stress.png",
-    "06_stablecoin_defi_liquidity.png",
-    "07_point_in_time_market_structure.png",
-    "08_selected_major_asset_risk.png",
-    "09_event_response_matrix.png",
+    "02_tradfi_exposure_shift.png",
+    "03_etf_market_plumbing.png",
+    "04_leverage_tail_stress.png",
+    "05_point_in_time_market_structure.png",
+    "06_selected_major_asset_risk.png",
 ]
+BANNED_NAME_TERMS = ["dashboard", "contact_sheet", "gap", "triage", "before", "legacy"]
 
 
-def test_public_visual_outputs_are_exactly_the_canonical_nine() -> None:
+def test_public_visual_outputs_are_exactly_the_canonical_six() -> None:
     png_names = sorted(path.name for path in PUBLIC_FIGURES.glob("*.png"))
     assert png_names == EXPECTED_FIGURES
 
     for filename in EXPECTED_FIGURES:
         path = PUBLIC_FIGURES / filename
-        assert path.stat().st_size > 20_000, filename
+        assert path.stat().st_size > 50_000, filename
         assert path.with_suffix(".svg").exists(), filename
+        assert not any(term in filename.lower() for term in BANNED_NAME_TERMS), filename
         with Image.open(path) as image:
             width, height = image.size
-            assert width >= 1200, filename
+            assert width > 1200, filename
             assert height >= 675, filename
             pixels = np.asarray(image.convert("RGB"))
         assert float(pixels.std()) > 3.0, filename
@@ -47,6 +46,8 @@ def test_public_figure_registry_matches_files_and_readme() -> None:
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     image_paths = re.findall(r"!\[[^\]]*\]\(([^)]+)\)", readme)
     assert image_paths == [f"outputs/figures/public/{name}" for name in EXPECTED_FIGURES]
+    assert "public_contact_sheet" not in readme
+    assert not re.search(r"outputs/figures/public/[FT]\d+", readme)
     for raw_path in image_paths:
         assert "archive/" not in raw_path
         assert "portfolio_v2" not in raw_path

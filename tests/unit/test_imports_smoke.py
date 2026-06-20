@@ -12,6 +12,8 @@ def test_config_paths_importable() -> None:
         CHAIN_TAXONOMY_YML,
         CURATION_SNAPSHOTS_YML,
         DATA_DIR,
+        DATA_LOCAL_PROCESSED_DIR,
+        DATA_LOCAL_RAW_DIR,
         EVENTS_YML,
         FACTOR_BLOCKS_YML,
         PANELS_DIR,
@@ -21,9 +23,11 @@ def test_config_paths_importable() -> None:
 
     assert PROJECT_ROOT.exists()
     assert DATA_DIR.exists()
+    assert DATA_LOCAL_RAW_DIR.exists()
+    assert DATA_LOCAL_PROCESSED_DIR.exists()
     for yml in (CALENDARS_YML, CHAIN_TAXONOMY_YML, FACTOR_BLOCKS_YML, EVENTS_YML, CURATION_SNAPSHOTS_YML):
         assert yml.exists(), f"Missing config file: {yml}"
-    assert str(PANELS_DIR).endswith("panels")
+    assert PANELS_DIR == DATA_LOCAL_PROCESSED_DIR
     assert str(RUN_SUMMARIES_DIR).endswith("run_summaries")
 
 

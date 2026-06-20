@@ -1,11 +1,29 @@
 # Data Catalog
 
-This folder is the clean public entry point for the frozen data inventory. Raw
-and curated source files remain under the historical `Data/` tree for backward
-compatibility with existing scripts.
+This folder is the public entry point for data coverage, provider disposition,
+and reproducibility notes. Raw and curated provider exports are local-only and
+ignored by Git.
 
-The canonical public output packet is `outputs/`.
+Expected local layout for a reproducible source build:
 
-Market-structure extension details are in `docs/data/market_structure.md`. The
-tracked normalized extension files live under `Data/MarketStructure/`, while raw
-optional API payloads stay in gitignored `data_cache/`.
+```text
+data_local/
+  raw/
+    cryptoquant/
+    artemis/
+    tradingview/
+    defillama/
+    farside/
+    fred/
+    alternativeme/
+    market_structure/
+  interim/
+  processed/
+  curated/
+  metadata/
+```
+
+The public repository ships code, docs, derived semantic outputs, and
+reproducibility instructions. Users with source access can recreate the local
+provider buckets above; users without source access can still inspect the
+derived outputs under `outputs/`.

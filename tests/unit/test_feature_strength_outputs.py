@@ -240,16 +240,20 @@ def test_liquidation_ratio_units_and_event_windows() -> None:
     assert (response["actual_observations"] == 10).all()
 
 
-def test_public_figure_2_has_multiple_regimes_and_event_missing_not_zero_filled() -> None:
+def test_public_figure_2_uses_pre_specified_periods_and_event_missing_not_zero_filled() -> None:
     block = pd.read_csv(TABLES / "block_delta_r2.csv")
     subset = block[
         block["frequency"].eq("daily")
         & block["model_family"].eq("long_sample_contemporaneous_exposure")
+        & block["block"].eq("equity_beta")
+        & block["regime"].isin(["pre_btc_etf", "btc_etf_era"])
+        & block["asset"].isin(["BTC", "ETH"])
     ]
-    assert subset["regime"].nunique() >= 3
+    assert set(subset["regime"]) == {"pre_btc_etf", "btc_etf_era"}
+    assert set(subset["asset"]) == {"BTC", "ETH"}
 
-    source = (ROOT / "src" / "cqresearch" / "pipelines" / "final_research.py").read_text(encoding="utf-8")
-    fig_event_source = source.split("def fig_event", 1)[1].split("def contact_sheet", 1)[0]
+    source = (ROOT / "src" / "cqresearch" / "viz" / "public_figures.py").read_text(encoding="utf-8")
+    fig_event_source = source.split("def fig_event_gallery", 1)[1].split("def contact_sheet", 1)[0]
     assert ".fillna(0)" not in fig_event_source
     assert "masked_invalid" in fig_event_source
 
@@ -288,6 +292,13 @@ def test_readme_content_matches_final_surface() -> None:
     assert "Crypto Market Dynamics" in content
     assert "MVRV is a valuation-state diagnostic" in content
     assert "outputs/figures/public/01_mvrv_mechanics.png" in content
+    assert "outputs/figures/public/02_tradfi_exposure_shift.png" in content
+    assert "outputs/figures/public/06_selected_major_asset_risk.png" in content
+    assert "outputs/figures/public/07_point_in_time_market_structure.png" not in content
+    assert "outputs/figures/public/09_event_response_matrix.png" not in content
+    assert "public_contact_sheet" not in content
+    assert "local-only" in content
+    assert "data_local/raw" in content
     assert "outputs/tables/block_delta_r2.csv" in content
     assert "outputs/tables/claim_inventory.csv" in content
     assert "outputs/tables/valuation_contamination_audit.csv" in content
@@ -325,31 +336,23 @@ def test_package_metadata_has_project_name_and_no_provider_affiliation() -> None
     assert "Crypto Market Dynamics contributors" in authors
 
 
-def test_ci_builds_outputs_before_pytest() -> None:
+def test_ci_keeps_public_checks_and_optional_local_data_build() -> None:
     workflow = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
-    build_idx = workflow.index("uv run python scripts/run_all.py")
     pytest_idx = workflow.index("uv run pytest")
     surface_idx = workflow.index("uv run python scripts/check_public_surface.py")
-    assert build_idx < pytest_idx < surface_idx
-    assert "Generated artifact diff gate" in workflow
-    assert "allowed_prefixes = (\"outputs/\", \"reports/panels/\")" in workflow
+    assert pytest_idx < surface_idx
+    assert "Canonical offline build when local provider data is available" in workflow
+    assert "hashFiles('data_local/raw/**', 'Data/**')" in workflow
+    assert "Generated artifact diff gate when local provider data is available" in workflow
+    assert "allowed_prefixes = (\"outputs/\",)" in workflow
 
 
-def test_raw_data_changes_are_limited_to_generated_inventory() -> None:
+def test_raw_data_and_panels_are_not_tracked() -> None:
     result = subprocess.run(
-        ["git", "status", "--short", "--", "Data"],
+        ["git", "ls-files", "--", "Data", "reports/panels", "data_cache"],
         cwd=ROOT,
         capture_output=True,
         text=True,
         check=True,
     )
-    allowed = {"Data/MASTER_DATA.csv", "Data/MASTER_DATA.md", "Data/MASTER_DATA.txt"}
-    changed_paths = set()
-    for line in result.stdout.splitlines():
-        if not line:
-            continue
-        path = line[3:].strip()
-        if " -> " in path:
-            path = path.rsplit(" -> ", maxsplit=1)[-1]
-        changed_paths.add(path)
-    assert changed_paths <= allowed, result.stdout
+    assert result.stdout.strip() == ""
