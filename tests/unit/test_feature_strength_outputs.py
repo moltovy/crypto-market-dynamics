@@ -84,6 +84,7 @@ def test_weekly_models_have_valid_samples_and_transformations() -> None:
     long_weekly = weekly_passed[weekly_passed["model_family"] != "etf_era_augmented"]
     assert (long_weekly["n"] >= 100).all()
 
+    # CI runs pytest before the canonical build step, so these checks use committed output CSVs.
     liquidity = pd.read_csv(TABLES / "stablecoin_liquidity_features.csv", parse_dates=["date"])
     assert liquidity["date"].is_monotonic_increasing
     assert set(liquidity["date"].dt.dayofweek.dropna().unique()) <= {6}
@@ -97,6 +98,7 @@ def test_weekly_models_have_valid_samples_and_transformations() -> None:
 
 
 def test_mvrv_identity_terms_are_same_interval_and_scaled() -> None:
+    # See note above: committed output CSVs keep this test independent of generated parquet panels.
     points = pd.read_csv(TABLES / "mvrv_identity_points.csv")
     residual = points["d_log_mvrv"] - (points["d_log_market_cap"] - points["d_log_realized_cap"])
     diff = (residual - points["identity_residual"]).dropna().abs()
