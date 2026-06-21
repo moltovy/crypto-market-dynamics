@@ -1,0 +1,112 @@
+{
+  "artifacts": [
+    {
+      "bytes": 81128,
+      "path": "research/02_macro_cross_asset_exposure/figures/01_tradfi_exposure_shift.png",
+      "sha256": "82acead405b759f5039815311dcaea2bc231773b46a8c244e85b820874471aaf"
+    },
+    {
+      "bytes": 58135,
+      "path": "research/02_macro_cross_asset_exposure/figures/01_tradfi_exposure_shift.svg",
+      "sha256": "ca5f01a1879ebf86dcd4e0b7ec7af2b81e6bdf574c9e14246da37fb0b1d0dc49"
+    },
+    {
+      "bytes": 200,
+      "path": "research/02_macro_cross_asset_exposure/findings.md",
+      "sha256": "8b1694c8e7ec0156deca37f6d34baae41bde171388b050f4f2df53340a09e171"
+    },
+    {
+      "bytes": 115,
+      "path": "research/02_macro_cross_asset_exposure/interpretation.md",
+      "sha256": "f686c10f78a111a9b2d7d33c5bfe8f741671b7686b7eab62d52a8f5e6b006e79"
+    },
+    {
+      "bytes": 114,
+      "path": "research/02_macro_cross_asset_exposure/limitations.md",
+      "sha256": "a6364f574ebac788a13a45c63483277c07bb1878d20e438c13e6b674f507d9cf"
+    },
+    {
+      "bytes": 415,
+      "path": "research/02_macro_cross_asset_exposure/methodology.md",
+      "sha256": "e2f5bab3a7999ec91322dce95931310142934faf0714d7671229303d0e7942bd"
+    },
+    {
+      "bytes": 746,
+      "path": "research/02_macro_cross_asset_exposure/module.yml",
+      "sha256": "c0b5f8194c80374881a03058e70984efdb9bbfbab5a50eb1753c8973ca7a3df3"
+    },
+    {
+      "bytes": 1016,
+      "path": "research/02_macro_cross_asset_exposure/README.md",
+      "sha256": "89fd245fd04fdaafb1f4f87e504d27d642bc7fc3209e5b7d26d30ae888f6a396"
+    },
+    {
+      "bytes": 43774,
+      "path": "research/02_macro_cross_asset_exposure/tables/block_delta_r2.csv",
+      "sha256": "018983012360fd3407e7c996993a23a554b6b1c1ae9d908fe188b04b1dbee5fd"
+    },
+    {
+      "bytes": 73754,
+      "path": "research/02_macro_cross_asset_exposure/tables/btc_ex_mvrv_feature_strength.csv",
+      "sha256": "964a611308c6ab23767d21723ea5d52d6950bf2a44874dc3b3aed77cbfbe282a"
+    },
+    {
+      "bytes": 745,
+      "path": "research/02_macro_cross_asset_exposure/tables/claims.csv",
+      "sha256": "77a38529150125ebd11270334ccad6ea4cfdb74c582dadac6f21dfa2d0685e5d"
+    },
+    {
+      "bytes": 41688,
+      "path": "research/02_macro_cross_asset_exposure/tables/conventional_partial_r2.csv",
+      "sha256": "b940ac1ef8eb070b0cb1503e249d87e754e2dd028f029850e6a57e09a2f01e1d"
+    },
+    {
+      "bytes": 68657,
+      "path": "research/02_macro_cross_asset_exposure/tables/eth_feature_strength.csv",
+      "sha256": "822adbd5aac6aef656ede5bb55463b4545a0e35561fa085db1296c4e16e15414"
+    },
+    {
+      "bytes": 1691,
+      "path": "research/02_macro_cross_asset_exposure/tables/exposure_regime_comparison.csv",
+      "sha256": "a50afaa98492d645e0d795addd0ba21514861960c08233f5f0629a5b43280dec"
+    },
+    {
+      "bytes": 76410,
+      "path": "research/02_macro_cross_asset_exposure/tables/fdr_adjusted_inference.csv",
+      "sha256": "1e1b843f37e1319a85ef361dd2a9c69ef7c0dd6bd2f5769acdf5d670f78d1f52"
+    },
+    {
+      "bytes": 7764,
+      "path": "research/02_macro_cross_asset_exposure/tables/frequency_robustness.csv",
+      "sha256": "3605bbd7c24f4e66c770fda5fe62d2b5289a91d9ded6bb9c914705a1707fb0e7"
+    },
+    {
+      "bytes": 968,
+      "path": "research/02_macro_cross_asset_exposure/tables/local_window_correlation_distribution.csv",
+      "sha256": "f1af1aa272c5000867af7a1a7ca8b3d184410b3f3b4b2f7bd0f091a3351e2b2d"
+    },
+    {
+      "bytes": 55090,
+      "path": "research/02_macro_cross_asset_exposure/tables/multicollinearity_diagnostics.csv",
+      "sha256": "d83fe8cb6dbede694e9048ab51fec04024235cbd338f362b265d6e17d20ecc17"
+    },
+    {
+      "bytes": 195775,
+      "path": "research/02_macro_cross_asset_exposure/tables/ridge_stability.csv",
+      "sha256": "20a4661a72a30ff63b078a2979323131900a8e7741f56da3d96e488e783790d0"
+    },
+    {
+      "bytes": 3205,
+      "path": "research/02_macro_cross_asset_exposure/tables/rolling_exposure_summary.csv",
+      "sha256": "f647e3cd7fa4b2430d88bf3207cb5d5b6668d4178da26ef76ec1317cdbdb781f"
+    },
+    {
+      "bytes": 1596821,
+      "path": "research/02_macro_cross_asset_exposure/tables/rolling_tradfi_exposures.csv",
+      "sha256": "dafaeb212c82ae4bacf7495bb6ac544bda1fa45fe2ac8bedee7cb8ec6e9ed141"
+    }
+  ],
+  "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",
+  "module_id": "02_macro_cross_asset_exposure",
+  "schema_version": 1
+}

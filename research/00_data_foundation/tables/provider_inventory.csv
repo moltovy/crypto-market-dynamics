@@ -1,0 +1,9 @@
+provider_id,provider,file_count,csv_count,total_bytes,first_date,last_date,disposition,release_recommendation,license_note
+alternativeme,AlternativeMe,2,1,71121,2018-02-01,2026-04-17,derived-only recommended,Public Fear and Greed source; publish derived outputs with attribution.,Public Fear and Greed index data; cite provider.
+artemis,Artemis,49,48,6898444,2010-01-01,2026-04-30,uncertain/restricted,Provider/export data; do not newly redistribute raw files without explicit permission.,Provider/export data; redistribution rights may be restricted.
+cryptoquant,CryptoQuant,389,345,43255960,2006-04-11,2026-04-12,uncertain/restricted,Provider export; do not newly redistribute raw files without explicit permission.,Provider export; redistribution rights may be restricted.
+defillama,DefiLlama,54,44,40289431,2016-04-19,2026-04-19,derived-only recommended,Public API/web source; publish derived outputs and verify terms before raw redistribution.,Public API and curated files; cite DefiLlama and respect terms.
+farside,Farside ETF Data,5,3,70347,2024-01-11,2026-04-10,derived-only recommended,Public web source; publish derived outputs and verify reuse terms.,Public web data; cite Farside Investors and verify reuse terms.
+fred,FRED,23,21,3582890,1947-01-01,2026-04-17,public/re-distributable,Public Federal Reserve Economic Data series; cite source.,Federal Reserve Economic Data; generally public source with attribution.
+market_structure,MarketStructure,15,10,24469535,2018-02-01,2026-06-18,derived-only recommended,Curated local data assembled from public/optional sources; prefer derived summaries.,Curated local summaries from public/optional sources.
+tradingview,Tradingview,47,44,5687160,1967-01-29,2026-04-19,uncertain/restricted,Chart/export data; redistribution rights may be restricted.,Chart/export data; redistribution rights may be restricted.

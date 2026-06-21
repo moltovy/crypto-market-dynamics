@@ -1,73 +1,61 @@
 figures:
 - figure_id: tradfi_exposure_shift
-  filename: outputs/figures/public/01_tradfi_exposure_shift.png
+  filename: research/02_macro_cross_asset_exposure/figures/01_tradfi_exposure_shift.png
   status: public
   research_question: How did equity co-movement change across periods?
-  source_tables: outputs/tables/block_delta_r2.csv
-  chart_type: generated
-  units: see axes
-  caption: How did equity co-movement change across periods?
-  caveat: Pre-specified pre-BTC-ETF versus BTC-ETF-era comparison; not an ETF-effect
-    estimate.
-  width_px: 1800
-  height_px: 1200
+  source_tables: research/02_macro_cross_asset_exposure/tables/block_delta_r2.csv
+  chart_type: coefficient_and_block_contribution
+  units: delta R2 and rolling exposure summaries
+  caption: Later-sample equity co-movement is higher for BTC and ETH.
+  caveat: Period comparison, not ETF-effect identification.
   svg_required: true
-  readme_section: macro-integration-and-institutional-access
-  visual_qa_status: manual_pass_after_contact_sheet_review
+  readme_section: figure-set
+  visual_qa_status: manual_review_required
 - figure_id: etf_market_plumbing
-  filename: outputs/figures/public/02_etf_market_plumbing.png
+  filename: research/04_etf_institutional_plumbing/figures/02_etf_market_plumbing.png
   status: public
   research_question: How do ETF flow measures line up with same-day and lagged returns?
-  source_tables: outputs/tables/etf_absorption_metrics.csv; outputs/tables/etf_flow_associations.csv
-  chart_type: generated
-  units: see axes
-  caption: How do ETF flow measures line up with same-day and lagged returns?
-  caveat: ETF flow intensity is a market-plumbing association, not causal price impact.
-  width_px: 1800
-  height_px: 1200
+  source_tables: research/04_etf_institutional_plumbing/tables/etf_flow_associations.csv; research/04_etf_institutional_plumbing/tables/etf_absorption_metrics.csv
+  chart_type: lag_grid_and_absorption
+  units: correlations and flow-to-lagged-market-cap ratios
+  caption: ETF flow intensity is reported as market plumbing.
+  caveat: Timing and simultaneity limit interpretation.
   svg_required: true
-  readme_section: macro-integration-and-institutional-access
-  visual_qa_status: manual_pass_after_contact_sheet_review
+  readme_section: figure-set
+  visual_qa_status: manual_review_required
 - figure_id: leverage_tail_stress
-  filename: outputs/figures/public/03_leverage_tail_stress.png
+  filename: research/03_derivatives_leverage_liquidations/figures/03_leverage_tail_stress.png
   status: public
   research_question: Where do lagged leverage states show up in tail stress?
-  source_tables: outputs/tables/leverage_tail_risk_summary.csv; outputs/tables/tail_risk_models.csv
-  chart_type: generated
-  units: see axes
-  caption: Where do lagged leverage states show up in tail stress?
-  caveat: Lagged leverage states are stress diagnostics; same-day liquidation signatures
-    are appendix context.
-  width_px: 1800
-  height_px: 1200
+  source_tables: research/03_derivatives_leverage_liquidations/tables/leverage_tail_risk_summary.csv; research/03_derivatives_leverage_liquidations/tables/tail_risk_models.csv
+  chart_type: state_conditioned_tail_risk
+  units: tail-day rates and volatility
+  caption: Leverage states are stress diagnostics.
+  caveat: No liquidation initiation-cause claim.
   svg_required: true
-  readme_section: leverage-and-liquidity-state
-  visual_qa_status: manual_pass_after_contact_sheet_review
-- figure_id: point_in_time_market_structure
-  filename: outputs/figures/public/04_point_in_time_market_structure.png
+  readme_section: figure-set
+  visual_qa_status: manual_review_required
+- figure_id: market_concentration_state
+  filename: research/09_market_concentration_state/figures/market_concentration_state.png
   status: public
-  research_question: How did point-in-time composition and concentration evolve?
-  source_tables: outputs/tables/pit_composition.csv; outputs/tables/pit_concentration.csv
-  chart_type: generated
-  units: see axes
-  caption: How did point-in-time composition and concentration evolve?
-  caveat: Monthly PIT snapshots support structure and concentration, not daily performance.
-  width_px: 1800
-  height_px: 1200
+  research_question: How did point-in-time concentration and rank persistence evolve?
+  source_tables: research/09_market_concentration_state/tables/pit_market_structure_summary.csv
+  chart_type: concentration_and_turnover_state
+  units: HHI and rank persistence
+  caption: PIT data supports monthly concentration and turnover state analysis.
+  caveat: No daily constituent-performance claim.
   svg_required: true
-  readme_section: market-structure-and-selected-major-risk
-  visual_qa_status: manual_pass_after_contact_sheet_review
+  readme_section: figure-set
+  visual_qa_status: manual_review_required
 - figure_id: selected_major_asset_risk
-  filename: outputs/figures/public/05_selected_major_asset_risk.png
+  filename: research/08_relative_major_asset_risk/figures/05_selected_major_asset_risk.png
   status: public
   research_question: How do selected majors compare on volatility and drawdown?
-  source_tables: outputs/tables/selected_major_risk_metrics.csv
-  chart_type: generated
-  units: see axes
-  caption: How do selected majors compare on volatility and drawdown?
-  caveat: Coverage-aware risk map; HYPE is explicitly short-history.
-  width_px: 1800
-  height_px: 1200
+  source_tables: research/08_relative_major_asset_risk/tables/selected_major_risk_metrics.csv; research/08_relative_major_asset_risk/tables/selected_major_comparable_window_metrics.csv
+  chart_type: matched_window_risk_map
+  units: volatility, drawdown, and coverage
+  caption: Selected-major risk is coverage-aware.
+  caveat: Short histories limit cross-asset comparability.
   svg_required: true
-  readme_section: market-structure-and-selected-major-risk
-  visual_qa_status: manual_pass_after_contact_sheet_review
+  readme_section: figure-set
+  visual_qa_status: manual_review_required

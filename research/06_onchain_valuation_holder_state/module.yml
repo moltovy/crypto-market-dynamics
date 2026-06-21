@@ -1,0 +1,15 @@
+module_id: 06_onchain_valuation_holder_state
+title: On-Chain Valuation and Holder State
+research_question: Which on-chain valuation and holder-state measures are diagnostics
+  versus admissible lagged state variables?
+status: built
+canonical_surface: research/06_onchain_valuation_holder_state
+tables:
+- claims.csv
+- mvrv_identity_points.csv
+- mvrv_mechanical_link_audit.csv
+- mvrv_regime_outcomes.csv
+- onchain_state_regimes.csv
+figures:
+- measurement_mvrv_mechanics.png
+- measurement_mvrv_mechanics.svg

@@ -9,7 +9,7 @@ conventional partial R-squared.
 ## Conventional Partial R-Squared
 
 For readers who need the conventional formula, the separate
-`outputs/tables/conventional_partial_r2.csv` table reports
+`research/02_macro_cross_asset_exposure/tables/conventional_partial_r2.csv` table reports
 `(SSE_reduced - SSE_full) / SSE_reduced`.
 
 ## Interpretation

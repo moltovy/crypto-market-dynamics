@@ -1,0 +1,17 @@
+module_id: 09_market_concentration_state
+title: Market Concentration State
+research_question: How do monthly point-in-time concentration, turnover, and rank-persistence
+  states relate to market-structure conditions?
+status: built
+canonical_surface: research/09_market_concentration_state
+tables:
+- asset_identity_audit.csv
+- claims.csv
+- pit_concentration.csv
+- pit_market_structure_monthly.csv
+- pit_market_structure_summary.csv
+- pit_period_comparison.csv
+- pit_turnover.csv
+figures:
+- market_concentration_state.png
+- market_concentration_state.svg

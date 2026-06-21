@@ -1,0 +1,82 @@
+{
+  "artifacts": [
+    {
+      "bytes": 147468,
+      "path": "research/04_etf_institutional_plumbing/figures/02_etf_market_plumbing.png",
+      "sha256": "5fa62ee0cbc7c55b577d66c5107b800d6ab462fabbb2e8056c769861add80902"
+    },
+    {
+      "bytes": 102926,
+      "path": "research/04_etf_institutional_plumbing/figures/02_etf_market_plumbing.svg",
+      "sha256": "edc2c9cba4593ce2634242232e91a41ea3ce355599c76ed15f7f4cec84b95710"
+    },
+    {
+      "bytes": 182,
+      "path": "research/04_etf_institutional_plumbing/findings.md",
+      "sha256": "595b73e8cc8388f1517b1df88b8008eb3090c3e7b91501f5864fb064c9d2eab4"
+    },
+    {
+      "bytes": 122,
+      "path": "research/04_etf_institutional_plumbing/interpretation.md",
+      "sha256": "ee27f4a00f6ccfbadaaf40b205b66b1109a0f2965a8997b701f667b4168bf214"
+    },
+    {
+      "bytes": 60,
+      "path": "research/04_etf_institutional_plumbing/limitations.md",
+      "sha256": "e4807f3dfff15e46abc042de8cea51c8c9516049ca3cc468be6240390de99e13"
+    },
+    {
+      "bytes": 390,
+      "path": "research/04_etf_institutional_plumbing/methodology.md",
+      "sha256": "3b2044dfce6d1c8380564d9a42cba77ec81d54d8063d542695cbc67af14f78f2"
+    },
+    {
+      "bytes": 546,
+      "path": "research/04_etf_institutional_plumbing/module.yml",
+      "sha256": "79714d7e9f16c74fcfb4276ece7fe665805143286959a50c981f1e92b556ba34"
+    },
+    {
+      "bytes": 744,
+      "path": "research/04_etf_institutional_plumbing/README.md",
+      "sha256": "7b54a3056ad19fa68fac91010644f638160e4b27037c24e7c37c068e3b83b049"
+    },
+    {
+      "bytes": 755,
+      "path": "research/04_etf_institutional_plumbing/tables/claims.csv",
+      "sha256": "2a6ae47ab58c05422f27a9d3d19891312fceeb0ea716e06c6078144e2e5fc579"
+    },
+    {
+      "bytes": 181595,
+      "path": "research/04_etf_institutional_plumbing/tables/etf_absorption_metrics.csv",
+      "sha256": "45b23794075fc7f4911b88dcb6a748c5010232a7fc52d7904cc9f4f81641b35c"
+    },
+    {
+      "bytes": 730,
+      "path": "research/04_etf_institutional_plumbing/tables/etf_data_timing_audit.csv",
+      "sha256": "be69dd8670e067a54290bfa8110b8c3b8f260a675c75cf67b9d00214eb5f7dae"
+    },
+    {
+      "bytes": 17273,
+      "path": "research/04_etf_institutional_plumbing/tables/etf_era_exposure_comparison.csv",
+      "sha256": "8d1f288cc87ca63f682a61e793483871ada0298da01471637133348092e09692"
+    },
+    {
+      "bytes": 2189,
+      "path": "research/04_etf_institutional_plumbing/tables/etf_flow_associations.csv",
+      "sha256": "20d6d3c597f4a96ed57aff681dcf8a880b850f4576621872c8105f8ac844f6ce"
+    },
+    {
+      "bytes": 3546,
+      "path": "research/04_etf_institutional_plumbing/tables/etf_flow_shock_days.csv",
+      "sha256": "fd78e0392b8707fd93860012582224cb1481d5018d8e6e22f36ab7e99b65b685"
+    },
+    {
+      "bytes": 391,
+      "path": "research/04_etf_institutional_plumbing/tables/etf_market_plumbing_summary.csv",
+      "sha256": "ca19b267296d4f9dc6e4dad24b3de28c68dbaf4ea9516c46f0df019681beeb99"
+    }
+  ],
+  "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",
+  "module_id": "04_etf_institutional_plumbing",
+  "schema_version": 1
+}

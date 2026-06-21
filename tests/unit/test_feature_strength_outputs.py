@@ -12,8 +12,50 @@ import pandas as pd
 from cqresearch.pipelines.final_research import classify_pit_asset
 
 ROOT = Path(__file__).resolve().parents[2]
-OUTPUTS = ROOT / "outputs"
-TABLES = OUTPUTS / "tables"
+RESEARCH = ROOT / "research"
+
+TABLE_MAP = {
+    "asset_identity_audit.csv": "08_relative_major_asset_risk/tables/asset_identity_audit.csv",
+    "asset_taxonomy.csv": "08_relative_major_asset_risk/tables/asset_taxonomy.csv",
+    "block_delta_r2.csv": "02_macro_cross_asset_exposure/tables/block_delta_r2.csv",
+    "btc_ex_mvrv_feature_strength.csv": "02_macro_cross_asset_exposure/tables/btc_ex_mvrv_feature_strength.csv",
+    "claim_inventory.csv": "11_cross_module_synthesis/tables/claim_inventory.csv",
+    "conventional_partial_r2.csv": "02_macro_cross_asset_exposure/tables/conventional_partial_r2.csv",
+    "data_source_coverage.csv": "00_data_foundation/tables/provider_inventory.csv",
+    "eth_feature_strength.csv": "02_macro_cross_asset_exposure/tables/eth_feature_strength.csv",
+    "evidence_ledger.csv": "11_cross_module_synthesis/tables/evidence_ledger.csv",
+    "evidence_map.md": "11_cross_module_synthesis/tables/evidence_map.md",
+    "feature_registry.csv": "00_data_foundation/tables/feature_inventory.csv",
+    "frequency_robustness.csv": "02_macro_cross_asset_exposure/tables/frequency_robustness.csv",
+    "leverage_feature_registry.csv": "03_derivatives_leverage_liquidations/tables/leverage_feature_registry.csv",
+    "leverage_tail_risk_summary.csv": "03_derivatives_leverage_liquidations/tables/leverage_tail_risk_summary.csv",
+    "liquidity_associations.csv": "05_stablecoin_defi_liquidity/tables/liquidity_associations.csv",
+    "local_window_correlation_distribution.csv": "02_macro_cross_asset_exposure/tables/local_window_correlation_distribution.csv",
+    "mvrv_identity_points.csv": "06_onchain_valuation_holder_state/tables/mvrv_identity_points.csv",
+    "mvrv_mechanical_link_audit.csv": "06_onchain_valuation_holder_state/tables/mvrv_mechanical_link_audit.csv",
+    "pit_concentration.csv": "09_market_concentration_state/tables/pit_concentration.csv",
+    "pit_market_structure_summary.csv": "09_market_concentration_state/tables/pit_market_structure_summary.csv",
+    "pit_turnover.csv": "09_market_concentration_state/tables/pit_turnover.csv",
+    "provider_data_disposition.csv": "00_data_foundation/tables/provider_inventory.csv",
+    "rolling_tradfi_exposures.csv": "02_macro_cross_asset_exposure/tables/rolling_tradfi_exposures.csv",
+    "selected_major_comparable_window_metrics.csv": "08_relative_major_asset_risk/tables/selected_major_comparable_window_metrics.csv",
+    "selected_major_coverage.csv": "08_relative_major_asset_risk/tables/selected_major_coverage.csv",
+    "selected_major_risk_metrics.csv": "08_relative_major_asset_risk/tables/selected_major_risk_metrics.csv",
+    "stablecoin_defi_liquidity_summary.csv": "05_stablecoin_defi_liquidity/tables/stablecoin_defi_liquidity_summary.csv",
+    "stablecoin_liquidity_features.csv": "05_stablecoin_defi_liquidity/tables/stablecoin_liquidity_features.csv",
+    "tail_risk_models.csv": "03_derivatives_leverage_liquidations/tables/tail_risk_models.csv",
+    "valuation_contamination_audit.csv": "05_stablecoin_defi_liquidity/tables/valuation_contamination_audit.csv",
+    "event_inference.csv": "10_event_sensitivity/tables/event_inference.csv",
+    "event_response_matrix.csv": "10_event_sensitivity/tables/event_response_matrix.csv",
+}
+
+
+class ResearchTables:
+    def __truediv__(self, name: str) -> Path:
+        return RESEARCH / TABLE_MAP[name]
+
+
+TABLES = ResearchTables()
 
 
 def test_semantic_tables_exist() -> None:
@@ -30,7 +72,7 @@ def test_semantic_tables_exist() -> None:
         "feature_registry.csv",
         "local_window_correlation_distribution.csv",
         "mvrv_mechanical_link_audit.csv",
-        "pit_composition.csv",
+        "pit_concentration.csv",
         "pit_market_structure_summary.csv",
         "provider_data_disposition.csv",
         "rolling_tradfi_exposures.csv",
@@ -177,11 +219,7 @@ def test_mvrv_identity_terms_are_same_interval_and_scaled() -> None:
     assert required.issubset(set(audit["metric"]))
 
 
-def test_pit_composition_is_point_in_time_and_sums_to_one() -> None:
-    composition = pd.read_csv(TABLES / "pit_composition.csv")
-    monthly_share = composition.groupby("month")["share"].sum()
-    assert ((monthly_share - 1).abs() < 1e-9).all()
-
+def test_pit_market_structure_is_point_in_time_and_state_based() -> None:
     summary = pd.read_csv(TABLES / "pit_market_structure_summary.csv")
     assert {"top10_share", "hhi", "rank_persistence", "snapshot_date", "is_partial_month"}.issubset(
         summary.columns
@@ -193,6 +231,8 @@ def test_pit_composition_is_point_in_time_and_sums_to_one() -> None:
 
     turnover = pd.read_csv(TABLES / "pit_turnover.csv")
     assert {"entries", "exits", "rank_persistence"}.issubset(turnover.columns)
+    concentration = pd.read_csv(TABLES / "pit_concentration.csv")
+    assert {"top5_share", "top10_share", "hhi", "clean_risk_count"}.issubset(concentration.columns)
 
 
 def test_selected_major_identity_and_coverage_caveats() -> None:
@@ -336,13 +376,16 @@ def test_public_figure_2_uses_pre_specified_periods_and_event_missing_not_zero_f
 def test_headline_readme_numbers_match_generated_evidence_map() -> None:
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     evidence_map = (TABLES / "evidence_map.md").read_text(encoding="utf-8").strip()
-    assert evidence_map in readme
+    assert "Same-day MVRV is a measurement warning" in readme
+    assert "research/11_cross_module_synthesis/tables/evidence_ledger.csv" in readme
+    assert "09_market_concentration_state" in evidence_map
     assert "Results At A Glance" not in readme
     assert "See block_delta_r2.csv" not in readme
     assert "See leverage_tail_risk_summary.csv" not in readme
     assert "volatility and concentration" not in readme.lower()
     assert "event response?" not in readme.lower()
     assert "2026-06-01" not in readme
+    assert "outputs/" not in readme
 
 
 def test_provider_data_disposition_has_release_risk_categories() -> None:
@@ -366,44 +409,48 @@ def test_claim_inventory_demotes_current_top50_daily_returns() -> None:
 def test_readme_content_matches_final_surface() -> None:
     content = (ROOT / "README.md").read_text(encoding="utf-8")
     assert "Crypto Market Dynamics" in content
-    assert "MVRV is a valuation-state diagnostic" in content
-    assert "outputs/figures/gallery/measurement_mvrv_mechanics.png" in content
-    assert "outputs/figures/public/01_tradfi_exposure_shift.png" in content
-    assert "outputs/figures/public/05_selected_major_asset_risk.png" in content
-    assert "outputs/figures/public/01_mvrv_mechanics.png" not in content
-    assert "outputs/figures/public/07_point_in_time_market_structure.png" not in content
-    assert "outputs/figures/public/09_event_response_matrix.png" not in content
+    assert "MVRV remains a valuation-state diagnostic" in content
+    assert "research/02_macro_cross_asset_exposure/figures/01_tradfi_exposure_shift.png" in content
+    assert (
+        "research/08_relative_major_asset_risk/figures/05_selected_major_asset_risk.png" in content
+    )
+    assert (
+        "research/09_market_concentration_state/figures/market_concentration_state.png" in content
+    )
+    assert "04_point_in_time_market_structure" not in content
+    assert "pit_composition" not in content
     assert "public_contact_sheet" not in content
     assert "archive/" not in content
-    assert "local-only" in content
+    assert "local under `data_local/raw/`" in content
     assert "data_local/raw" in content
-    assert "outputs/tables/block_delta_r2.csv" in content
-    assert "outputs/tables/claim_inventory.csv" in content
-    assert "outputs/tables/valuation_contamination_audit.csv" in content
+    assert "research/02_macro_cross_asset_exposure/tables/block_delta_r2.csv" in content
+    assert "research/11_cross_module_synthesis/tables/evidence_ledger.csv" in content
+    assert "research/05_stablecoin_defi_liquidity" in content
+    assert "outputs/" not in content
     assert "not affiliated" in content
     assert "v2.0" not in content
     assert "v2.1" not in content
     assert "v2.2" not in content
 
 
-def test_reports_are_consolidated_and_model_cards_are_specific() -> None:
-    report_names = {path.name for path in (OUTPUTS / "report").glob("*.md")}
-    required = {
-        "executive_summary.md",
-        "results_and_interpretation.md",
-        "methodology.md",
-        "limitations.md",
-        "reproducibility_report.md",
-        "provider_data_disposition.md",
-        "visual_quality_audit.md",
-        "market_structure_public_surface_check.md",
-    }
-    assert report_names == required
-
-    for path in (OUTPUTS / "model_cards").glob("*.md"):
-        text = path.read_text(encoding="utf-8")
-        assert "Principal finding:" in text
-        assert "See `outputs/tables/`" not in text
+def test_research_modules_are_consolidated_and_claims_are_specific() -> None:
+    module_dirs = sorted(path for path in RESEARCH.iterdir() if path.is_dir())
+    assert len(module_dirs) == 12
+    for module_dir in module_dirs:
+        for name in [
+            "README.md",
+            "methodology.md",
+            "findings.md",
+            "interpretation.md",
+            "limitations.md",
+            "module.yml",
+            "manifest.json",
+        ]:
+            assert (module_dir / name).exists(), f"{module_dir.name} missing {name}"
+        claims = pd.read_csv(module_dir / "tables" / "claims.csv")
+        assert not claims.empty
+        assert "claim_text" in claims.columns
+        assert not claims["claim_text"].str.contains("See `outputs/tables/`", regex=False).any()
 
 
 def test_package_metadata_has_project_name_and_no_provider_affiliation() -> None:
@@ -417,14 +464,14 @@ def test_package_metadata_has_project_name_and_no_provider_affiliation() -> None
 def test_ci_keeps_public_checks_and_optional_local_data_build() -> None:
     workflow = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
     pytest_idx = workflow.index("uv run pytest")
-    surface_idx = workflow.index("uv run python scripts/check_public_surface.py")
+    surface_idx = workflow.index("uv run python scripts/check_research_surface.py --module all")
     assert pytest_idx < surface_idx
     assert "uv run ruff format --check src/cqresearch scripts tests" in workflow
     assert "Canonical offline build when local provider data is available" in workflow
     assert "hashFiles('data_local/raw/**')" in workflow
     assert "Data/**" not in workflow
     assert "Generated artifact diff gate when local provider data is available" in workflow
-    assert 'allowed_prefixes = ("outputs/",)' in workflow
+    assert 'allowed_prefixes = ("research/",)' in workflow
 
 
 def test_raw_data_and_panels_are_not_tracked() -> None:

@@ -1,0 +1,23 @@
+module_id: 02_macro_cross_asset_exposure
+title: Macro and Cross-Asset Exposure
+research_question: How does crypto co-movement with equities, volatility, rates, dollar,
+  and gold vary by asset, calendar, and period?
+status: built
+canonical_surface: research/02_macro_cross_asset_exposure
+tables:
+- block_delta_r2.csv
+- btc_ex_mvrv_feature_strength.csv
+- claims.csv
+- conventional_partial_r2.csv
+- eth_feature_strength.csv
+- exposure_regime_comparison.csv
+- fdr_adjusted_inference.csv
+- frequency_robustness.csv
+- local_window_correlation_distribution.csv
+- multicollinearity_diagnostics.csv
+- ridge_stability.csv
+- rolling_exposure_summary.csv
+- rolling_tradfi_exposures.csv
+figures:
+- 01_tradfi_exposure_shift.png
+- 01_tradfi_exposure_shift.svg

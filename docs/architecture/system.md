@@ -2,12 +2,10 @@
 
 The maintained public build path is:
 
-- `src/cqresearch/pipelines/final_research.py` for orchestration.
-- `scripts/build_data_inventory.py` for source inventory.
-- `scripts/build_feature_store.py` for deterministic panels.
-- `scripts/build_analysis_outputs.py` for tables, reports, and model cards.
-- `scripts/build_public_figures.py` for six README figures, one gallery appendix figure, and the QA contact sheet.
-- `scripts/check_public_surface.py` for README/output guardrails.
-- `scripts/run_all.py` for the complete offline build.
+- `src/cqresearch/pipelines/research.py` for orchestration.
+- `scripts/run_research.py --module all` for the complete public module build.
+- `scripts/build_research_figures.py --module all` for public module figures.
+- `scripts/check_research_surface.py --module all` for module, claims, figure, and manifest guardrails.
+- `research/` for the canonical module surface.
 
 Legacy portfolio and versioned release workflows are not part of the maintained public surface.

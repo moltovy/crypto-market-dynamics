@@ -6,6 +6,7 @@ import yaml
 from config.paths import (
     CALENDARS_YML,
     CHAIN_TAXONOMY_YML,
+    CONFIG_DIR,
     CURATION_SNAPSHOTS_YML,
     EVENTS_YML,
     FACTOR_BLOCKS_YML,
@@ -48,3 +49,11 @@ def test_chain_taxonomy_blocks_summing_l1_and_l2() -> None:
 def test_curation_snapshots_is_parsable() -> None:
     data = _load(CURATION_SNAPSHOTS_YML)
     assert "validate" in data
+
+
+def test_research_modules_yml_declares_twelve_modules() -> None:
+    data = _load(CONFIG_DIR / "research_modules.yml")
+    modules = data["modules"]
+    assert len(modules) == 12
+    assert modules[0]["module_id"] == "00_data_foundation"
+    assert modules[-1]["module_id"] == "11_cross_module_synthesis"

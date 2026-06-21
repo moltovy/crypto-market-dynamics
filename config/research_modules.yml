@@ -1,0 +1,49 @@
+modules:
+- module_id: 00_data_foundation
+  title: Data Foundation
+  research_question: What data, units, timing, coverage, identity, and release-risk constraints govern every later result?
+  status: required
+- module_id: 01_returns_risk_regimes
+  title: Returns, Risk, and Regimes
+  research_question: How do BTC and ETH return distributions, volatility, drawdown, and tail behavior vary across transparent regimes?
+  status: required
+- module_id: 02_macro_cross_asset_exposure
+  title: Macro and Cross-Asset Exposure
+  research_question: How does crypto co-movement with equities, volatility, rates, dollar, and gold vary by asset, calendar, and period?
+  status: required
+- module_id: 03_derivatives_leverage_liquidations
+  title: Derivatives, Leverage, and Liquidations
+  research_question: Where do leverage, funding, open-interest scaling, and liquidation stress appear in volatility and tail outcomes?
+  status: required
+- module_id: 04_etf_institutional_plumbing
+  title: ETF and Institutional Plumbing
+  research_question: How do ETF flow intensity and absorption measures line up with contemporaneous and lagged crypto outcomes?
+  status: required
+- module_id: 05_stablecoin_defi_liquidity
+  title: Stablecoin and DeFi Liquidity State
+  research_question: What do stablecoin supply and DeFi TVL proxies say about liquidity-state associations after unit and valuation audits?
+  status: required
+- module_id: 06_onchain_valuation_holder_state
+  title: On-Chain Valuation and Holder State
+  research_question: Which on-chain valuation and holder-state measures are diagnostics versus admissible lagged state variables?
+  status: required
+- module_id: 07_chain_fundamentals
+  title: Chain Fundamentals
+  research_question: Which chain-level activity measures have enough coverage and definition clarity for descriptive panel analysis?
+  status: required
+- module_id: 08_relative_major_asset_risk
+  title: Relative Major-Asset Risk
+  research_question: How do selected major crypto assets compare on matched-window risk, downside, drawdown, and beta measures?
+  status: required
+- module_id: 09_market_concentration_state
+  title: Market Concentration State
+  research_question: How do monthly point-in-time concentration, turnover, and rank-persistence states relate to market-structure conditions?
+  status: required
+- module_id: 10_event_sensitivity
+  title: Event Sensitivity
+  research_question: How do registered event windows compare with empirical placebo windows under fixed window conventions?
+  status: required
+- module_id: 11_cross_module_synthesis
+  title: Cross-Module Synthesis
+  research_question: Which findings remain strongest after comparing outcome, coverage, timing, uncertainty, and measurement-risk evidence?
+  status: required

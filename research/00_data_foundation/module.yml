@@ -1,0 +1,24 @@
+module_id: 00_data_foundation
+title: Data Foundation
+research_question: What data, units, timing, coverage, identity, and release-risk
+  constraints govern every later result?
+status: built
+canonical_surface: research/00_data_foundation
+tables:
+- provider_inventory.csv
+- raw_series_inventory.csv
+- feature_inventory.csv
+- feature_usage_matrix.csv
+- coverage_by_feature.csv
+- missingness_by_feature.csv
+- units_and_timing_audit.csv
+- canonical_identity_audit.csv
+- data_quality_flags.csv
+- claims.csv
+figures: []
+source_inputs:
+- data_local/raw/
+- data_local/processed/
+- config/feature_registry.yml
+- research/08_relative_major_asset_risk/tables/asset_identity_audit.csv
+- research/05_stablecoin_defi_liquidity/tables/valuation_contamination_audit.csv

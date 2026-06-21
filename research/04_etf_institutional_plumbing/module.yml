@@ -1,0 +1,17 @@
+module_id: 04_etf_institutional_plumbing
+title: ETF and Institutional Plumbing
+research_question: How do ETF flow intensity and absorption measures line up with
+  contemporaneous and lagged crypto outcomes?
+status: built
+canonical_surface: research/04_etf_institutional_plumbing
+tables:
+- claims.csv
+- etf_absorption_metrics.csv
+- etf_data_timing_audit.csv
+- etf_era_exposure_comparison.csv
+- etf_flow_associations.csv
+- etf_flow_shock_days.csv
+- etf_market_plumbing_summary.csv
+figures:
+- 02_etf_market_plumbing.png
+- 02_etf_market_plumbing.svg

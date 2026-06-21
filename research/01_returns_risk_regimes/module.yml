@@ -1,0 +1,12 @@
+module_id: 01_returns_risk_regimes
+title: Returns, Risk, and Regimes
+research_question: How do BTC and ETH return distributions, volatility, drawdown,
+  and tail behavior vary across transparent regimes?
+status: built
+canonical_surface: research/01_returns_risk_regimes
+tables:
+- claims.csv
+- cycle_state_summary.csv
+- returns_distribution_summary.csv
+- returns_regime_risk_summary.csv
+figures: []

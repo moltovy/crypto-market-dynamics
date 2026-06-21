@@ -1,0 +1,17 @@
+module_id: 11_cross_module_synthesis
+title: Cross-Module Synthesis
+research_question: Which findings remain strongest after comparing outcome, coverage,
+  timing, uncertainty, and measurement-risk evidence?
+status: built
+canonical_surface: research/11_cross_module_synthesis
+tables:
+- claim_inventory.csv
+- claims.csv
+- evidence_ledger.csv
+- evidence_map.csv
+- evidence_map.md
+- fdr_adjusted_inference.csv
+- local_window_correlation_distribution.csv
+- provider_data_disposition.csv
+- robustness_summary.csv
+figures: []

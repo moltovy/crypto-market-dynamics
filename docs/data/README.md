@@ -26,4 +26,4 @@ data_local/
 The public repository ships code, docs, derived semantic outputs, and
 reproducibility instructions. Users with source access can recreate the local
 provider buckets above; users without source access can still inspect the
-derived outputs under `outputs/`.
+derived outputs under `research/`.

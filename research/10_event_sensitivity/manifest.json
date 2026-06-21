@@ -1,0 +1,67 @@
+{
+  "artifacts": [
+    {
+      "bytes": 142331,
+      "path": "research/10_event_sensitivity/figures/appendix_event_response_matrix.png",
+      "sha256": "87ba75ab1884c3273dcb074211be6a1285b26fbafda3213e617765106d90efbd"
+    },
+    {
+      "bytes": 81773,
+      "path": "research/10_event_sensitivity/figures/appendix_event_response_matrix.svg",
+      "sha256": "eef8268b7b46f4459e17eeb9e5fcff581cda0ea01c293d7723422397e7fa9adb"
+    },
+    {
+      "bytes": 124,
+      "path": "research/10_event_sensitivity/findings.md",
+      "sha256": "bdaa956ae4b1b56ef082001048cd31670a4ae8e0c48444afae05ef6f41057177"
+    },
+    {
+      "bytes": 84,
+      "path": "research/10_event_sensitivity/interpretation.md",
+      "sha256": "89e415ac565f2e28ca21ea033902a11111fb4e4b0738c69954746fefa64a4a25"
+    },
+    {
+      "bytes": 74,
+      "path": "research/10_event_sensitivity/limitations.md",
+      "sha256": "d8dd907e4b38594ee9f2cdccbb686cf6c22a01d92c31cf8d3eca3ca722a05203"
+    },
+    {
+      "bytes": 386,
+      "path": "research/10_event_sensitivity/methodology.md",
+      "sha256": "43aa52b2ccff3cdc1d61047e593ebe8693b636282ff5843dfc9659a7ef818823"
+    },
+    {
+      "bytes": 416,
+      "path": "research/10_event_sensitivity/module.yml",
+      "sha256": "bc8e321bbff9253a9c8fbda024ff36d4d75ccd4bc02a9a2b75f5a10b0463c829"
+    },
+    {
+      "bytes": 538,
+      "path": "research/10_event_sensitivity/README.md",
+      "sha256": "4594bfd5265ed43cec45dd99ba7749dde8d2a4727efb7b4f69e555cb8dd93885"
+    },
+    {
+      "bytes": 732,
+      "path": "research/10_event_sensitivity/tables/claims.csv",
+      "sha256": "ba9677adba2620009251c40d76219d9636130b1cc977d816f15c6179ccefc84a"
+    },
+    {
+      "bytes": 1476,
+      "path": "research/10_event_sensitivity/tables/event_atlas.csv",
+      "sha256": "854b53ddcf4c48ffa006f17b7be7576d51dca8d6bc9784afa4ddc83d54834e1d"
+    },
+    {
+      "bytes": 4158,
+      "path": "research/10_event_sensitivity/tables/event_inference.csv",
+      "sha256": "eaebf9aa8a2f3193eac06e36ad9eacdc1f1c6ef91046f3feeb1363b5d605624b"
+    },
+    {
+      "bytes": 4008,
+      "path": "research/10_event_sensitivity/tables/event_response_matrix.csv",
+      "sha256": "745e1edd5e92aa6b08324908ac23ac30e892dba451ac49e84cbf36bc44ab8a54"
+    }
+  ],
+  "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",
+  "module_id": "10_event_sensitivity",
+  "schema_version": 1
+}

@@ -1,0 +1,21 @@
+event_id,asset,actual_post_10d_return,actual_observations,block_size,placebo_window_count,placebo_p_value,eligible_start_date,eligible_end_date,event_window_convention,method
+btc_spot_etf_launch,BTC,-0.1087272667325169,10,10,2007,0.2147483806676632,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+btc_spot_etf_launch,ETH,-0.0635792878304002,10,10,2007,0.5595416043846537,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+eth_spot_etf_launch,BTC,-0.070710044572122,10,10,2007,0.3806676631788739,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+eth_spot_etf_launch,ETH,-0.1528211750266344,10,10,2007,0.2062780269058296,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+bitcoin_halving_2024,BTC,-0.0685206022575002,10,10,2007,0.3946188340807174,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+bitcoin_halving_2024,ETH,-0.0460371304969555,10,10,2007,0.6571998006975586,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+dencun_upgrade,BTC,-0.1330039150848794,10,10,2007,0.1509715994020926,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+dencun_upgrade,ETH,-0.1847464214768308,10,10,2007,0.1439960139511709,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+luna_collapse_2022,BTC,0.0071076918496189,10,10,2007,0.9177877428998504,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+luna_collapse_2022,ETH,-0.0992830409695635,10,10,2007,0.3846537120079721,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+ftx_collapse_2022,BTC,-0.1048733249529814,10,10,2007,0.2282012954658694,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+ftx_collapse_2022,ETH,-0.0965637570472299,10,10,2007,0.3936223218734429,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+svb_crisis_2023,BTC,0.3194274668025354,10,10,2007,0.0119581464872944,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+svb_crisis_2023,ETH,0.195227504464837,10,10,2007,0.1290483308420528,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+yen_carry_unwind_2024,BTC,0.0632852342732288,10,10,2007,0.4275037369207772,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+yen_carry_unwind_2024,ETH,0.0602620987911022,10,10,2007,0.57847533632287,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+sec_generic_etp_listing_standards_2025,BTC,-0.0602761829397557,10,10,2007,0.4424514200298953,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+sec_generic_etp_listing_standards_2025,ETH,-0.1329610299880919,10,10,2007,0.2670652715495765,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+crypto_liquidation_tariff_shock_2025,BTC,-0.021280884055983,10,10,2007,0.7608370702541106,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events
+crypto_liquidation_tariff_shock_2025,ETH,0.0375940090952848,10,10,2007,0.7095166915794718,2020-01-02,2026-04-02,"+1 through +10, excluding event day",empirical_placebo_window_test_nonoverlapping_registered_events

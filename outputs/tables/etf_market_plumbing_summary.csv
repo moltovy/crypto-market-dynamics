@@ -1,3 +1,0 @@
-question,key_metric,value,sample,calendar,interpretation
-BTC ETF market plumbing,latest cumulative flow / lagged BTC mcap,0.03885409636964678,BTC ETF era,etf_trading_daily,"Descriptive absorption ratio, not valuation model."
-ETH ETF market plumbing,latest cumulative flow / lagged ETH mcap,0.04271944770690127,ETH ETF era,etf_trading_daily,"Descriptive absorption ratio, not valuation model."

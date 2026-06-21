@@ -2,7 +2,7 @@
 
 This documentation is the public reference layer for Crypto Market Dynamics.
 It intentionally avoids release-history naming and points readers to one
-canonical artifact root: `outputs/`.
+canonical artifact root: `research/`.
 
 ## Sections
 

@@ -1,0 +1,16 @@
+module_id: 03_derivatives_leverage_liquidations
+title: Derivatives, Leverage, and Liquidations
+research_question: Where do leverage, funding, open-interest scaling, and liquidation
+  stress appear in volatility and tail outcomes?
+status: built
+canonical_surface: research/03_derivatives_leverage_liquidations
+tables:
+- claims.csv
+- leverage_feature_registry.csv
+- leverage_state_summary.csv
+- leverage_tail_risk_summary.csv
+- liquidation_event_responses.csv
+- tail_risk_models.csv
+figures:
+- 03_leverage_tail_stress.png
+- 03_leverage_tail_stress.svg

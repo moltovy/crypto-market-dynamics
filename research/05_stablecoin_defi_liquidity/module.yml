@@ -1,0 +1,15 @@
+module_id: 05_stablecoin_defi_liquidity
+title: Stablecoin and DeFi Liquidity State
+research_question: What do stablecoin supply and DeFi TVL proxies say about liquidity-state
+  associations after unit and valuation audits?
+status: built
+canonical_surface: research/05_stablecoin_defi_liquidity
+tables:
+- claims.csv
+- defi_activity_features.csv
+- liquidity_associations.csv
+- liquidity_regime_summary.csv
+- stablecoin_defi_liquidity_summary.csv
+- stablecoin_liquidity_features.csv
+- valuation_contamination_audit.csv
+figures: []

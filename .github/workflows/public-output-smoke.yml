@@ -1,4 +1,4 @@
-name: Public Output Smoke
+name: Public Research Smoke
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 jobs:
-  public-output-smoke:
+  public-research-smoke:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -24,10 +24,10 @@ jobs:
         run: uv sync --all-extras
 
       - name: Public surface guardrails
-        run: uv run python scripts/check_public_surface.py
+        run: uv run python scripts/check_research_surface.py --module all
 
-      - name: Upload canonical outputs
+      - name: Upload canonical research surface
         uses: actions/upload-artifact@v4
         with:
-          name: canonical-outputs
-          path: outputs
+          name: canonical-research
+          path: research

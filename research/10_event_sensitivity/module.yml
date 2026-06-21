@@ -1,0 +1,14 @@
+module_id: 10_event_sensitivity
+title: Event Sensitivity
+research_question: How do registered event windows compare with empirical placebo
+  windows under fixed window conventions?
+status: built
+canonical_surface: research/10_event_sensitivity
+tables:
+- claims.csv
+- event_atlas.csv
+- event_inference.csv
+- event_response_matrix.csv
+figures:
+- appendix_event_response_matrix.png
+- appendix_event_response_matrix.svg

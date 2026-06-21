@@ -1,0 +1,72 @@
+{
+  "artifacts": [
+    {
+      "bytes": 154074,
+      "path": "research/06_onchain_valuation_holder_state/figures/measurement_mvrv_mechanics.png",
+      "sha256": "d47cd7fccb416e1b0ea20c01f87f947dd8a5d92770b69e09d1198de5f3583e1a"
+    },
+    {
+      "bytes": 474555,
+      "path": "research/06_onchain_valuation_holder_state/figures/measurement_mvrv_mechanics.svg",
+      "sha256": "7866201b45acabfcf6667a55cdf3eeb24c0bd36a4d0370b212b8a019cef7c413"
+    },
+    {
+      "bytes": 140,
+      "path": "research/06_onchain_valuation_holder_state/findings.md",
+      "sha256": "5e088ea175404a7bdada0fd0816f8ee8bb1271de9ab811d0a8e61befb68e9d00"
+    },
+    {
+      "bytes": 133,
+      "path": "research/06_onchain_valuation_holder_state/interpretation.md",
+      "sha256": "8ecd37fedd7ea804e755880889284eea99386466f2f3720f334df06b83135265"
+    },
+    {
+      "bytes": 86,
+      "path": "research/06_onchain_valuation_holder_state/limitations.md",
+      "sha256": "c361cdb5c45b6b991977ef7fefd66addff2d7bababe7446638783661f9ab26d5"
+    },
+    {
+      "bytes": 384,
+      "path": "research/06_onchain_valuation_holder_state/methodology.md",
+      "sha256": "de266d4308c89a851f0137d7be2a983800a4b1262fecf5a51ce15a0cf1ed33ef"
+    },
+    {
+      "bytes": 505,
+      "path": "research/06_onchain_valuation_holder_state/module.yml",
+      "sha256": "367c65b7d310ab718499a207293e74c28e209af65a2aa864f664abf4a95e9742"
+    },
+    {
+      "bytes": 639,
+      "path": "research/06_onchain_valuation_holder_state/README.md",
+      "sha256": "3d0b51d8e06d772047ae7b1b26ebac817788977516c30258571e9a5a469d9f9f"
+    },
+    {
+      "bytes": 722,
+      "path": "research/06_onchain_valuation_holder_state/tables/claims.csv",
+      "sha256": "f0ac1fda90300f14273d93ca568de0328f93487bded412ea66fe3772a7c5ceae"
+    },
+    {
+      "bytes": 698930,
+      "path": "research/06_onchain_valuation_holder_state/tables/mvrv_identity_points.csv",
+      "sha256": "1732fe14b192f913c91c3453ff7be70fc4ac631983ad9a60355b61dd13e64028"
+    },
+    {
+      "bytes": 1588,
+      "path": "research/06_onchain_valuation_holder_state/tables/mvrv_mechanical_link_audit.csv",
+      "sha256": "4a1250ba2663995b68d0a71afa9ad08808df77cea83e1637a1b011a8036a4202"
+    },
+    {
+      "bytes": 787,
+      "path": "research/06_onchain_valuation_holder_state/tables/mvrv_regime_outcomes.csv",
+      "sha256": "d673a2bc90d6f1f220d9be78ede1aaac64af4e31253d5e4a09a1ef338178db24"
+    },
+    {
+      "bytes": 205397,
+      "path": "research/06_onchain_valuation_holder_state/tables/onchain_state_regimes.csv",
+      "sha256": "64693170d58044ee906ba0f11d5b3a7c85c94ef44cd3ea2b67a155d183026e9c"
+    }
+  ],
+  "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",
+  "module_id": "06_onchain_valuation_holder_state",
+  "schema_version": 1
+}

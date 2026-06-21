@@ -1,4 +1,4 @@
-"""Build the six README figures, gallery appendix, and QA contact sheet."""
+"""Compatibility wrapper for building canonical research figures."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
-from cqresearch.viz.public_figures import build_public_figures
+from cqresearch.pipelines.research import build_research_figures
 
 if __name__ == "__main__":
-    build_public_figures()
+    build_research_figures(module="all", root=ROOT)

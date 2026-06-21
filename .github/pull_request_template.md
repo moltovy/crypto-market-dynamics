@@ -5,7 +5,7 @@
 ## Public Surface
 
 - [ ] README remains a clean project overview.
-- [ ] Canonical artifacts live under `outputs/`.
+- [ ] Canonical artifacts live under `research/`.
 - [ ] Historical or internal process material is absent from the public surface.
 - [ ] Public docs avoid private-process framing.
 
@@ -15,9 +15,9 @@
 - [ ] `uv run ruff format --check src/cqresearch scripts tests`
 - [ ] `uv run mypy src/cqresearch`
 - [ ] `uv run pytest -q`
-- [ ] `uv run python scripts/check_public_surface.py`
-- [ ] `uv run python scripts/run_all.py` when local provider inputs are present
-- [ ] `uv run python scripts/build_public_figures.py` when figures are regenerated
+- [ ] `uv run python scripts/check_research_surface.py --module all`
+- [ ] `uv run python scripts/run_research.py --module all` when local provider inputs are present
+- [ ] `uv run python scripts/build_research_figures.py --module all` when figures are regenerated
 
 ## Guardrails
 

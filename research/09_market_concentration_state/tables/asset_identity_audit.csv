@@ -1,0 +1,17 @@
+check_id,symbol,intended_name,canonical_asset_key,observed_rows,failing_rows,status,note
+selected_major_btc,BTC,Bitcoin,coingecko:bitcoin,78,0,pass,Computed against source rows using canonical ID before symbol.
+selected_major_eth,ETH,Ethereum,coingecko:ethereum,78,0,pass,Computed against source rows using canonical ID before symbol.
+selected_major_bnb,BNB,BNB,coingecko:binancecoin,78,0,pass,Computed against source rows using canonical ID before symbol.
+selected_major_sol,SOL,Solana,coingecko:solana,74,0,pass,Computed against source rows using canonical ID before symbol.
+selected_major_xrp,XRP,XRP,coingecko:ripple,78,0,pass,Computed against source rows using canonical ID before symbol.
+selected_major_doge,DOGE,Dogecoin,coingecko:dogecoin,78,0,pass,Computed against source rows using canonical ID before symbol.
+selected_major_trx,TRX,TRON,coingecko:tron,78,0,pass,Computed against source rows using canonical ID before symbol.
+selected_major_ton,TON,Toncoin,coingecko:the-open-network,44,0,pass,Computed against source rows using canonical ID before symbol.
+selected_major_ada,ADA,Cardano,coingecko:cardano,77,0,pass,Computed against source rows using canonical ID before symbol.
+selected_major_hype,HYPE,Hyperliquid,coingecko:hyperliquid,20,0,pass,Computed against source rows using canonical ID before symbol.
+toncoin_not_tokamak,TON,,,6,0,pass,Computed from source rows. Tokamak Network rows must not classify as Toncoin.
+sol_not_wrapped_sol,SOL,,,9,0,pass,Computed from source rows. Wrapped SOL rows must remain productized/wrapped assets.
+xrp_not_binance_peg_xrp,XRP,,,6,0,pass,Computed from source rows. Binance-Peg XRP rows must not classify as base XRP.
+doge_not_binance_peg_doge,DOGE,,,13,0,pass,Computed from source rows. Binance-Peg DOGE rows must not classify as base DOGE.
+btc_eth_wrappers_separated,WBTC/WETH,,,586,0,pass,Computed from source rows. Wrapped/staked/productized BTC/ETH rows must not classify as base BTC or ETH.
+lst_governance_separated,LDO/RPL/EIGEN/ETHFI,,,128,0,pass,"Computed from source rows. LDO/RPL/EIGEN/ETHFI remain governance/infrastructure risk, not staking derivatives."

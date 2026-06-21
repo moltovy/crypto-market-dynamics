@@ -1,4 +1,4 @@
-"""Validate the canonical public output surface."""
+"""Compatibility wrapper for validating the canonical research surface."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
-from cqresearch.pipelines.final_research import check_public_surface
+from cqresearch.pipelines.research import check_research
 
 if __name__ == "__main__":
-    check_public_surface()
+    check_research(module="all", root=ROOT)

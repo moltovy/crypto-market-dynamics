@@ -1,6 +1,0 @@
-period,snapshot_count,top10_share_mean,hhi_mean,stable_like_share_mean,method_note
-2020_halving_to_2021_cycle,20,0.8544579881270413,0.33985826320833074,0.05025517391681665,Descriptive period comparison; not attributed to one event.
-2022_stress,12,0.8318889808391686,0.21900159933645602,0.1315192021920312,Descriptive period comparison; not attributed to one event.
-2023_recovery,12,0.8694563151183461,0.280725308010649,0.10715823044098642,Descriptive period comparison; not attributed to one event.
-btc_etf_access,27,0.8878647736650267,0.3521762743524011,0.07769934925109435,Descriptive period comparison; not attributed to one event.
-eth_etf_era,21,0.889968362054635,0.35957826095283096,0.0816950142586281,Descriptive period comparison; not attributed to one event.

@@ -18,80 +18,70 @@ class PublicFigure:
 PUBLIC_FIGURES: tuple[PublicFigure, ...] = (
     PublicFigure(
         figure_id="tradfi_exposure_shift",
-        filename="01_tradfi_exposure_shift.png",
+        filename="research/02_macro_cross_asset_exposure/figures/01_tradfi_exposure_shift.png",
         research_question="How did equity co-movement change across periods?",
-        source_tables="outputs/tables/block_delta_r2.csv",
+        source_tables="research/02_macro_cross_asset_exposure/tables/block_delta_r2.csv",
         caveat="Pre-specified pre-BTC-ETF versus BTC-ETF-era comparison; not an ETF-effect estimate.",
-        readme_section="macro-integration-and-institutional-access",
+        readme_section="figure-set",
     ),
     PublicFigure(
         figure_id="etf_market_plumbing",
-        filename="02_etf_market_plumbing.png",
+        filename="research/04_etf_institutional_plumbing/figures/02_etf_market_plumbing.png",
         research_question="How do ETF flow measures line up with same-day and lagged returns?",
-        source_tables="outputs/tables/etf_absorption_metrics.csv; outputs/tables/etf_flow_associations.csv",
+        source_tables="research/04_etf_institutional_plumbing/tables/etf_absorption_metrics.csv; research/04_etf_institutional_plumbing/tables/etf_flow_associations.csv",
         caveat="ETF flow intensity is a market-plumbing association, not causal price impact.",
-        readme_section="macro-integration-and-institutional-access",
+        readme_section="figure-set",
     ),
     PublicFigure(
         figure_id="leverage_tail_stress",
-        filename="03_leverage_tail_stress.png",
+        filename="research/03_derivatives_leverage_liquidations/figures/03_leverage_tail_stress.png",
         research_question="Where do lagged leverage states show up in tail stress?",
-        source_tables="outputs/tables/leverage_tail_risk_summary.csv; outputs/tables/tail_risk_models.csv",
+        source_tables="research/03_derivatives_leverage_liquidations/tables/leverage_tail_risk_summary.csv; research/03_derivatives_leverage_liquidations/tables/tail_risk_models.csv",
         caveat="Lagged leverage states are stress diagnostics; same-day liquidation signatures are appendix context.",
-        readme_section="leverage-and-liquidity-state",
+        readme_section="figure-set",
     ),
     PublicFigure(
-        figure_id="point_in_time_market_structure",
-        filename="04_point_in_time_market_structure.png",
-        research_question="How did point-in-time composition and concentration evolve?",
-        source_tables="outputs/tables/pit_composition.csv; outputs/tables/pit_concentration.csv",
-        caveat="Monthly PIT snapshots support structure and concentration, not daily performance.",
-        readme_section="market-structure-and-selected-major-risk",
+        figure_id="market_concentration_state",
+        filename="research/09_market_concentration_state/figures/market_concentration_state.png",
+        research_question="How did point-in-time concentration and rank persistence evolve?",
+        source_tables="research/09_market_concentration_state/tables/pit_market_structure_summary.csv",
+        caveat="Monthly PIT snapshots support concentration and turnover state analysis, not daily performance.",
+        readme_section="figure-set",
     ),
     PublicFigure(
         figure_id="selected_major_asset_risk",
-        filename="05_selected_major_asset_risk.png",
+        filename="research/08_relative_major_asset_risk/figures/05_selected_major_asset_risk.png",
         research_question="How do selected majors compare on volatility and drawdown?",
-        source_tables="outputs/tables/selected_major_risk_metrics.csv",
+        source_tables="research/08_relative_major_asset_risk/tables/selected_major_risk_metrics.csv",
         caveat="Coverage-aware risk map; HYPE is explicitly short-history.",
-        readme_section="market-structure-and-selected-major-risk",
+        readme_section="figure-set",
     ),
 )
 
 GALLERY_FIGURES: tuple[str, ...] = (
-    "measurement_mvrv_mechanics.png",
-    "appendix_event_response_matrix.png",
+    "research/06_onchain_valuation_holder_state/figures/measurement_mvrv_mechanics.png",
+    "research/10_event_sensitivity/figures/appendix_event_response_matrix.png",
 )
 
 PUBLIC_TABLES: frozenset[str] = frozenset(
     {
-        "tables/data_source_coverage.csv",
-        "tables/provider_data_disposition.csv",
-        "tables/valuation_contamination_audit.csv",
-        "tables/feature_registry.csv",
-        "tables/mvrv_mechanical_link_audit.csv",
-        "tables/btc_ex_mvrv_feature_strength.csv",
-        "tables/eth_feature_strength.csv",
-        "tables/rolling_tradfi_exposures.csv",
-        "tables/rolling_exposure_summary.csv",
-        "tables/leverage_tail_risk_summary.csv",
-        "tables/etf_market_plumbing_summary.csv",
-        "tables/stablecoin_defi_liquidity_summary.csv",
-        "tables/selected_major_risk_metrics.csv",
-        "tables/selected_major_comparable_window_metrics.csv",
-        "tables/pit_market_structure_summary.csv",
-        "tables/event_response_matrix.csv",
-        "tables/local_window_correlation_distribution.csv",
-        "tables/robustness_summary.csv",
-        "tables/evidence_ledger.csv",
-        "tables/evidence_map.md",
-        "tables/claim_inventory.csv",
+        "research/00_data_foundation/tables/provider_inventory.csv",
+        "research/00_data_foundation/tables/feature_usage_matrix.csv",
+        "research/02_macro_cross_asset_exposure/tables/block_delta_r2.csv",
+        "research/02_macro_cross_asset_exposure/tables/frequency_robustness.csv",
+        "research/03_derivatives_leverage_liquidations/tables/leverage_tail_risk_summary.csv",
+        "research/04_etf_institutional_plumbing/tables/etf_flow_associations.csv",
+        "research/05_stablecoin_defi_liquidity/tables/valuation_contamination_audit.csv",
+        "research/06_onchain_valuation_holder_state/tables/mvrv_mechanical_link_audit.csv",
+        "research/08_relative_major_asset_risk/tables/selected_major_risk_metrics.csv",
+        "research/09_market_concentration_state/tables/pit_market_structure_summary.csv",
+        "research/11_cross_module_synthesis/tables/evidence_ledger.csv",
     }
 )
 
 
 def public_figure_paths() -> list[str]:
-    return [f"outputs/figures/public/{figure.filename}" for figure in PUBLIC_FIGURES]
+    return [figure.filename for figure in PUBLIC_FIGURES]
 
 
 def public_table_names() -> set[str]:

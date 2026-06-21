@@ -36,6 +36,16 @@ def test_config_paths_importable() -> None:
 
 def test_cqresearch_subpackages_importable() -> None:
     import cqresearch
-    from cqresearch import analysis, data, features, modeling, reporting, utils, viz  # noqa: F401
+    from cqresearch import (  # noqa: F401
+        analysis,
+        core,
+        data,
+        features,
+        modeling,
+        reporting,
+        research,
+        utils,
+        viz,
+    )
 
     assert cqresearch.__version__

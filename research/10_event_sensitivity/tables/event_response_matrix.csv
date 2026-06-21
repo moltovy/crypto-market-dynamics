@@ -1,0 +1,21 @@
+event_id,event_date,category,asset,window_days,actual_observations,pre_window_return,post_window_return,post_window_convention,volatility_change,metric_family,language
+btc_spot_etf_launch,2024-01-11,primary,BTC,10,10,0.0983031666991323,-0.1087272667325169,"+1 through +10, excluding event day",0.0591159368846145,return_volatility,descriptive_event_window
+btc_spot_etf_launch,2024-01-11,primary,ETH,10,10,0.1247119661279656,-0.0635792878304002,"+1 through +10, excluding event day",0.0833689981750573,return_volatility,descriptive_event_window
+eth_spot_etf_launch,2024-07-23,primary,BTC,10,10,0.1539852635116396,-0.070710044572122,"+1 through +10, excluding event day",0.0006733490320518,return_volatility,descriptive_event_window
+eth_spot_etf_launch,2024-07-23,primary,ETH,10,10,0.0931150358799737,-0.1528211750266344,"+1 through +10, excluding event day",0.0582944891801182,return_volatility,descriptive_event_window
+bitcoin_halving_2024,2024-04-20,primary,BTC,10,10,-0.0797218037762252,-0.0685206022575002,"+1 through +10, excluding event day",-0.1687504357193779,return_volatility,descriptive_event_window
+bitcoin_halving_2024,2024-04-20,primary,ETH,10,10,-0.137106934166189,-0.0460371304969555,"+1 through +10, excluding event day",-0.1666765468203055,return_volatility,descriptive_event_window
+dencun_upgrade,2024-03-13,secondary,BTC,10,10,0.1415544174169927,-0.1330039150848794,"+1 through +10, excluding event day",0.1575155525284979,return_volatility,descriptive_event_window
+dencun_upgrade,2024-03-13,secondary,ETH,10,10,0.150614808526722,-0.1847464214768308,"+1 through +10, excluding event day",0.206546853728319,return_volatility,descriptive_event_window
+luna_collapse_2022,2022-05-09,secondary,BTC,10,10,-0.1549939297963316,0.0071076918496189,"+1 through +10, excluding event day",0.2040809584776415,return_volatility,descriptive_event_window
+luna_collapse_2022,2022-05-09,secondary,ETH,10,10,-0.1532002725628265,-0.0992830409695635,"+1 through +10, excluding event day",0.2501918286587364,return_volatility,descriptive_event_window
+ftx_collapse_2022,2022-11-08,secondary,BTC,10,10,-0.0002442142653169,-0.1048733249529814,"+1 through +10, excluding event day",0.509806729154276,return_volatility,descriptive_event_window
+ftx_collapse_2022,2022-11-08,secondary,ETH,10,10,0.0085721910957872,-0.0965637570472299,"+1 through +10, excluding event day",0.6506806153999529,return_volatility,descriptive_event_window
+svb_crisis_2023,2023-03-10,secondary,BTC,10,10,-0.1432617431027854,0.3194274668025354,"+1 through +10, excluding event day",0.1438442797538833,return_volatility,descriptive_event_window
+svb_crisis_2023,2023-03-10,secondary,ETH,10,10,-0.1280768842834785,0.195227504464837,"+1 through +10, excluding event day",0.0641121779587093,return_volatility,descriptive_event_window
+yen_carry_unwind_2024,2024-08-05,secondary,BTC,10,10,-0.1235440617808354,0.0632852342732288,"+1 through +10, excluding event day",0.1691034257875077,return_volatility,descriptive_event_window
+yen_carry_unwind_2024,2024-08-05,secondary,ETH,10,10,-0.1661630192567749,0.0602620987911022,"+1 through +10, excluding event day",0.2487741883387439,return_volatility,descriptive_event_window
+sec_generic_etp_listing_standards_2025,2025-09-17,secondary,BTC,10,10,0.0581690900777793,-0.0602761829397557,"+1 through +10, excluding event day",-0.067929117409076,return_volatility,descriptive_event_window
+sec_generic_etp_listing_standards_2025,2025-09-17,secondary,ETH,10,10,0.0520684835707658,-0.1329610299880919,"+1 through +10, excluding event day",-0.232035355750925,return_volatility,descriptive_event_window
+crypto_liquidation_tariff_shock_2025,2025-10-10,secondary,BTC,10,10,0.0624158323458079,-0.021280884055983,"+1 through +10, excluding event day",0.1512695106896895,return_volatility,descriptive_event_window
+crypto_liquidation_tariff_shock_2025,2025-10-10,secondary,ETH,10,10,0.0356755966353468,0.0375940090952848,"+1 through +10, excluding event day",0.2679601340623877,return_volatility,descriptive_event_window

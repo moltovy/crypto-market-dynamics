@@ -1,0 +1,82 @@
+{
+  "artifacts": [
+    {
+      "bytes": 178,
+      "path": "research/11_cross_module_synthesis/findings.md",
+      "sha256": "b9aaec1911a206e913f00d125ed0603ab47555da1ae6425b97db66ec4138cf2d"
+    },
+    {
+      "bytes": 112,
+      "path": "research/11_cross_module_synthesis/interpretation.md",
+      "sha256": "75630bf6cfa98d816b0f223186538a4f3b3f0520827d5377c1b197b23f2f7496"
+    },
+    {
+      "bytes": 101,
+      "path": "research/11_cross_module_synthesis/limitations.md",
+      "sha256": "24661b524d04109b747e1e46f382de30853c846c788f07bac0a4c06723bc5b55"
+    },
+    {
+      "bytes": 382,
+      "path": "research/11_cross_module_synthesis/methodology.md",
+      "sha256": "631e50db787076935c919454fd6bc2ef18141c3f594c025f939ebb982c99797c"
+    },
+    {
+      "bytes": 519,
+      "path": "research/11_cross_module_synthesis/module.yml",
+      "sha256": "5feab0b296b5bb59becce481dea9ea29a85ed3a281a358da8c8acd858abeb84f"
+    },
+    {
+      "bytes": 726,
+      "path": "research/11_cross_module_synthesis/README.md",
+      "sha256": "bd95891f43288a1189ac5e2aabd7d6350794dbdf9f454a28db1afbe25bac75f0"
+    },
+    {
+      "bytes": 1154,
+      "path": "research/11_cross_module_synthesis/tables/claim_inventory.csv",
+      "sha256": "396a4a0d91e3ac8ab271e5906c36c64e7f61eee90177bc9765e41176d0a1df0a"
+    },
+    {
+      "bytes": 722,
+      "path": "research/11_cross_module_synthesis/tables/claims.csv",
+      "sha256": "448381a31f0164c9b340c747f7e5051cc5c41468c7dd0d8f95723107c6c948ed"
+    },
+    {
+      "bytes": 7489,
+      "path": "research/11_cross_module_synthesis/tables/evidence_ledger.csv",
+      "sha256": "318ed98e0620c665380adf1213c5f416ce141e3b133a370b9a25e25bcf91b3be"
+    },
+    {
+      "bytes": 3556,
+      "path": "research/11_cross_module_synthesis/tables/evidence_map.csv",
+      "sha256": "dc60296febfdb131f7ad16f0a7bdaea0bd0995f8e06f40b924596d25525c63fe"
+    },
+    {
+      "bytes": 5544,
+      "path": "research/11_cross_module_synthesis/tables/evidence_map.md",
+      "sha256": "95d5d3bdbf2b4372992068fee5161c309a0f20eed469324665f731d74743a3bb"
+    },
+    {
+      "bytes": 76410,
+      "path": "research/11_cross_module_synthesis/tables/fdr_adjusted_inference.csv",
+      "sha256": "1e1b843f37e1319a85ef361dd2a9c69ef7c0dd6bd2f5769acdf5d670f78d1f52"
+    },
+    {
+      "bytes": 968,
+      "path": "research/11_cross_module_synthesis/tables/local_window_correlation_distribution.csv",
+      "sha256": "f1af1aa272c5000867af7a1a7ca8b3d184410b3f3b4b2f7bd0f091a3351e2b2d"
+    },
+    {
+      "bytes": 1162,
+      "path": "research/11_cross_module_synthesis/tables/provider_data_disposition.csv",
+      "sha256": "929b6cba48612a003c18b25ed2b873a2aa0a4270448df05774cfdc5418fc9a98"
+    },
+    {
+      "bytes": 11024,
+      "path": "research/11_cross_module_synthesis/tables/robustness_summary.csv",
+      "sha256": "11da611b9f3ffeff06913067128b08235429adf03eeeee2c2ebbf1f1aa6b2c48"
+    }
+  ],
+  "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",
+  "module_id": "11_cross_module_synthesis",
+  "schema_version": 1
+}

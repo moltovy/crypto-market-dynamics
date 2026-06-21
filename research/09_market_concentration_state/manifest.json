@@ -1,0 +1,72 @@
+{
+  "artifacts": [
+    {
+      "bytes": 109,
+      "path": "research/09_market_concentration_state/findings.md",
+      "sha256": "b42d8c5505656494c6cbe7d15d7cc5d7e7718ef11e4466675d96a25a4d86b424"
+    },
+    {
+      "bytes": 111,
+      "path": "research/09_market_concentration_state/interpretation.md",
+      "sha256": "e6258a1eea4f9c604ad3f0560ad9e8ec98c439e340e76677ed3c4b45b58b4dcc"
+    },
+    {
+      "bytes": 76,
+      "path": "research/09_market_concentration_state/limitations.md",
+      "sha256": "a51a06a4c859c85d8c81345ebb3e606da51c92b8123c0713a72bc0bd09ea661d"
+    },
+    {
+      "bytes": 392,
+      "path": "research/09_market_concentration_state/methodology.md",
+      "sha256": "ab90668e3f529d32b96bcfe29896941af02446d7d3d52ff526736dda333e6cec"
+    },
+    {
+      "bytes": 553,
+      "path": "research/09_market_concentration_state/module.yml",
+      "sha256": "d3bb20400dec2156760baff96e016a7412b87a706998b20b7af43db9f648aeb7"
+    },
+    {
+      "bytes": 678,
+      "path": "research/09_market_concentration_state/README.md",
+      "sha256": "04194bd0de6e0b79a6511fd508339c33d62c9ee88fb9a2e1ac262881df6fccc7"
+    },
+    {
+      "bytes": 2121,
+      "path": "research/09_market_concentration_state/tables/asset_identity_audit.csv",
+      "sha256": "d67e747b59db44720f7a258b46ab50dd7834697c2c2caeee339946a650372c93"
+    },
+    {
+      "bytes": 755,
+      "path": "research/09_market_concentration_state/tables/claims.csv",
+      "sha256": "d65bdbcb31fdf0f1b190ac9b08ca83526f8d3b77d187d6769f5dbdb4b1d2c411"
+    },
+    {
+      "bytes": 12916,
+      "path": "research/09_market_concentration_state/tables/pit_concentration.csv",
+      "sha256": "d88b6777872fd58b12d5b3ce516ca9ec028b8e54038dced403b2a060003dcfc8"
+    },
+    {
+      "bytes": 1446834,
+      "path": "research/09_market_concentration_state/tables/pit_market_structure_monthly.csv",
+      "sha256": "29ee2e080ca42e67fb9a9aa9a0a7d6916063578c487da7dd3d9d3e5fa7dc4b6c"
+    },
+    {
+      "bytes": 13980,
+      "path": "research/09_market_concentration_state/tables/pit_market_structure_summary.csv",
+      "sha256": "9693f98de5a223a51936760f55519e2d8cc98328182b574efe77e5d4ceb2bf67"
+    },
+    {
+      "bytes": 760,
+      "path": "research/09_market_concentration_state/tables/pit_period_comparison.csv",
+      "sha256": "14ca379588498a28d38452104418c6d0b64ae8e70e17a10444fa1e379bbd9084"
+    },
+    {
+      "bytes": 1375,
+      "path": "research/09_market_concentration_state/tables/pit_turnover.csv",
+      "sha256": "fa02aa69e2457c014cee286c922da157d0e6524a2a6a9b6242b4446c561eb645"
+    }
+  ],
+  "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",
+  "module_id": "09_market_concentration_state",
+  "schema_version": 1
+}

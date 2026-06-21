@@ -17,5 +17,5 @@ machines with source access.
 
 Local raw provider buckets live under `data_local/raw/<provider>`. Generated
 feature stores live under `data_local/processed/`. Final public semantic tables
-remain under `outputs/tables/`, with provider coverage and disposition metadata
-tracked in this repository.
+live under `research/<module>/tables/`, with provider coverage and disposition
+metadata tracked in `research/00_data_foundation/`.

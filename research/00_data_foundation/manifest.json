@@ -1,0 +1,87 @@
+{
+  "artifacts": [
+    {
+      "bytes": 629,
+      "path": "research/00_data_foundation/findings.md",
+      "sha256": "9b692bdfb01dda752494e5048ad47fa2593c13287edd8855c4394fdd7b930c72"
+    },
+    {
+      "bytes": 556,
+      "path": "research/00_data_foundation/interpretation.md",
+      "sha256": "173ed1978baf69caecdfdde6d247b2d63097dec2ece18c14c6105afa15032ec4"
+    },
+    {
+      "bytes": 523,
+      "path": "research/00_data_foundation/limitations.md",
+      "sha256": "4ed3fdae1986bb4cc8e2c9a6b5bba08bb0222d0012e55829deaa195ed3edf322"
+    },
+    {
+      "bytes": 982,
+      "path": "research/00_data_foundation/methodology.md",
+      "sha256": "a215b9aaf97f1a36e629b2f916c0572a95d2eac57e8210f8b4852b19f6383d78"
+    },
+    {
+      "bytes": 753,
+      "path": "research/00_data_foundation/module.yml",
+      "sha256": "4d38f1087ff7c81f66e08ab133fce795189709564905b2c25f175513f9e8de68"
+    },
+    {
+      "bytes": 1398,
+      "path": "research/00_data_foundation/README.md",
+      "sha256": "12551b0be8990dc48870e72e6227dde80cf0f2b655ec8b8976faaf7fbac08892"
+    },
+    {
+      "bytes": 2121,
+      "path": "research/00_data_foundation/tables/canonical_identity_audit.csv",
+      "sha256": "a6b1031b4d3df1efc2fd9bc79f854243d8a2bd14d81bc6bbac14cbd3cc8ced65"
+    },
+    {
+      "bytes": 1399,
+      "path": "research/00_data_foundation/tables/claims.csv",
+      "sha256": "ea87e74dee670985ffeb144427a2a6fe1e54772667f455842e4bf51fee558f43"
+    },
+    {
+      "bytes": 27343,
+      "path": "research/00_data_foundation/tables/coverage_by_feature.csv",
+      "sha256": "f1c61666b0861451955d36d2f0b36942cbb7de367cd2127771198e147c64614b"
+    },
+    {
+      "bytes": 22552,
+      "path": "research/00_data_foundation/tables/data_quality_flags.csv",
+      "sha256": "9a820a490753c9b37aaea4e868b73b99af3d93262314d90621f9cac585e83dee"
+    },
+    {
+      "bytes": 12975,
+      "path": "research/00_data_foundation/tables/feature_inventory.csv",
+      "sha256": "889158af7b655b6434f27017ff80fa2f074e047aa43df15e8b6ff7907a6c2654"
+    },
+    {
+      "bytes": 66736,
+      "path": "research/00_data_foundation/tables/feature_usage_matrix.csv",
+      "sha256": "8d6b79435c46b652008bc357015212d8bf8774d9c59dd0da4ea18fb35616c562"
+    },
+    {
+      "bytes": 89219,
+      "path": "research/00_data_foundation/tables/missingness_by_feature.csv",
+      "sha256": "0ea0c7a2387e4c267cb2def7050ca55e8a5b53522c8102e91cf42ecf97920c13"
+    },
+    {
+      "bytes": 1862,
+      "path": "research/00_data_foundation/tables/provider_inventory.csv",
+      "sha256": "6db96bcaafe77097f0c4892b2536917c4eda3282e12e83918400ce5679c73747"
+    },
+    {
+      "bytes": 147447,
+      "path": "research/00_data_foundation/tables/raw_series_inventory.csv",
+      "sha256": "89b7d8ddf705cc6334f9c00150560e36ec2bbc98740fcb77602c31be0bce78a7"
+    },
+    {
+      "bytes": 65327,
+      "path": "research/00_data_foundation/tables/units_and_timing_audit.csv",
+      "sha256": "11630879163b7de2b4307a5ad9f295177899280790a1ae0b58ede4ca896e20c0"
+    }
+  ],
+  "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",
+  "module_id": "00_data_foundation",
+  "schema_version": 1
+}

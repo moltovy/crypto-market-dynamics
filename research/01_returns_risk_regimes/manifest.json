@@ -1,0 +1,57 @@
+{
+  "artifacts": [
+    {
+      "bytes": 190,
+      "path": "research/01_returns_risk_regimes/findings.md",
+      "sha256": "5600c8a38cb550eee2eb9c531c8869681da35fd5286729f7178b977b0c6b7996"
+    },
+    {
+      "bytes": 125,
+      "path": "research/01_returns_risk_regimes/interpretation.md",
+      "sha256": "773921f4b7386993075f11eef3aac8b0996958452acb305d3cca5bed02423a47"
+    },
+    {
+      "bytes": 113,
+      "path": "research/01_returns_risk_regimes/limitations.md",
+      "sha256": "40fd396db7a8da240e5d3c7dab67b884fabbda196291de47e154e210a6d7959d"
+    },
+    {
+      "bytes": 382,
+      "path": "research/01_returns_risk_regimes/methodology.md",
+      "sha256": "1ca84defde97e670feed02e6ee720d19b267781b7a8c20f524520f12eb4bfb83"
+    },
+    {
+      "bytes": 398,
+      "path": "research/01_returns_risk_regimes/module.yml",
+      "sha256": "609297c3427c168e65ddfc757b12ac803590b0e4697a27e8b9ede945942a01b3"
+    },
+    {
+      "bytes": 574,
+      "path": "research/01_returns_risk_regimes/README.md",
+      "sha256": "517926e136705a62170b80dfc5543c92fc71644644630f5872405aa335a56e58"
+    },
+    {
+      "bytes": 644,
+      "path": "research/01_returns_risk_regimes/tables/claims.csv",
+      "sha256": "7d1b3e5fdb49f6eed6c25544e673178736891c489477129fb46ac5960937b4b8"
+    },
+    {
+      "bytes": 315340,
+      "path": "research/01_returns_risk_regimes/tables/cycle_state_summary.csv",
+      "sha256": "451490ef54c8a04071a937ba12e33e978855fa2b9d8659f9c399420edf5e8c2d"
+    },
+    {
+      "bytes": 611,
+      "path": "research/01_returns_risk_regimes/tables/returns_distribution_summary.csv",
+      "sha256": "9df4d4228c677d6db91a856f0fcde0669f7d7ba035a6f1a043d88e3b78404d6f"
+    },
+    {
+      "bytes": 944,
+      "path": "research/01_returns_risk_regimes/tables/returns_regime_risk_summary.csv",
+      "sha256": "f861a6cfd9bc05b52cbce634cf03189a3699cda1392ddb428107c5c833255d59"
+    }
+  ],
+  "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",
+  "module_id": "01_returns_risk_regimes",
+  "schema_version": 1
+}

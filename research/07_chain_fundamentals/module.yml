@@ -1,0 +1,11 @@
+module_id: 07_chain_fundamentals
+title: Chain Fundamentals
+research_question: Which chain-level activity measures have enough coverage and definition
+  clarity for descriptive panel analysis?
+status: built
+canonical_surface: research/07_chain_fundamentals
+tables:
+- chain_activity_associations.csv
+- chain_fundamental_panel_summary.csv
+- claims.csv
+figures: []
