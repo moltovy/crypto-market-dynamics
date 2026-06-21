@@ -5,6 +5,7 @@ daily returns (roughly 1 week of serial-correlation/conditional-heteroscedastici
 protection). This is conservative for daily crypto returns which exhibit fat
 tails and volatility clustering.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -25,9 +26,7 @@ class OLSResult:
     label: str
 
     def to_frame(self) -> pd.DataFrame:
-        out = pd.concat(
-            [self.params, self.hac_se, self.tvals, self.pvals], axis=1
-        )
+        out = pd.concat([self.params, self.hac_se, self.tvals, self.pvals], axis=1)
         out.columns = ["beta", "hac_se", "t", "p"]
         out["label"] = self.label
         out["n"] = self.nobs

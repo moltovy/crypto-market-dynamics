@@ -1,4 +1,5 @@
 """Trivial sanity tests on the bundled CSV fixtures — guards against accidental corruption."""
+
 from __future__ import annotations
 
 import pandas as pd

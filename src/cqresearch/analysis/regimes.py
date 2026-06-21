@@ -1,10 +1,11 @@
-"""Reusable regime definitions for the Crypto Market Factor Lab.
+"""Reusable regime definitions for Crypto Market Dynamics.
 
 Each regime produces a boolean mask over a DatetimeIndex, along with metadata
 (name, description, observation counts). Regimes are used throughout the
 feature-strength and block-attribution analyses to answer how factor relevance
 changes across time windows, ETF eras, and volatility states.
 """
+
 from __future__ import annotations
 
 from collections.abc import Sequence

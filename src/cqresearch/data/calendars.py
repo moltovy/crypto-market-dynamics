@@ -18,6 +18,7 @@ be run on **US market trading days** only (see :func:`business_day_mask`) to
 avoid weekend flat-lines in TradFi returns; full calendar-daily results are
 reported as robustness.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -163,6 +164,4 @@ def sample_mask(
     end: pd.Timestamp | str = DEFAULT_END,
 ) -> pd.Series:
     start_ts, end_ts = pd.Timestamp(start), pd.Timestamp(end)
-    return pd.Series(
-        (index >= start_ts) & (index <= end_ts), index=index, name="in_sample"
-    )
+    return pd.Series((index >= start_ts) & (index <= end_ts), index=index, name="in_sample")

@@ -4,11 +4,11 @@ Run the maintained verification suite before proposing changes:
 
 ```powershell
 uv sync --all-extras
-uv run python scripts/run_all.py
-uv run python scripts/check_public_surface.py
-uv run pytest
-uv run mypy src/cqresearch
 uv run ruff check src/cqresearch scripts tests
+uv run ruff format --check src/cqresearch scripts tests
+uv run mypy src/cqresearch
+uv run pytest -q
+uv run python scripts/check_public_surface.py
 ```
 
-Do not commit secrets, raw cache payloads, or newly licensed raw data without explicit redistribution permission.
+Run `uv run python scripts/run_all.py` only when legally obtained local provider inputs are present under `data_local/raw/`. Do not commit secrets, raw cache payloads, provider exports, or generated local panels.

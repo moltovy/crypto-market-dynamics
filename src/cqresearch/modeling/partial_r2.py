@@ -9,6 +9,7 @@ That is useful for portfolio-grade block attribution, but it is not the same as
 the existing rolling drop-one marginal R^2, not a Shapley/Owen fair allocation,
 and not sequential R^2 from an ordered model build.
 """
+
 from __future__ import annotations
 
 import numpy as np
@@ -95,9 +96,7 @@ def partial_r2_full_vs_reduced(
     return float(value)
 
 
-def block_partial_r2(
-    y: pd.Series, x: pd.DataFrame, blocks: dict[str, list[str]]
-) -> pd.DataFrame:
+def block_partial_r2(y: pd.Series, x: pd.DataFrame, blocks: dict[str, list[str]]) -> pd.DataFrame:
     """Compute full-vs-reduced block partial R^2 for each block.
 
     All available block variables are included in the full model. Each row then
@@ -106,15 +105,9 @@ def block_partial_r2(
     """
 
     available_blocks = {
-        block: [col for col in cols if col in x.columns]
-        for block, cols in blocks.items()
+        block: [col for col in cols if col in x.columns] for block, cols in blocks.items()
     }
-    all_cols = [
-        col
-        for cols in available_blocks.values()
-        for col in cols
-        if col in x.columns
-    ]
+    all_cols = [col for cols in available_blocks.values() for col in cols if col in x.columns]
     all_cols = list(dict.fromkeys(all_cols))
     x_full = x[all_cols]
 

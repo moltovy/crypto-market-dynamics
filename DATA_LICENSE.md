@@ -2,13 +2,13 @@
 
 The repository code is licensed separately under `LICENSE`.
 
-Tracked data files come from a mix of public, provider-exported, and locally curated sources. `DATA_LICENSE.md` documents known caveats but does not resolve provider redistribution rights.
+Raw/provider exports are local-only under `data_local/` and are not redistributed by this repository. `DATA_LICENSE.md` documents known caveats but does not grant provider redistribution rights.
 
 This project is not affiliated with, endorsed by, or published on behalf of CryptoQuant, Artemis, TradingView, DefiLlama, Farside, AlternativeMe, FRED, or any other data provider.
 
 - FRED macro series are public Federal Reserve Economic Data series with attribution.
-- DefiLlama, AlternativeMe, and Farside-derived files are public web/API sources; cite the providers and verify current terms before redistribution.
-- CryptoQuant, Artemis, and TradingView exports may carry provider-specific or licensed redistribution restrictions. The repository uses them as curated research inputs and documents reproducibility caveats.
-- `data_cache/` is gitignored and is for local raw API/cache payloads only.
+- DefiLlama, AlternativeMe, and Farside inputs may be public web/API sources, but public availability is not the same as redistribution permission.
+- CryptoQuant, Artemis, and TradingView exports may carry provider-specific or licensed redistribution restrictions. The public repository keeps those raw inputs local-only.
+- Local caches, raw exports, interim panels, and generated feature stores stay under ignored `data_local/`.
 
-No API keys are required for the final offline build. Public users can reproduce generated outputs from the committed curated data, subject to the source-specific redistribution caveats above. See `outputs/report/provider_data_disposition.md` for the concrete public/re-distributable, uncertain/restricted, and derived-only recommended disposition by provider group.
+Public users can run smoke validation against committed semantic outputs without provider data. A full local rebuild requires legally obtained provider inputs placed under `data_local/raw/`. See `outputs/report/provider_data_disposition.md` for provider-group disposition and release recommendations.

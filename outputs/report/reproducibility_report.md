@@ -5,9 +5,10 @@
 ```powershell
 uv sync --all-extras
 uv run ruff check src/cqresearch scripts tests
+uv run ruff format --check src/cqresearch scripts tests
 uv run mypy src/cqresearch
 uv run python scripts/run_all.py
-uv run pytest
+uv run pytest -q
 uv run python scripts/check_public_surface.py
 ```
 

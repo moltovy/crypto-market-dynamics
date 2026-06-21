@@ -11,5 +11,5 @@ release folders.
 
 ## Consequence
 
-Historical release packets are retained under `archive/`, while public docs and
-README links point to `outputs/`.
+Public docs and README links point to `outputs/`. Private process artifacts and
+obsolete release packets are excluded from the public repository surface.

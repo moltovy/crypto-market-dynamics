@@ -4,6 +4,7 @@ All return series are **log** returns unless explicitly noted (additive across
 time, closer to normality, standard practice). Daily first-differences are
 used for interest-rate levels since log-returns on rates are undefined at 0%.
 """
+
 from __future__ import annotations
 
 import numpy as np
@@ -48,8 +49,12 @@ def realized_vol(logret: pd.Series, window: int = 21, annualize: bool = True) ->
 
 
 def garman_klass(
-    high: pd.Series, low: pd.Series, open_: pd.Series, close: pd.Series,
-    window: int = 21, annualize: bool = True,
+    high: pd.Series,
+    low: pd.Series,
+    open_: pd.Series,
+    close: pd.Series,
+    window: int = 21,
+    annualize: bool = True,
 ) -> pd.Series:
     """Garman-Klass volatility estimator — efficient OHLC volatility.
 

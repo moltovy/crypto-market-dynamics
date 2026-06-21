@@ -1,21 +1,6 @@
 figures:
-- figure_id: mvrv_mechanics
-  filename: outputs/figures/public/01_mvrv_mechanics.png
-  status: public
-  research_question: How mechanically linked is MVRV to BTC returns?
-  source_tables: outputs/tables/mvrv_identity_points.csv; outputs/tables/mvrv_regime_outcomes.csv
-  chart_type: generated
-  units: see axes
-  caption: How mechanically linked is MVRV to BTC returns?
-  caveat: Same-day MVRV is a mechanics diagnostic; lagged state is used only as conditioning
-    context.
-  width_px: 1800
-  height_px: 1200
-  svg_required: true
-  readme_section: mvrv_mechanics
-  visual_qa_status: manual_pass_after_contact_sheet_review
 - figure_id: tradfi_exposure_shift
-  filename: outputs/figures/public/02_tradfi_exposure_shift.png
+  filename: outputs/figures/public/01_tradfi_exposure_shift.png
   status: public
   research_question: How did equity co-movement change across periods?
   source_tables: outputs/tables/block_delta_r2.csv
@@ -27,61 +12,62 @@ figures:
   width_px: 1800
   height_px: 1200
   svg_required: true
-  readme_section: tradfi_exposure_shift
+  readme_section: macro-integration-and-institutional-access
   visual_qa_status: manual_pass_after_contact_sheet_review
 - figure_id: etf_market_plumbing
-  filename: outputs/figures/public/03_etf_market_plumbing.png
+  filename: outputs/figures/public/02_etf_market_plumbing.png
   status: public
   research_question: How do ETF flow measures line up with same-day and lagged returns?
   source_tables: outputs/tables/etf_absorption_metrics.csv; outputs/tables/etf_flow_associations.csv
   chart_type: generated
   units: see axes
   caption: How do ETF flow measures line up with same-day and lagged returns?
-  caveat: ETF flow intensity is market-plumbing association, not causal price impact.
+  caveat: ETF flow intensity is a market-plumbing association, not causal price impact.
   width_px: 1800
   height_px: 1200
   svg_required: true
-  readme_section: etf_market_plumbing
+  readme_section: macro-integration-and-institutional-access
   visual_qa_status: manual_pass_after_contact_sheet_review
 - figure_id: leverage_tail_stress
-  filename: outputs/figures/public/04_leverage_tail_stress.png
+  filename: outputs/figures/public/03_leverage_tail_stress.png
   status: public
-  research_question: Where do lagged leverage states and liquidation stress show up?
-  source_tables: outputs/tables/leverage_tail_risk_summary.csv; outputs/tables/liquidation_event_responses.csv
+  research_question: Where do lagged leverage states show up in tail stress?
+  source_tables: outputs/tables/leverage_tail_risk_summary.csv; outputs/tables/tail_risk_models.csv
   chart_type: generated
   units: see axes
-  caption: Where do lagged leverage states and liquidation stress show up?
-  caveat: Lagged leverage state is separated from same-day liquidation signatures.
+  caption: Where do lagged leverage states show up in tail stress?
+  caveat: Lagged leverage states are stress diagnostics; same-day liquidation signatures
+    are appendix context.
   width_px: 1800
   height_px: 1200
   svg_required: true
-  readme_section: leverage_tail_stress
+  readme_section: leverage-and-liquidity-state
   visual_qa_status: manual_pass_after_contact_sheet_review
 - figure_id: point_in_time_market_structure
-  filename: outputs/figures/public/05_point_in_time_market_structure.png
+  filename: outputs/figures/public/04_point_in_time_market_structure.png
   status: public
-  research_question: How did PIT composition and concentration evolve?
+  research_question: How did point-in-time composition and concentration evolve?
   source_tables: outputs/tables/pit_composition.csv; outputs/tables/pit_concentration.csv
   chart_type: generated
   units: see axes
-  caption: How did PIT composition and concentration evolve?
-  caveat: Monthly PIT data supports composition/turnover, not daily performance.
+  caption: How did point-in-time composition and concentration evolve?
+  caveat: Monthly PIT snapshots support structure and concentration, not daily performance.
   width_px: 1800
   height_px: 1200
   svg_required: true
-  readme_section: point_in_time_market_structure
+  readme_section: market-structure-and-selected-major-risk
   visual_qa_status: manual_pass_after_contact_sheet_review
 - figure_id: selected_major_asset_risk
-  filename: outputs/figures/public/06_selected_major_asset_risk.png
+  filename: outputs/figures/public/05_selected_major_asset_risk.png
   status: public
-  research_question: How do selected major assets differ in risk?
+  research_question: How do selected majors compare on volatility and drawdown?
   source_tables: outputs/tables/selected_major_risk_metrics.csv
   chart_type: generated
   units: see axes
-  caption: How do selected major assets differ in risk?
-  caveat: Coverage differs by asset; HYPE is short-history.
+  caption: How do selected majors compare on volatility and drawdown?
+  caveat: Coverage-aware risk map; HYPE is explicitly short-history.
   width_px: 1800
   height_px: 1200
   svg_required: true
-  readme_section: selected_major_asset_risk
+  readme_section: market-structure-and-selected-major-risk
   visual_qa_status: manual_pass_after_contact_sheet_review

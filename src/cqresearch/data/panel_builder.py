@@ -8,6 +8,7 @@ with a ``DatetimeIndex`` named ``date`` and columns grouped by block.
 This module is **deterministic**: every transformation is a pure function of
 the CSVs on disk. No hidden state, no random sampling.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -44,7 +45,7 @@ KINDS: dict[str, SeriesKind] = {
     "gld_close": "stock",
     "xlk_close": "stock",
     "dxy_tv_close": "stock",
-    "dvol_btc_close": "rate",       # implied-vol level
+    "dvol_btc_close": "rate",  # implied-vol level
     "cme_btc_basis_close": "rate",  # basis spread
     "cme_eth_basis_close": "rate",
     "btc_mcap_usd": "stock",
@@ -56,16 +57,26 @@ KINDS: dict[str, SeriesKind] = {
     "btc_volume": "flow",
     "eth_volume": "flow",
     # Macro (rate)
-    "DGS10": "rate", "DGS2": "rate", "DGS30": "rate", "DFII10": "rate",
-    "T10Y2Y": "rate", "SOFR": "rate", "DFF": "rate",
-    "BAMLH0A0HYM2": "rate", "VIXCLS": "rate", "RRPONTSYD": "rate",
-    "DTWEXBGS": "rate", "DCOILWTICO": "stock", "USEPUINDXD": "rate",
+    "DGS10": "rate",
+    "DGS2": "rate",
+    "DGS30": "rate",
+    "DFII10": "rate",
+    "T10Y2Y": "rate",
+    "SOFR": "rate",
+    "DFF": "rate",
+    "BAMLH0A0HYM2": "rate",
+    "VIXCLS": "rate",
+    "RRPONTSYD": "rate",
+    "DTWEXBGS": "rate",
+    "DCOILWTICO": "stock",
+    "USEPUINDXD": "rate",
     # DeFi (stock)
     "defi_tvl_usd": "stock",
     "stables_total_usd": "stock",
     # Sentiment (stock — the survey result persists across the day)
     "fng_value": "stock",
 }
+
 
 # ETF columns follow a naming convention we expand programmatically.
 def _etf_flow_kind(col: str) -> SeriesKind:
@@ -105,7 +116,11 @@ def build_master_panel(
     ex_nf = all_sources["btc_exchange_netflow"].df
     _add("btc_exchange_netflow", ex_nf["btc_exchange_netflow"], KINDS["btc_exchange_netflow"])
     mx = all_sources["btc_miner_to_exchange"].df
-    _add("btc_miner_to_exchange_flow", mx["btc_miner_to_exchange_flow"], KINDS["btc_miner_to_exchange_flow"])
+    _add(
+        "btc_miner_to_exchange_flow",
+        mx["btc_miner_to_exchange_flow"],
+        KINDS["btc_miner_to_exchange_flow"],
+    )
     mv = all_sources["btc_mvrv"].df
     _add("btc_mvrv", mv["btc_mvrv"], KINDS["btc_mvrv"])
 
@@ -143,12 +158,14 @@ def build_master_panel(
         first = s.first_valid_index()
         last = s.last_valid_index()
         miss = float(s.isna().mean() * 100) if first is not None else 100.0
-        rep_rows.append({
-            "column": c,
-            "first": first.date().isoformat() if first is not None else "",
-            "last": last.date().isoformat() if last is not None else "",
-            "missing_pct": round(miss, 2),
-        })
+        rep_rows.append(
+            {
+                "column": c,
+                "first": first.date().isoformat() if first is not None else "",
+                "last": last.date().isoformat() if last is not None else "",
+                "missing_pct": round(miss, 2),
+            }
+        )
     coverage = pd.DataFrame(rep_rows).sort_values("column").reset_index(drop=True)
 
     report = PanelBuildReport(
@@ -172,6 +189,7 @@ def write_panel(
     report.coverage_by_col.to_csv(coverage, index=False)
     meta = out_dir / "master_daily_meta.json"
     import json
+
     meta.write_text(
         json.dumps(
             {

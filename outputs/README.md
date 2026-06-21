@@ -4,28 +4,28 @@ This is the canonical public output surface for Crypto Market Dynamics.
 
 ## Public Figures
 
-- `figures/public/01_mvrv_mechanics.png`
-- `figures/public/02_tradfi_exposure_shift.png`
-- `figures/public/03_etf_market_plumbing.png`
-- `figures/public/04_leverage_tail_stress.png`
-- `figures/public/05_point_in_time_market_structure.png`
-- `figures/public/06_selected_major_asset_risk.png`
+- `figures/public/01_tradfi_exposure_shift.png`
+- `figures/public/02_etf_market_plumbing.png`
+- `figures/public/03_leverage_tail_stress.png`
+- `figures/public/04_point_in_time_market_structure.png`
+- `figures/public/05_selected_major_asset_risk.png`
 
 ## Public Summary Tables
 
 - `tables/btc_ex_mvrv_feature_strength.csv`
+- `tables/claim_inventory.csv`
 - `tables/data_source_coverage.csv`
 - `tables/etf_market_plumbing_summary.csv`
 - `tables/eth_feature_strength.csv`
 - `tables/event_response_matrix.csv`
 - `tables/evidence_ledger.csv`
+- `tables/evidence_map.md`
 - `tables/feature_registry.csv`
 - `tables/leverage_tail_risk_summary.csv`
 - `tables/local_window_correlation_distribution.csv`
 - `tables/mvrv_mechanical_link_audit.csv`
 - `tables/pit_market_structure_summary.csv`
 - `tables/provider_data_disposition.csv`
-- `tables/results_at_a_glance.md`
 - `tables/robustness_summary.csv`
 - `tables/rolling_exposure_summary.csv`
 - `tables/rolling_tradfi_exposures.csv`
@@ -41,7 +41,6 @@ This is the canonical public output surface for Crypto Market Dynamics.
 - `tables/block_delta_r2.csv`
 - `tables/chain_activity_associations.csv`
 - `tables/chain_fundamental_panel_summary.csv`
-- `tables/claim_inventory.csv`
 - `tables/conventional_partial_r2.csv`
 - `tables/cycle_state_summary.csv`
 - `tables/defi_activity_features.csv`
@@ -100,4 +99,4 @@ This is the canonical public output surface for Crypto Market Dynamics.
 - `model_cards/stablecoin_defi_state.md`
 - `model_cards/tradfi_exposure.md`
 
-Current-top50 daily cohort outputs, where present, are exploratory and survivorship-biased. PIT market-structure evidence is monthly composition/concentration/turnover only.
+Current-top50 daily cohort outputs, where present, are deferred from public claims and treated as exploratory and survivorship-biased. PIT market-structure evidence is monthly composition/concentration/turnover only.

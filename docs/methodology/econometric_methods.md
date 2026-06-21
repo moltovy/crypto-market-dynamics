@@ -20,6 +20,6 @@ regime diagnostics.
 
 ## Advanced Diagnostics
 
-The advanced layer includes PCA block compression, exact block Shapley R2,
-exploratory CUSUM, FEVD-order sensitivity, rolling connectedness, and a BTC
-robustness grid.
+The advanced layer includes PCA block compression, exact block-attribution
+sensitivity checks, exploratory CUSUM, FEVD-order sensitivity, rolling
+connectedness, and a BTC robustness grid.

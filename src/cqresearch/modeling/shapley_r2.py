@@ -1,4 +1,5 @@
 """Exact block Shapley R^2 attribution."""
+
 from __future__ import annotations
 
 from itertools import combinations
@@ -34,10 +35,7 @@ def r2_for_selected_blocks(
 ) -> float:
     """Return in-sample R^2 for selected blocks on the common full-block sample."""
 
-    available = {
-        block: [col for col in cols if col in x.columns]
-        for block, cols in blocks.items()
-    }
+    available = {block: [col for col in cols if col in x.columns] for block, cols in blocks.items()}
     all_cols = list(dict.fromkeys(col for cols in available.values() for col in cols))
     frame = pd.concat([y.rename("__y__"), x[all_cols]], axis=1).dropna()
     cols = _block_cols(available, selected_blocks)
@@ -49,10 +47,7 @@ def exact_block_shapley_r2(
 ) -> pd.DataFrame:
     """Compute exact block Shapley R^2 over all block coalitions."""
 
-    available = {
-        block: [col for col in cols if col in x.columns]
-        for block, cols in blocks.items()
-    }
+    available = {block: [col for col in cols if col in x.columns] for block, cols in blocks.items()}
     available = {block: cols for block, cols in available.items() if cols}
     block_names = list(available)
     all_cols = list(dict.fromkeys(col for cols in available.values() for col in cols))
@@ -110,7 +105,9 @@ def rolling_block_shapley_r2(
 ) -> pd.DataFrame:
     """Rolling exact block Shapley R^2 using stepped windows for tractability."""
 
-    cols = list(dict.fromkeys(col for values in blocks.values() for col in values if col in x.columns))
+    cols = list(
+        dict.fromkeys(col for values in blocks.values() for col in values if col in x.columns)
+    )
     frame = pd.concat([y.rename("__y__"), x[cols]], axis=1).dropna()
     rows: list[pd.DataFrame] = []
     for end in range(window - 1, len(frame), step):

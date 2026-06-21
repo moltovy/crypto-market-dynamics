@@ -1,4 +1,5 @@
 """PCA factor-block utilities for advanced portfolio diagnostics."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass

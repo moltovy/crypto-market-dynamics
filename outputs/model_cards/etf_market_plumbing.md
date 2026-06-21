@@ -8,4 +8,4 @@ Principal finding: BTC lag0 return corr=0.379 (n=820) vs lag1=0.049 (n=819); ETH
 
 Limitations: short sample, reporting timing, and simultaneity.
 
-Prohibited claims: ETF flows caused BTC or ETH returns.
+Prohibited claims: ETF flows are identified return drivers for BTC or ETH.

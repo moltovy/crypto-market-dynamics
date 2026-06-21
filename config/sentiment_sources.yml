@@ -1,7 +1,7 @@
 sentiment_sources:
   alternative_me:
-    file: Data/AlternativeMe/fear_greed_index__daily.csv
-    availability: tracked_baseline
+    file: data_local/raw/alternativeme/fear_greed_index__daily.csv
+    availability: local_only_provider_input
     columns: [date, fng_value, fng_classification]
   coinmarketcap:
     endpoint: https://pro-api.coinmarketcap.com/v3/fear-and-greed/historical

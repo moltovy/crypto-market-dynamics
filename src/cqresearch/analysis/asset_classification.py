@@ -32,13 +32,19 @@ def classify_asset(symbol: str, overrides: dict[str, set[str]] | None = None) ->
     return "risk_assets"
 
 
-def classify_symbol_frame(frame: pd.DataFrame, overrides: dict[str, set[str]] | None = None) -> pd.DataFrame:
+def classify_symbol_frame(
+    frame: pd.DataFrame, overrides: dict[str, set[str]] | None = None
+) -> pd.DataFrame:
     """Add base-asset class labels to a symbol table."""
 
     out = frame.copy()
     if "base_asset" not in out and "symbol" in out:
-        out["base_asset"] = out["symbol"].astype(str).str.extract(r"^([A-Z0-9]+?)(?:USDT|USDC|FDUSD|BUSD)$")[0]
-    out["asset_class"] = out["base_asset"].fillna("").map(lambda value: classify_asset(str(value), overrides))
+        out["base_asset"] = (
+            out["symbol"].astype(str).str.extract(r"^([A-Z0-9]+?)(?:USDT|USDC|FDUSD|BUSD)$")[0]
+        )
+    out["asset_class"] = (
+        out["base_asset"].fillna("").map(lambda value: classify_asset(str(value), overrides))
+    )
     return out
 
 

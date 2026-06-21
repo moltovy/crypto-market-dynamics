@@ -13,5 +13,5 @@ uv run python scripts/run_all.py
 the canonical feature stores, tables, reports, figures, README, licenses, and
 `outputs/manifest.json`.
 
-Legacy portfolio/release packet builders are not active maintained source; use
-Git history or `archive/` for historical context.
+Legacy portfolio/release packet builders are not active maintained source. The
+public workflow is the single `scripts/run_all.py` orchestration path.
