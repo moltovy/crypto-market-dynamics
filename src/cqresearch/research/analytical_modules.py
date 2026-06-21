@@ -65,8 +65,8 @@ def build_analytical_module(module_id: str, root: Path = PROJECT_ROOT) -> list[P
             module=module,
             spec=spec,
             finding_lines=finding_lines,
-            table_names=sorted(path.name for path in tables_dir.glob("*")),
-            figure_names=sorted(path.name for path in figures_dir.glob("*")),
+            table_names=_public_artifact_names(tables_dir),
+            figure_names=_public_artifact_names(figures_dir),
         )
     )
     artifacts.append(_write_manifest(root, module_dir, artifacts))
@@ -91,6 +91,14 @@ def build_research_only_figures(module_id: str, root: Path = PROJECT_ROOT) -> li
         if spec.extra_figures_builder is not None:
             artifacts.extend(spec.extra_figures_builder(root, figures_dir))
     return artifacts
+
+
+def _public_artifact_names(directory: Path) -> list[str]:
+    return sorted(
+        path.name
+        for path in directory.glob("*")
+        if path.is_file() and not path.name.startswith(".")
+    )
 
 
 def _copy_tables(root: Path, tables_dir: Path, table_names: tuple[str, ...]) -> list[Path]:

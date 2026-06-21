@@ -9,6 +9,8 @@ from typing import Any
 
 import pandas as pd
 
+TEXT_ARTIFACT_SUFFIXES = {".csv", ".json", ".md", ".svg", ".txt", ".yaml", ".yml"}
+
 
 def write_csv(path: Path, frame: pd.DataFrame) -> Path:
     """Write a CSV artifact with stable row order supplied by the caller."""
@@ -39,6 +41,10 @@ def write_json(path: Path, payload: dict[str, Any]) -> Path:
 
 
 def sha256_file(path: Path) -> str:
+    if path.suffix.lower() in TEXT_ARTIFACT_SUFFIXES:
+        normalized = path.read_text(encoding="utf-8").replace("\r\n", "\n").replace("\r", "\n")
+        return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):

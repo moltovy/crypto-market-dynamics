@@ -8,7 +8,7 @@
     {
       "bytes": 474555,
       "path": "research/06_onchain_valuation_holder_state/figures/measurement_mvrv_mechanics.svg",
-      "sha256": "7866201b45acabfcf6667a55cdf3eeb24c0bd36a4d0370b212b8a019cef7c413"
+      "sha256": "fa288ded61410f4f5ffc179493f7fd863ab97153795d8bc3a5d7b85305a0b0ec"
     },
     {
       "bytes": 140,
@@ -46,9 +46,9 @@
       "sha256": "f0ac1fda90300f14273d93ca568de0328f93487bded412ea66fe3772a7c5ceae"
     },
     {
-      "bytes": 698930,
+      "bytes": 698904,
       "path": "research/06_onchain_valuation_holder_state/tables/mvrv_identity_points.csv",
-      "sha256": "1732fe14b192f913c91c3453ff7be70fc4ac631983ad9a60355b61dd13e64028"
+      "sha256": "7a4e8507bd953ee02ee6f3ad76146d5a2a9e03ed28d1f94eda5f8481759e7340"
     },
     {
       "bytes": 1588,

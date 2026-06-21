@@ -1,0 +1,8 @@
+# Generated research text artifacts are written with LF on every platform.
+research/**/*.csv text eol=lf
+research/**/*.json text eol=lf
+research/**/*.md text eol=lf
+research/**/*.svg text eol=lf
+research/**/*.yml text eol=lf
+research/**/.gitkeep text eol=lf
+research/**/*.png binary
