@@ -1,9 +1,9 @@
 source: binance
-raw_cache: data_cache/binance
-curated_root: Data/MarketStructure/Binance
+raw_cache: data_local/raw/market_structure/binance/cache
+curated_root: data_local/raw/market_structure/binance
 policy:
   auth: public endpoints require no key.
-  storage: raw responses and wide pulls stay in data_cache; normalized liquidity summaries may be tracked.
+  storage: raw responses and wide pulls stay in data_local and out of Git; public outputs use derived summaries only.
   market_cap: Binance does not provide historical market-cap rankings; liquidity ranks must be labeled exchange-liquidity rank.
 defaults:
   quote_assets: [USDT, USDC, FDUSD, BUSD]

@@ -9,6 +9,7 @@ Conventions every loader enforces:
 * Loaders never forward-fill; that decision is made by
   :func:`cqresearch.data.calendars.align_to_master` given the series' kind.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -81,7 +82,10 @@ ALTERNATIVEME_DIR = provider_data_dir("alternativeme")
 # Price / market data  (CryptoQuant exports)
 # ---------------------------------------------------------------------------
 def load_btc_price() -> LoadResult:
-    path = CRYPTOQUANT_DIR / "BTC/Market Data/Bitcoin Price & Volume - Spot, All Exchanges, BTC-USD - Day.csv"
+    path = (
+        CRYPTOQUANT_DIR
+        / "BTC/Market Data/Bitcoin Price & Volume - Spot, All Exchanges, BTC-USD - Day.csv"
+    )
     df = pd.read_csv(path)
     df = _canonical(df, "date")
     df = df.rename(columns={c: f"btc_{c.lower()}" for c in df.columns})
@@ -93,7 +97,10 @@ def load_btc_price() -> LoadResult:
 
 
 def load_eth_price() -> LoadResult:
-    path = CRYPTOQUANT_DIR / "ETH/Market Data/Ethereum Price & Volume - Spot, All Exchanges, ETH-USD - Day.csv"
+    path = (
+        CRYPTOQUANT_DIR
+        / "ETH/Market Data/Ethereum Price & Volume - Spot, All Exchanges, ETH-USD - Day.csv"
+    )
     df = pd.read_csv(path)
     df = _canonical(df, "date")
     df = df.rename(columns={c: f"eth_{c.lower()}" for c in df.columns})
@@ -144,10 +151,10 @@ def load_btc_miner_to_exchange() -> LoadResult:
     )
     df = pd.read_csv(path)
     df = _canonical(df, "date")
-    df = df.rename(
-        columns={"Miner to Exchange Flow (Total)": "btc_miner_to_exchange_flow"}
+    df = df.rename(columns={"Miner to Exchange Flow (Total)": "btc_miner_to_exchange_flow"})
+    df["btc_miner_to_exchange_flow"] = pd.to_numeric(
+        df["btc_miner_to_exchange_flow"], errors="coerce"
     )
-    df["btc_miner_to_exchange_flow"] = pd.to_numeric(df["btc_miner_to_exchange_flow"], errors="coerce")
     return _finalize(df[["btc_miner_to_exchange_flow"]], "btc_miner_to_exchange", path)
 
 
@@ -182,7 +189,7 @@ def load_tv_close(name: str, prefix: str) -> LoadResult:
     Parameters
     ----------
     name
-        Filename under ``Data/Tradingview/Daily``.
+        Filename under ``data_local/raw/tradingview/Daily``.
     prefix
         Column prefix (e.g. ``spy``, ``dxy_tv``, ``dvol_btc``).
     """

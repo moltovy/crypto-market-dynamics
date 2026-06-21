@@ -1,4 +1,5 @@
 """Assert that the YAML configs parse and contain the fields every agent depends on."""
+
 from __future__ import annotations
 
 import yaml

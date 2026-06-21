@@ -3,6 +3,7 @@
 Implements a Diebold-Yilmaz-style connectedness computation on a small VAR
 using statsmodels. Inputs must be stationary (first-differences/returns).
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -27,7 +28,9 @@ def select_lag(df: pd.DataFrame, maxlags: int = 10) -> int:
 
 
 def fit_var_fevd(
-    df: pd.DataFrame, horizon: int = 10, maxlags: int = 10,
+    df: pd.DataFrame,
+    horizon: int = 10,
+    maxlags: int = 10,
 ) -> FevdResult:
     df_ = df.dropna().copy()
     p = max(1, select_lag(df_, maxlags=maxlags))

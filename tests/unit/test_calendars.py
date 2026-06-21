@@ -19,7 +19,9 @@ def test_align_to_master_respects_ffill_limit() -> None:
     idx = pd.date_range("2024-01-01", periods=10, freq="D")
     # Fri value only — weekend + Mon should fill within limit
     s = pd.Series([100.0], index=[pd.Timestamp("2024-01-05")])
-    out = align_to_master(s, kind="stock", master_index=idx, ffill_limit_days=get_master_ffill_limit())
+    out = align_to_master(
+        s, kind="stock", master_index=idx, ffill_limit_days=get_master_ffill_limit()
+    )
     assert pd.notna(out.loc["2024-01-06"])  # Sat
     lim = get_master_ffill_limit()
     if lim < 3:

@@ -1,6 +1,6 @@
 claim,disposition,replacement,reason
 MVRV is the strongest independent factor.,reject,MVRV is a mechanically price-linked valuation-state diagnostic.,Same-day MVRV mechanically embeds market capitalization and BTC price-state content.
-ETF flows caused BTC/ETH returns.,reject,ETF flows show market-plumbing associations with returns and volatility.,Daily flows are simultaneous and reporting-timing sensitive.
+ETF flows are identified return drivers.,reject,ETF flows show market-plumbing associations with returns and volatility.,Daily flows are simultaneous and reporting-timing sensitive.
 Current-top50 daily returns are historical altseason evidence.,demote,Use PIT monthly composition/concentration/turnover for historical market-structure claims; treat current-top50 daily cohort as exploratory appendix material.,The cohort is survivorship-biased and not point-in-time.
 PIT monthly data supports composition and turnover analysis.,retain,"Use PIT monthly data for composition, concentration, rank persistence, entries, and exits.","Monthly snapshots are appropriate for structure, not daily performance."
 Crypto exposure to TradFi risk evolved over time.,rewrite,Rolling ex-MVRV exposure estimates describe time-varying co-movement with TradFi proxies.,Exposure language is appropriate; predictive/causal language is not.

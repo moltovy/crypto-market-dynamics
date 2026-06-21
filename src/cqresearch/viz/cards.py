@@ -100,7 +100,9 @@ def add_metric_badge(
         zorder=3,
     )
     fig.patches.append(patch)
-    fig.text(x + 0.018, y + height - 0.031, label.upper(), fontsize=6.9, color=COLORS["muted"], zorder=4)
+    fig.text(
+        x + 0.018, y + height - 0.031, label.upper(), fontsize=6.9, color=COLORS["muted"], zorder=4
+    )
     fig.text(
         x + 0.018,
         y + 0.026,

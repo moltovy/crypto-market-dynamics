@@ -1,13 +1,12 @@
 """Realized-volatility feature helpers."""
+
 from __future__ import annotations
 
 import numpy as np
 import pandas as pd
 
 
-def realized_vol(
-    ret: pd.Series, window: int = 30, annualization: int = 365
-) -> pd.Series:
+def realized_vol(ret: pd.Series, window: int = 30, annualization: int = 365) -> pd.Series:
     """Return rolling annualized realized volatility from log returns."""
 
     return ret.rolling(window=window, min_periods=window).std() * np.sqrt(annualization)

@@ -1,4 +1,5 @@
-"""BTC-native factor helpers for the portfolio v2.1 packet."""
+"""BTC-native factor helpers for Crypto Market Dynamics."""
+
 from __future__ import annotations
 
 import pandas as pd
@@ -57,9 +58,7 @@ def native_factor_registry(feat: pd.DataFrame) -> pd.DataFrame:
                     "available": col in feat.columns,
                     "non_missing": int(feat[col].notna().sum()) if col in feat.columns else 0,
                     "interpretation": meta["interpretation"],
-                    "portfolio_note": (
-                        "Reduced-form input; not a standalone trading signal."
-                    ),
+                    "portfolio_note": ("Reduced-form input; not a standalone trading signal."),
                 }
             )
     return pd.DataFrame(rows)

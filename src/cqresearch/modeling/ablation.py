@@ -1,4 +1,5 @@
 """Nested OLS ablation helpers for BTC/ETH factor stacks."""
+
 from __future__ import annotations
 
 import numpy as np

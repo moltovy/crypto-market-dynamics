@@ -8,4 +8,4 @@ Principal finding: corr(BTC return, d-log MVRV)=0.9966; R2=0.9932; median abs re
 
 Estimator and uncertainty: HAC same-day diagnostic plus identity residual quantiles. This is a measurement audit, not a predictive model.
 
-Prohibited claims: MVRV is the strongest independent factor; same-day MVRV predicts BTC returns.
+Prohibited claims: MVRV is the strongest independent factor; same-day MVRV is a return-forecasting factor.

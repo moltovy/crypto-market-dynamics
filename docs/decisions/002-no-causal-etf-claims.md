@@ -12,4 +12,5 @@ impact.
 
 ## Consequence
 
-The project avoids causal language such as "ETF flows caused returns."
+The project avoids language that identifies ETF flows as return drivers without
+an identification design.

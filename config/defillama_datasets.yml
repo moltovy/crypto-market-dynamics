@@ -1,9 +1,9 @@
 source: defillama
-raw_cache: data_cache/defillama
-curated_root: Data/MarketStructure/DefiLlama
+raw_cache: data_local/raw/defillama/cache
+curated_root: data_local/raw/market_structure/defillama
 policy:
   auth: public endpoints require no key; Pro endpoints require DEFILLAMA_API_KEY in .env.
-  storage: raw responses stay in data_cache; curated summaries may be tracked under Data/MarketStructure.
+  storage: raw responses stay in data_local and out of Git; public outputs use derived summaries only.
   top100_market_cap: skip unless a point-in-time market-cap warehouse file is provided.
 datasets:
   - id: chains_current

@@ -3,7 +3,7 @@ features:
   clean_label: BTC log return
   research_block: target
   raw_source: CryptoQuant
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: BTC price close
   frequency: daily
   transformation: log return
@@ -23,7 +23,7 @@ features:
   clean_label: ETH log return
   research_block: target
   raw_source: CryptoQuant
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: ETH price close
   frequency: daily
   transformation: log return
@@ -43,7 +43,7 @@ features:
   clean_label: BTC 30-day realized volatility
   research_block: target
   raw_source: CryptoQuant
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: BTC close
   frequency: daily
   transformation: rolling volatility
@@ -63,7 +63,7 @@ features:
   clean_label: QQQ return
   research_block: macro_risk
   raw_source: TradingView
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: QQQ close
   frequency: daily
   transformation: business-date log return
@@ -83,7 +83,7 @@ features:
   clean_label: SPY return
   research_block: macro_risk
   raw_source: TradingView
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: SPY close
   frequency: daily
   transformation: business-date log return
@@ -103,7 +103,7 @@ features:
   clean_label: IWM return
   research_block: macro_risk
   raw_source: TradingView
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: IWM close
   frequency: daily
   transformation: business-date log return
@@ -123,7 +123,7 @@ features:
   clean_label: VIX change
   research_block: macro_risk
   raw_source: FRED
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: VIXCLS
   frequency: daily
   transformation: business-date first difference
@@ -143,7 +143,7 @@ features:
   clean_label: DXY return
   research_block: macro_risk
   raw_source: TradingView
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: DXY close
   frequency: daily
   transformation: business-date log return
@@ -163,7 +163,7 @@ features:
   clean_label: Real-yield change
   research_block: macro_risk
   raw_source: FRED
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: DFII10
   frequency: daily
   transformation: business-date first difference
@@ -183,7 +183,7 @@ features:
   clean_label: Nominal 10Y yield change
   research_block: macro_risk
   raw_source: FRED
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: DGS10
   frequency: daily
   transformation: business-date first difference
@@ -203,7 +203,7 @@ features:
   clean_label: Gold return
   research_block: macro_risk
   raw_source: TradingView/FRED
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: GLD or XAUUSD close
   frequency: daily
   transformation: business-date log return
@@ -223,7 +223,7 @@ features:
   clean_label: BTC ETF flow intensity, t
   research_block: etf_institutional
   raw_source: Farside
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: BTC ETF total
   frequency: daily
   transformation: flow / lagged market cap
@@ -243,7 +243,7 @@ features:
   clean_label: BTC ETF flow intensity, t-1
   research_block: etf_institutional
   raw_source: Farside
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: BTC ETF total
   frequency: daily
   transformation: flow / lagged market cap then lag one day
@@ -263,7 +263,7 @@ features:
   clean_label: ETH ETF flow intensity, t
   research_block: etf_institutional
   raw_source: Farside
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: ETH ETF total
   frequency: daily
   transformation: flow / lagged market cap
@@ -283,7 +283,7 @@ features:
   clean_label: ETH ETF flow intensity, t-1
   research_block: etf_institutional
   raw_source: Farside
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: ETH ETF total
   frequency: daily
   transformation: flow / lagged market cap then lag one day
@@ -303,7 +303,7 @@ features:
   clean_label: BTC raw open-interest growth, t-1
   research_block: leverage
   raw_source: CryptoQuant
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: BTC open interest
   frequency: daily
   transformation: log difference lagged one day
@@ -324,7 +324,7 @@ features:
   clean_label: BTC OI/market-cap growth, t-1
   research_block: leverage
   raw_source: CryptoQuant
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: BTC open interest and market cap
   frequency: daily
   transformation: log difference of OI/market-cap ratio lagged one panel step
@@ -344,7 +344,7 @@ features:
   clean_label: ETH OI/market-cap growth, t-1
   research_block: leverage
   raw_source: CryptoQuant
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: ETH open interest and market cap
   frequency: daily
   transformation: log difference of OI/market-cap ratio lagged one panel step
@@ -364,7 +364,7 @@ features:
   clean_label: BTC funding z-score, t-1
   research_block: leverage
   raw_source: CryptoQuant
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: BTC funding rates
   frequency: daily
   transformation: rolling z-score lagged one day
@@ -384,7 +384,7 @@ features:
   clean_label: BTC liquidation / lagged OI
   research_block: leverage
   raw_source: CryptoQuant
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: BTC liquidations USD
   frequency: daily
   transformation: liquidation USD / prior-day open interest, percent
@@ -404,7 +404,7 @@ features:
   clean_label: BTC liquidation / lagged market cap
   research_block: leverage
   raw_source: CryptoQuant
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: BTC liquidations USD
   frequency: daily
   transformation: liquidation USD / prior-day market cap, basis points
@@ -424,7 +424,7 @@ features:
   clean_label: Stablecoin supply growth
   research_block: liquidity
   raw_source: DefiLlama
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: stablecoin market caps
   frequency: weekly
   transformation: log difference
@@ -444,7 +444,7 @@ features:
   clean_label: Lagged stablecoin supply growth
   research_block: liquidity
   raw_source: DefiLlama
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: stablecoin market caps
   frequency: weekly
   transformation: weekly log difference lagged one week
@@ -464,7 +464,7 @@ features:
   clean_label: Valuation-sensitive DeFi TVL growth
   research_block: liquidity
   raw_source: DefiLlama
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: USD TVL
   frequency: weekly
   transformation: log difference of USD TVL
@@ -484,7 +484,7 @@ features:
   clean_label: Lagged valuation-sensitive DeFi TVL growth
   research_block: liquidity
   raw_source: DefiLlama
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: USD TVL
   frequency: weekly
   transformation: weekly log difference lagged one week
@@ -505,7 +505,7 @@ features:
   clean_label: Lagged BTC MVRV
   research_block: onchain_state
   raw_source: CryptoQuant
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: MVRV Ratio
   frequency: daily
   transformation: lagged level/percentile
@@ -525,7 +525,7 @@ features:
   clean_label: BTC d-log MVRV
   research_block: onchain_state
   raw_source: CryptoQuant
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: MVRV Ratio
   frequency: daily
   transformation: same-interval log difference
@@ -545,7 +545,7 @@ features:
   clean_label: BTC d-log market cap
   research_block: onchain_state
   raw_source: CryptoQuant
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: BTC market cap
   frequency: daily
   transformation: same-interval log difference
@@ -565,7 +565,7 @@ features:
   clean_label: BTC d-log realized cap
   research_block: onchain_state
   raw_source: CryptoQuant
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: BTC realized cap
   frequency: daily
   transformation: same-interval log difference
@@ -585,7 +585,7 @@ features:
   clean_label: MVRV identity residual
   research_block: onchain_state
   raw_source: CryptoQuant
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: MVRV and realized cap
   frequency: daily
   transformation: d_log_mvrv - (d_log_market_cap - d_log_realized_cap)
@@ -605,7 +605,7 @@ features:
   clean_label: PIT top-100 HHI
   research_block: market_structure
   raw_source: DefiLlama
-  raw_path_or_endpoint: tracked local repository file
+  raw_path_or_endpoint: local-only provider input under data_local/raw
   raw_field: monthly top-200 universe
   frequency: monthly
   transformation: market-cap concentration

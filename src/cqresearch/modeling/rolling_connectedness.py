@@ -1,4 +1,5 @@
 """Rolling VAR/FEVD connectedness diagnostics."""
+
 from __future__ import annotations
 
 import pandas as pd
@@ -48,9 +49,7 @@ def rolling_fevd_connectedness(
     return pd.DataFrame(rows)
 
 
-def connectedness_by_regime(
-    connectedness: pd.DataFrame, split_date: pd.Timestamp
-) -> pd.DataFrame:
+def connectedness_by_regime(connectedness: pd.DataFrame, split_date: pd.Timestamp) -> pd.DataFrame:
     """Summarize rolling connectedness before and after ``split_date``."""
 
     out = connectedness.copy()

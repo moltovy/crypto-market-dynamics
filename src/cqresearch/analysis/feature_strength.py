@@ -1,10 +1,11 @@
-"""Feature-strength metrics engine for the Crypto Market Factor Lab.
+"""Feature-strength metrics engine for Crypto Market Dynamics.
 
 Computes per-feature and per-block diagnostics across regimes and model
 families. All multivariate inference uses HAC standard errors via the existing
 ``cqresearch.modeling.ols`` module. Drop-one ΔR² uses the existing
 ``cqresearch.modeling.partial_r2`` infrastructure.
 """
+
 from __future__ import annotations
 
 import numpy as np
@@ -213,15 +214,15 @@ def compute_feature_strength(
                 "block": BLOCK_MAP.get(feat, "Unknown"),
                 "model_family": model_family,
                 "n": n_total,
-                "missing_pct": round(
-                    1.0 - n_total / max(len(df), 1), 4
-                ),
+                "missing_pct": round(1.0 - n_total / max(len(df), 1), 4),
                 "correlation": round(corr, 6),
                 "abs_correlation": round(abs(corr), 6),
                 "univariate_beta": round(uni_beta, 6) if np.isfinite(uni_beta) else np.nan,
                 "univariate_hac_t": round(uni_t, 4) if np.isfinite(uni_t) else np.nan,
                 "univariate_r2": round(uni_r2, 6) if np.isfinite(uni_r2) else np.nan,
-                "standardized_multivar_beta": round(std_beta, 6) if np.isfinite(std_beta) else np.nan,
+                "standardized_multivar_beta": round(std_beta, 6)
+                if np.isfinite(std_beta)
+                else np.nan,
                 "multivar_hac_t": round(multi_t, 4) if np.isfinite(multi_t) else np.nan,
                 "multivar_p": round(multi_p, 6) if np.isfinite(multi_p) else np.nan,
                 "multivar_r2": round(multi_r2, 6) if np.isfinite(multi_r2) else np.nan,
@@ -234,9 +235,7 @@ def compute_feature_strength(
     # Add ranks
     if not result.empty:
         result["rank_by_abs_corr"] = (
-            result["abs_correlation"]
-            .rank(ascending=False, method="min")
-            .astype("Int64")
+            result["abs_correlation"].rank(ascending=False, method="min").astype("Int64")
         )
         result["rank_by_abs_t"] = (
             result["multivar_hac_t"]
@@ -254,6 +253,7 @@ def compute_feature_strength(
 
 
 # ── Block strength ───────────────────────────────────────────────────────────
+
 
 def compute_block_strength(
     feat_df: pd.DataFrame,
@@ -281,6 +281,7 @@ def compute_block_strength(
 
 
 # ── Same-support ablation ────────────────────────────────────────────────────
+
 
 def compute_same_support_ablation(
     feat_df: pd.DataFrame,
@@ -344,20 +345,14 @@ def compute_same_support_ablation(
             adj_r2 = 0.0
         else:
             try:
-                res = fit_ols(
-                    y, df_clean[available], hac_lags=hac_lags, label=model_id
-                )
+                res = fit_ols(y, df_clean[available], hac_lags=hac_lags, label=model_id)
                 r2 = res.r2
                 adj_r2 = res.adj_r2
             except Exception:
                 r2 = np.nan
                 adj_r2 = np.nan
 
-        delta = (
-            np.nan
-            if prev_r2 is None or not np.isfinite(r2)
-            else r2 - prev_r2
-        )
+        delta = np.nan if prev_r2 is None or not np.isfinite(r2) else r2 - prev_r2
 
         rows.append(
             {
@@ -379,6 +374,7 @@ def compute_same_support_ablation(
 
 
 # ── Rolling feature rank stability ───────────────────────────────────────────
+
 
 def compute_rolling_feature_rank(
     feat_df: pd.DataFrame,
@@ -432,9 +428,8 @@ def compute_rolling_feature_rank(
 
 # ── Correlation matrices ─────────────────────────────────────────────────────
 
-def compute_core_correlation_matrix(
-    feat_df: pd.DataFrame, features: list[str]
-) -> pd.DataFrame:
+
+def compute_core_correlation_matrix(feat_df: pd.DataFrame, features: list[str]) -> pd.DataFrame:
     """Compute pairwise correlation matrix for core features."""
 
     available = [f for f in features if f in feat_df.columns]

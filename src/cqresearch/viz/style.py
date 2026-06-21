@@ -3,6 +3,7 @@
 New public artifacts use ``cqresearch.viz.theme`` and the institutional design
 system. This module remains for legacy figure scripts that import ``setup``.
 """
+
 from __future__ import annotations
 
 from cqresearch.viz.design_system import COLORS
@@ -28,9 +29,7 @@ def setup() -> None:
 
 
 def add_footer(fig, text: str) -> None:
-    fig.text(
-        0.005, 0.005, text, ha="left", va="bottom", fontsize=7, color=COLORS["muted"]
-    )
+    fig.text(0.005, 0.005, text, ha="left", va="bottom", fontsize=7, color=COLORS["muted"])
 
 
 __all__ = ["PALETTE", "add_footer", "setup"]

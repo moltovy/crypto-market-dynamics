@@ -1,4 +1,5 @@
 """FEVD order-sensitivity diagnostics."""
+
 from __future__ import annotations
 
 from typing import Any
@@ -55,9 +56,7 @@ def summarize_fevd_sensitivity(results: pd.DataFrame) -> pd.DataFrame:
     if ok.empty:
         return pd.DataFrame()
     summary = (
-        ok.groupby(["from", "to"], dropna=False)["share"]
-        .agg(["min", "max", "mean"])
-        .reset_index()
+        ok.groupby(["from", "to"], dropna=False)["share"].agg(["min", "max", "mean"]).reset_index()
     )
     summary["range"] = summary["max"] - summary["min"]
     return summary.sort_values("range", ascending=False)

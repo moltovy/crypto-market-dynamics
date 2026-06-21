@@ -1,14 +1,13 @@
 {
   "project": "Crypto Market Dynamics",
-  "generated_at_utc": "2026-06-20T06:43:23+00:00",
+  "generated_at_utc": "2026-06-21T02:21:56+00:00",
   "pipeline": "src/cqresearch/pipelines/final_research.py",
   "public_figures": [
-    "outputs/figures/public/01_mvrv_mechanics.png",
-    "outputs/figures/public/02_tradfi_exposure_shift.png",
-    "outputs/figures/public/03_etf_market_plumbing.png",
-    "outputs/figures/public/04_leverage_tail_stress.png",
-    "outputs/figures/public/05_point_in_time_market_structure.png",
-    "outputs/figures/public/06_selected_major_asset_risk.png"
+    "outputs/figures/public/01_tradfi_exposure_shift.png",
+    "outputs/figures/public/02_etf_market_plumbing.png",
+    "outputs/figures/public/03_leverage_tail_stress.png",
+    "outputs/figures/public/04_point_in_time_market_structure.png",
+    "outputs/figures/public/05_selected_major_asset_risk.png"
   ],
   "tables": [
     "outputs/tables/asset_identity_audit.csv",
@@ -33,6 +32,7 @@
     "outputs/tables/event_inference.csv",
     "outputs/tables/event_response_matrix.csv",
     "outputs/tables/evidence_ledger.csv",
+    "outputs/tables/evidence_map.md",
     "outputs/tables/exposure_regime_comparison.csv",
     "outputs/tables/fdr_adjusted_inference.csv",
     "outputs/tables/feature_coverage.csv",
@@ -57,7 +57,6 @@
     "outputs/tables/pit_period_comparison.csv",
     "outputs/tables/pit_turnover.csv",
     "outputs/tables/provider_data_disposition.csv",
-    "outputs/tables/results_at_a_glance.md",
     "outputs/tables/ridge_stability.csv",
     "outputs/tables/robustness_summary.csv",
     "outputs/tables/rolling_exposure_summary.csv",

@@ -1,7 +1,7 @@
 # Interpretation Guardrails
 
 - ETF-flow results are association, exposure, timing, and market-plumbing
-  diagnostics. They do not prove ETF flows caused BTC or ETH returns.
+  diagnostics. They do not identify ETF flows as BTC or ETH return drivers.
 - Lagged stablecoin supply is a liquidity-state proxy; raw USD TVL is a valuation-sensitive
   DeFi balance-sheet proxy, not identified capital inflow.
 - MVRV is a mechanically price-linked valuation-state diagnostic; same-day MVRV

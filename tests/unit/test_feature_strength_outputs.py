@@ -76,7 +76,10 @@ def test_drop_block_delta_r2_is_not_labeled_partial_r2() -> None:
     assert conventional["formula"].str.contains("SSE_reduced").all()
     assert conventional["same_support"].all()
     assert (conventional["n_full"] == conventional["n_reduced"]).all()
-    assert ((conventional["conventional_partial_r2"] >= -1e-10) & (conventional["conventional_partial_r2"] <= 1 + 1e-10)).all()
+    assert (
+        (conventional["conventional_partial_r2"] >= -1e-10)
+        & (conventional["conventional_partial_r2"] <= 1 + 1e-10)
+    ).all()
 
 
 def test_tradfi_models_use_synchronized_business_and_friday_calendars() -> None:
@@ -91,9 +94,11 @@ def test_tradfi_models_use_synchronized_business_and_friday_calendars() -> None:
     ]
     assert set(daily["calendar"]) == {"tradfi_business_daily"}
     assert set(weekly["calendar"]) == {"tradfi_friday_weekly"}
-    assert daily["calendar_assumption"].str.contains(
-        "consecutive common TradFi business-date", regex=False
-    ).all()
+    assert (
+        daily["calendar_assumption"]
+        .str.contains("consecutive common TradFi business-date", regex=False)
+        .all()
+    )
 
     etf = block[block["model_family"].eq("etf_era_augmented")]
     assert {"etf_trading_daily", "etf_friday_weekly"}.issubset(set(etf["calendar"]))
@@ -105,7 +110,9 @@ def test_tradfi_models_use_synchronized_business_and_friday_calendars() -> None:
 
 def test_weekly_models_have_valid_samples_and_transformations() -> None:
     frequency = pd.read_csv(TABLES / "frequency_robustness.csv")
-    weekly_passed = frequency[(frequency["frequency"] == "weekly") & (frequency["status"] == "passed")]
+    weekly_passed = frequency[
+        (frequency["frequency"] == "weekly") & (frequency["status"] == "passed")
+    ]
     assert not weekly_passed.empty
     assert (weekly_passed["n"] > 0).all()
     long_weekly = weekly_passed[weekly_passed["model_family"] != "etf_era_augmented"]
@@ -115,7 +122,9 @@ def test_weekly_models_have_valid_samples_and_transformations() -> None:
     liquidity = pd.read_csv(TABLES / "stablecoin_liquidity_features.csv", parse_dates=["date"])
     assert liquidity["date"].is_monotonic_increasing
     assert set(liquidity["date"].dt.dayofweek.dropna().unique()) <= {6}
-    recomputed_stable_growth = np.log(liquidity["stablecoin_supply_usd"].where(liquidity["stablecoin_supply_usd"] > 0)).diff()
+    recomputed_stable_growth = np.log(
+        liquidity["stablecoin_supply_usd"].where(liquidity["stablecoin_supply_usd"] > 0)
+    ).diff()
     np.testing.assert_allclose(
         liquidity["stablecoin_supply_growth"].to_numpy(),
         recomputed_stable_growth.to_numpy(),
@@ -174,7 +183,9 @@ def test_pit_composition_is_point_in_time_and_sums_to_one() -> None:
     assert ((monthly_share - 1).abs() < 1e-9).all()
 
     summary = pd.read_csv(TABLES / "pit_market_structure_summary.csv")
-    assert {"top10_share", "hhi", "rank_persistence", "snapshot_date", "is_partial_month"}.issubset(summary.columns)
+    assert {"top10_share", "hhi", "rank_persistence", "snapshot_date", "is_partial_month"}.issubset(
+        summary.columns
+    )
     latest = summary.sort_values("snapshot_date").iloc[-1]
     assert latest["snapshot_date"] == "2026-06-16"
     assert latest["month"] == "2026-06"
@@ -211,11 +222,71 @@ def test_selected_major_identity_and_coverage_caveats() -> None:
 
 
 def test_canonical_id_collision_handling_is_not_symbol_first() -> None:
-    assert classify_pit_asset(pd.Series({"symbol": "SOL", "asset_name": "Wrapped SOL", "coingecko_id": "coingecko:wrapped-sol", "asset_key": "coingecko:wrapped-sol"})) == "productized/wrapped assets"
-    assert classify_pit_asset(pd.Series({"symbol": "TON", "asset_name": "Tokamak Network", "coingecko_id": "coingecko:tokamak-network", "asset_key": "coingecko:tokamak-network"})) != "selected majors ex BTC/ETH"
-    assert classify_pit_asset(pd.Series({"symbol": "GRAM", "asset_name": "Toncoin", "coingecko_id": "coingecko:the-open-network", "asset_key": "coingecko:the-open-network"})) == "selected majors ex BTC/ETH"
-    assert classify_pit_asset(pd.Series({"symbol": "XRP", "asset_name": "Binance-Peg XRP", "coingecko_id": "coingecko:binance-peg-xrp", "asset_key": "coingecko:binance-peg-xrp"})) == "productized/wrapped assets"
-    assert classify_pit_asset(pd.Series({"symbol": "LDO", "asset_name": "Lido DAO", "coingecko_id": "coingecko:lido-dao", "asset_key": "coingecko:lido-dao"})) == "governance/infrastructure risk assets"
+    assert (
+        classify_pit_asset(
+            pd.Series(
+                {
+                    "symbol": "SOL",
+                    "asset_name": "Wrapped SOL",
+                    "coingecko_id": "coingecko:wrapped-sol",
+                    "asset_key": "coingecko:wrapped-sol",
+                }
+            )
+        )
+        == "productized/wrapped assets"
+    )
+    assert (
+        classify_pit_asset(
+            pd.Series(
+                {
+                    "symbol": "TON",
+                    "asset_name": "Tokamak Network",
+                    "coingecko_id": "coingecko:tokamak-network",
+                    "asset_key": "coingecko:tokamak-network",
+                }
+            )
+        )
+        != "selected majors ex BTC/ETH"
+    )
+    assert (
+        classify_pit_asset(
+            pd.Series(
+                {
+                    "symbol": "GRAM",
+                    "asset_name": "Toncoin",
+                    "coingecko_id": "coingecko:the-open-network",
+                    "asset_key": "coingecko:the-open-network",
+                }
+            )
+        )
+        == "selected majors ex BTC/ETH"
+    )
+    assert (
+        classify_pit_asset(
+            pd.Series(
+                {
+                    "symbol": "XRP",
+                    "asset_name": "Binance-Peg XRP",
+                    "coingecko_id": "coingecko:binance-peg-xrp",
+                    "asset_key": "coingecko:binance-peg-xrp",
+                }
+            )
+        )
+        == "productized/wrapped assets"
+    )
+    assert (
+        classify_pit_asset(
+            pd.Series(
+                {
+                    "symbol": "LDO",
+                    "asset_name": "Lido DAO",
+                    "coingecko_id": "coingecko:lido-dao",
+                    "asset_key": "coingecko:lido-dao",
+                }
+            )
+        )
+        == "governance/infrastructure risk assets"
+    )
 
     audit = pd.read_csv(TABLES / "asset_identity_audit.csv")
     assert "failing_rows" in audit.columns
@@ -227,7 +298,11 @@ def test_liquidation_ratio_units_and_event_windows() -> None:
     registry = pd.read_csv(TABLES / "leverage_feature_registry.csv")
     liquidation_rows = registry[registry["feature_id"].str.contains("liq", na=False)]
     assert not liquidation_rows.empty
-    assert liquidation_rows["scaling"].str.contains("percent|basis points", case=False, regex=True).all()
+    assert (
+        liquidation_rows["scaling"]
+        .str.contains("percent|basis points", case=False, regex=True)
+        .all()
+    )
     assert not liquidation_rows["scaling"].str.contains("log1p /", regex=False).any()
 
     events = pd.read_csv(TABLES / "event_inference.csv")
@@ -258,10 +333,11 @@ def test_public_figure_2_uses_pre_specified_periods_and_event_missing_not_zero_f
     assert "masked_invalid" in fig_event_source
 
 
-def test_headline_readme_numbers_match_generated_glance() -> None:
+def test_headline_readme_numbers_match_generated_evidence_map() -> None:
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    glance = (TABLES / "results_at_a_glance.md").read_text(encoding="utf-8").strip()
-    assert glance in readme
+    evidence_map = (TABLES / "evidence_map.md").read_text(encoding="utf-8").strip()
+    assert evidence_map in readme
+    assert "Results At A Glance" not in readme
     assert "See block_delta_r2.csv" not in readme
     assert "See leverage_tail_risk_summary.csv" not in readme
     assert "volatility and concentration" not in readme.lower()
@@ -291,12 +367,14 @@ def test_readme_content_matches_final_surface() -> None:
     content = (ROOT / "README.md").read_text(encoding="utf-8")
     assert "Crypto Market Dynamics" in content
     assert "MVRV is a valuation-state diagnostic" in content
-    assert "outputs/figures/public/01_mvrv_mechanics.png" in content
-    assert "outputs/figures/public/02_tradfi_exposure_shift.png" in content
-    assert "outputs/figures/public/06_selected_major_asset_risk.png" in content
+    assert "outputs/figures/gallery/measurement_mvrv_mechanics.png" in content
+    assert "outputs/figures/public/01_tradfi_exposure_shift.png" in content
+    assert "outputs/figures/public/05_selected_major_asset_risk.png" in content
+    assert "outputs/figures/public/01_mvrv_mechanics.png" not in content
     assert "outputs/figures/public/07_point_in_time_market_structure.png" not in content
     assert "outputs/figures/public/09_event_response_matrix.png" not in content
     assert "public_contact_sheet" not in content
+    assert "archive/" not in content
     assert "local-only" in content
     assert "data_local/raw" in content
     assert "outputs/tables/block_delta_r2.csv" in content
@@ -341,15 +419,37 @@ def test_ci_keeps_public_checks_and_optional_local_data_build() -> None:
     pytest_idx = workflow.index("uv run pytest")
     surface_idx = workflow.index("uv run python scripts/check_public_surface.py")
     assert pytest_idx < surface_idx
+    assert "uv run ruff format --check src/cqresearch scripts tests" in workflow
     assert "Canonical offline build when local provider data is available" in workflow
-    assert "hashFiles('data_local/raw/**', 'Data/**')" in workflow
+    assert "hashFiles('data_local/raw/**')" in workflow
+    assert "Data/**" not in workflow
     assert "Generated artifact diff gate when local provider data is available" in workflow
-    assert "allowed_prefixes = (\"outputs/\",)" in workflow
+    assert 'allowed_prefixes = ("outputs/",)' in workflow
 
 
 def test_raw_data_and_panels_are_not_tracked() -> None:
     result = subprocess.run(
-        ["git", "ls-files", "--", "Data", "reports/panels", "data_cache"],
+        [
+            "git",
+            "ls-files",
+            "--",
+            "Data",
+            "data_local",
+            "data_cache",
+            "reports",
+            "archive",
+            "references",
+            "CryptoQuant",
+            "Artemis",
+            "Tradingview",
+            "TradingView",
+            "DefiLlama",
+            "Defi",
+            "Farside ETF Data",
+            "FRED",
+            "AlternativeMe",
+            "MarketStructure",
+        ],
         cwd=ROOT,
         capture_output=True,
         text=True,

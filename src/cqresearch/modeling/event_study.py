@@ -6,6 +6,7 @@ the event), then aggregate into cumulative abnormal returns (CARs) over
 symmetric windows around the event date. Placebo dates are supported for
 statistical inference under the null of no event effect.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -19,14 +20,17 @@ import statsmodels.api as sm
 class EventResult:
     event_date: pd.Timestamp
     car_by_window: pd.DataFrame  # columns: window, car, t_stat
-    daily_ar: pd.Series            # AR series over [-max_window, +max_window]
+    daily_ar: pd.Series  # AR series over [-max_window, +max_window]
     alpha: float
     beta: float
     sigma_e: float
 
 
 def _estimation_window(
-    idx: pd.DatetimeIndex, event_date: pd.Timestamp, n: int, gap: int,
+    idx: pd.DatetimeIndex,
+    event_date: pd.Timestamp,
+    n: int,
+    gap: int,
 ) -> slice:
     pos = idx.get_indexer([event_date], method="nearest")[0]
     start = max(0, pos - gap - n)
@@ -80,7 +84,9 @@ def market_model_event(
         car = float(wnd["ar"].sum())
         n_days = len(wnd)
         t = car / (sigma_e * np.sqrt(max(n_days, 1)))
-        rows.append({"window": f"[{left:+d},{right:+d}]", "car": car, "t_stat": float(t), "n_days": n_days})
+        rows.append(
+            {"window": f"[{left:+d},{right:+d}]", "car": car, "t_stat": float(t), "n_days": n_days}
+        )
 
     return EventResult(
         event_date=ed,

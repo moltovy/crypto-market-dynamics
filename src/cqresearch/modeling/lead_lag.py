@@ -6,6 +6,7 @@ Lag convention used throughout:
 the target return. In implementation terms, the regressor is ``x.shift(-lag)``.
 For example, lag ``-1`` regresses today's return on yesterday's flow.
 """
+
 from __future__ import annotations
 
 import numpy as np
@@ -14,8 +15,7 @@ import pandas as pd
 from cqresearch.modeling.ols import fit_ols
 
 LAG_CONVENTION = (
-    "lag < 0 means x is shifted earlier and leads the target; "
-    "lag -1 uses x[t-1] to explain y[t]"
+    "lag < 0 means x is shifted earlier and leads the target; lag -1 uses x[t-1] to explain y[t]"
 )
 
 

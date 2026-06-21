@@ -2,7 +2,7 @@
 # Per docs/context/01_research_framework_and_candidate_pathways.md and
 # docs/context/02_data_sources_factor_blocks_and_sample_design.md.
 #
-# Each block lists canonical CSV paths (relative to Data/) + a short description.
+# Each block lists canonical CSV paths (relative to data_local/raw/) + a short description.
 # src/cqresearch/features/ modules read this to build block variables.
 
 macro:

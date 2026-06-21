@@ -10,6 +10,7 @@ Implements:
 * :func:`placebo_breaks` — Monte-Carlo p-value for a supF by resampling dates
   under the null of no break.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -35,7 +36,9 @@ class ChowResult:
 
 
 def chow_test(
-    y: pd.Series, X: pd.DataFrame, breakpoint: pd.Timestamp,
+    y: pd.Series,
+    X: pd.DataFrame,
+    breakpoint: pd.Timestamp,
 ) -> ChowResult:
     """Classical Chow F-test of coefficient equality across ``breakpoint``."""
 
@@ -73,7 +76,9 @@ class SupFResult:
 
 
 def sup_f_sweep(
-    y: pd.Series, X: pd.DataFrame, trim: float = 0.15,
+    y: pd.Series,
+    X: pd.DataFrame,
+    trim: float = 0.15,
 ) -> SupFResult:
     """Compute a Chow-F statistic for every candidate breakpoint in the
     trimmed interior window and return the maximum.
@@ -116,7 +121,10 @@ def sup_f_sweep(
 
 
 def placebo_breaks(
-    y: pd.Series, X: pd.DataFrame, n_permutations: int = 500, trim: float = 0.15,
+    y: pd.Series,
+    X: pd.DataFrame,
+    n_permutations: int = 500,
+    trim: float = 0.15,
     seed: int = 42,
 ) -> tuple[float, np.ndarray]:
     """Return (empirical p-value, null distribution of supF) under shuffled y."""

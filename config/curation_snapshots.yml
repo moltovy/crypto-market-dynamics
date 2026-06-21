@@ -8,7 +8,7 @@ dedupe_defi:
   target_dates:
     - 2026-04-17
     - 2026-04-14
-  # folders within Data/DefiLlama/_raw_parts that step 02 processes
+  # folders within data_local/raw/defillama/_raw_parts that step 02 processes
   target_subfolders:
     - stablecoin_mcap
     - cex_net_inflows
@@ -31,7 +31,7 @@ clean_new_defi:
 validate:
   backup_dir: null   # set to an absolute path to enable backup diff
 
-# Harvester default OpenAPI spec path (after `git mv` to archive/)
+# Harvester default OpenAPI spec path for local reruns.
 harvester:
-  default_spec_path: archive/defillama_openapi_2026-04-14.json
-  default_out_dir: Data/DefiLlama/TVL
+  default_spec_path: data_local/metadata/defillama_openapi_2026-04-14.json
+  default_out_dir: data_local/raw/defillama/TVL

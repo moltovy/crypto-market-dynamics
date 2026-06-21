@@ -5,6 +5,7 @@ the model that drops :math:`x_j` only, then report :math:`(RSS_{-j}-RSS)/TSS`.
 This measures incremental variance **conditional on the ordering implied by
 single-variable deletion**, not a fair Shapley allocation across correlated blocks.
 """
+
 from __future__ import annotations
 
 import numpy as np
@@ -74,7 +75,11 @@ def rolling_ols(
         for j, name in enumerate(col_x):
             cols = [k for k in range(Xw.shape[1]) if k != j]
             Xw_j = Xw[:, cols] if cols else np.zeros((len(yw), 0))
-            Xw_jc = np.column_stack([np.ones(len(yw)), Xw_j]) if Xw_j.shape[1] else np.ones((len(yw), 1))
+            Xw_jc = (
+                np.column_stack([np.ones(len(yw)), Xw_j])
+                if Xw_j.shape[1]
+                else np.ones((len(yw), 1))
+            )
             beta_j, *_ = np.linalg.lstsq(Xw_jc, yw, rcond=None)
             resid_j = yw - Xw_jc @ beta_j
             rss_j = float(resid_j @ resid_j)

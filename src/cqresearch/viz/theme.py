@@ -123,7 +123,16 @@ def add_figure_header(
 ) -> None:
     """Add a consistent title/subtitle block."""
 
-    fig.text(left, 0.975, title, ha="left", va="top", fontsize=title_size, fontweight="semibold", color=TOKENS["ink"])
+    fig.text(
+        left,
+        0.975,
+        title,
+        ha="left",
+        va="top",
+        fontsize=title_size,
+        fontweight="semibold",
+        color=TOKENS["ink"],
+    )
     fig.text(left, 0.925, subtitle, ha="left", va="top", fontsize=11, color=TOKENS["muted"])
 
 
