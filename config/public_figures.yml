@@ -10,7 +10,7 @@ figures:
   caveat: Period comparison, not ETF-effect identification.
   svg_required: true
   readme_section: figure-set
-  visual_qa_status: manual_review_required
+  visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
 - figure_id: etf_market_plumbing
   filename: research/04_etf_institutional_plumbing/figures/02_etf_market_plumbing.png
   status: public
@@ -22,7 +22,7 @@ figures:
   caveat: Timing and simultaneity limit interpretation.
   svg_required: true
   readme_section: figure-set
-  visual_qa_status: manual_review_required
+  visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
 - figure_id: leverage_tail_stress
   filename: research/03_derivatives_leverage_liquidations/figures/03_leverage_tail_stress.png
   status: public
@@ -34,7 +34,7 @@ figures:
   caveat: No liquidation initiation-cause claim.
   svg_required: true
   readme_section: figure-set
-  visual_qa_status: manual_review_required
+  visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
 - figure_id: market_concentration_state
   filename: research/09_market_concentration_state/figures/market_concentration_state.png
   status: public
@@ -46,7 +46,7 @@ figures:
   caveat: No daily constituent-performance claim.
   svg_required: true
   readme_section: figure-set
-  visual_qa_status: manual_review_required
+  visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
 - figure_id: selected_major_asset_risk
   filename: research/08_relative_major_asset_risk/figures/05_selected_major_asset_risk.png
   status: public
@@ -58,4 +58,76 @@ figures:
   caveat: Short histories limit cross-asset comparability.
   svg_required: true
   readme_section: figure-set
-  visual_qa_status: manual_review_required
+  visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
+- figure_id: returns_risk_distribution
+  filename: research/01_returns_risk_regimes/figures/returns_risk_distribution.png
+  status: module
+  research_question: How do BTC and ETH realized risk summaries compare?
+  source_tables: research/01_returns_risk_regimes/tables/returns_distribution_summary.csv; research/01_returns_risk_regimes/tables/returns_regime_risk_summary.csv
+  chart_type: risk_distribution_summary
+  units: annualized volatility and maximum drawdown loss
+  caption: BTC and ETH risk summaries are descriptive realized-sample diagnostics.
+  caveat: No forecast or trading-rule claim.
+  svg_required: true
+  readme_section: module
+  visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
+- figure_id: liquidity_state_correlations
+  filename: research/05_stablecoin_defi_liquidity/figures/liquidity_state_correlations.png
+  status: module
+  research_question: Which liquidity-state correlations are most valuation-sensitive?
+  source_tables: research/05_stablecoin_defi_liquidity/tables/liquidity_associations.csv; research/05_stablecoin_defi_liquidity/tables/valuation_contamination_audit.csv
+  chart_type: state_correlation_with_measurement_risk
+  units: weekly correlations
+  caption: Liquidity-state correlations are strongest where USD TVL has high valuation content.
+  caveat: Endogenous state proxy, not liquidity-shock evidence.
+  svg_required: true
+  readme_section: module
+  visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
+- figure_id: measurement_mvrv_mechanics
+  filename: research/06_onchain_valuation_holder_state/figures/measurement_mvrv_mechanics.png
+  status: appendix
+  research_question: How mechanical is same-day MVRV relative to BTC returns?
+  source_tables: research/06_onchain_valuation_holder_state/tables/mvrv_mechanical_link_audit.csv; research/06_onchain_valuation_holder_state/tables/mvrv_identity_points.csv
+  chart_type: measurement_decomposition
+  units: log returns and next-week state means
+  caption: MVRV same-day mechanics are a measurement warning.
+  caveat: Same-day MVRV is not an independent primary factor.
+  svg_required: true
+  readme_section: appendix
+  visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
+- figure_id: chain_panel_coverage
+  filename: research/07_chain_fundamentals/figures/chain_panel_coverage.png
+  status: module
+  research_question: Which chains have enough metric-family coverage for descriptive panel work?
+  source_tables: research/07_chain_fundamentals/tables/chain_fundamental_panel_summary.csv
+  chart_type: coverage_readiness_bar
+  units: adequate metric families and median observations
+  caption: Chain-fundamental evidence is coverage-first.
+  caveat: Coverage does not establish a relationship claim.
+  svg_required: true
+  readme_section: module
+  visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
+- figure_id: appendix_event_response_matrix
+  filename: research/10_event_sensitivity/figures/appendix_event_response_matrix.png
+  status: appendix
+  research_question: How do registered event windows compare across BTC and ETH?
+  source_tables: research/10_event_sensitivity/tables/event_response_matrix.csv; research/10_event_sensitivity/tables/event_inference.csv
+  chart_type: event_placebo_response
+  units: +1 to +10 event-window returns
+  caption: Event responses remain appendix sensitivity diagnostics.
+  caveat: No event-causal identification.
+  svg_required: true
+  readme_section: appendix
+  visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
+- figure_id: synthesis_claim_source_depth
+  filename: research/11_cross_module_synthesis/figures/synthesis_claim_source_depth.png
+  status: module
+  research_question: How much claim and source-table evidence does each module contribute?
+  source_tables: research/11_cross_module_synthesis/tables/evidence_ledger.csv; research/11_cross_module_synthesis/tables/robustness_summary.csv; research/11_cross_module_synthesis/tables/claim_inventory.csv
+  chart_type: grouped_evidence_depth_bar
+  units: claim and source-table counts
+  caption: Synthesis keeps claim counts and source depth visible.
+  caveat: Evidence depth is not a single quality score.
+  svg_required: true
+  readme_section: module
+  visual_qa_status: pass_local_png_full_and_readme_width_svg_xml

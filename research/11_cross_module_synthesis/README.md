@@ -22,4 +22,5 @@ Which findings remain strongest after comparing outcome, coverage, timing, uncer
 
 ## Figures
 
-- No figures.
+- `figures/synthesis_claim_source_depth.png`
+- `figures/synthesis_claim_source_depth.svg`

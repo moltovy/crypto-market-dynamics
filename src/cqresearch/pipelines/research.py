@@ -16,6 +16,7 @@ from cqresearch.research.checks import check_research_surface
 from cqresearch.research.data_foundation import MODULE_ID as DATA_FOUNDATION_ID
 from cqresearch.research.data_foundation import build_data_foundation
 from cqresearch.research.registry import module_by_id
+from cqresearch.research.root_surface import build_root_research_surface
 
 
 def run_research(module: str = "all", root: Path = PROJECT_ROOT) -> list[Path]:
@@ -25,6 +26,7 @@ def run_research(module: str = "all", root: Path = PROJECT_ROOT) -> list[Path]:
     if module == "all":
         artifacts = build_data_foundation(root)
         artifacts.extend(build_all_analytical_modules(root))
+        artifacts.extend(build_root_research_surface(root))
         return artifacts
     if module in MODULE_SPECS:
         return build_analytical_module(module, root)

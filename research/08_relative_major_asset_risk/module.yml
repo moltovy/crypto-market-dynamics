@@ -2,6 +2,27 @@ module_id: 08_relative_major_asset_risk
 title: Relative Major-Asset Risk
 research_question: How do selected major crypto assets compare on matched-window risk,
   downside, drawdown, and beta measures?
+research_questions:
+- How do selected major crypto assets compare on matched-window risk, downside, drawdown,
+  and beta measures?
+outcomes:
+- volatility
+- drawdown
+- beta
+- matched-window risk
+features:
+- selected-major returns
+- BTC benchmark
+- ETH benchmark
+frequencies:
+- daily
+- weekly
+methods:
+- descriptive statistics
+sensitivity_dimensions:
+- matched window
+- benchmark asset
+- coverage threshold
 status: built
 canonical_surface: research/08_relative_major_asset_risk
 tables:
@@ -15,3 +36,11 @@ tables:
 figures:
 - 05_selected_major_asset_risk.png
 - 05_selected_major_asset_risk.svg
+code:
+- src/cqresearch/research/analytical_modules.py
+- src/cqresearch/pipelines/research.py
+tests:
+- tests/unit/test_feature_strength_outputs.py
+- tests/unit/test_visual_outputs.py
+root_readme_candidate_figures:
+- figures/05_selected_major_asset_risk.png

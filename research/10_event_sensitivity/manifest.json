@@ -31,9 +31,9 @@
       "sha256": "43aa52b2ccff3cdc1d61047e593ebe8693b636282ff5843dfc9659a7ef818823"
     },
     {
-      "bytes": 416,
+      "bytes": 1120,
       "path": "research/10_event_sensitivity/module.yml",
-      "sha256": "bc8e321bbff9253a9c8fbda024ff36d4d75ccd4bc02a9a2b75f5a10b0463c829"
+      "sha256": "beebcb4aac675e51e6038eb510d8ba8dc800a28c1895f8055ad7e33eb668df9a"
     },
     {
       "bytes": 538,
@@ -41,9 +41,9 @@
       "sha256": "4594bfd5265ed43cec45dd99ba7749dde8d2a4727efb7b4f69e555cb8dd93885"
     },
     {
-      "bytes": 732,
+      "bytes": 1678,
       "path": "research/10_event_sensitivity/tables/claims.csv",
-      "sha256": "ba9677adba2620009251c40d76219d9636130b1cc977d816f15c6179ccefc84a"
+      "sha256": "80a53d6e61777026d179054d6e96811262ecd1f4eafe00c169dd64f9f90e62e2"
     },
     {
       "bytes": 1476,
@@ -51,14 +51,14 @@
       "sha256": "854b53ddcf4c48ffa006f17b7be7576d51dca8d6bc9784afa4ddc83d54834e1d"
     },
     {
-      "bytes": 4158,
+      "bytes": 4131,
       "path": "research/10_event_sensitivity/tables/event_inference.csv",
-      "sha256": "eaebf9aa8a2f3193eac06e36ad9eacdc1f1c6ef91046f3feeb1363b5d605624b"
+      "sha256": "4fe52f80b4a64a6b336547fd1d0500e62f43470a82c41d64328cbc104f7736b5"
     },
     {
-      "bytes": 4008,
+      "bytes": 3980,
       "path": "research/10_event_sensitivity/tables/event_response_matrix.csv",
-      "sha256": "745e1edd5e92aa6b08324908ac23ac30e892dba451ac49e84cbf36bc44ab8a54"
+      "sha256": "e82cfcfb8c1784cf3c94553c76fa7829b4bfaf8cc41c8f45cf858459f1fc7aa4"
     }
   ],
   "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",

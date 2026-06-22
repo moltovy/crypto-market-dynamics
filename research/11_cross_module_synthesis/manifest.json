@@ -1,6 +1,16 @@
 {
   "artifacts": [
     {
+      "bytes": 113322,
+      "path": "research/11_cross_module_synthesis/figures/synthesis_claim_source_depth.png",
+      "sha256": "f4c6f027d43c029115a760aa0449405244daf363ac007c41983825b1185d466e"
+    },
+    {
+      "bytes": 84483,
+      "path": "research/11_cross_module_synthesis/figures/synthesis_claim_source_depth.svg",
+      "sha256": "285320235120279bd178ccf1c28d3f1e3f2d6fc9fa31c46c65ee5c3123537b40"
+    },
+    {
       "bytes": 178,
       "path": "research/11_cross_module_synthesis/findings.md",
       "sha256": "b9aaec1911a206e913f00d125ed0603ab47555da1ae6425b97db66ec4138cf2d"
@@ -21,14 +31,14 @@
       "sha256": "631e50db787076935c919454fd6bc2ef18141c3f594c025f939ebb982c99797c"
     },
     {
-      "bytes": 519,
+      "bytes": 1269,
       "path": "research/11_cross_module_synthesis/module.yml",
-      "sha256": "5feab0b296b5bb59becce481dea9ea29a85ed3a281a358da8c8acd858abeb84f"
+      "sha256": "34ef9a5826cc01f30935e5b37bd039b00f601741ea1e37f0aa3bdedd4fde2ded"
     },
     {
-      "bytes": 726,
+      "bytes": 802,
       "path": "research/11_cross_module_synthesis/README.md",
-      "sha256": "bd95891f43288a1189ac5e2aabd7d6350794dbdf9f454a28db1afbe25bac75f0"
+      "sha256": "a00497f493d2e518bebbf802e1906498f7b5bf6409f0d3b2b7670ed5448c166e"
     },
     {
       "bytes": 1154,
@@ -36,14 +46,14 @@
       "sha256": "396a4a0d91e3ac8ab271e5906c36c64e7f61eee90177bc9765e41176d0a1df0a"
     },
     {
-      "bytes": 722,
+      "bytes": 1862,
       "path": "research/11_cross_module_synthesis/tables/claims.csv",
-      "sha256": "448381a31f0164c9b340c747f7e5051cc5c41468c7dd0d8f95723107c6c948ed"
+      "sha256": "ef75fec36dfe4414ae68be96c547f4979b37fa221c97a403285a573b8958c9a8"
     },
     {
-      "bytes": 7489,
+      "bytes": 7598,
       "path": "research/11_cross_module_synthesis/tables/evidence_ledger.csv",
-      "sha256": "318ed98e0620c665380adf1213c5f416ce141e3b133a370b9a25e25bcf91b3be"
+      "sha256": "db1fd35674632b89dc93d0bfe47989e5aff02263cf6a4f89b6e8ae589a40d2eb"
     },
     {
       "bytes": 3556,
@@ -56,14 +66,14 @@
       "sha256": "95d5d3bdbf2b4372992068fee5161c309a0f20eed469324665f731d74743a3bb"
     },
     {
-      "bytes": 76410,
+      "bytes": 76164,
       "path": "research/11_cross_module_synthesis/tables/fdr_adjusted_inference.csv",
-      "sha256": "1e1b843f37e1319a85ef361dd2a9c69ef7c0dd6bd2f5769acdf5d670f78d1f52"
+      "sha256": "381b8436b117ae451812a41b17a63a15fb27e09afd354cfb721f1670c6904a82"
     },
     {
-      "bytes": 968,
+      "bytes": 952,
       "path": "research/11_cross_module_synthesis/tables/local_window_correlation_distribution.csv",
-      "sha256": "f1af1aa272c5000867af7a1a7ca8b3d184410b3f3b4b2f7bd0f091a3351e2b2d"
+      "sha256": "a51bfd28da964ea5965ac34d158a0f376f42ca7a53728272a6d040fcb1e955a7"
     },
     {
       "bytes": 1162,
@@ -71,9 +81,9 @@
       "sha256": "929b6cba48612a003c18b25ed2b873a2aa0a4270448df05774cfdc5418fc9a98"
     },
     {
-      "bytes": 11024,
+      "bytes": 11018,
       "path": "research/11_cross_module_synthesis/tables/robustness_summary.csv",
-      "sha256": "11da611b9f3ffeff06913067128b08235429adf03eeeee2c2ebbf1f1aa6b2c48"
+      "sha256": "c98724ceee7641f03e84945450adeed5704fb6e1d067737d8d6f467dddf48c62"
     }
   ],
   "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",

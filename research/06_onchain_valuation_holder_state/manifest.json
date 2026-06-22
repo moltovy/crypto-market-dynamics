@@ -31,9 +31,9 @@
       "sha256": "de266d4308c89a851f0137d7be2a983800a4b1262fecf5a51ce15a0cf1ed33ef"
     },
     {
-      "bytes": 505,
+      "bytes": 1229,
       "path": "research/06_onchain_valuation_holder_state/module.yml",
-      "sha256": "367c65b7d310ab718499a207293e74c28e209af65a2aa864f664abf4a95e9742"
+      "sha256": "3d7ee9eb3e3c3b1d775cd44168bfdba9e62b6b283fd2c781eb0c2970f6184424"
     },
     {
       "bytes": 639,
@@ -41,29 +41,29 @@
       "sha256": "3d0b51d8e06d772047ae7b1b26ebac817788977516c30258571e9a5a469d9f9f"
     },
     {
-      "bytes": 722,
+      "bytes": 1690,
       "path": "research/06_onchain_valuation_holder_state/tables/claims.csv",
-      "sha256": "f0ac1fda90300f14273d93ca568de0328f93487bded412ea66fe3772a7c5ceae"
+      "sha256": "7701682afddb786eed276ae76239cd37d9fa91434d699d7a5662965099e6a77f"
     },
     {
-      "bytes": 698904,
+      "bytes": 689047,
       "path": "research/06_onchain_valuation_holder_state/tables/mvrv_identity_points.csv",
-      "sha256": "7a4e8507bd953ee02ee6f3ad76146d5a2a9e03ed28d1f94eda5f8481759e7340"
+      "sha256": "d590a204f11ad2b8e114d9e895e2d59f9bf51c12d2d7fa0332b15663f9d6923a"
     },
     {
-      "bytes": 1588,
+      "bytes": 1575,
       "path": "research/06_onchain_valuation_holder_state/tables/mvrv_mechanical_link_audit.csv",
-      "sha256": "4a1250ba2663995b68d0a71afa9ad08808df77cea83e1637a1b011a8036a4202"
+      "sha256": "a30faa56e60f9d415d7751a6b80e17bf64b09e12291bbe5f91b31653576ccd8c"
     },
     {
-      "bytes": 787,
+      "bytes": 772,
       "path": "research/06_onchain_valuation_holder_state/tables/mvrv_regime_outcomes.csv",
-      "sha256": "d673a2bc90d6f1f220d9be78ede1aaac64af4e31253d5e4a09a1ef338178db24"
+      "sha256": "ddf87f7add89cb4dca64c8e1ee0606d4458e9fe341e99c0e14bb1fb48d4ee327"
     },
     {
-      "bytes": 205397,
+      "bytes": 197538,
       "path": "research/06_onchain_valuation_holder_state/tables/onchain_state_regimes.csv",
-      "sha256": "64693170d58044ee906ba0f11d5b3a7c85c94ef44cd3ea2b67a155d183026e9c"
+      "sha256": "b118c4076192094020ae3960ec8b23c39f929ebdfabc0ff3aadaa27a97536bb6"
     }
   ],
   "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",

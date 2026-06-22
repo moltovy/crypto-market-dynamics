@@ -2,6 +2,27 @@ module_id: 11_cross_module_synthesis
 title: Cross-Module Synthesis
 research_question: Which findings remain strongest after comparing outcome, coverage,
   timing, uncertainty, and measurement-risk evidence?
+research_questions:
+- Which findings remain strongest after comparing outcome, coverage, timing, uncertainty,
+  and measurement-risk evidence?
+outcomes:
+- evidence grade
+- stability
+- measurement risk
+- null findings
+features:
+- module claims
+- evidence grades
+- measurement-risk flags
+frequencies:
+- daily
+- weekly
+methods:
+- descriptive statistics
+sensitivity_dimensions:
+- evidence grade
+- measurement risk
+- outcome family
 status: built
 canonical_surface: research/11_cross_module_synthesis
 tables:
@@ -14,4 +35,14 @@ tables:
 - local_window_correlation_distribution.csv
 - provider_data_disposition.csv
 - robustness_summary.csv
-figures: []
+figures:
+- synthesis_claim_source_depth.png
+- synthesis_claim_source_depth.svg
+code:
+- src/cqresearch/research/analytical_modules.py
+- src/cqresearch/pipelines/research.py
+tests:
+- tests/unit/test_feature_strength_outputs.py
+- tests/unit/test_visual_outputs.py
+root_readme_candidate_figures:
+- figures/synthesis_claim_source_depth.png

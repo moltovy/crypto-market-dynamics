@@ -1,14 +1,14 @@
 metric,value,n,interpretation
-corr_btc_return_d_log_mvrv,0.9966004845067128,2292,"Same-day BTC return and d-log MVRV correlation; diagnostic, not an independent factor."
-same_day_mvrv_r2_diagnostic,0.9932125257190152,2292,HAC OLS diagnostic R-squared; same-day MVRV remains excluded from primary exposure models.
-identity_residual_mean,-1.8211231917905265e-12,2291,"Mean residual from d_log_mvrv - (d_log_market_cap - d_log_realized_cap), same date interval."
-identity_residual_abs_median,1.6266613611648495e-09,2291,Median absolute identity residual; interpret only against the reported return-scale comparison.
-identity_residual_abs_median_to_median_abs_btc_return,1.140371993796407e-07,2291,Scale comparison: residual median absolute value divided by median absolute BTC return.
-identity_residual_q01,-6.130369947787706e-09,2291,Identity residual lower-tail quantile.
-identity_residual_q05,-4.119661368984229e-09,2291,Identity residual lower quantile.
-identity_residual_q50,-2.077715777204503e-11,2291,Identity residual median.
-identity_residual_q95,4.076893628246481e-09,2291,Identity residual upper quantile.
-identity_residual_q99,6.285188897114911e-09,2291,Identity residual upper-tail quantile.
+corr_btc_return_d_log_mvrv,0.996600484506713,2292,"Same-day BTC return and d-log MVRV correlation; diagnostic, not an independent factor."
+same_day_mvrv_r2_diagnostic,0.993212525719015,2292,HAC OLS diagnostic R-squared; same-day MVRV remains excluded from primary exposure models.
+identity_residual_mean,-1.82112319179053e-12,2291,"Mean residual from d_log_mvrv - (d_log_market_cap - d_log_realized_cap), same date interval."
+identity_residual_abs_median,1.62666136116485e-09,2291,Median absolute identity residual; interpret only against the reported return-scale comparison.
+identity_residual_abs_median_to_median_abs_btc_return,1.14037199379641e-07,2291,Scale comparison: residual median absolute value divided by median absolute BTC return.
+identity_residual_q01,-6.13036994778771e-09,2291,Identity residual lower-tail quantile.
+identity_residual_q05,-4.11966136898423e-09,2291,Identity residual lower quantile.
+identity_residual_q50,-2.0777157772045e-11,2291,Identity residual median.
+identity_residual_q95,4.07689362824648e-09,2291,Identity residual upper quantile.
+identity_residual_q99,6.28518889711491e-09,2291,Identity residual upper-tail quantile.
 corr_btc_nupl_lag1_btc_return,-0.00463506332876,1927,Related holder-profit state measure; not exogenous return factor.
 corr_btc_supply_profit_pct_lag1_btc_return,0.0177422242991282,1927,Related holder-profit state measure; not exogenous return factor.
 corr_btc_realized_price_gap_lag1_btc_return,0.0013100329940532,1927,Related holder-profit state measure; not exogenous return factor.

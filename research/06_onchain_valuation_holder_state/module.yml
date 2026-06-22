@@ -2,6 +2,29 @@ module_id: 06_onchain_valuation_holder_state
 title: On-Chain Valuation and Holder State
 research_question: Which on-chain valuation and holder-state measures are diagnostics
   versus admissible lagged state variables?
+research_questions:
+- Which on-chain valuation and holder-state measures are diagnostics versus admissible
+  lagged state variables?
+outcomes:
+- MVRV mechanics
+- holder-state regimes
+- tail/volatility state
+features:
+- MVRV
+- market cap
+- realized cap
+- holder-state metrics
+frequencies:
+- daily
+- weekly
+methods:
+- descriptive statistics
+- HAC OLS
+- quantile/tail diagnostics
+sensitivity_dimensions:
+- same-day versus lagged
+- level versus z-score
+- mechanical overlap
 status: built
 canonical_surface: research/06_onchain_valuation_holder_state
 tables:
@@ -13,3 +36,11 @@ tables:
 figures:
 - measurement_mvrv_mechanics.png
 - measurement_mvrv_mechanics.svg
+code:
+- src/cqresearch/research/analytical_modules.py
+- src/cqresearch/pipelines/research.py
+tests:
+- tests/unit/test_feature_strength_outputs.py
+- tests/unit/test_visual_outputs.py
+root_readme_candidate_figures:
+- figures/measurement_mvrv_mechanics.png

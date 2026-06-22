@@ -2,6 +2,27 @@ module_id: 05_stablecoin_defi_liquidity
 title: Stablecoin and DeFi Liquidity State
 research_question: What do stablecoin supply and DeFi TVL proxies say about liquidity-state
   associations after unit and valuation audits?
+research_questions:
+- What do stablecoin supply and DeFi TVL proxies say about liquidity-state associations
+  after unit and valuation audits?
+outcomes:
+- returns
+- volatility
+- tail state
+- valuation contamination
+features:
+- stablecoin supply
+- TVL
+- DEX/lending activity
+frequencies:
+- weekly
+- daily where source support exists
+methods:
+- descriptive statistics
+sensitivity_dimensions:
+- raw versus scaled TVL
+- Sunday weekly calendar
+- lagged state
 status: built
 canonical_surface: research/05_stablecoin_defi_liquidity
 tables:
@@ -12,4 +33,14 @@ tables:
 - stablecoin_defi_liquidity_summary.csv
 - stablecoin_liquidity_features.csv
 - valuation_contamination_audit.csv
-figures: []
+figures:
+- liquidity_state_correlations.png
+- liquidity_state_correlations.svg
+code:
+- src/cqresearch/research/analytical_modules.py
+- src/cqresearch/pipelines/research.py
+tests:
+- tests/unit/test_feature_strength_outputs.py
+- tests/unit/test_visual_outputs.py
+root_readme_candidate_figures:
+- figures/liquidity_state_correlations.png

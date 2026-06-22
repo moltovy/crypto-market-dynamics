@@ -1,5 +1,5 @@
 feature_id,full_sample_correlation,local_window_days,window_count,local_corr_p05,local_corr_median,local_corr_p95,first_window_end,last_window_end,method
-qqq_ret,0.3758733464436909,20,2272,-0.1668264764843555,0.3632800609956688,0.7096793767711128,2020-01-22,2026-04-11,distribution_of_overlapping_20_day_local_window_correlations_not_bootstrap_ci
-vix_d1,-0.3728537262353668,20,2272,-0.6982406663843811,-0.3494318295188472,0.1799732000950805,2020-01-22,2026-04-11,distribution_of_overlapping_20_day_local_window_correlations_not_bootstrap_ci
-btc_etf_flow_intensity_lag0,0.3740610704405447,20,802,-0.1052164589711006,0.3967509079625513,0.7526181675289884,2024-01-30,2026-04-10,distribution_of_overlapping_20_day_local_window_correlations_not_bootstrap_ci
-stablecoin_supply_growth_lag1,0.0215750718076342,20,2272,-0.3599125576398396,0.0179970705476818,0.3429727599727513,2020-01-22,2026-04-11,distribution_of_overlapping_20_day_local_window_correlations_not_bootstrap_ci
+qqq_ret,0.375873346443691,20,2272,-0.166826476484356,0.363280060995669,0.709679376771113,2020-01-22,2026-04-11,distribution_of_overlapping_20_day_local_window_correlations_not_bootstrap_ci
+vix_d1,-0.372853726235367,20,2272,-0.698240666384381,-0.349431829518847,0.17997320009508,2020-01-22,2026-04-11,distribution_of_overlapping_20_day_local_window_correlations_not_bootstrap_ci
+btc_etf_flow_intensity_lag0,0.374061070440545,20,802,-0.105216458971101,0.396750907962551,0.752618167528988,2024-01-30,2026-04-10,distribution_of_overlapping_20_day_local_window_correlations_not_bootstrap_ci
+stablecoin_supply_growth_lag1,0.0215750718076342,20,2272,-0.35991255763984,0.0179970705476818,0.342972759972751,2020-01-22,2026-04-11,distribution_of_overlapping_20_day_local_window_correlations_not_bootstrap_ci

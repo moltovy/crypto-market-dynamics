@@ -434,6 +434,10 @@ def test_readme_content_matches_final_surface() -> None:
 
 
 def test_research_modules_are_consolidated_and_claims_are_specific() -> None:
+    assert (RESEARCH / "README.md").exists()
+    assert (RESEARCH / "manifest.json").exists()
+    assert (RESEARCH / "figure_specs.csv").exists()
+
     module_dirs = sorted(path for path in RESEARCH.iterdir() if path.is_dir())
     assert len(module_dirs) == 12
     for module_dir in module_dirs:
@@ -450,6 +454,7 @@ def test_research_modules_are_consolidated_and_claims_are_specific() -> None:
         claims = pd.read_csv(module_dir / "tables" / "claims.csv")
         assert not claims.empty
         assert "claim_text" in claims.columns
+        assert "source_model_ids" in claims.columns
         assert not claims["claim_text"].str.contains("See `outputs/tables/`", regex=False).any()
 
 

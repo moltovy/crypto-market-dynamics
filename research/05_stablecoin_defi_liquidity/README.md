@@ -20,4 +20,5 @@ What do stablecoin supply and DeFi TVL proxies say about liquidity-state associa
 
 ## Figures
 
-- No figures.
+- `figures/liquidity_state_correlations.png`
+- `figures/liquidity_state_correlations.svg`

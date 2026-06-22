@@ -1,6 +1,16 @@
 {
   "artifacts": [
     {
+      "bytes": 123695,
+      "path": "research/07_chain_fundamentals/figures/chain_panel_coverage.png",
+      "sha256": "7d36b57b0d9a67ec371d95775081b2986b9bebaac8a073103aa8ccb642fdf1c9"
+    },
+    {
+      "bytes": 80272,
+      "path": "research/07_chain_fundamentals/figures/chain_panel_coverage.svg",
+      "sha256": "57ad22ea0fc5103209df7d934d7eb808b600418353d2ef82f439155874be89cc"
+    },
+    {
       "bytes": 165,
       "path": "research/07_chain_fundamentals/findings.md",
       "sha256": "31ad5ecb0c7fee98c738b6897a004d4a3cbfc48d9e97e3b456ed19b3d60a079d"
@@ -21,14 +31,14 @@
       "sha256": "7bd64e14b83e8fccd9425038afab7be324d1611fc7f6f8b6672859d4e1a78cbd"
     },
     {
-      "bytes": 361,
+      "bytes": 1123,
       "path": "research/07_chain_fundamentals/module.yml",
-      "sha256": "4bd505769e0f784a619acf5653a1e1e9192d260ff25556dc05d4d8b73bda1a95"
+      "sha256": "abca3a4a3721cecc8929f5e38f54fb0d82b9f5f6c7af0097332f249f6c3ab295"
     },
     {
-      "bytes": 505,
+      "bytes": 565,
       "path": "research/07_chain_fundamentals/README.md",
-      "sha256": "2dd8e5d8a75fd8317d766498209e41b0ff9c351f8cec4ef2f0ae9bb93a616cba"
+      "sha256": "82052856e6e0a370bb0435b23e8cd2d80b43d023a4ab78180c1a4024573b9b74"
     },
     {
       "bytes": 176,
@@ -41,9 +51,9 @@
       "sha256": "2fd30e115bd5b57101151d30d7caf264b81fd55b4d07d14645fc84dd4f80e39b"
     },
     {
-      "bytes": 680,
+      "bytes": 1696,
       "path": "research/07_chain_fundamentals/tables/claims.csv",
-      "sha256": "9b5c254c72db46c24b8a14619a6eeff377697c0c8e05a39c6d74f4599b9dec59"
+      "sha256": "8cff9d4dbbc40bf6b31050ceab6dfb3ffabc764412e426251de958f8143e538a"
     }
   ],
   "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",

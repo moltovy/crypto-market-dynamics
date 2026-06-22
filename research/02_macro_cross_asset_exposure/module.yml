@@ -2,6 +2,34 @@ module_id: 02_macro_cross_asset_exposure
 title: Macro and Cross-Asset Exposure
 research_question: How does crypto co-movement with equities, volatility, rates, dollar,
   and gold vary by asset, calendar, and period?
+research_questions:
+- How does crypto co-movement with equities, volatility, rates, dollar, and gold vary
+  by asset, calendar, and period?
+outcomes:
+- BTC/ETH returns
+- co-movement R-squared
+features:
+- equities
+- VIX
+- DXY
+- gold
+- nominal/real yields
+frequencies:
+- daily
+- weekly
+methods:
+- descriptive statistics
+- HAC OLS
+- same-support block and partial R-squared
+- rolling exposure diagnostics
+- FDR adjustment
+- ridge stability
+- panel-readiness audit
+sensitivity_dimensions:
+- daily versus weekly
+- era split
+- HAC bandwidth
+- ridge penalty
 status: built
 canonical_surface: research/02_macro_cross_asset_exposure
 tables:
@@ -21,3 +49,11 @@ tables:
 figures:
 - 01_tradfi_exposure_shift.png
 - 01_tradfi_exposure_shift.svg
+code:
+- src/cqresearch/research/analytical_modules.py
+- src/cqresearch/pipelines/research.py
+tests:
+- tests/unit/test_feature_strength_outputs.py
+- tests/unit/test_visual_outputs.py
+root_readme_candidate_figures:
+- figures/01_tradfi_exposure_shift.png

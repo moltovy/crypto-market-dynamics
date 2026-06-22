@@ -31,9 +31,9 @@
       "sha256": "2aac2e2111fd423547e21a055b17423215bd4788fe824e3244d2bcbb21c7151d"
     },
     {
-      "bytes": 550,
+      "bytes": 1252,
       "path": "research/03_derivatives_leverage_liquidations/module.yml",
-      "sha256": "af766eabd6277c33344d4e29a5fcef4b008196faa809e0731b801d2356e00507"
+      "sha256": "9b3f35d38d38f8610289c2d6e243655cd56e23cd9c4cbad92477dc981c972e1f"
     },
     {
       "bytes": 732,
@@ -41,9 +41,9 @@
       "sha256": "2e9f4183bf116d0e0f8da6732695896e35efe6471b012709d523c4fdb5b543d4"
     },
     {
-      "bytes": 761,
+      "bytes": 1763,
       "path": "research/03_derivatives_leverage_liquidations/tables/claims.csv",
-      "sha256": "3324102778701e8c775bc7879da7276bfa3c53a4abe1dc58861b7cb46bd55d2f"
+      "sha256": "2fd3af3a7bb26a0b7982bb71770f942cdc46d6735a0d2c4ac1c7854f00518e09"
     },
     {
       "bytes": 1498,
@@ -51,24 +51,24 @@
       "sha256": "5217e1513fa2cd528bf0ca1766707dcab1d20d0852e7dcc928ecd3b1e45b9e7c"
     },
     {
-      "bytes": 787,
+      "bytes": 771,
       "path": "research/03_derivatives_leverage_liquidations/tables/leverage_state_summary.csv",
-      "sha256": "d4218219b821d2d18a6267f1712e0d16000899de2223dfb2b844af4d6003d56c"
+      "sha256": "39bcc24ffdf47f04e6501c2cdf781d33a3fe928ee4ec980f7f14ebbf2fc53701"
     },
     {
-      "bytes": 1339,
+      "bytes": 1323,
       "path": "research/03_derivatives_leverage_liquidations/tables/leverage_tail_risk_summary.csv",
-      "sha256": "6dbc080e39176191190fc41bf8f318c201603cfc30c5c23f82b06d036970dc16"
+      "sha256": "e7b7274e4b43444c1e36a740eea0a5dadc3279cd680e073ff470234c86ff3f22"
     },
     {
-      "bytes": 4530,
+      "bytes": 4432,
       "path": "research/03_derivatives_leverage_liquidations/tables/liquidation_event_responses.csv",
-      "sha256": "15851a05e30b9f575e967550470d7fc29995e13a759e8599a39f3d3dfa0bae5d"
+      "sha256": "13c48761a91cbeea317e71441efabb217ff93ea3ad76bb038c969002801c5da7"
     },
     {
-      "bytes": 841,
+      "bytes": 830,
       "path": "research/03_derivatives_leverage_liquidations/tables/tail_risk_models.csv",
-      "sha256": "7f7cd6164aee34f9febc484d7f24a0181a82a773d004bf52c1c2fbf3b1bd6d27"
+      "sha256": "70030254844b48daff230bf416df740124f6aa842c046cee6afc0e1aebd522bd"
     }
   ],
   "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",

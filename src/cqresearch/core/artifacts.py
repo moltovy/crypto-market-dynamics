@@ -16,7 +16,7 @@ def write_csv(path: Path, frame: pd.DataFrame) -> Path:
     """Write a CSV artifact with stable row order supplied by the caller."""
 
     path.parent.mkdir(parents=True, exist_ok=True)
-    frame.to_csv(path, index=False, lineterminator="\n")
+    frame.to_csv(path, index=False, lineterminator="\n", float_format="%.15g")
     return path
 
 
