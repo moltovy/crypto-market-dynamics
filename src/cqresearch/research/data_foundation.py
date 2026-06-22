@@ -727,10 +727,45 @@ Provider disposition is a release-risk classification. It does not change whethe
         "module_id": MODULE_ID,
         "title": module_title,
         "research_question": research_question,
+        "research_questions": [research_question],
+        "outcomes": [
+            "provider inventory",
+            "raw series coverage",
+            "feature usage status",
+            "unit and timing audit",
+            "release-risk classification",
+        ],
+        "features": [
+            "all discovered raw files",
+            "configured feature registry entries",
+            "processed panel columns",
+        ],
+        "frequencies": ["file-level inventory", "daily", "weekly", "monthly"],
+        "methods": [
+            "filesystem inventory",
+            "feature registry reconciliation",
+            "coverage and missingness audit",
+            "unit and timing classification",
+            "release-risk review",
+        ],
+        "sensitivity_dimensions": [
+            "registered versus unregistered features",
+            "public versus restricted provider disposition",
+            "coverage and missingness thresholds",
+        ],
         "status": "built",
         "canonical_surface": (module_dir.relative_to(root)).as_posix(),
         "tables": REQUIRED_TABLES,
         "figures": [],
+        "code": [
+            "src/cqresearch/research/data_foundation.py",
+            "src/cqresearch/pipelines/research.py",
+        ],
+        "tests": [
+            "tests/unit/test_config_yamls.py",
+            "tests/unit/test_feature_strength_outputs.py",
+        ],
+        "root_readme_candidate_figures": [],
         "source_inputs": [
             "data_local/raw/",
             "data_local/processed/",
@@ -760,42 +795,69 @@ def _claims(
     usage: pd.DataFrame,
     flags: pd.DataFrame,
 ) -> pd.DataFrame:
-    return pd.DataFrame(
-        [
-            {
-                "claim_id": "data_foundation_inventory_01",
-                "module_id": MODULE_ID,
-                "claim_text": (
-                    f"The local inventory covers {len(raw_series_inventory)} raw files across "
-                    f"{len(provider_inventory)} provider groups and {len(feature_registry)} registered features."
-                ),
-                "sample": "Files currently present under data_local/raw and processed local panels.",
-                "method": "File-system inventory, feature-registry parse, and processed-panel column audit.",
-                "uncertainty": "Licensing and source terms are classified as release risk, not legal permission.",
-                "evidence_grade": "A for local file inventory; B for release-risk classification.",
-                "source_table": "tables/provider_inventory.csv; tables/raw_series_inventory.csv; tables/feature_inventory.csv",
-                "source_figure": "",
-                "limitation": "Date detection and unit classification require manual review for unregistered columns.",
-                "status": "accepted_qualified",
-            },
-            {
-                "claim_id": "data_foundation_usage_01",
-                "module_id": MODULE_ID,
-                "claim_text": (
-                    f"Every discovered registered feature or processed panel column has exactly one usage status; "
-                    f"{int((usage['usage_status'] == 'primary_analysis').sum())} are marked primary_analysis."
-                ),
-                "sample": "Union of feature registry entries and processed parquet panel columns.",
-                "method": "Deterministic status assignment using registration, coverage, model/table use, unit risk, and timing metadata.",
-                "uncertainty": "Unregistered panel columns remain review debt until promoted or excluded by a module-specific decision.",
-                "evidence_grade": "B",
-                "source_table": "tables/feature_usage_matrix.csv; tables/data_quality_flags.csv",
-                "source_figure": "",
-                "limitation": f"Automated review produced {len(flags)} data-quality flags for release risk, missingness, or unit review.",
-                "status": "accepted_qualified",
-            },
-        ]
-    )
+    rows = [
+        {
+            "claim_id": "data_foundation_inventory_01",
+            "module_id": MODULE_ID,
+            "claim_text": (
+                f"The local inventory covers {len(raw_series_inventory)} raw files across "
+                f"{len(provider_inventory)} provider groups and {len(feature_registry)} registered features."
+            ),
+            "sample": "Files currently present under data_local/raw and processed local panels.",
+            "method": "File-system inventory, feature-registry parse, and processed-panel column audit.",
+            "uncertainty": "Licensing and source terms are classified as release risk, not legal permission.",
+            "evidence_grade": "A for local file inventory; B for release-risk classification.",
+            "source_table": "tables/provider_inventory.csv; tables/raw_series_inventory.csv; tables/feature_inventory.csv",
+            "source_figure": "",
+            "limitation": "Date detection and unit classification require manual review for unregistered columns.",
+            "status": "accepted_qualified",
+        },
+        {
+            "claim_id": "data_foundation_usage_01",
+            "module_id": MODULE_ID,
+            "claim_text": (
+                f"Every discovered registered feature or processed panel column has exactly one usage status; "
+                f"{int((usage['usage_status'] == 'primary_analysis').sum())} are marked primary_analysis."
+            ),
+            "sample": "Union of feature registry entries and processed parquet panel columns.",
+            "method": "Deterministic status assignment using registration, coverage, model/table use, unit risk, and timing metadata.",
+            "uncertainty": "Unregistered panel columns remain review debt until promoted or excluded by a module-specific decision.",
+            "evidence_grade": "B",
+            "source_table": "tables/feature_usage_matrix.csv; tables/data_quality_flags.csv",
+            "source_figure": "",
+            "limitation": f"Automated review produced {len(flags)} data-quality flags for release risk, missingness, or unit review.",
+            "status": "accepted_qualified",
+        },
+    ]
+    for row in rows:
+        _extend_claim(row)
+    return pd.DataFrame(rows)
+
+
+def _extend_claim(row: dict[str, Any]) -> None:
+    claim_text = str(row.get("claim_text", ""))
+    row.setdefault("module", row.get("module_id", ""))
+    row.setdefault("finding", claim_text)
+    row.setdefault("outcome", "data foundation")
+    row.setdefault("feature_or_block", "all discovered local features")
+    row.setdefault("estimate_summary", claim_text)
+    row.setdefault("uncertainty_summary", row.get("uncertainty", "See source table."))
+    row.setdefault("sample_summary", row.get("sample", "See source table."))
+    row.setdefault("frequency", "mixed local source frequencies")
+    row.setdefault("timing", "source-specific timing audited in units_and_timing_audit.csv")
+    row.setdefault("sensitivity_summary", row.get("method", "See source table."))
+    row.setdefault("interpretation", claim_text)
+    row.setdefault("alternative_explanation", row.get("limitation", "See module limitations."))
+    row.setdefault("source_model_ids", _model_ids_from_source_tables(row.get("source_table", "")))
+
+
+def _model_ids_from_source_tables(source_table: Any) -> str:
+    ids: list[str] = []
+    for item in str(source_table).replace(",", ";").split(";"):
+        item = item.strip()
+        if item:
+            ids.append(f"table:{Path(item).stem}")
+    return "; ".join(ids) or "table:claims"
 
 
 def _used_features_from_tables(root: Path) -> set[str]:

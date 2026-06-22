@@ -31,9 +31,9 @@
       "sha256": "3b2044dfce6d1c8380564d9a42cba77ec81d54d8063d542695cbc67af14f78f2"
     },
     {
-      "bytes": 546,
+      "bytes": 1203,
       "path": "research/04_etf_institutional_plumbing/module.yml",
-      "sha256": "79714d7e9f16c74fcfb4276ece7fe665805143286959a50c981f1e92b556ba34"
+      "sha256": "95bf4eb6445ef630957da05c2bb4a887664c5bbca651dca45d917e1f9f98ee69"
     },
     {
       "bytes": 744,
@@ -41,14 +41,14 @@
       "sha256": "7b54a3056ad19fa68fac91010644f638160e4b27037c24e7c37c068e3b83b049"
     },
     {
-      "bytes": 755,
+      "bytes": 1757,
       "path": "research/04_etf_institutional_plumbing/tables/claims.csv",
-      "sha256": "2a6ae47ab58c05422f27a9d3d19891312fceeb0ea716e06c6078144e2e5fc579"
+      "sha256": "c1062b20350930a6a1bf4877d3bf32aa4376f6d9852632edfee1c0cd156f14c9"
     },
     {
-      "bytes": 181595,
+      "bytes": 159738,
       "path": "research/04_etf_institutional_plumbing/tables/etf_absorption_metrics.csv",
-      "sha256": "45b23794075fc7f4911b88dcb6a748c5010232a7fc52d7904cc9f4f81641b35c"
+      "sha256": "b50368bb33b3c86c91c55c9f68c8d078138b28967bcb468c69a4b974c76cbc27"
     },
     {
       "bytes": 730,
@@ -56,19 +56,19 @@
       "sha256": "be69dd8670e067a54290bfa8110b8c3b8f260a675c75cf67b9d00214eb5f7dae"
     },
     {
-      "bytes": 17273,
+      "bytes": 17237,
       "path": "research/04_etf_institutional_plumbing/tables/etf_era_exposure_comparison.csv",
-      "sha256": "8d1f288cc87ca63f682a61e793483871ada0298da01471637133348092e09692"
+      "sha256": "2bf240ea2c09d35987745c5db5816f7e4335a432bf4bbfb4dff79719d23f848d"
     },
     {
-      "bytes": 2189,
+      "bytes": 2187,
       "path": "research/04_etf_institutional_plumbing/tables/etf_flow_associations.csv",
-      "sha256": "20d6d3c597f4a96ed57aff681dcf8a880b850f4576621872c8105f8ac844f6ce"
+      "sha256": "c1b49b0be1e9fac61a4fcdce7aa7c4b8c8b3d2c9f243567f5360ca0285f740e0"
     },
     {
-      "bytes": 3546,
+      "bytes": 3387,
       "path": "research/04_etf_institutional_plumbing/tables/etf_flow_shock_days.csv",
-      "sha256": "fd78e0392b8707fd93860012582224cb1481d5018d8e6e22f36ab7e99b65b685"
+      "sha256": "e39f39a327bd2d3ed561263a7c2293109f843050bb5c6ee0992d8cdbf33b1aae"
     },
     {
       "bytes": 391,

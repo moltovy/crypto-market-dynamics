@@ -2,6 +2,29 @@ module_id: 03_derivatives_leverage_liquidations
 title: Derivatives, Leverage, and Liquidations
 research_question: Where do leverage, funding, open-interest scaling, and liquidation
   stress appear in volatility and tail outcomes?
+research_questions:
+- Where do leverage, funding, open-interest scaling, and liquidation stress appear
+  in volatility and tail outcomes?
+outcomes:
+- volatility
+- tail-event frequency
+- liquidation event response
+features:
+- open interest
+- funding
+- leverage
+- liquidations
+frequencies:
+- daily
+- weekly
+methods:
+- descriptive statistics
+- tail-event logit diagnostics
+sensitivity_dimensions:
+- state bins
+- lags
+- tail threshold
+- raw versus scaled
 status: built
 canonical_surface: research/03_derivatives_leverage_liquidations
 tables:
@@ -14,3 +37,11 @@ tables:
 figures:
 - 03_leverage_tail_stress.png
 - 03_leverage_tail_stress.svg
+code:
+- src/cqresearch/research/analytical_modules.py
+- src/cqresearch/pipelines/research.py
+tests:
+- tests/unit/test_feature_strength_outputs.py
+- tests/unit/test_visual_outputs.py
+root_readme_candidate_figures:
+- figures/03_leverage_tail_stress.png

@@ -18,4 +18,5 @@ How do BTC and ETH return distributions, volatility, drawdown, and tail behavior
 
 ## Figures
 
-- No figures.
+- `figures/returns_risk_distribution.png`
+- `figures/returns_risk_distribution.svg`

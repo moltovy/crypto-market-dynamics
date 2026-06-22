@@ -41,8 +41,14 @@ def test_public_visual_outputs_are_the_canonical_readme_set() -> None:
 
 def test_public_figure_registry_matches_files_and_readme() -> None:
     registry = yaml.safe_load((ROOT / "config" / "public_figures.yml").read_text(encoding="utf-8"))
-    registry_paths = [Path(item["filename"]) for item in registry["figures"]]
+    public_rows = [item for item in registry["figures"] if item.get("status") == "public"]
+    registry_paths = [Path(item["filename"]) for item in public_rows]
     assert registry_paths == EXPECTED_FIGURE_PATHS
+    for item in registry["figures"]:
+        relpath = Path(item["filename"])
+        assert (ROOT / relpath).exists(), relpath
+        if item.get("svg_required"):
+            assert (ROOT / relpath).with_suffix(".svg").exists(), relpath
 
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     image_paths = [Path(item) for item in re.findall(r"!\[[^\]]*\]\(([^)]+)\)", readme)]

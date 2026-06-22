@@ -13,6 +13,7 @@ import numpy as np
 import pandas as pd
 import yaml
 from config.paths import PROJECT_ROOT
+from matplotlib.ticker import PercentFormatter
 
 from cqresearch.core.artifacts import (
     artifact_record,
@@ -21,7 +22,7 @@ from cqresearch.core.artifacts import (
     write_json,
     write_text,
 )
-from cqresearch.research.registry import ResearchModule, module_by_id
+from cqresearch.research.registry import MODULES, ResearchModule, module_by_id
 from cqresearch.viz.theme import apply_theme
 
 
@@ -56,7 +57,7 @@ def build_analytical_module(module_id: str, root: Path = PROJECT_ROOT) -> list[P
         artifacts.extend(spec.extra_figures_builder(root, figures_dir))
 
     finding_lines, claims = spec.finding_builder(root, module_dir)
-    claims_path = write_csv(tables_dir / "claims.csv", pd.DataFrame(claims))
+    claims_path = write_csv(tables_dir / "claims.csv", pd.DataFrame(_normalize_claims(claims)))
     artifacts.append(claims_path)
     artifacts.extend(
         _write_module_docs(
@@ -195,10 +196,27 @@ All migrated tables keep their original row-level sample, calendar, timing, and 
         "module_id": module.module_id,
         "title": module.title,
         "research_question": module.research_question,
+        "research_questions": [module.research_question],
+        "outcomes": _module_outcomes(module.module_id),
+        "features": _module_features(module.module_id),
+        "frequencies": _module_frequencies(module.module_id),
+        "methods": _module_methods(spec.method_summary),
+        "sensitivity_dimensions": _module_sensitivity_dimensions(module.module_id),
         "status": "built",
         "canonical_surface": module_dir.relative_to(root).as_posix(),
         "tables": table_names,
         "figures": figure_names,
+        "code": [
+            "src/cqresearch/research/analytical_modules.py",
+            "src/cqresearch/pipelines/research.py",
+        ],
+        "tests": [
+            "tests/unit/test_feature_strength_outputs.py",
+            "tests/unit/test_visual_outputs.py",
+        ],
+        "root_readme_candidate_figures": [
+            f"figures/{name}" for name in figure_names if name.lower().endswith(".png")
+        ],
     }
     docs.append(write_text(module_dir / "module.yml", yaml.safe_dump(module_yml, sort_keys=False)))
     return docs
@@ -212,6 +230,179 @@ def _write_manifest(root: Path, module_dir: Path, artifacts: list[Path]) -> Path
         "artifacts": [artifact_record(path, root) for path in sorted(artifacts)],
     }
     return write_json(module_dir / "manifest.json", payload)
+
+
+def _normalize_claims(claims: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    normalized: list[dict[str, Any]] = []
+    for claim in claims:
+        row = dict(claim)
+        claim_text = str(row.get("claim_text", ""))
+        row.setdefault("module", row.get("module_id", ""))
+        row.setdefault("finding", claim_text)
+        row.setdefault("outcome", "module-level evidence")
+        row.setdefault("feature_or_block", "see source_table")
+        row.setdefault("estimate_summary", claim_text)
+        row.setdefault("uncertainty_summary", row.get("uncertainty", "See source table."))
+        row.setdefault("sample_summary", row.get("sample", "See source table."))
+        row.setdefault("frequency", "see source table")
+        row.setdefault("timing", "see source table")
+        row.setdefault("sensitivity_summary", row.get("method", "See source table."))
+        row.setdefault("interpretation", claim_text)
+        row.setdefault("alternative_explanation", row.get("limitation", "See module limitations."))
+        row.setdefault(
+            "source_model_ids", _model_ids_from_source_tables(row.get("source_table", ""))
+        )
+        normalized.append(row)
+    return normalized
+
+
+def _model_ids_from_source_tables(source_table: Any) -> str:
+    ids: list[str] = []
+    for item in str(source_table).replace(",", ";").split(";"):
+        item = item.strip()
+        if item:
+            ids.append(f"table:{Path(item).stem}")
+    return "; ".join(ids) or "table:claims"
+
+
+def _module_methods(method_summary: str) -> list[str]:
+    lowered = method_summary.lower()
+    methods = ["descriptive statistics"]
+    for token, label in [
+        ("hac", "HAC OLS"),
+        ("r2", "same-support block and partial R-squared"),
+        ("rolling", "rolling exposure diagnostics"),
+        ("logit", "tail-event logit diagnostics"),
+        ("quantile", "quantile/tail diagnostics"),
+        ("placebo", "event/placebo comparison"),
+        ("fdr", "FDR adjustment"),
+        ("ridge", "ridge stability"),
+        ("panel", "panel-readiness audit"),
+    ]:
+        if token in lowered:
+            methods.append(label)
+    return list(dict.fromkeys(methods))
+
+
+def _module_outcomes(module_id: str) -> list[str]:
+    return {
+        "01_returns_risk_regimes": ["BTC/ETH returns", "volatility", "drawdown", "tail loss"],
+        "02_macro_cross_asset_exposure": ["BTC/ETH returns", "co-movement R-squared"],
+        "03_derivatives_leverage_liquidations": [
+            "volatility",
+            "tail-event frequency",
+            "liquidation event response",
+        ],
+        "04_etf_institutional_plumbing": ["BTC/ETH returns", "flow intensity", "absorption"],
+        "05_stablecoin_defi_liquidity": [
+            "returns",
+            "volatility",
+            "tail state",
+            "valuation contamination",
+        ],
+        "06_onchain_valuation_holder_state": [
+            "MVRV mechanics",
+            "holder-state regimes",
+            "tail/volatility state",
+        ],
+        "07_chain_fundamentals": ["chain coverage", "activity association", "panel readiness"],
+        "08_relative_major_asset_risk": ["volatility", "drawdown", "beta", "matched-window risk"],
+        "09_market_concentration_state": ["monthly concentration", "turnover", "rank persistence"],
+        "10_event_sensitivity": ["event-window return", "volatility change", "placebo percentile"],
+        "11_cross_module_synthesis": [
+            "evidence grade",
+            "stability",
+            "measurement risk",
+            "null findings",
+        ],
+    }.get(module_id, ["module-level evidence"])
+
+
+def _module_features(module_id: str) -> list[str]:
+    return {
+        "01_returns_risk_regimes": ["BTC price", "ETH price", "realized volatility", "drawdown"],
+        "02_macro_cross_asset_exposure": ["equities", "VIX", "DXY", "gold", "nominal/real yields"],
+        "03_derivatives_leverage_liquidations": [
+            "open interest",
+            "funding",
+            "leverage",
+            "liquidations",
+        ],
+        "04_etf_institutional_plumbing": [
+            "ETF net flow",
+            "ETF AUM",
+            "lagged market capitalization",
+        ],
+        "05_stablecoin_defi_liquidity": ["stablecoin supply", "TVL", "DEX/lending activity"],
+        "06_onchain_valuation_holder_state": [
+            "MVRV",
+            "market cap",
+            "realized cap",
+            "holder-state metrics",
+        ],
+        "07_chain_fundamentals": ["fees", "revenue", "addresses", "transactions", "chain TVL"],
+        "08_relative_major_asset_risk": [
+            "selected-major returns",
+            "BTC benchmark",
+            "ETH benchmark",
+        ],
+        "09_market_concentration_state": [
+            "HHI",
+            "top-share fields",
+            "turnover",
+            "rank persistence",
+        ],
+        "10_event_sensitivity": ["event registry", "pre-event state", "placebo windows"],
+        "11_cross_module_synthesis": ["module claims", "evidence grades", "measurement-risk flags"],
+    }.get(module_id, ["see feature usage matrix"])
+
+
+def _module_frequencies(module_id: str) -> list[str]:
+    if module_id == "09_market_concentration_state":
+        return ["monthly"]
+    if module_id in {"05_stablecoin_defi_liquidity", "07_chain_fundamentals"}:
+        return ["weekly", "daily where source support exists"]
+    if module_id == "10_event_sensitivity":
+        return ["event windows", "daily"]
+    return ["daily", "weekly"]
+
+
+def _module_sensitivity_dimensions(module_id: str) -> list[str]:
+    return {
+        "01_returns_risk_regimes": ["daily versus weekly", "era definitions", "tail thresholds"],
+        "02_macro_cross_asset_exposure": [
+            "daily versus weekly",
+            "era split",
+            "HAC bandwidth",
+            "ridge penalty",
+        ],
+        "03_derivatives_leverage_liquidations": [
+            "state bins",
+            "lags",
+            "tail threshold",
+            "raw versus scaled",
+        ],
+        "04_etf_institutional_plumbing": [
+            "flow lag",
+            "raw versus scaled flow",
+            "BTC versus ETH start date",
+        ],
+        "05_stablecoin_defi_liquidity": [
+            "raw versus scaled TVL",
+            "Sunday weekly calendar",
+            "lagged state",
+        ],
+        "06_onchain_valuation_holder_state": [
+            "same-day versus lagged",
+            "level versus z-score",
+            "mechanical overlap",
+        ],
+        "07_chain_fundamentals": ["coverage threshold", "chain mapping", "metric family"],
+        "08_relative_major_asset_risk": ["matched window", "benchmark asset", "coverage threshold"],
+        "09_market_concentration_state": ["partial snapshot", "state bins", "monthly lag"],
+        "10_event_sensitivity": ["window horizon", "event-day exclusion", "placebo eligibility"],
+        "11_cross_module_synthesis": ["evidence grade", "measurement risk", "outcome family"],
+    }.get(module_id, ["module-specific sensitivity"])
 
 
 def _returns_extra_tables(root: Path, tables_dir: Path) -> list[Path]:
@@ -306,10 +497,271 @@ def _market_structure_figure(root: Path, figures_dir: Path) -> list[Path]:
         ax.spines["right"].set_visible(False)
     fig.suptitle("Monthly Concentration and Top-100 Rank Persistence")
     fig.tight_layout(rect=(0, 0, 1, 0.96))
-    png = figures_dir / "market_concentration_state.png"
-    svg = figures_dir / "market_concentration_state.svg"
-    fig.savefig(png, dpi=180)
-    fig.savefig(svg)
+    return _save_module_figure(fig, figures_dir / "market_concentration_state.png")
+
+
+def _returns_risk_figure(root: Path, figures_dir: Path) -> list[Path]:
+    source = (
+        root
+        / "research"
+        / "01_returns_risk_regimes"
+        / "tables"
+        / "returns_distribution_summary.csv"
+    )
+    frame = read_csv_if_exists(source)
+    if frame.empty:
+        return []
+    apply_theme()
+    plot = frame[frame["asset"].isin(["BTC", "ETH"])].copy()
+    plot["max_drawdown_loss"] = -pd.to_numeric(plot["max_drawdown"], errors="coerce")
+    fig, axes = plt.subplots(1, 2, figsize=(10, 4.8))
+    fig.subplots_adjust(left=0.09, right=0.98, bottom=0.17, top=0.80, wspace=0.32)
+    fig.suptitle(
+        "BTC and ETH realized risk is summarized, not forecast", fontsize=14, fontweight="semibold"
+    )
+    _bar_with_labels(
+        axes[0],
+        plot["asset"],
+        pd.to_numeric(plot["annualized_volatility"], errors="coerce"),
+        "Annualized volatility",
+        "Daily realized distribution",
+        percent=True,
+    )
+    _bar_with_labels(
+        axes[1],
+        plot["asset"],
+        plot["max_drawdown_loss"],
+        "Maximum drawdown loss",
+        "Full-sample drawdown",
+        percent=True,
+        color="#9A5A44",
+        edge="#6E3C2F",
+    )
+    return _save_module_figure(fig, figures_dir / "returns_risk_distribution.png")
+
+
+def _liquidity_state_figure(root: Path, figures_dir: Path) -> list[Path]:
+    source = (
+        root / "research" / "05_stablecoin_defi_liquidity" / "tables" / "liquidity_associations.csv"
+    )
+    frame = read_csv_if_exists(source)
+    if frame.empty:
+        return []
+    apply_theme()
+    features = [
+        "stablecoin_supply_growth",
+        "valuation_sensitive_defi_tvl_growth",
+        "stablecoin_to_tvl",
+    ]
+    outcomes = ["btc_ret", "eth_ret"]
+    plot = frame[frame["liquidity_feature"].isin(features) & frame["outcome"].isin(outcomes)].copy()
+    if plot.empty:
+        return []
+    labels = {
+        "stablecoin_supply_growth": "Stablecoin supply growth",
+        "valuation_sensitive_defi_tvl_growth": "USD TVL growth",
+        "stablecoin_to_tvl": "Stablecoin / TVL",
+        "btc_ret": "BTC",
+        "eth_ret": "ETH",
+    }
+    plot["feature_label"] = plot["liquidity_feature"].map(labels)
+    plot["outcome_label"] = plot["outcome"].map(labels)
+    pivot = plot.pivot_table(
+        index="feature_label", columns="outcome_label", values="correlation", aggfunc="mean"
+    ).reindex(index=[labels[item] for item in features], columns=["BTC", "ETH"])
+    fig, ax = plt.subplots(figsize=(10, 4.8))
+    fig.subplots_adjust(left=0.24, right=0.96, bottom=0.18, top=0.80)
+    fig.suptitle(
+        "Liquidity-state correlations are strongest where valuation content is high",
+        fontsize=14,
+        fontweight="semibold",
+    )
+    _style_module_axis(ax)
+    y = np.arange(len(pivot.index))
+    width = 0.28
+    colors = {"BTC": "#2F5D62", "ETH": "#7A4E2D"}
+    for idx, asset in enumerate(["BTC", "ETH"]):
+        values = pivot[asset].to_numpy(dtype=float)
+        bars = ax.barh(
+            y + (idx - 0.5) * width,
+            values,
+            height=width,
+            color=colors[asset],
+            edgecolor="#263238",
+            linewidth=0.8,
+            label=asset,
+        )
+        for bar, value in zip(bars, values, strict=False):
+            ax.text(
+                value + (0.015 if value >= 0 else -0.015),
+                bar.get_y() + bar.get_height() / 2,
+                f"{value:.2f}",
+                ha="left" if value >= 0 else "right",
+                va="center",
+                fontsize=9,
+            )
+    ax.axvline(0, color="#263238", linewidth=0.9)
+    ax.set_yticks(y, pivot.index)
+    ax.set_xlabel("Weekly return correlation")
+    ax.set_title(
+        "Sunday-ended weekly panel; USD TVL is valuation-sensitive", loc="left", fontsize=11
+    )
+    ax.legend(loc="lower right", frameon=False)
+    return _save_module_figure(fig, figures_dir / "liquidity_state_correlations.png")
+
+
+def _chain_fundamentals_figure(root: Path, figures_dir: Path) -> list[Path]:
+    source = (
+        root
+        / "research"
+        / "07_chain_fundamentals"
+        / "tables"
+        / "chain_fundamental_panel_summary.csv"
+    )
+    frame = read_csv_if_exists(source)
+    if frame.empty:
+        return []
+    apply_theme()
+    adequate = frame[frame["panel_status"].eq("adequate_for_descriptive_panel")].copy()
+    if adequate.empty:
+        adequate = frame.copy()
+    summary = (
+        adequate.groupby("chain", as_index=False)
+        .agg(metric_count=("metric", "nunique"), median_observations=("observations", "median"))
+        .sort_values(["metric_count", "median_observations"], ascending=False)
+        .head(12)
+    )
+    fig, ax = plt.subplots(figsize=(10, 5.4))
+    fig.subplots_adjust(left=0.25, right=0.96, bottom=0.15, top=0.82)
+    fig.suptitle("Chain-fundamental evidence is coverage-first", fontsize=14, fontweight="semibold")
+    _style_module_axis(ax)
+    y = np.arange(len(summary))
+    bars = ax.barh(
+        y,
+        summary["metric_count"],
+        color="#2F5D62",
+        edgecolor="#1F3F43",
+        linewidth=0.8,
+    )
+    ax.set_yticks(y, summary["chain"])
+    ax.invert_yaxis()
+    ax.set_xlabel("Adequate metric families")
+    ax.set_title(
+        "Top chains by descriptive-panel coverage; no relationship claim", loc="left", fontsize=11
+    )
+    for bar, row in zip(bars, summary.itertuples(index=False), strict=False):
+        ax.text(
+            bar.get_width() + 0.08,
+            bar.get_y() + bar.get_height() / 2,
+            f"{int(row.metric_count)} metrics; median n={int(row.median_observations)}",
+            va="center",
+            fontsize=9,
+        )
+    ax.set_xlim(0, max(summary["metric_count"]) + 2)
+    return _save_module_figure(fig, figures_dir / "chain_panel_coverage.png")
+
+
+def _synthesis_evidence_figure(root: Path, figures_dir: Path) -> list[Path]:
+    source = root / "research" / "11_cross_module_synthesis" / "tables" / "evidence_ledger.csv"
+    frame = read_csv_if_exists(source)
+    if frame.empty:
+        return []
+    apply_theme()
+    source_counts = (
+        frame.assign(
+            source_count=frame["source_table"]
+            .fillna("")
+            .astype(str)
+            .str.split(";")
+            .map(lambda values: len([value for value in values if value.strip()]))
+        )
+        .groupby("module_id", as_index=False)
+        .agg(claim_count=("claim_id", "count"), source_count=("source_count", "sum"))
+        .sort_values("module_id")
+    )
+    title_by_module = {item.module_id: f"{item.module_id[:2]} {item.title}" for item in MODULES}
+    source_counts["module_label"] = source_counts["module_id"].map(title_by_module)
+    fig, ax = plt.subplots(figsize=(10, 5.4))
+    fig.subplots_adjust(left=0.35, right=0.96, bottom=0.15, top=0.82)
+    fig.suptitle(
+        "Synthesis keeps claim counts and source depth visible", fontsize=14, fontweight="semibold"
+    )
+    _style_module_axis(ax)
+    y = np.arange(len(source_counts))
+    height = 0.34
+    ax.barh(
+        y - height / 2,
+        source_counts["source_count"],
+        height=height,
+        color="#7A4E2D",
+        edgecolor="#563620",
+        linewidth=0.8,
+        label="Source-table links",
+    )
+    ax.barh(
+        y + height / 2,
+        source_counts["claim_count"],
+        height=height,
+        color="#2F5D62",
+        edgecolor="#1F3F43",
+        linewidth=0.8,
+        label="Claims",
+    )
+    ax.set_yticks(y, source_counts["module_label"])
+    ax.invert_yaxis()
+    ax.set_xlabel("Count")
+    ax.set_title(
+        "Every module contributes accepted-qualified claims; source depth varies",
+        loc="left",
+        fontsize=11,
+    )
+    ax.legend(loc="lower right", frameon=False)
+    return _save_module_figure(fig, figures_dir / "synthesis_claim_source_depth.png")
+
+
+def _bar_with_labels(
+    ax: plt.Axes,
+    labels: pd.Series,
+    values: pd.Series,
+    ylabel: str,
+    title: str,
+    *,
+    percent: bool = False,
+    color: str = "#2F5D62",
+    edge: str = "#1F3F43",
+) -> None:
+    _style_module_axis(ax)
+    bars = ax.bar(labels.astype(str), values, color=color, edgecolor=edge, linewidth=0.8)
+    ax.set_ylabel(ylabel)
+    ax.set_title(title, loc="left", fontsize=11)
+    if percent:
+        ax.yaxis.set_major_formatter(PercentFormatter(1.0))
+    for bar, value in zip(bars, values, strict=False):
+        label = f"{value:.1%}" if percent else f"{value:.2f}"
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            value,
+            label,
+            ha="center",
+            va="bottom",
+            fontsize=9,
+        )
+    ax.set_ylim(0, float(values.max()) * 1.22)
+
+
+def _style_module_axis(ax: plt.Axes) -> None:
+    ax.grid(True, axis="x", alpha=0.22)
+    ax.grid(True, axis="y", alpha=0.18)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+
+
+def _save_module_figure(fig: plt.Figure, png: Path) -> list[Path]:
+    svg = png.with_suffix(".svg")
+    fig.savefig(png, dpi=180, bbox_inches="tight")
+    fig.savefig(svg, bbox_inches="tight", metadata={"Date": None})
+    text = svg.read_text(encoding="utf-8")
+    svg.write_text("\n".join(line.rstrip() for line in text.splitlines()) + "\n", encoding="utf-8")
     plt.close(fig)
     return [png, svg]
 
@@ -375,7 +827,7 @@ def _returns_findings(root: Path, module_dir: Path) -> tuple[list[str], list[dic
             "01_returns_risk_regimes",
             "BTC and ETH risk summaries are reported as descriptive return-distribution and drawdown statistics.",
             "tables/returns_distribution_summary.csv; tables/returns_regime_risk_summary.csv",
-            "",
+            "figures/returns_risk_distribution.png",
             "Daily log-return sample from local processed feature store.",
             "Descriptive moments, expected shortfall, drawdown, and fixed-date regime splits.",
             "No investability or strategy inference.",
@@ -480,7 +932,7 @@ def _liquidity_findings(root: Path, module_dir: Path) -> tuple[list[str], list[d
             "05_stablecoin_defi_liquidity",
             "Stablecoin supply and DeFi TVL are endogenous liquidity-state proxies; raw USD TVL is valuation-sensitive.",
             "tables/liquidity_associations.csv; tables/stablecoin_defi_liquidity_summary.csv; tables/valuation_contamination_audit.csv",
-            "",
+            "figures/liquidity_state_correlations.png",
             "Sunday-ended weekly crypto panel.",
             "Weekly correlations, regime summaries, and unit/valuation contamination audit.",
             "No liquidity-shock or exogenous-flow language.",
@@ -523,7 +975,7 @@ def _chain_findings(root: Path, module_dir: Path) -> tuple[list[str], list[dict[
             "07_chain_fundamentals",
             "Chain fundamentals currently support coverage and panel-readiness review before public relationship claims.",
             "tables/chain_fundamental_panel_summary.csv; tables/chain_activity_associations.csv",
-            "",
+            "figures/chain_panel_coverage.png",
             "Local Artemis/chain fundamentals coverage table.",
             "Coverage inventory and explicit association-status table.",
             "No chain-fundamental effect claim until panel specification and sensitivity checks are complete.",
@@ -605,7 +1057,7 @@ def _synthesis_findings(root: Path, module_dir: Path) -> tuple[list[str], list[d
             "11_cross_module_synthesis",
             "Cross-module synthesis ranks evidence by claim, sample, method, uncertainty, measurement risk, and limitation rather than by a single score.",
             "tables/evidence_ledger.csv; tables/robustness_summary.csv; tables/claim_inventory.csv",
-            "",
+            "figures/synthesis_claim_source_depth.png",
             "All migrated module evidence rows.",
             "Evidence ledger, robustness summary, claim inventory, FDR/local-window diagnostics.",
             "Synthesis depends on upstream module quality and does not create new causal identification.",
@@ -648,6 +1100,7 @@ MODULE_SPECS: dict[str, AnalyticalModuleSpec] = {
         limitations="Regime splits are descriptive calendar partitions and do not identify the source of risk changes.",
         finding_builder=_returns_findings,
         extra_tables_builder=_returns_extra_tables,
+        extra_figures_builder=_returns_risk_figure,
     ),
     "02_macro_cross_asset_exposure": AnalyticalModuleSpec(
         module_id="02_macro_cross_asset_exposure",
@@ -720,6 +1173,7 @@ MODULE_SPECS: dict[str, AnalyticalModuleSpec] = {
         interpretation="Stablecoin and DeFi variables are endogenous state proxies. USD TVL is valuation-sensitive.",
         limitations="Weak or valuation-sensitive liquidity relationships are not promoted into root README figures.",
         finding_builder=_liquidity_findings,
+        extra_figures_builder=_liquidity_state_figure,
     ),
     "06_onchain_valuation_holder_state": AnalyticalModuleSpec(
         module_id="06_onchain_valuation_holder_state",
@@ -746,6 +1200,7 @@ MODULE_SPECS: dict[str, AnalyticalModuleSpec] = {
         interpretation="Coverage and definition clarity come before cross-chain inference.",
         limitations="Current migrated outputs do not yet support a strong public chain-fundamentals relationship claim.",
         finding_builder=_chain_findings,
+        extra_figures_builder=_chain_fundamentals_figure,
     ),
     "08_relative_major_asset_risk": AnalyticalModuleSpec(
         module_id="08_relative_major_asset_risk",
@@ -810,5 +1265,6 @@ MODULE_SPECS: dict[str, AnalyticalModuleSpec] = {
         limitations="The synthesis inherits upstream module coverage, timing, and measurement limitations.",
         finding_builder=_synthesis_findings,
         extra_tables_builder=_synthesis_extra_tables,
+        extra_figures_builder=_synthesis_evidence_figure,
     ),
 }

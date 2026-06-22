@@ -21,9 +21,9 @@
       "sha256": "ab90668e3f529d32b96bcfe29896941af02446d7d3d52ff526736dda333e6cec"
     },
     {
-      "bytes": 553,
+      "bytes": 1208,
       "path": "research/09_market_concentration_state/module.yml",
-      "sha256": "d3bb20400dec2156760baff96e016a7412b87a706998b20b7af43db9f648aeb7"
+      "sha256": "3d06af958a9b101eac63112d28d3d6a676c3c1d4e604a926f04223637b77111e"
     },
     {
       "bytes": 678,
@@ -36,29 +36,29 @@
       "sha256": "d67e747b59db44720f7a258b46ab50dd7834697c2c2caeee339946a650372c93"
     },
     {
-      "bytes": 755,
+      "bytes": 1753,
       "path": "research/09_market_concentration_state/tables/claims.csv",
-      "sha256": "d65bdbcb31fdf0f1b190ac9b08ca83526f8d3b77d187d6769f5dbdb4b1d2c411"
+      "sha256": "c92bd7f3af2d9aabfd59edcee6bda2658ecb3f27dcf1107770a59246617def8d"
     },
     {
-      "bytes": 12916,
+      "bytes": 12504,
       "path": "research/09_market_concentration_state/tables/pit_concentration.csv",
-      "sha256": "d88b6777872fd58b12d5b3ce516ca9ec028b8e54038dced403b2a060003dcfc8"
+      "sha256": "f67e20689540f4b66cefe0c633328594fc33a7809446d799e4dc03dbfc4a34ab"
     },
     {
-      "bytes": 1446834,
+      "bytes": 1414893,
       "path": "research/09_market_concentration_state/tables/pit_market_structure_monthly.csv",
-      "sha256": "29ee2e080ca42e67fb9a9aa9a0a7d6916063578c487da7dd3d9d3e5fa7dc4b6c"
+      "sha256": "468f72537fcd2969fd5d6d9a4d8ec7a8f16b2e5367b0db50352d9b71ffc5a62a"
     },
     {
-      "bytes": 13980,
+      "bytes": 13260,
       "path": "research/09_market_concentration_state/tables/pit_market_structure_summary.csv",
-      "sha256": "9693f98de5a223a51936760f55519e2d8cc98328182b574efe77e5d4ceb2bf67"
+      "sha256": "d8a192ce392c4cd6dfd797c929af5a33a50d7334e107928e20f6997f643313db"
     },
     {
-      "bytes": 760,
+      "bytes": 751,
       "path": "research/09_market_concentration_state/tables/pit_period_comparison.csv",
-      "sha256": "14ca379588498a28d38452104418c6d0b64ae8e70e17a10444fa1e379bbd9084"
+      "sha256": "716e0e70aa4ac8641435a5d3f9abb8afba53093e8a61988dc769e816a22de329"
     },
     {
       "bytes": 1375,

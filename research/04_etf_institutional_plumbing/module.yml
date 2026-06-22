@@ -2,6 +2,26 @@ module_id: 04_etf_institutional_plumbing
 title: ETF and Institutional Plumbing
 research_question: How do ETF flow intensity and absorption measures line up with
   contemporaneous and lagged crypto outcomes?
+research_questions:
+- How do ETF flow intensity and absorption measures line up with contemporaneous and
+  lagged crypto outcomes?
+outcomes:
+- BTC/ETH returns
+- flow intensity
+- absorption
+features:
+- ETF net flow
+- ETF AUM
+- lagged market capitalization
+frequencies:
+- daily
+- weekly
+methods:
+- descriptive statistics
+sensitivity_dimensions:
+- flow lag
+- raw versus scaled flow
+- BTC versus ETH start date
 status: built
 canonical_surface: research/04_etf_institutional_plumbing
 tables:
@@ -15,3 +35,11 @@ tables:
 figures:
 - 02_etf_market_plumbing.png
 - 02_etf_market_plumbing.svg
+code:
+- src/cqresearch/research/analytical_modules.py
+- src/cqresearch/pipelines/research.py
+tests:
+- tests/unit/test_feature_strength_outputs.py
+- tests/unit/test_visual_outputs.py
+root_readme_candidate_figures:
+- figures/02_etf_market_plumbing.png

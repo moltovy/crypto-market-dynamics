@@ -1,6 +1,16 @@
 {
   "artifacts": [
     {
+      "bytes": 72400,
+      "path": "research/01_returns_risk_regimes/figures/returns_risk_distribution.png",
+      "sha256": "8451ba7dad0f049dfb7e9655d9f0afd5a30cd597d52a1eb7ca412878ceced130"
+    },
+    {
+      "bytes": 52609,
+      "path": "research/01_returns_risk_regimes/figures/returns_risk_distribution.svg",
+      "sha256": "5b6bbd4d7da10d8269f47b0ba37d3b1d7b5b4f562f2b40140afb6e70a9d98023"
+    },
+    {
       "bytes": 190,
       "path": "research/01_returns_risk_regimes/findings.md",
       "sha256": "5600c8a38cb550eee2eb9c531c8869681da35fd5286729f7178b977b0c6b7996"
@@ -21,34 +31,34 @@
       "sha256": "1ca84defde97e670feed02e6ee720d19b267781b7a8c20f524520f12eb4bfb83"
     },
     {
-      "bytes": 398,
+      "bytes": 1127,
       "path": "research/01_returns_risk_regimes/module.yml",
-      "sha256": "609297c3427c168e65ddfc757b12ac803590b0e4697a27e8b9ede945942a01b3"
-    },
-    {
-      "bytes": 574,
-      "path": "research/01_returns_risk_regimes/README.md",
-      "sha256": "517926e136705a62170b80dfc5543c92fc71644644630f5872405aa335a56e58"
+      "sha256": "012fa8cf8321ff994a343ecef8335c9ecbbd779421025b31d4bd193158393ee0"
     },
     {
       "bytes": 644,
+      "path": "research/01_returns_risk_regimes/README.md",
+      "sha256": "806e8b51c3fcbc014463f187b55edb219e9751b921db6c16745f03988aac2133"
+    },
+    {
+      "bytes": 1619,
       "path": "research/01_returns_risk_regimes/tables/claims.csv",
-      "sha256": "7d1b3e5fdb49f6eed6c25544e673178736891c489477129fb46ac5960937b4b8"
+      "sha256": "69eeb3f11e051452b06c50ac2d2cb3f81ef142a5db893b91d26d2a979d4f3fed"
     },
     {
-      "bytes": 315340,
+      "bytes": 304234,
       "path": "research/01_returns_risk_regimes/tables/cycle_state_summary.csv",
-      "sha256": "451490ef54c8a04071a937ba12e33e978855fa2b9d8659f9c399420edf5e8c2d"
+      "sha256": "89baba8e16b1846c26596aaf1a62f2ea8c5124840e8de0579add57e6c6c77d3d"
     },
     {
-      "bytes": 611,
+      "bytes": 589,
       "path": "research/01_returns_risk_regimes/tables/returns_distribution_summary.csv",
-      "sha256": "9df4d4228c677d6db91a856f0fcde0669f7d7ba035a6f1a043d88e3b78404d6f"
+      "sha256": "335c050b9604b18d89116146cf8d0393222d0bb4612d0cf1039c453cfbb4fa7c"
     },
     {
-      "bytes": 944,
+      "bytes": 920,
       "path": "research/01_returns_risk_regimes/tables/returns_regime_risk_summary.csv",
-      "sha256": "f861a6cfd9bc05b52cbce634cf03189a3699cda1392ddb428107c5c833255d59"
+      "sha256": "c4869e49e3332aa9067ed2360a550b864aaa91faff6cda82f706c023b1936f35"
     }
   ],
   "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",

@@ -16,4 +16,5 @@ Which chain-level activity measures have enough coverage and definition clarity 
 
 ## Figures
 
-- No figures.
+- `figures/chain_panel_coverage.png`
+- `figures/chain_panel_coverage.svg`

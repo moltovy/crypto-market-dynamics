@@ -31,9 +31,9 @@
       "sha256": "f5694a1c2cbd306306ce133bb5490ba7fde56ed39b0511cd98acba9fcf4f0bbf"
     },
     {
-      "bytes": 558,
+      "bytes": 1219,
       "path": "research/08_relative_major_asset_risk/module.yml",
-      "sha256": "483107448be31f6fe0603e879632fbabe832b68940cccb6fbdad53ec1f2d4c3f"
+      "sha256": "68ed524eb3a1b244c49f2645fba3917b9f29fcf04811505586fd21929f0a3ad6"
     },
     {
       "bytes": 710,
@@ -51,19 +51,19 @@
       "sha256": "19041433c2019ef67533be074ea89f2d4bad6215755f2db818e330412b1ce31c"
     },
     {
-      "bytes": 776,
+      "bytes": 1748,
       "path": "research/08_relative_major_asset_risk/tables/claims.csv",
-      "sha256": "1983e86c324821dad440d547e46c05b135bdab6ee9e84167d262275307dd98fc"
+      "sha256": "ea0e87dc33ef8e4d150a7bf5c247061d77229eb4a856a7749cb9fa9778e50402"
     },
     {
-      "bytes": 1525,
+      "bytes": 1446,
       "path": "research/08_relative_major_asset_risk/tables/selected_major_betas.csv",
-      "sha256": "02878a9ba1579619122ba576b6e1bef17729fc5ce9a98675759e507a8302eee1"
+      "sha256": "39951e04b2eba09ea120c0f928bc4e9b6a6b9a44c3811634cdc00327cf7e6a1c"
     },
     {
-      "bytes": 1925,
+      "bytes": 1895,
       "path": "research/08_relative_major_asset_risk/tables/selected_major_comparable_window_metrics.csv",
-      "sha256": "9a5b27c39672d9a2dd5bd5ada86835491063837f6afe352f35db6eb46b6bc691"
+      "sha256": "9147be43a4f370af15beeb13dbe42d1709e10c3de0d07a23b580a26abfd5acff"
     },
     {
       "bytes": 2026,
@@ -71,9 +71,9 @@
       "sha256": "925df9707090408ba025e954ebf728c61dabf5d53314562419dbeea766f37a5c"
     },
     {
-      "bytes": 1484,
+      "bytes": 1450,
       "path": "research/08_relative_major_asset_risk/tables/selected_major_risk_metrics.csv",
-      "sha256": "7318506ae2950c61551df3d177b792f27d3ae4121abc754d384bc7111f9ed856"
+      "sha256": "c61259398315f9c9e5bdb856bacd37a12ab113f6407fd4033492d17dca2c9497"
     }
   ],
   "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",
