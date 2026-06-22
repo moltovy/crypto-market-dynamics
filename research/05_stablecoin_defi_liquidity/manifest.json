@@ -1,49 +1,69 @@
 {
   "artifacts": [
     {
+      "bytes": 74468,
+      "path": "research/05_stablecoin_defi_liquidity/figures/05_liquidity_state_regimes.png",
+      "sha256": "d0c1648894c6718d045a9c50b7acae309f8256ae20635f19c05f34f294ef5019"
+    },
+    {
+      "bytes": 47570,
+      "path": "research/05_stablecoin_defi_liquidity/figures/05_liquidity_state_regimes.svg",
+      "sha256": "72a9fb14914a08f8ae8205df373cd9c15a4a45050a38de37b68fb6501e44cbed"
+    },
+    {
+      "bytes": 65114,
+      "path": "research/05_stablecoin_defi_liquidity/figures/05_valuation_contamination_audit.png",
+      "sha256": "f135b0cb843eb7cf6162b80d5589041bd3cf82b434f495e1b044c87411cfb817"
+    },
+    {
+      "bytes": 46988,
+      "path": "research/05_stablecoin_defi_liquidity/figures/05_valuation_contamination_audit.svg",
+      "sha256": "166a5f81fcb44a5d98eca5f015fb93ec8b8a086334f32e6197f7b9f206d0b48e"
+    },
+    {
       "bytes": 68843,
       "path": "research/05_stablecoin_defi_liquidity/figures/liquidity_state_correlations.png",
       "sha256": "ed680a3e28e82d1094008ef7427ecece850e240be1f8c25d3cd681d7a2c9a17b"
     },
     {
-      "bytes": 56774,
+      "bytes": 54788,
       "path": "research/05_stablecoin_defi_liquidity/figures/liquidity_state_correlations.svg",
       "sha256": "085930ce0f7cdf5b702054b2b2f0ff0e26ccc343dbbaccee0f20c0a7402232f2"
     },
     {
-      "bytes": 125,
+      "bytes": 166,
       "path": "research/05_stablecoin_defi_liquidity/findings.md",
-      "sha256": "81b4d2a5f5ea843cecf0d2c06c89a8a472f6a4374ea5fc27c6a005862e531cd6"
+      "sha256": "f30ba733470a253ec24620fb66e66b264a1e4e120d04795775e49d058b955240"
     },
     {
-      "bytes": 110,
+      "bytes": 171,
       "path": "research/05_stablecoin_defi_liquidity/interpretation.md",
-      "sha256": "d8964d0677175f9df7d6646f6cb0e11ab386996be7d336cfeb9e75355a5d61dd"
+      "sha256": "f9b884d129aff8bdacc6e18050a5da85a20499beb3b48b67142978e13b128870"
     },
     {
-      "bytes": 110,
+      "bytes": 131,
       "path": "research/05_stablecoin_defi_liquidity/limitations.md",
-      "sha256": "b07b22251a08c04958cab2ccdcedf3daf3874a61f8a1a3e5441127f9e1b3dda8"
+      "sha256": "91af912145badf40554b6c40bb8549107d7abd91d5069bfc1a28bab661ceada1"
     },
     {
-      "bytes": 378,
+      "bytes": 190,
       "path": "research/05_stablecoin_defi_liquidity/methodology.md",
-      "sha256": "a18c132f35579406814d791644e375206a7e95994df1b1fcd0d3226bab88c3b3"
+      "sha256": "ebc884721f17c056a39daf1c2040ecd46de083729aad2d973f9444da422e5afc"
     },
     {
-      "bytes": 1305,
+      "bytes": 1414,
       "path": "research/05_stablecoin_defi_liquidity/module.yml",
-      "sha256": "c728bb2c2fc4f05c84c3b449f45d99c310a7cb80cbae47b09dd94a6a82373b99"
+      "sha256": "515c76500c503830043f6dfce82c251c3147fcd3fa53a63634ac13b6a6b3f645"
     },
     {
-      "bytes": 737,
+      "bytes": 4975,
       "path": "research/05_stablecoin_defi_liquidity/README.md",
-      "sha256": "6db9e1b391b94b57f7249c387874d133f444c7e13257eae237e17e4f31fb0265"
+      "sha256": "168c9c6361bc128b4afc33add2fde097debbad59f225fe2771d6edb427acc5ad"
     },
     {
-      "bytes": 1700,
+      "bytes": 1666,
       "path": "research/05_stablecoin_defi_liquidity/tables/claims.csv",
-      "sha256": "fc209239866d4b594ed59985589f5025d56a9de08fe0035d7ad81a1af3339855"
+      "sha256": "dc703c0be4735dd066504678b6e92408072f795b792c7cca167322c6b10c4ce5"
     },
     {
       "bytes": 13880,

@@ -1,5 +1,5 @@
 # Methodology
 
-Weekly stablecoin supply, DeFi TVL, TVL ratios, and crypto returns are summarized on a Sunday-ended calendar with explicit valuation-contamination checks.
+Weekly state analysis: Sunday-ended weekly growth and lagged state variables are summarized.
 
-All migrated tables keep their original row-level sample, calendar, timing, and method fields where those fields exist. Module claims are restricted to the copied or newly computed tables in this directory.
+Valuation contamination: raw USD TVL growth is screened against BTC/ETH returns.

@@ -1,3 +1,3 @@
 # Limitations
 
-Weak or valuation-sensitive liquidity relationships are not promoted into root README figures.
+Raw USD TVL can mechanically rise when deposited-asset prices rise. No exogenous liquidity-shock design is present.

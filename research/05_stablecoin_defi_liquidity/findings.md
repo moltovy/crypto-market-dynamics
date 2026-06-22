@@ -1,3 +1,3 @@
 # Findings
 
-- Raw USD TVL same-week correlations are BTC=0.679 and ETH=0.761; the unit audit labels TVL valuation-sensitive.
+- Stablecoin/DeFi liquidity state: max TVL return corr=0.778 (Stablecoin/DeFi measures are endogenous state proxies; raw USD TVL is valuation-sensitive.)

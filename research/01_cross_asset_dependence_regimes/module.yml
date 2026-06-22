@@ -1,0 +1,57 @@
+module_id: 01_cross_asset_dependence_regimes
+title: Cross-Asset Dependence and Regimes
+research_question: How do crypto and TradFi return dependence, common-factor share,
+  lower-tail co-exceedance, and regimes vary across matched samples?
+research_questions:
+- How broad is common-factor crypto dependence across the selected-major universe?
+- How do Pearson, Spearman, partial, lower-tail, rolling, and regime-difference dependence
+  diagnostics compare?
+outcomes:
+- correlation
+- tail co-exceedance
+- PCA common-factor share
+- rolling dependence
+features:
+- selected-major returns
+- SPY/QQQ/IWM
+- DXY/gold/VIX/rates
+frequencies:
+- daily
+methods:
+- Correlation matrices
+- PCA/common factor
+- Tail dependence
+sensitivity_dimensions:
+- Pearson/Spearman
+- BTC-control partial correlations
+- regime split
+- tail threshold
+- rolling window
+status: built
+canonical_surface: research/01_cross_asset_dependence_regimes
+tables:
+- asset_return_coverage.csv
+- claims.csv
+- lower_tail_coexceedance_matrix.csv
+- multi_asset_descriptive_stats.csv
+- partial_correlation_btc_control.csv
+- pca_common_factor_loadings.csv
+- pca_scores.csv
+- pca_variance_share.csv
+- pearson_correlation_matrix.csv
+- regime_correlation_difference.csv
+- rolling_dependence_summary.csv
+- spearman_correlation_matrix.csv
+figures:
+- 01_common_factor_pca_loadings.png
+- 01_cross_asset_clustered_correlation.png
+- 01_regime_correlation_difference.png
+code:
+- src/cqresearch/research/analytical_modules.py
+tests:
+- tests/unit/test_feature_strength_outputs.py
+- tests/unit/test_visual_outputs.py
+root_readme_candidate_figures:
+- figures/01_common_factor_pca_loadings.png
+- figures/01_cross_asset_clustered_correlation.png
+- figures/01_regime_correlation_difference.png

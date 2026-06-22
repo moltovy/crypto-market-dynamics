@@ -15,6 +15,11 @@ ROOT = Path(__file__).resolve().parents[2]
 EXPECTED_FIGURE_PATHS = [Path(item.filename) for item in REGISTRY_PUBLIC_FIGURES]
 EXPECTED_GALLERY_PATHS = [Path(item) for item in GALLERY_FIGURES]
 BANNED_NAME_TERMS = ["dashboard", "contact_sheet", "gap", "triage", "before", "legacy"]
+BANNED_ROOT_FIGURES = {
+    Path("research/04_etf_institutional_plumbing/figures/02_etf_market_plumbing.png"),
+    Path("research/09_market_concentration_state/figures/market_concentration_state.png"),
+    Path("research/08_relative_major_asset_risk/figures/05_selected_major_asset_risk.png"),
+}
 
 
 def test_public_visual_outputs_are_the_canonical_readme_set() -> None:
@@ -53,6 +58,8 @@ def test_public_figure_registry_matches_files_and_readme() -> None:
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     image_paths = [Path(item) for item in re.findall(r"!\[[^\]]*\]\(([^)]+)\)", readme)]
     assert image_paths == EXPECTED_FIGURE_PATHS
+    assert not BANNED_ROOT_FIGURES.intersection(image_paths)
+    assert len(image_paths) == 5
     assert "outputs/" not in readme
     assert "public_contact_sheet" not in readme
     assert not re.search(r"figures/public/[FT]\d+", readme)
@@ -60,3 +67,28 @@ def test_public_figure_registry_matches_files_and_readme() -> None:
         assert "archive/" not in relpath.as_posix()
         assert "portfolio_v2" not in relpath.as_posix()
         assert (ROOT / relpath).exists(), relpath
+
+
+def test_root_figure_selection_documents_scoring() -> None:
+    import pandas as pd
+
+    selection = pd.read_csv(ROOT / "research" / "root_figure_selection.csv")
+    required = {
+        "figure_id",
+        "module",
+        "finding",
+        "empirical_strength",
+        "robustness",
+        "economic_relevance",
+        "june_2026_relevance",
+        "cross_asset_breadth",
+        "visual_quality",
+        "weighted_score",
+        "hard_exclusion",
+        "selected",
+        "reason",
+    }
+    assert required.issubset(selection.columns)
+    selected = selection[selection["selected"].astype(str).str.lower().eq("true")]
+    assert list(selected["figure_id"]) == [item.figure_id for item in REGISTRY_PUBLIC_FIGURES]
+    assert not selected["hard_exclusion"].fillna("").str.strip().any()

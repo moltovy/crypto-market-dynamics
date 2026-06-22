@@ -1,0 +1,65 @@
+module_id: 02_macro_tradfi_integration
+title: Macro and TradFi Integration
+research_question: How do crypto exposures to equities, volatility, rates, the dollar,
+  gold, and credit vary across calendars and periods?
+research_questions:
+- How do equity, volatility, dollar, rates, and gold blocks contribute to contemporaneous
+  crypto exposure models?
+- Are later-sample exposure differences robust to frequency, multicollinearity, FDR,
+  and ridge sensitivity?
+outcomes:
+- HAC exposure
+- delta R-squared
+- rolling beta
+- stability diagnostics
+features:
+- SPY
+- QQQ
+- IWM
+- VIX
+- DXY
+- gold
+- nominal and real rates
+frequencies:
+- daily
+- weekly
+methods:
+- HAC OLS
+- Same-support block R-squared
+- Stability diagnostics
+sensitivity_dimensions:
+- frequency
+- period split
+- HAC bandwidth
+- FDR
+- VIF
+- ridge
+status: built
+canonical_surface: research/02_macro_tradfi_integration
+tables:
+- block_delta_r2.csv
+- btc_ex_mvrv_feature_strength.csv
+- claims.csv
+- conventional_partial_r2.csv
+- eth_feature_strength.csv
+- exposure_regime_comparison.csv
+- fdr_adjusted_inference.csv
+- frequency_robustness.csv
+- local_window_correlation_distribution.csv
+- multicollinearity_diagnostics.csv
+- ridge_stability.csv
+- rolling_exposure_summary.csv
+- rolling_tradfi_exposures.csv
+figures:
+- 02_macro_block_delta_heatmap.png
+- 02_rolling_tradfi_beta.png
+- 02_tradfi_exposure_shift.png
+code:
+- src/cqresearch/research/analytical_modules.py
+tests:
+- tests/unit/test_feature_strength_outputs.py
+- tests/unit/test_visual_outputs.py
+root_readme_candidate_figures:
+- figures/02_macro_block_delta_heatmap.png
+- figures/02_rolling_tradfi_beta.png
+- figures/02_tradfi_exposure_shift.png

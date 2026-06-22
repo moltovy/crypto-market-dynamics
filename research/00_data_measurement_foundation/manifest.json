@@ -1,0 +1,112 @@
+{
+  "artifacts": [
+    {
+      "bytes": 89417,
+      "path": "research/00_data_measurement_foundation/figures/coverage_missingness_by_block.png",
+      "sha256": "edf9436182fb30bdbac03efad53440429fe793e0a4692ed34ed91de96e514d55"
+    },
+    {
+      "bytes": 57676,
+      "path": "research/00_data_measurement_foundation/figures/coverage_missingness_by_block.svg",
+      "sha256": "fa753be02a072687b2b73b712688d65744b5413fa47751015b0b1111ad570f1f"
+    },
+    {
+      "bytes": 137540,
+      "path": "research/00_data_measurement_foundation/figures/data_governance_inventory.png",
+      "sha256": "ff9a81492f516db88723b31e3ddcc5a24f209d54c06ed3cb1cf912c0c750ee82"
+    },
+    {
+      "bytes": 85459,
+      "path": "research/00_data_measurement_foundation/figures/data_governance_inventory.svg",
+      "sha256": "df1a55c3fc6256e2a821d94db2b10d62c8eedf35b7b418b0336acf5666b18b67"
+    },
+    {
+      "bytes": 506,
+      "path": "research/00_data_measurement_foundation/findings.md",
+      "sha256": "c325ca5c3ccfc25539b7d69b0a9922573831c71a8cac0d660c63656f0a0fbbdf"
+    },
+    {
+      "bytes": 197,
+      "path": "research/00_data_measurement_foundation/interpretation.md",
+      "sha256": "eb2cb2c36b0168c529692f3e8d8671c9b4be21bb0a658a2e0a25b5ac22c3c4ac"
+    },
+    {
+      "bytes": 311,
+      "path": "research/00_data_measurement_foundation/limitations.md",
+      "sha256": "3461e25db0bbe5a4c4904f04b1b9b9fa4b42edf98129c5faa87aef529e5ec5ad"
+    },
+    {
+      "bytes": 653,
+      "path": "research/00_data_measurement_foundation/methodology.md",
+      "sha256": "239e0f068ee2a0a20ff023f8f18b7660cfea1ffdc1638c2283d4d476464cfba1"
+    },
+    {
+      "bytes": 1334,
+      "path": "research/00_data_measurement_foundation/module.yml",
+      "sha256": "be206792e89845da19d5adf042922f2487e4547c3467e134afbb164746b0c137"
+    },
+    {
+      "bytes": 6273,
+      "path": "research/00_data_measurement_foundation/README.md",
+      "sha256": "9e9fbb3ffe6a0d0ccc7631d801600757bd401ce0edc01a0535db9d4bcde83751"
+    },
+    {
+      "bytes": 2545,
+      "path": "research/00_data_measurement_foundation/tables/asset_universe_audit.csv",
+      "sha256": "3d8828beb1519996a4685d45e175eaefa95cf755221ce7bb379bf416cda892fe"
+    },
+    {
+      "bytes": 3804,
+      "path": "research/00_data_measurement_foundation/tables/chain_token_mapping_audit.csv",
+      "sha256": "7e29fc077731d765440435e4c364b4f82740a054157a5e7f4d035bc9fc514c23"
+    },
+    {
+      "bytes": 3022,
+      "path": "research/00_data_measurement_foundation/tables/claims.csv",
+      "sha256": "c5b2936a2a085df0c27aa744d2df30f84eed4493f54c2af65fc57fe950a9f2f8"
+    },
+    {
+      "bytes": 118834,
+      "path": "research/00_data_measurement_foundation/tables/coverage_missingness.csv",
+      "sha256": "0b50199432463dbc3880414de09c6f313088240c0402dacd1b964410b391cfa7"
+    },
+    {
+      "bytes": 12975,
+      "path": "research/00_data_measurement_foundation/tables/feature_inventory.csv",
+      "sha256": "889158af7b655b6434f27017ff80fa2f074e047aa43df15e8b6ff7907a6c2654"
+    },
+    {
+      "bytes": 64503,
+      "path": "research/00_data_measurement_foundation/tables/feature_usage_matrix.csv",
+      "sha256": "d6e5503541f78120495380b8d0c8d94c2ce10ef5cfae4366dc3d8afa67d48e18"
+    },
+    {
+      "bytes": 26223,
+      "path": "research/00_data_measurement_foundation/tables/measurement_risk_audit.csv",
+      "sha256": "0b327c413be7bc9e7c314fb681f05a2a900be5cdc8613996bcb650e973083e40"
+    },
+    {
+      "bytes": 1862,
+      "path": "research/00_data_measurement_foundation/tables/provider_inventory.csv",
+      "sha256": "6db96bcaafe77097f0c4892b2536917c4eda3282e12e83918400ce5679c73747"
+    },
+    {
+      "bytes": 140831,
+      "path": "research/00_data_measurement_foundation/tables/raw_file_inventory.csv",
+      "sha256": "89095504eb3cabeed999d54165ca7f5d334be31d0a98130e2dd599540ba6e89e"
+    },
+    {
+      "bytes": 144014,
+      "path": "research/00_data_measurement_foundation/tables/raw_series_inventory.csv",
+      "sha256": "681d0b66e4310e0975aed3740758e4c26cd656c9685043455122980213a871d2"
+    },
+    {
+      "bytes": 59787,
+      "path": "research/00_data_measurement_foundation/tables/units_timing_scaling_audit.csv",
+      "sha256": "54f87afc079450a0a431d99b4c9855275316bd6024f5f92a5b9d8560bda72644"
+    }
+  ],
+  "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",
+  "module_id": "00_data_measurement_foundation",
+  "schema_version": 1
+}

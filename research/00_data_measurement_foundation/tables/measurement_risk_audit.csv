@@ -1,0 +1,146 @@
+risk_id,risk_type,severity,subject,evidence,required_handling
+release_alternativeme,release_risk,high,AlternativeMe,derived-only recommended,publish derived semantic artifacts only unless rights are separately verified
+release_artemis,release_risk,high,Artemis,uncertain/restricted,publish derived semantic artifacts only unless rights are separately verified
+release_cryptoquant,release_risk,high,CryptoQuant,uncertain/restricted,publish derived semantic artifacts only unless rights are separately verified
+release_defillama,release_risk,high,DefiLlama,derived-only recommended,publish derived semantic artifacts only unless rights are separately verified
+release_farside,release_risk,high,Farside ETF Data,derived-only recommended,publish derived semantic artifacts only unless rights are separately verified
+release_market_structure,release_risk,high,MarketStructure,derived-only recommended,publish derived semantic artifacts only unless rights are separately verified
+release_tradingview,release_risk,high,Tradingview,uncertain/restricted,publish derived semantic artifacts only unless rights are separately verified
+measurement_btc_etf_flow_intensity_lag0,measurement_or_endogeneity,medium,btc_etf_flow_intensity_lag0,low none_identified medium price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_btc_etf_flow_intensity_lag1,measurement_or_endogeneity,medium,btc_etf_flow_intensity_lag1,low none_identified medium price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_btc_funding_z_lag1,measurement_or_endogeneity,medium,btc_funding_z_lag1,low none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_btc_mvrv_lag1,measurement_or_endogeneity,medium,btc_mvrv_lag1,high none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_btc_oi_growth_lag1,measurement_or_endogeneity,medium,btc_oi_growth_lag1,medium medium_if_usd_notional low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_btc_oi_to_mcap_growth_lag1,measurement_or_endogeneity,medium,btc_oi_to_mcap_growth_lag1,low medium_if_usd_notional low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_btc_realized_vol_30d,measurement_or_endogeneity,medium,btc_realized_vol_30d,low none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_btc_ret,measurement_or_endogeneity,medium,btc_ret,low none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_btc_total_liq_to_lag_mcap_bps,measurement_or_endogeneity,medium,btc_total_liq_to_lag_mcap_bps,low none_identified medium price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_btc_total_liq_to_lag_oi_pct,measurement_or_endogeneity,medium,btc_total_liq_to_lag_oi_pct,low medium_if_usd_notional medium price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_d_log_market_cap,measurement_or_endogeneity,medium,d_log_market_cap,low none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_d_log_mvrv,measurement_or_endogeneity,medium,d_log_mvrv,high none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_d_log_realized_cap,measurement_or_endogeneity,medium,d_log_realized_cap,low none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_dxy_ret,measurement_or_endogeneity,medium,dxy_ret,low none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_eth_etf_flow_intensity_lag0,measurement_or_endogeneity,medium,eth_etf_flow_intensity_lag0,low none_identified medium price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_eth_etf_flow_intensity_lag1,measurement_or_endogeneity,medium,eth_etf_flow_intensity_lag1,low none_identified medium price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_eth_oi_to_mcap_growth_lag1,measurement_or_endogeneity,medium,eth_oi_to_mcap_growth_lag1,low medium_if_usd_notional low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_eth_ret,measurement_or_endogeneity,medium,eth_ret,low none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_gold_ret,measurement_or_endogeneity,medium,gold_ret,low none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_identity_residual,measurement_or_endogeneity,medium,identity_residual,low none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_iwm_ret,measurement_or_endogeneity,medium,iwm_ret,low none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_nominal_10y_d1,measurement_or_endogeneity,medium,nominal_10y_d1,low none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_pit_hhi,measurement_or_endogeneity,medium,pit_hhi,low none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_qqq_ret,measurement_or_endogeneity,medium,qqq_ret,low none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_real_yield_d1,measurement_or_endogeneity,medium,real_yield_d1,low none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_spy_ret,measurement_or_endogeneity,medium,spy_ret,low none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_stablecoin_supply_growth,measurement_or_endogeneity,medium,stablecoin_supply_growth,low medium_if_usd_notional low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_stablecoin_supply_growth_lag1,measurement_or_endogeneity,medium,stablecoin_supply_growth_lag1,low medium_if_usd_notional low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_valuation_sensitive_defi_tvl_growth,measurement_or_endogeneity,medium,valuation_sensitive_defi_tvl_growth,medium high_usd_price_content low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_valuation_sensitive_defi_tvl_growth_lag1,measurement_or_endogeneity,medium,valuation_sensitive_defi_tvl_growth_lag1,medium high_usd_price_content low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+measurement_vix_d1,measurement_or_endogeneity,medium,vix_d1,low none_identified low price forecasting; causal claims; same-day mvrv as primary btc-return factor,"state timing, denominator, and prohibited language before use"
+usage_BAMLH0A0HYM2,feature_exclusion,medium,BAMLH0A0HYM2,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_DCOILWTICO,feature_exclusion,medium,DCOILWTICO,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_DFF,feature_exclusion,medium,DFF,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_DFII10,feature_exclusion,medium,DFII10,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_DGS10,feature_exclusion,medium,DGS10,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_DGS2,feature_exclusion,medium,DGS2,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_DGS30,feature_exclusion,medium,DGS30,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_DTWEXBGS,feature_exclusion,medium,DTWEXBGS,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_RRPONTSYD,feature_exclusion,medium,RRPONTSYD,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_SOFR,feature_exclusion,medium,SOFR,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_T10Y2Y,feature_exclusion,medium,T10Y2Y,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_USEPUINDXD,feature_exclusion,medium,USEPUINDXD,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_VIXCLS,feature_exclusion,medium,VIXCLS,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_asset_class_final,feature_exclusion,medium,asset_class_final,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_asset_key,feature_exclusion,medium,asset_key,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_asset_name,feature_exclusion,medium,asset_name,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_basis_z,feature_exclusion,medium,btc_basis_z,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_bottom5,feature_exclusion,medium,btc_bottom5,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_drawdown,feature_exclusion,medium,btc_drawdown,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_etf_arkb,feature_exclusion,medium,btc_etf_arkb,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_etf_bitb,feature_exclusion,medium,btc_etf_bitb,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_etf_brrr,feature_exclusion,medium,btc_etf_brrr,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_etf_btc,feature_exclusion,medium,btc_etf_btc,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_etf_btco,feature_exclusion,medium,btc_etf_btco,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_etf_btcw,feature_exclusion,medium,btc_etf_btcw,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_etf_ezbc,feature_exclusion,medium,btc_etf_ezbc,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_etf_fbtc,feature_exclusion,medium,btc_etf_fbtc,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_etf_flow_intensity,feature_exclusion,medium,btc_etf_flow_intensity,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_etf_gbtc,feature_exclusion,medium,btc_etf_gbtc,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_etf_hodl,feature_exclusion,medium,btc_etf_hodl,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_etf_ibit,feature_exclusion,medium,btc_etf_ibit,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_etf_msbt,feature_exclusion,medium,btc_etf_msbt,excluded_insufficient_coverage,Coverage below the minimum descriptive threshold.
+usage_btc_etf_total,feature_exclusion,medium,btc_etf_total,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_exchange_netflow,feature_exclusion,medium,btc_exchange_netflow,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_exchange_netflow_scaled,feature_exclusion,medium,btc_exchange_netflow_scaled,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_exchange_netflow_scaled_lag1,feature_exclusion,medium,btc_exchange_netflow_scaled_lag1,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_future_30d_min_drawdown,feature_exclusion,medium,btc_future_30d_min_drawdown,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_high,feature_exclusion,medium,btc_high,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_leverage_ratio_percentile,feature_exclusion,medium,btc_leverage_ratio_percentile,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_leverage_ratio_percentile_lag1,feature_exclusion,medium,btc_leverage_ratio_percentile_lag1,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_low,feature_exclusion,medium,btc_low,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_miner_to_exchange_flow,feature_exclusion,medium,btc_miner_to_exchange_flow,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_mvrv,feature_exclusion,medium,btc_mvrv,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_mvrv_d1,feature_exclusion,medium,btc_mvrv_d1,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_mvrv_log,feature_exclusion,medium,btc_mvrv_log,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_mvrv_percentile_lagged,feature_exclusion,medium,btc_mvrv_percentile_lagged,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_mvrv_quintile_lagged,feature_exclusion,medium,btc_mvrv_quintile_lagged,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_mvrv_z_365_lagged,feature_exclusion,medium,btc_mvrv_z_365_lagged,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_nupl_lag1,feature_exclusion,medium,btc_nupl_lag1,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_open,feature_exclusion,medium,btc_open,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_realized_price,feature_exclusion,medium,btc_realized_price,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_realized_price_gap_lag1,feature_exclusion,medium,btc_realized_price_gap_lag1,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_ret_fwd_1d,feature_exclusion,medium,btc_ret_fwd_1d,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_ret_fwd_7d,feature_exclusion,medium,btc_ret_fwd_7d,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_sopr_lag1,feature_exclusion,medium,btc_sopr_lag1,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_supply_profit_pct_lag1,feature_exclusion,medium,btc_supply_profit_pct_lag1,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_taker_buy_ratio,feature_exclusion,medium,btc_taker_buy_ratio,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_total_liq_intensity,feature_exclusion,medium,btc_total_liq_intensity,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_vol_spike,feature_exclusion,medium,btc_vol_spike,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_btc_volume,feature_exclusion,medium,btc_volume,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_calendar,feature_exclusion,medium,calendar,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_calendar_assumption,feature_exclusion,medium,calendar_assumption,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_close_time_assumption,feature_exclusion,medium,close_time_assumption,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_coingecko_id,feature_exclusion,medium,coingecko_id,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_defi_tvl_growth,feature_exclusion,medium,defi_tvl_growth,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_defi_tvl_growth_lag1,feature_exclusion,medium,defi_tvl_growth_lag1,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_bottom5,feature_exclusion,medium,eth_bottom5,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_drawdown,feature_exclusion,medium,eth_drawdown,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_etf_eth,feature_exclusion,medium,eth_etf_eth,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_etf_etha,feature_exclusion,medium,eth_etf_etha,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_etf_ethb,feature_exclusion,medium,eth_etf_ethb,excluded_insufficient_coverage,Coverage below the minimum descriptive threshold.
+usage_eth_etf_ethe,feature_exclusion,medium,eth_etf_ethe,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_etf_ethv,feature_exclusion,medium,eth_etf_ethv,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_etf_ethw,feature_exclusion,medium,eth_etf_ethw,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_etf_ezet,feature_exclusion,medium,eth_etf_ezet,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_etf_feth,feature_exclusion,medium,eth_etf_feth,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_etf_flow_intensity,feature_exclusion,medium,eth_etf_flow_intensity,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_etf_qeth,feature_exclusion,medium,eth_etf_qeth,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_etf_teth,feature_exclusion,medium,eth_etf_teth,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_etf_total,feature_exclusion,medium,eth_etf_total,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_high,feature_exclusion,medium,eth_high,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_low,feature_exclusion,medium,eth_low,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_open,feature_exclusion,medium,eth_open,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_realized_vol_30d,feature_exclusion,medium,eth_realized_vol_30d,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_total_liq_intensity,feature_exclusion,medium,eth_total_liq_intensity,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_eth_volume,feature_exclusion,medium,eth_volume,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_fear_greed_altme,feature_exclusion,medium,fear_greed_altme,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_fear_greed_altme_lag1,feature_exclusion,medium,fear_greed_altme_lag1,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_fear_greed_change,feature_exclusion,medium,fear_greed_change,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_fear_greed_change_lag1,feature_exclusion,medium,fear_greed_change_lag1,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_fng_value,feature_exclusion,medium,fng_value,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_hy_oas_d1,feature_exclusion,medium,hy_oas_d1,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_in_full_top100,feature_exclusion,medium,in_full_top100,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_is_partial_month,feature_exclusion,medium,is_partial_month,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_month,feature_exclusion,medium,month,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_oil_ret,feature_exclusion,medium,oil_ret,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_policy_uncertainty_d1,feature_exclusion,medium,policy_uncertainty_d1,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_rank_full_market,feature_exclusion,medium,rank_full_market,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_snapshot_date,feature_exclusion,medium,snapshot_date,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_source,feature_exclusion,medium,source,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_source_rank_full_market,feature_exclusion,medium,source_rank_full_market,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_stablecoin_share_crypto_proxy,feature_exclusion,medium,stablecoin_share_crypto_proxy,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_stablecoin_to_tvl,feature_exclusion,medium,stablecoin_to_tvl,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_symbol,feature_exclusion,medium,symbol,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_term_spread_d1,feature_exclusion,medium,term_spread_d1,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_token_id,feature_exclusion,medium,token_id,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.
+usage_total3_ret,feature_exclusion,medium,total3_ret,excluded_ambiguous_definition_or_unit,Unregistered panel column requires definition and unit review.

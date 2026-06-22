@@ -1,0 +1,92 @@
+{
+  "artifacts": [
+    {
+      "bytes": 80249,
+      "path": "research/06_onchain_valuation_holder_behavior/figures/06_lagged_holder_state_outcomes.png",
+      "sha256": "4d387d05ac319b57b1b2b1ea857938c91a93d27f959d8812da884f135f6cbcb3"
+    },
+    {
+      "bytes": 52329,
+      "path": "research/06_onchain_valuation_holder_behavior/figures/06_lagged_holder_state_outcomes.svg",
+      "sha256": "057a6bdd7f3e5f1d703d8c765132cff6fcb22d7a22a788086d5bcf736463e3ba"
+    },
+    {
+      "bytes": 70561,
+      "path": "research/06_onchain_valuation_holder_behavior/figures/06_mvrv_identity_residual.png",
+      "sha256": "97b6df00d504615012b98613c69278285efcaf73d8160149ea140750b7d0fdc7"
+    },
+    {
+      "bytes": 60375,
+      "path": "research/06_onchain_valuation_holder_behavior/figures/06_mvrv_identity_residual.svg",
+      "sha256": "e47259edde39a3e800932b7d155df4031028edcbe35efaa2f535da492d8f162d"
+    },
+    {
+      "bytes": 131066,
+      "path": "research/06_onchain_valuation_holder_behavior/figures/measurement_mvrv_mechanics.png",
+      "sha256": "b46d56bcae86855cb9bd000d265a16d0d9c6a33fbe33b691298c7bb601a6ab37"
+    },
+    {
+      "bytes": 200964,
+      "path": "research/06_onchain_valuation_holder_behavior/figures/measurement_mvrv_mechanics.svg",
+      "sha256": "cca0770fbd6ab6f59bb94282b98fe4f51957f9fb21e979b9f6a55afa76afb515"
+    },
+    {
+      "bytes": 152,
+      "path": "research/06_onchain_valuation_holder_behavior/findings.md",
+      "sha256": "c53425f8afc5f460659a006855c0086bceab117d0e1fa3a2a30f1f9654c371e0"
+    },
+    {
+      "bytes": 125,
+      "path": "research/06_onchain_valuation_holder_behavior/interpretation.md",
+      "sha256": "ce54a27da7d550302913819eaed48d9edfdbcf0c7f66d8d64c01c91558e523b1"
+    },
+    {
+      "bytes": 101,
+      "path": "research/06_onchain_valuation_holder_behavior/limitations.md",
+      "sha256": "257b63563b7258cd65af1e311a3a7c713f9b9d03b87f7219ceef0c7b29b67a0c"
+    },
+    {
+      "bytes": 203,
+      "path": "research/06_onchain_valuation_holder_behavior/methodology.md",
+      "sha256": "6ef5d613281c3e057cedc1003291b1f553ccb52e5b795ed7844d2f812eda0abc"
+    },
+    {
+      "bytes": 1384,
+      "path": "research/06_onchain_valuation_holder_behavior/module.yml",
+      "sha256": "b1d039a18f9cc3bc97761910ed090fb4e073f4ca09bca874a86235955ab9ff3c"
+    },
+    {
+      "bytes": 4581,
+      "path": "research/06_onchain_valuation_holder_behavior/README.md",
+      "sha256": "34d10d97737bf9e4f1630e1567eb72a2c8d859f2d374b1be02df3568e1ac10f4"
+    },
+    {
+      "bytes": 1689,
+      "path": "research/06_onchain_valuation_holder_behavior/tables/claims.csv",
+      "sha256": "86389a565d0004524d646b968b54559a083302139abe5a712b65a5cfe41850eb"
+    },
+    {
+      "bytes": 689047,
+      "path": "research/06_onchain_valuation_holder_behavior/tables/mvrv_identity_points.csv",
+      "sha256": "d590a204f11ad2b8e114d9e895e2d59f9bf51c12d2d7fa0332b15663f9d6923a"
+    },
+    {
+      "bytes": 1575,
+      "path": "research/06_onchain_valuation_holder_behavior/tables/mvrv_mechanical_link_audit.csv",
+      "sha256": "a30faa56e60f9d415d7751a6b80e17bf64b09e12291bbe5f91b31653576ccd8c"
+    },
+    {
+      "bytes": 772,
+      "path": "research/06_onchain_valuation_holder_behavior/tables/mvrv_regime_outcomes.csv",
+      "sha256": "ddf87f7add89cb4dca64c8e1ee0606d4458e9fe341e99c0e14bb1fb48d4ee327"
+    },
+    {
+      "bytes": 197538,
+      "path": "research/06_onchain_valuation_holder_behavior/tables/onchain_state_regimes.csv",
+      "sha256": "b118c4076192094020ae3960ec8b23c39f929ebdfabc0ff3aadaa27a97536bb6"
+    }
+  ],
+  "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",
+  "module_id": "06_onchain_valuation_holder_behavior",
+  "schema_version": 1
+}

@@ -1,8 +1,8 @@
-"""Canonical offline pipeline for Crypto Market Dynamics.
+"""Legacy local-data helpers for Crypto Market Dynamics.
 
-This module is the maintained public build path. It uses local provider
-data when available, writes semantic outputs, and keeps legacy release artifacts out of the
-public surface.
+The maintained public build path is `cqresearch.pipelines.research`, which
+writes the canonical `research/` surface. This module is retained for provider
+parsing utilities and historical helper functions only.
 """
 
 from __future__ import annotations
@@ -5472,16 +5472,8 @@ def check_public_surface(root: Path = PROJECT_ROOT) -> pd.DataFrame:
 
 
 def run_all(root: Path = PROJECT_ROOT) -> None:
-    p = paths(root)
-    ensure_output_dirs(p)
-    clean_legacy_outputs(p)
-    write_config_files(root)
-    write_licenses(root)
-    build_data_inventory(root)
-    build_feature_store(root)
-    build_analysis_outputs(root)
-    build_public_figures(root)
-    write_outputs_index(p)
-    write_main_readme(root, p)
-    write_manifest(root, p)
-    check_public_surface(root)
+    from cqresearch.pipelines.research import build_research_figures, check_research, run_research
+
+    run_research(module="all", root=root)
+    build_research_figures(module="all", root=root)
+    check_research(module="all", root=root)

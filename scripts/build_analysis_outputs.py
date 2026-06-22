@@ -1,4 +1,4 @@
-"""Build canonical analysis tables, reports, and model cards."""
+"""Compatibility wrapper for the canonical research-surface build."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
-from cqresearch.pipelines.final_research import build_analysis_outputs
+from cqresearch.pipelines.research import run_research
 
 if __name__ == "__main__":
-    build_analysis_outputs()
+    run_research(module="all", root=ROOT)

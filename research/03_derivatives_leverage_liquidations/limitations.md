@@ -1,3 +1,3 @@
 # Limitations
 
-Liquidation observations are timing-sensitive and cannot establish that liquidations caused subsequent returns.
+Liquidation timestamps, denominator price content, and same-day simultaneity constrain interpretation.

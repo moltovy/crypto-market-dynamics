@@ -51,9 +51,18 @@ def test_curation_snapshots_is_parsable() -> None:
     assert "validate" in data
 
 
-def test_research_modules_yml_declares_twelve_modules() -> None:
+def test_research_modules_yml_declares_final_ten_modules() -> None:
     data = _load(CONFIG_DIR / "research_modules.yml")
     modules = data["modules"]
-    assert len(modules) == 12
-    assert modules[0]["module_id"] == "00_data_foundation"
-    assert modules[-1]["module_id"] == "11_cross_module_synthesis"
+    assert [item["module_id"] for item in modules] == [
+        "00_data_measurement_foundation",
+        "01_cross_asset_dependence_regimes",
+        "02_macro_tradfi_integration",
+        "03_derivatives_leverage_liquidations",
+        "04_etf_institutional_flows",
+        "05_stablecoin_defi_liquidity",
+        "06_onchain_valuation_holder_behavior",
+        "07_chain_fundamentals_sector_dynamics",
+        "08_relative_asset_risk_factor_structure",
+        "09_event_stress_cross_module_synthesis",
+    ]

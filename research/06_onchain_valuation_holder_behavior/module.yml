@@ -1,0 +1,49 @@
+module_id: 06_onchain_valuation_holder_behavior
+title: On-Chain Valuation and Holder Behavior
+research_question: Which on-chain valuation and holder-state measures are diagnostics
+  versus admissible lagged state variables?
+research_questions:
+- How mechanically linked is same-day MVRV to BTC price-state changes?
+- Do lagged holder-state summaries deserve diagnostic treatment without becoming primary
+  factors?
+outcomes:
+- MVRV mechanics
+- identity residual
+- lagged holder-state outcome
+features:
+- MVRV
+- market cap
+- realized cap
+- holder-state metrics
+frequencies:
+- daily
+- weekly state
+methods:
+- Identity decomposition
+- Lagged state bins
+sensitivity_dimensions:
+- same-day versus lagged
+- identity residual
+- state quintile
+- source convention
+status: built
+canonical_surface: research/06_onchain_valuation_holder_behavior
+tables:
+- claims.csv
+- mvrv_identity_points.csv
+- mvrv_mechanical_link_audit.csv
+- mvrv_regime_outcomes.csv
+- onchain_state_regimes.csv
+figures:
+- 06_lagged_holder_state_outcomes.png
+- 06_mvrv_identity_residual.png
+- measurement_mvrv_mechanics.png
+code:
+- src/cqresearch/research/analytical_modules.py
+tests:
+- tests/unit/test_feature_strength_outputs.py
+- tests/unit/test_visual_outputs.py
+root_readme_candidate_figures:
+- figures/06_lagged_holder_state_outcomes.png
+- figures/06_mvrv_identity_residual.png
+- figures/measurement_mvrv_mechanics.png

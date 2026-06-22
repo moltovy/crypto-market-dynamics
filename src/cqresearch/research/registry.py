@@ -10,9 +10,9 @@ ALLOWED_USAGE_STATUSES: frozenset[str] = frozenset(
         "robustness_or_sensitivity",
         "diagnostic_only",
         "excluded_insufficient_coverage",
-        "excluded_definition_or_unit_ambiguity",
-        "excluded_duplicate_or_redundant",
-        "excluded_licensing_or_release_risk",
+        "excluded_ambiguous_definition_or_unit",
+        "excluded_duplicate",
+        "excluded_release_risk",
     }
 )
 
@@ -26,19 +26,19 @@ class ResearchModule:
 
 MODULES: tuple[ResearchModule, ...] = (
     ResearchModule(
-        "00_data_foundation",
-        "Data Foundation",
-        "What data, units, timing, coverage, identity, and release-risk constraints govern every later result?",
+        "00_data_measurement_foundation",
+        "Data and Measurement Foundation",
+        "What data, assets, units, timing, coverage, identity, and release-risk constraints govern later empirical claims?",
     ),
     ResearchModule(
-        "01_returns_risk_regimes",
-        "Returns, Risk, and Regimes",
-        "How do BTC and ETH return distributions, volatility, drawdown, and tail behavior vary across transparent regimes?",
+        "01_cross_asset_dependence_regimes",
+        "Cross-Asset Dependence and Regimes",
+        "How do crypto and TradFi return dependence, common-factor share, lower-tail co-exceedance, and regimes vary across matched samples?",
     ),
     ResearchModule(
-        "02_macro_cross_asset_exposure",
-        "Macro and Cross-Asset Exposure",
-        "How does crypto co-movement with equities, volatility, rates, dollar, and gold vary by asset, calendar, and period?",
+        "02_macro_tradfi_integration",
+        "Macro and TradFi Integration",
+        "How do crypto exposures to equities, volatility, rates, the dollar, gold, and credit vary across calendars and periods?",
     ),
     ResearchModule(
         "03_derivatives_leverage_liquidations",
@@ -46,9 +46,9 @@ MODULES: tuple[ResearchModule, ...] = (
         "Where do leverage, funding, open-interest scaling, and liquidation stress appear in volatility and tail outcomes?",
     ),
     ResearchModule(
-        "04_etf_institutional_plumbing",
-        "ETF and Institutional Plumbing",
-        "How do ETF flow intensity and absorption measures line up with contemporaneous and lagged crypto outcomes?",
+        "04_etf_institutional_flows",
+        "ETF and Institutional Flows",
+        "How do ETF flow intensity, timing, lag response, and shock/placebo diagnostics line up with crypto outcomes?",
     ),
     ResearchModule(
         "05_stablecoin_defi_liquidity",
@@ -56,34 +56,24 @@ MODULES: tuple[ResearchModule, ...] = (
         "What do stablecoin supply and DeFi TVL proxies say about liquidity-state associations after unit and valuation audits?",
     ),
     ResearchModule(
-        "06_onchain_valuation_holder_state",
-        "On-Chain Valuation and Holder State",
+        "06_onchain_valuation_holder_behavior",
+        "On-Chain Valuation and Holder Behavior",
         "Which on-chain valuation and holder-state measures are diagnostics versus admissible lagged state variables?",
     ),
     ResearchModule(
-        "07_chain_fundamentals",
-        "Chain Fundamentals",
-        "Which chain-level activity measures have enough coverage and definition clarity for descriptive panel analysis?",
+        "07_chain_fundamentals_sector_dynamics",
+        "Chain Fundamentals and Sector Dynamics",
+        "Which chain-level activity, sector, and point-in-time state measures have enough coverage and definition clarity for descriptive panel analysis?",
     ),
     ResearchModule(
-        "08_relative_major_asset_risk",
-        "Relative Major-Asset Risk",
-        "How do selected major crypto assets compare on matched-window risk, downside, drawdown, and beta measures?",
+        "08_relative_asset_risk_factor_structure",
+        "Relative Asset Risk and Factor Structure",
+        "How do selected crypto assets compare on matched-window risk, downside beta, expected shortfall, and common-versus-idiosyncratic factor structure?",
     ),
     ResearchModule(
-        "09_market_concentration_state",
-        "Market Concentration State",
-        "How do monthly point-in-time concentration, turnover, and rank-persistence states relate to market-structure conditions?",
-    ),
-    ResearchModule(
-        "10_event_sensitivity",
-        "Event Sensitivity",
-        "How do registered event windows compare with empirical placebo windows under fixed window conventions?",
-    ),
-    ResearchModule(
-        "11_cross_module_synthesis",
-        "Cross-Module Synthesis",
-        "Which findings remain strongest after comparing outcome, coverage, timing, uncertainty, and measurement-risk evidence?",
+        "09_event_stress_cross_module_synthesis",
+        "Event Stress and Cross-Module Synthesis",
+        "Which event-window, stress-state, and cross-module findings remain strongest after comparing sample, method, uncertainty, measurement risk, and limitations?",
     ),
 )
 

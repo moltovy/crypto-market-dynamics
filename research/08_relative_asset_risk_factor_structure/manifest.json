@@ -1,0 +1,112 @@
+{
+  "artifacts": [
+    {
+      "bytes": 80249,
+      "path": "research/08_relative_asset_risk_factor_structure/figures/08_common_idiosyncratic_risk_decomposition.png",
+      "sha256": "9642911c35ef6e22e9e7050056b00e1cc6d9ec3b49d8a9bd5d5e0c61c2c2eefc"
+    },
+    {
+      "bytes": 57592,
+      "path": "research/08_relative_asset_risk_factor_structure/figures/08_common_idiosyncratic_risk_decomposition.svg",
+      "sha256": "65f0a57a12492bc1f1161f8f16e9fa956dde861a6093942f1aac2862897385b5"
+    },
+    {
+      "bytes": 83390,
+      "path": "research/08_relative_asset_risk_factor_structure/figures/08_downside_expected_shortfall_forest.png",
+      "sha256": "81a3278156db3beb200d8ac9cab9ba13d1c88a8339b3f3dedb2033fdd62d9f62"
+    },
+    {
+      "bytes": 55698,
+      "path": "research/08_relative_asset_risk_factor_structure/figures/08_downside_expected_shortfall_forest.svg",
+      "sha256": "fbd2239ee56bcc1f9d724bd366d1182da0a41e57e7f9b65a7dc7b9c838a3b810"
+    },
+    {
+      "bytes": 71655,
+      "path": "research/08_relative_asset_risk_factor_structure/figures/08_selected_major_beta_forest.png",
+      "sha256": "f23e39abe3256354b142bf0c3f8eb13e493093446b28413d5a96d96640dc7d16"
+    },
+    {
+      "bytes": 51045,
+      "path": "research/08_relative_asset_risk_factor_structure/figures/08_selected_major_beta_forest.svg",
+      "sha256": "987779c5303298754145f41d575a6cdaa07210c4264eccbedf928a274ffa3f04"
+    },
+    {
+      "bytes": 182,
+      "path": "research/08_relative_asset_risk_factor_structure/findings.md",
+      "sha256": "567a3d93dd6eb0a650ad0daa6328bf24dd9e3fb12f7447910ef83811caeda528"
+    },
+    {
+      "bytes": 118,
+      "path": "research/08_relative_asset_risk_factor_structure/interpretation.md",
+      "sha256": "b1d90da25ae96f02bb072b20b12fcc77328615508ee28cdba4244e93e42c3691"
+    },
+    {
+      "bytes": 121,
+      "path": "research/08_relative_asset_risk_factor_structure/limitations.md",
+      "sha256": "4420f128afb2dfe7d4c1327f6287d3cf85100cf97d4d918715268026eed6f443"
+    },
+    {
+      "bytes": 227,
+      "path": "research/08_relative_asset_risk_factor_structure/methodology.md",
+      "sha256": "f33b7f321adc5853660eb9edf47003fa71f48753332f640556975f3b1fa6e093"
+    },
+    {
+      "bytes": 1683,
+      "path": "research/08_relative_asset_risk_factor_structure/module.yml",
+      "sha256": "46dac071f3fd6e6216529fa3575868c4cb49ec3e6a159fbb1ac9be22d3cf7b6f"
+    },
+    {
+      "bytes": 5788,
+      "path": "research/08_relative_asset_risk_factor_structure/README.md",
+      "sha256": "ee94e770ad44ec465ee7dcf3d3bdd59ddabc1e8378669b1ad059d165665d47c9"
+    },
+    {
+      "bytes": 2121,
+      "path": "research/08_relative_asset_risk_factor_structure/tables/asset_identity_audit.csv",
+      "sha256": "d67e747b59db44720f7a258b46ab50dd7834697c2c2caeee339946a650372c93"
+    },
+    {
+      "bytes": 19710,
+      "path": "research/08_relative_asset_risk_factor_structure/tables/asset_taxonomy.csv",
+      "sha256": "19041433c2019ef67533be074ea89f2d4bad6215755f2db818e330412b1ce31c"
+    },
+    {
+      "bytes": 1898,
+      "path": "research/08_relative_asset_risk_factor_structure/tables/claims.csv",
+      "sha256": "6faa4acaa6ff965bec0f104de660a977e8c547971b4d9ed378692f5ab37b638f"
+    },
+    {
+      "bytes": 1005,
+      "path": "research/08_relative_asset_risk_factor_structure/tables/downside_expected_shortfall.csv",
+      "sha256": "2be16ef4743b7fd3ecde9b8da0ccfdded9372fa6c49071be900cfd79f1286e3d"
+    },
+    {
+      "bytes": 1144,
+      "path": "research/08_relative_asset_risk_factor_structure/tables/relative_factor_decomposition.csv",
+      "sha256": "a99fd5e209559dd85fd440f67b6e83f6e4ff9df2b77329cf980e8979a5ee5582"
+    },
+    {
+      "bytes": 1446,
+      "path": "research/08_relative_asset_risk_factor_structure/tables/selected_major_betas.csv",
+      "sha256": "39951e04b2eba09ea120c0f928bc4e9b6a6b9a44c3811634cdc00327cf7e6a1c"
+    },
+    {
+      "bytes": 1895,
+      "path": "research/08_relative_asset_risk_factor_structure/tables/selected_major_comparable_window_metrics.csv",
+      "sha256": "9147be43a4f370af15beeb13dbe42d1709e10c3de0d07a23b580a26abfd5acff"
+    },
+    {
+      "bytes": 2026,
+      "path": "research/08_relative_asset_risk_factor_structure/tables/selected_major_coverage.csv",
+      "sha256": "925df9707090408ba025e954ebf728c61dabf5d53314562419dbeea766f37a5c"
+    },
+    {
+      "bytes": 1450,
+      "path": "research/08_relative_asset_risk_factor_structure/tables/selected_major_risk_metrics.csv",
+      "sha256": "c61259398315f9c9e5bdb856bacd37a12ab113f6407fd4033492d17dca2c9497"
+    }
+  ],
+  "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",
+  "module_id": "08_relative_asset_risk_factor_structure",
+  "schema_version": 1
+}

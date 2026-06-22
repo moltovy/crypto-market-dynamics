@@ -1,0 +1,54 @@
+module_id: 08_relative_asset_risk_factor_structure
+title: Relative Asset Risk and Factor Structure
+research_question: How do selected crypto assets compare on matched-window risk, downside
+  beta, expected shortfall, and common-versus-idiosyncratic factor structure?
+research_questions:
+- How much selected-major risk is common crypto factor versus asset-specific residual
+  risk?
+- Which assets have larger downside expected shortfall and downside beta on the matched
+  current-cohort window?
+outcomes:
+- common variance share
+- idiosyncratic variance share
+- expected shortfall
+- downside beta
+features:
+- selected-major returns
+- BTC benchmark
+- ETH benchmark
+- PC1
+frequencies:
+- daily matched window
+methods:
+- Common/idiosyncratic decomposition
+- Downside risk
+sensitivity_dimensions:
+- matched window
+- benchmark
+- tail threshold
+- short-history flags
+status: built
+canonical_surface: research/08_relative_asset_risk_factor_structure
+tables:
+- asset_identity_audit.csv
+- asset_taxonomy.csv
+- claims.csv
+- downside_expected_shortfall.csv
+- relative_factor_decomposition.csv
+- selected_major_betas.csv
+- selected_major_comparable_window_metrics.csv
+- selected_major_coverage.csv
+- selected_major_risk_metrics.csv
+figures:
+- 08_common_idiosyncratic_risk_decomposition.png
+- 08_downside_expected_shortfall_forest.png
+- 08_selected_major_beta_forest.png
+code:
+- src/cqresearch/research/analytical_modules.py
+tests:
+- tests/unit/test_feature_strength_outputs.py
+- tests/unit/test_visual_outputs.py
+root_readme_candidate_figures:
+- figures/08_common_idiosyncratic_risk_decomposition.png
+- figures/08_downside_expected_shortfall_forest.png
+- figures/08_selected_major_beta_forest.png

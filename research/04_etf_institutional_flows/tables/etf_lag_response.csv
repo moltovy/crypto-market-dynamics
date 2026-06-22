@@ -1,0 +1,13 @@
+asset,lag_days,return_corr,abs_return_corr,ci_low,ci_high,n,sample_start,sample_end,method
+BTC,0,0.378832840268136,0.378832840268136,0.313195610969371,0.452820487635037,820,2024-01-12,2026-04-10,ETF trading-day flow intensity lag grid with deterministic moving-block bootstrap correlation interval
+BTC,1,0.0491351115505413,0.0491351115505413,-0.0239593460834342,0.11476617997205,819,2024-01-13,2026-04-10,ETF trading-day flow intensity lag grid with deterministic moving-block bootstrap correlation interval
+BTC,2,0.00627200741110127,0.00627200741110127,-0.0614425456262596,0.0680638800264565,818,2024-01-14,2026-04-10,ETF trading-day flow intensity lag grid with deterministic moving-block bootstrap correlation interval
+BTC,3,-0.0188307642353265,0.0188307642353265,-0.0790620669815724,0.0527362085707604,817,2024-01-15,2026-04-10,ETF trading-day flow intensity lag grid with deterministic moving-block bootstrap correlation interval
+BTC,4,0.01057584935172,0.01057584935172,-0.0714924711382452,0.102211392850156,816,2024-01-16,2026-04-10,ETF trading-day flow intensity lag grid with deterministic moving-block bootstrap correlation interval
+BTC,5,0.027189204372382,0.027189204372382,-0.0358951200057138,0.0857358444999868,815,2024-01-17,2026-04-10,ETF trading-day flow intensity lag grid with deterministic moving-block bootstrap correlation interval
+ETH,0,0.225893153845298,0.225893153845298,0.152614529938759,0.295072986061255,627,2024-07-23,2026-04-10,ETF trading-day flow intensity lag grid with deterministic moving-block bootstrap correlation interval
+ETH,1,0.0859258174845805,0.0859258174845805,-0.0161760882792494,0.164860075214948,626,2024-07-24,2026-04-10,ETF trading-day flow intensity lag grid with deterministic moving-block bootstrap correlation interval
+ETH,2,-0.00760477362651251,0.00760477362651251,-0.0827996199235067,0.0677723080850455,625,2024-07-25,2026-04-10,ETF trading-day flow intensity lag grid with deterministic moving-block bootstrap correlation interval
+ETH,3,-0.0554500403848297,0.0554500403848297,-0.139118211122251,0.021139098295432,624,2024-07-26,2026-04-10,ETF trading-day flow intensity lag grid with deterministic moving-block bootstrap correlation interval
+ETH,4,0.00482991487772842,0.00482991487772842,-0.0619567593824955,0.0644735657875351,623,2024-07-27,2026-04-10,ETF trading-day flow intensity lag grid with deterministic moving-block bootstrap correlation interval
+ETH,5,0.0340461936986179,0.0340461936986179,-0.0235403009023196,0.099088114064023,622,2024-07-28,2026-04-10,ETF trading-day flow intensity lag grid with deterministic moving-block bootstrap correlation interval

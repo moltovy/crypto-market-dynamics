@@ -1,0 +1,3 @@
+asset,first_valid_source_date,first_plotted_date,pre_inception_plotted_observations,status
+BTC,2024-01-12,2024-01-12,0,pass_no_pre_inception_plot_rows
+ETH,2024-07-23,2024-07-23,0,pass_no_pre_inception_plot_rows

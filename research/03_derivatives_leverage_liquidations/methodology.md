@@ -1,5 +1,7 @@
 # Methodology
 
-Lagged leverage-state quintiles, funding z-scores, OI/market-cap scaling, liquidation ratios, logit diagnostics, and fixed post-event windows are used as stress diagnostics.
+State bins: leverage metrics are lagged before quintile/state assignment.
 
-All migrated tables keep their original row-level sample, calendar, timing, and method fields where those fields exist. Module claims are restricted to the copied or newly computed tables in this directory.
+Tail diagnostics: bottom-tail rates and logit-style tail summaries are reported by state.
+
+Event/placebo: liquidation windows exclude same-day initiation signatures.

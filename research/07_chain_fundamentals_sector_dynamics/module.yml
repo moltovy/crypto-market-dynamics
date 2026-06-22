@@ -1,0 +1,56 @@
+module_id: 07_chain_fundamentals_sector_dynamics
+title: Chain Fundamentals and Sector Dynamics
+research_question: Which chain-level activity, sector, and point-in-time state measures
+  have enough coverage and definition clarity for descriptive panel analysis?
+research_questions:
+- Which chain metrics and chains have enough coverage for descriptive panel work?
+- How can PIT concentration/turnover variables be used as state variables without
+  becoming headline raw charts?
+outcomes:
+- chain coverage
+- PIT state coefficient
+- turnover/rank state
+features:
+- fees
+- revenue
+- addresses
+- stablecoin supply
+- PIT concentration
+- turnover
+frequencies:
+- daily
+- monthly
+methods:
+- Coverage audit
+- PIT state coefficients
+sensitivity_dimensions:
+- coverage threshold
+- chain mapping
+- monthly state model
+- partial period
+status: built
+canonical_surface: research/07_chain_fundamentals_sector_dynamics
+tables:
+- asset_identity_audit.csv
+- chain_activity_associations.csv
+- chain_fundamental_panel_summary.csv
+- claims.csv
+- pit_concentration.csv
+- pit_market_structure_monthly.csv
+- pit_market_structure_summary.csv
+- pit_period_comparison.csv
+- pit_state_relationship_coefficients.csv
+- pit_turnover.csv
+figures:
+- 07_chain_metric_coverage.png
+- 07_pit_state_coefficients.png
+- chain_panel_coverage.png
+code:
+- src/cqresearch/research/analytical_modules.py
+tests:
+- tests/unit/test_feature_strength_outputs.py
+- tests/unit/test_visual_outputs.py
+root_readme_candidate_figures:
+- figures/07_chain_metric_coverage.png
+- figures/07_pit_state_coefficients.png
+- figures/chain_panel_coverage.png

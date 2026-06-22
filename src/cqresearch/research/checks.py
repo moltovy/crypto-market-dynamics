@@ -116,6 +116,10 @@ def _check_module(root: Path, module_id: str) -> list[dict[str, Any]]:
 
     if module_id == "00_data_foundation":
         rows.extend(_check_data_foundation(module_dir))
+    if module_id == "00_data_measurement_foundation":
+        rows.extend(_check_data_foundation(module_dir))
+    if module_id == "04_etf_institutional_flows":
+        rows.extend(_check_etf_timing(module_dir))
     rows.extend(_check_manifest(root, module_dir, module_id))
     return rows
 
@@ -167,6 +171,41 @@ def _check_module_contract(module_dir: Path, module_id: str) -> list[dict[str, A
                 str(payload.get("status", "")),
             )
         )
+    readme_path = module_dir / "README.md"
+    if readme_path.exists():
+        text = readme_path.read_text(encoding="utf-8")
+        images = re.findall(r"!\[[^\]]*\]\(([^)]+)\)", text)
+        rows.append(
+            _row(
+                module_id,
+                "module_readme_embeds_two_to_four_figures",
+                2 <= len(images) <= 4,
+                f"figures={len(images)}",
+            )
+        )
+        required_headings = [
+            "## Overview",
+            "## Questions Investigated",
+            "## Data, Assets, and Sample",
+            "## Methodologies and Calculations",
+            "## Formulas",
+            "## Summary of Results",
+            "## Analytical Results and Visualizations",
+            "## Robustness and Sensitivity",
+            "## Interpretation",
+            "## Limitations",
+            "## Reproduce This Module",
+            "## Files and Code",
+        ]
+        missing_headings = [heading for heading in required_headings if heading not in text]
+        rows.append(
+            _row(
+                module_id,
+                "module_readme_required_sections",
+                not missing_headings,
+                ",".join(missing_headings) if missing_headings else "required sections present",
+            )
+        )
         rows.append(
             _row(
                 module_id,
@@ -182,9 +221,7 @@ def _check_module_contract(module_dir: Path, module_id: str) -> list[dict[str, A
     figure_names = [
         path.name.lower() for path in (module_dir / "figures").glob("*") if path.is_file()
     ]
-    banned = [
-        name for name in figure_names if any(term in name for term in BANNED_FIGURE_NAME_TERMS)
-    ]
+    banned = [name for name in figure_names if _has_banned_figure_token(name)]
     rows.append(
         _row(
             module_id,
@@ -202,6 +239,8 @@ def _check_root_surface(root: Path) -> list[dict[str, Any]]:
     readme_path = research_dir / "README.md"
     manifest_path = research_dir / "manifest.json"
     figure_specs_path = research_dir / "figure_specs.csv"
+    root_selection_path = research_dir / "root_figure_selection.csv"
+    repo_readme_path = root / "README.md"
     rows.append(
         _row("research", "root_research_directory_exists", research_dir.exists(), "research/")
     )
@@ -215,6 +254,14 @@ def _check_root_surface(root: Path) -> list[dict[str, Any]]:
             "root_figure_specs_exists",
             figure_specs_path.exists(),
             "research/figure_specs.csv",
+        )
+    )
+    rows.append(
+        _row(
+            "research",
+            "root_figure_selection_exists",
+            root_selection_path.exists(),
+            "research/root_figure_selection.csv",
         )
     )
     if readme_path.exists():
@@ -249,6 +296,10 @@ def _check_root_surface(root: Path) -> list[dict[str, Any]]:
         rows.extend(_check_root_manifest(root, manifest_path))
     if figure_specs_path.exists():
         rows.extend(_check_figure_specs(root, figure_specs_path))
+    if root_selection_path.exists():
+        rows.extend(_check_root_figure_selection(root_selection_path))
+    if repo_readme_path.exists():
+        rows.extend(_check_repo_readme(repo_readme_path))
     rows.extend(_check_release_hygiene(root))
     return rows
 
@@ -378,11 +429,27 @@ def _check_release_hygiene(root: Path) -> list[dict[str, Any]]:
     rows = [
         _row("research", "old_outputs_surface_absent", not (root / "outputs").exists(), "outputs/"),
     ]
+    expected = {item.module_id for item in MODULES}
+    actual = {path.name for path in (root / "research").iterdir() if path.is_dir()}
+    rows.append(
+        _row(
+            "research",
+            "research_module_dirs_match_registry",
+            actual == expected,
+            ",".join(sorted((actual - expected) | (expected - actual)))
+            if actual != expected
+            else "module directories match registry",
+        )
+    )
     if (root / ".git").exists():
         tracked_outputs = _git_ls_files(root, ["outputs"])
         tracked_raw = _git_ls_files(root, ["data_local"])
         tracked_pack = _git_ls_files(
-            root, ["crypto_market_dynamics_empirical_rebuild_manager_pack"]
+            root,
+            [
+                "crypto_market_dynamics_empirical_rebuild_manager_pack",
+                "crypto_market_dynamics_final_analytical_overhaul_pack",
+            ],
         )
         rows.extend(
             [
@@ -403,6 +470,153 @@ def _check_release_hygiene(root: Path) -> list[dict[str, Any]]:
                 ),
             ]
         )
+    return rows
+
+
+def _check_repo_readme(path: Path) -> list[dict[str, Any]]:
+    text = path.read_text(encoding="utf-8")
+    required = [
+        "## Project Overview",
+        "## What This Repository Analyzes",
+        "## Data Universe and Asset Coverage",
+        "## Research Modules",
+        "## Headline Findings",
+        "## Selected Analytical Results",
+        "## Methods Used",
+        "## Important Limitations",
+        "## Reproduce",
+        "## Repository Structure",
+        "## Data Policy and Citation",
+    ]
+    missing = [heading for heading in required if heading not in text]
+    ordered = not missing and [text.index(heading) for heading in required] == sorted(
+        text.index(heading) for heading in required
+    )
+    images = re.findall(r"!\[[^\]]*\]\(([^)]+)\)", text)
+    banned = [
+        image
+        for image in images
+        if any(
+            term in image
+            for term in [
+                "02_etf_market_plumbing",
+                "market_concentration_state",
+                "05_selected_major_asset_risk",
+            ]
+        )
+    ]
+    return [
+        _row(
+            "research",
+            "repo_readme_no_research_question_heading",
+            "## Research Question" not in text,
+            "no single-question framing",
+        ),
+        _row(
+            "research",
+            "repo_readme_required_sections",
+            not missing and ordered,
+            ",".join(missing) if missing else "required sections ordered",
+        ),
+        _row(
+            "research",
+            "repo_readme_public_figure_count",
+            4 <= len(images) <= 5,
+            f"figures={len(images)}",
+        ),
+        _row(
+            "research",
+            "repo_readme_excludes_bad_root_figures",
+            not banned,
+            ",".join(banned) if banned else "bad root figures absent",
+        ),
+        _row("research", "repo_readme_no_outputs_links", "outputs/" not in text, "outputs/ absent"),
+    ]
+
+
+def _check_root_figure_selection(path: Path) -> list[dict[str, Any]]:
+    frame = pd.read_csv(path)
+    missing = set(ROOT_FIGURE_SELECTION_COLUMNS) - set(frame.columns)
+    selected = frame[
+        frame.get("selected", pd.Series(dtype=bool)).astype(str).str.lower().eq("true")
+    ]
+    hard_selected = (
+        selected.get("hard_exclusion", pd.Series(dtype=str)).fillna("").astype(str).str.strip()
+    )
+    return [
+        _row(
+            "research",
+            "root_figure_selection_schema",
+            not missing,
+            ",".join(sorted(missing)) if missing else "schema present",
+        ),
+        _row(
+            "research",
+            "root_figure_selection_selected_count",
+            4 <= len(selected) <= 5,
+            f"selected={len(selected)}",
+        ),
+        _row(
+            "research",
+            "root_figure_selection_no_hard_excluded_selected",
+            not hard_selected.any(),
+            "selected rows have no hard exclusion",
+        ),
+    ]
+
+
+ROOT_FIGURE_SELECTION_COLUMNS = {
+    "figure_id",
+    "module",
+    "finding",
+    "empirical_strength",
+    "robustness",
+    "economic_relevance",
+    "june_2026_relevance",
+    "cross_asset_breadth",
+    "visual_quality",
+    "weighted_score",
+    "hard_exclusion",
+    "selected",
+    "reason",
+}
+
+
+def _check_etf_timing(module_dir: Path) -> list[dict[str, Any]]:
+    path = module_dir / "tables" / "etf_pre_inception_plot_audit.csv"
+    rows = [
+        _row(
+            module_dir.name,
+            "etf_timing_audit_exists",
+            path.exists(),
+            "tables/etf_pre_inception_plot_audit.csv",
+        )
+    ]
+    if not path.exists():
+        return rows
+    frame = pd.read_csv(path)
+    if frame.empty:
+        rows.append(_row(module_dir.name, "etf_timing_audit_nonempty", False, "no rows"))
+        return rows
+    pre = pd.to_numeric(frame.get("pre_inception_plotted_observations", 1), errors="coerce")
+    first = pd.to_datetime(frame.get("first_valid_source_date"), errors="coerce")
+    plotted = pd.to_datetime(frame.get("first_plotted_date"), errors="coerce")
+    rows.extend(
+        [
+            _row(
+                module_dir.name,
+                "etf_no_pre_inception_plotted_rows",
+                bool((pre == 0).all()),
+                frame.to_string(index=False),
+            ),
+            _row(
+                module_dir.name,
+                "etf_first_plotted_not_before_source",
+                bool((plotted >= first).all()),
+                frame.to_string(index=False),
+            ),
+        ]
+    )
     return rows
 
 
@@ -492,3 +706,16 @@ def _row(module_id: str, check_id: str, passed: bool, detail: str) -> dict[str, 
         "status": "pass" if passed else "fail",
         "detail": detail,
     }
+
+
+def _has_banned_figure_token(name: str) -> bool:
+    tokens = re.split(r"[^a-z0-9]+", name.lower())
+    for term in BANNED_FIGURE_NAME_TERMS:
+        term_tokens = term.split("_")
+        if len(term_tokens) == 1 and term_tokens[0] in tokens:
+            return True
+        if len(term_tokens) > 1:
+            for idx in range(0, len(tokens) - len(term_tokens) + 1):
+                if tokens[idx : idx + len(term_tokens)] == term_tokens:
+                    return True
+    return False

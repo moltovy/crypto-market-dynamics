@@ -1,0 +1,122 @@
+{
+  "artifacts": [
+    {
+      "bytes": 60640,
+      "path": "research/09_event_stress_cross_module_synthesis/figures/09_evidence_grade_risk_map.png",
+      "sha256": "61485e10337c6e230d0eca7e0e9e857e43460d901f1f934ab3770a52d80a40fe"
+    },
+    {
+      "bytes": 42711,
+      "path": "research/09_event_stress_cross_module_synthesis/figures/09_evidence_grade_risk_map.svg",
+      "sha256": "0210a958626862e3d39a992b59b967fcedba905fb16468c51e098c5c3daa8b60"
+    },
+    {
+      "bytes": 148353,
+      "path": "research/09_event_stress_cross_module_synthesis/figures/appendix_event_response_matrix.png",
+      "sha256": "996c860adadecf53b73c3a03a01f2957dbfd7973a61bd9efe07aa1c68c3e4a3d"
+    },
+    {
+      "bytes": 80682,
+      "path": "research/09_event_stress_cross_module_synthesis/figures/appendix_event_response_matrix.svg",
+      "sha256": "f4cdbddde9ebd8b361a4925c2a704d6ab48e1a96a1b7e3f4d9d6ddd38ce8b983"
+    },
+    {
+      "bytes": 60640,
+      "path": "research/09_event_stress_cross_module_synthesis/figures/synthesis_claim_source_depth.png",
+      "sha256": "61485e10337c6e230d0eca7e0e9e857e43460d901f1f934ab3770a52d80a40fe"
+    },
+    {
+      "bytes": 42711,
+      "path": "research/09_event_stress_cross_module_synthesis/figures/synthesis_claim_source_depth.svg",
+      "sha256": "0210a958626862e3d39a992b59b967fcedba905fb16468c51e098c5c3daa8b60"
+    },
+    {
+      "bytes": 191,
+      "path": "research/09_event_stress_cross_module_synthesis/findings.md",
+      "sha256": "094932ee6920cf712689a266c2d6099e42422dcf67a56eb9bb11737ac5408d7f"
+    },
+    {
+      "bytes": 148,
+      "path": "research/09_event_stress_cross_module_synthesis/interpretation.md",
+      "sha256": "c397ff0bcf533d76a0f19303b755fbb290db89bdaaa56411a6ec1d2be2ddd9d6"
+    },
+    {
+      "bytes": 110,
+      "path": "research/09_event_stress_cross_module_synthesis/limitations.md",
+      "sha256": "b3a493472670159c40262e629251df3297c0a9f890b263c2867d6ed045633574"
+    },
+    {
+      "bytes": 211,
+      "path": "research/09_event_stress_cross_module_synthesis/methodology.md",
+      "sha256": "0520781a06d86c870f6aa19a67cf2663761fd26f78e200d8a3d459df16debc4c"
+    },
+    {
+      "bytes": 1627,
+      "path": "research/09_event_stress_cross_module_synthesis/module.yml",
+      "sha256": "6c1853dc8ec77d3ebb930a2f26ee57d4c685f0e4b8ce60845505767f729fa153"
+    },
+    {
+      "bytes": 5809,
+      "path": "research/09_event_stress_cross_module_synthesis/README.md",
+      "sha256": "c3374c36c1bbdfcb0a19ec99ec03d8371438a9ecfeef927e772111e5b078bab9"
+    },
+    {
+      "bytes": 4650,
+      "path": "research/09_event_stress_cross_module_synthesis/tables/claim_inventory.csv",
+      "sha256": "d9d2da8ce5db8c61570fe6827d5fb6d82bfb4e713f61e2fc3f9ee882435d64d9"
+    },
+    {
+      "bytes": 1722,
+      "path": "research/09_event_stress_cross_module_synthesis/tables/claims.csv",
+      "sha256": "6847a746e76d9ce404d643086efea39f0a0d7bef80e946e33ad643f3228a9a9f"
+    },
+    {
+      "bytes": 1476,
+      "path": "research/09_event_stress_cross_module_synthesis/tables/event_atlas.csv",
+      "sha256": "854b53ddcf4c48ffa006f17b7be7576d51dca8d6bc9784afa4ddc83d54834e1d"
+    },
+    {
+      "bytes": 4131,
+      "path": "research/09_event_stress_cross_module_synthesis/tables/event_inference.csv",
+      "sha256": "4fe52f80b4a64a6b336547fd1d0500e62f43470a82c41d64328cbc104f7736b5"
+    },
+    {
+      "bytes": 3980,
+      "path": "research/09_event_stress_cross_module_synthesis/tables/event_response_matrix.csv",
+      "sha256": "e82cfcfb8c1784cf3c94553c76fa7829b4bfaf8cc41c8f45cf858459f1fc7aa4"
+    },
+    {
+      "bytes": 14774,
+      "path": "research/09_event_stress_cross_module_synthesis/tables/evidence_ledger.csv",
+      "sha256": "19ce20eb941ce6398c468f293ceac7634a954059378497221bcaec59752fb561"
+    },
+    {
+      "bytes": 1180,
+      "path": "research/09_event_stress_cross_module_synthesis/tables/evidence_map.csv",
+      "sha256": "5588502751b7172f5a626260e9debd47b0e2eaa5c5fea1c0ea90d149cbbb20a1"
+    },
+    {
+      "bytes": 76164,
+      "path": "research/09_event_stress_cross_module_synthesis/tables/fdr_adjusted_inference.csv",
+      "sha256": "381b8436b117ae451812a41b17a63a15fb27e09afd354cfb721f1670c6904a82"
+    },
+    {
+      "bytes": 952,
+      "path": "research/09_event_stress_cross_module_synthesis/tables/local_window_correlation_distribution.csv",
+      "sha256": "a51bfd28da964ea5965ac34d158a0f376f42ca7a53728272a6d040fcb1e955a7"
+    },
+    {
+      "bytes": 1162,
+      "path": "research/09_event_stress_cross_module_synthesis/tables/provider_data_disposition.csv",
+      "sha256": "929b6cba48612a003c18b25ed2b873a2aa0a4270448df05774cfdc5418fc9a98"
+    },
+    {
+      "bytes": 699,
+      "path": "research/09_event_stress_cross_module_synthesis/tables/robustness_summary.csv",
+      "sha256": "1e01035a84ac310f2d617818adc8e574063206330859b9dde714b668cd8d7562"
+    }
+  ],
+  "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",
+  "module_id": "09_event_stress_cross_module_synthesis",
+  "schema_version": 1
+}

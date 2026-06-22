@@ -1,0 +1,10 @@
+outcome,feature,coefficient,ci_low,ci_high,n,method
+rank_persistence,hhi,-0.151699996446398,-0.37540199124954,0.0720019983567441,77,"standardized monthly OLS coefficient; PIT state variable, not daily constituent return evidence"
+rank_persistence,top10_share,0.110064794740884,-0.114881476250412,0.335011065732181,77,"standardized monthly OLS coefficient; PIT state variable, not daily constituent return evidence"
+rank_persistence,top5_share,0.0644686137415535,-0.161381883528676,0.290319111011783,77,"standardized monthly OLS coefficient; PIT state variable, not daily constituent return evidence"
+entries,hhi,0.151699996446398,-0.072001998356744,0.37540199124954,77,"standardized monthly OLS coefficient; PIT state variable, not daily constituent return evidence"
+entries,top10_share,-0.110064794740884,-0.335011065732181,0.114881476250412,77,"standardized monthly OLS coefficient; PIT state variable, not daily constituent return evidence"
+entries,top5_share,-0.0644686137415534,-0.290319111011783,0.161381883528677,77,"standardized monthly OLS coefficient; PIT state variable, not daily constituent return evidence"
+exits,hhi,0.151699996446398,-0.072001998356744,0.37540199124954,77,"standardized monthly OLS coefficient; PIT state variable, not daily constituent return evidence"
+exits,top10_share,-0.110064794740884,-0.335011065732181,0.114881476250412,77,"standardized monthly OLS coefficient; PIT state variable, not daily constituent return evidence"
+exits,top5_share,-0.0644686137415534,-0.290319111011783,0.161381883528677,77,"standardized monthly OLS coefficient; PIT state variable, not daily constituent return evidence"

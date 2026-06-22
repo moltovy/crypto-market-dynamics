@@ -1,221 +1,206 @@
 {
   "artifacts": [
     {
-      "bytes": 9249,
+      "bytes": 14696,
+      "path": "README.md",
+      "sha256": "a414a785ee49154bf2703a414dcb576dc8ad1e4a60250737242360de8c05ce22"
+    },
+    {
+      "bytes": 22573,
       "path": "research/figure_specs.csv",
-      "sha256": "3c5e683b246c18f1e1d8f7be05e8a06dc93961eb132955b08cfcff88f5dc0111"
+      "sha256": "32ca156fe7b95166611939cf400efcfdb23a66be1dce7a7b33926f8fb3fef0c0"
     },
     {
-      "bytes": 5429,
+      "bytes": 4269,
       "path": "research/README.md",
-      "sha256": "bbd0002e3e811b6287dbe70f469869f5321348e18e328ba07026735ffefca49c"
+      "sha256": "44147d5212d6dbce587d672ecc6e0eeaf833a715f9edee88de35781af455d545"
     },
     {
-      "bytes": 3135,
-      "path": "research/00_data_foundation/manifest.json",
-      "sha256": "15167bdc26ef84ada9f6d400cf86c19e6f87551d0b97b7cb4f66e3166e7a21dc"
+      "bytes": 5501,
+      "path": "research/root_figure_selection.csv",
+      "sha256": "684995f2aabde22e20b5ce44e7b848bd33c4276e8e6359b3ea357f1124d53e34"
     },
     {
-      "bytes": 2443,
-      "path": "research/01_returns_risk_regimes/manifest.json",
-      "sha256": "ab72778b2a5913998ab5c407c43573844ad9fe4f160eb313a07e9bea12388296"
+      "bytes": 4414,
+      "path": "research/00_data_measurement_foundation/manifest.json",
+      "sha256": "db57148968e19fd221aab57de8ecd3e550ba6fcfec146d4c8904b47557895a7b"
     },
     {
-      "bytes": 4403,
-      "path": "research/02_macro_cross_asset_exposure/manifest.json",
-      "sha256": "b87f9109d84da6dbe8c5cf57dbf63173b52d37518814c0d9b5b51932b16b2f32"
+      "bytes": 5194,
+      "path": "research/01_cross_asset_dependence_regimes/manifest.json",
+      "sha256": "37512f8871f3247022de204a727a422f8f799019574159f7ea8db9862ccfe7d6"
     },
     {
-      "bytes": 3032,
+      "bytes": 5200,
+      "path": "research/02_macro_tradfi_integration/manifest.json",
+      "sha256": "b6c44d64c1c8ef9aaed63c2189bf45a091213fd1b7c236ac8d0684cda9959463"
+    },
+    {
+      "bytes": 3916,
       "path": "research/03_derivatives_leverage_liquidations/manifest.json",
-      "sha256": "9561d00f0470fa0d45e10c55e428b72788a18be93015863b83c049defdc91100"
+      "sha256": "425efcc15facc9e9aeb9656fe762e1b5476104f4522b80a4bb54b9b53b1c3d06"
     },
     {
-      "bytes": 3135,
-      "path": "research/04_etf_institutional_plumbing/manifest.json",
-      "sha256": "18f3525a07bda4241e3575c45eaba4ef59d0138cc7f58b1b8256315bcb46f131"
+      "bytes": 4516,
+      "path": "research/04_etf_institutional_flows/manifest.json",
+      "sha256": "0474ceffed10b1b6287da8758953c2df5290f27ca65fa5392974e80fe4245402"
     },
     {
-      "bytes": 3153,
+      "bytes": 4014,
       "path": "research/05_stablecoin_defi_liquidity/manifest.json",
-      "sha256": "55969ab4f2364c3d7bc13c1362c45f9b8f6734e173f3ab7105f588678400614b"
+      "sha256": "3b2c4d8756c7a29a60021cedad72863a73cf47e8a058c5ea7936b9af0ec65786"
     },
     {
-      "bytes": 2781,
-      "path": "research/06_onchain_valuation_holder_state/manifest.json",
-      "sha256": "8d194a8b29dc827d77ff0c5c52c5fe93fb09077916a1a422bf8588ec38e21286"
+      "bytes": 3713,
+      "path": "research/06_onchain_valuation_holder_behavior/manifest.json",
+      "sha256": "1f7aca2a3941806eea9885f06e1c2147fc4fa1e2b3d26de028fc1a24ee718f4d"
     },
     {
-      "bytes": 2213,
-      "path": "research/07_chain_fundamentals/manifest.json",
-      "sha256": "c36bacab63777bc8213786cf6cee281d1da4f6c66bf30f6cba39dbe3578420d4"
+      "bytes": 4801,
+      "path": "research/07_chain_fundamentals_sector_dynamics/manifest.json",
+      "sha256": "55559f6d3361ae91e50715e205302db351aaa5dbc60d53198a08147d816ef3c7"
     },
     {
-      "bytes": 3136,
-      "path": "research/08_relative_major_asset_risk/manifest.json",
-      "sha256": "6c45f651c0e945c9a6db9c9d735ada1b17e4f50c79105d8a40208fea810b9d7d"
+      "bytes": 4708,
+      "path": "research/08_relative_asset_risk_factor_structure/manifest.json",
+      "sha256": "95f8b901c16aa0b17abf7428ab3c15766542080a7df6addf706fb40caacb210a"
     },
     {
-      "bytes": 2707,
-      "path": "research/09_market_concentration_state/manifest.json",
-      "sha256": "672183e2b67af757ae208454a61c8ec4e94bd9d21a765a30a35b5b75e3bae577"
-    },
-    {
-      "bytes": 2386,
-      "path": "research/10_event_sensitivity/manifest.json",
-      "sha256": "e313d6cc7b2f4b3b63ebb869692f2be5f379dfe2704f547353bf20bbd071a7d9"
-    },
-    {
-      "bytes": 3463,
-      "path": "research/11_cross_module_synthesis/manifest.json",
-      "sha256": "4137b3f5776eefe758ef043345d2c7ff3e2612be4d4b59dbea126b1b38d4b4b5"
+      "bytes": 5017,
+      "path": "research/09_event_stress_cross_module_synthesis/manifest.json",
+      "sha256": "e16891df3b203a8736af2d3459c2e8337d68701f9761c4a961ef599997b41f8f"
     }
   ],
   "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",
   "canonical_surface": "research",
   "data_usage_status_counts": {
-    "diagnostic_only": 69,
-    "excluded_definition_or_unit_ambiguity": 101,
+    "diagnostic_only": 65,
+    "excluded_ambiguous_definition_or_unit": 105,
     "excluded_insufficient_coverage": 2,
     "primary_analysis": 25,
     "robustness_or_sensitivity": 2
   },
-  "figure_count": 11,
-  "module_count": 12,
+  "figure_count": 29,
+  "module_count": 10,
   "modules": [
     {
-      "artifact_count": 16,
-      "figure_count": 0,
-      "manifest_path": "research/00_data_foundation/manifest.json",
-      "manifest_sha256": "15167bdc26ef84ada9f6d400cf86c19e6f87551d0b97b7cb4f66e3166e7a21dc",
-      "module_id": "00_data_foundation",
-      "path": "research/00_data_foundation",
-      "research_question": "What data, units, timing, coverage, identity, and release-risk constraints govern every later result?",
-      "table_count": 10,
-      "title": "Data Foundation"
-    },
-    {
-      "artifact_count": 12,
-      "figure_count": 1,
-      "manifest_path": "research/01_returns_risk_regimes/manifest.json",
-      "manifest_sha256": "ab72778b2a5913998ab5c407c43573844ad9fe4f160eb313a07e9bea12388296",
-      "module_id": "01_returns_risk_regimes",
-      "path": "research/01_returns_risk_regimes",
-      "research_question": "How do BTC and ETH return distributions, volatility, drawdown, and tail behavior vary across transparent regimes?",
-      "table_count": 4,
-      "title": "Returns, Risk, and Regimes"
-    },
-    {
       "artifact_count": 21,
-      "figure_count": 1,
-      "manifest_path": "research/02_macro_cross_asset_exposure/manifest.json",
-      "manifest_sha256": "b87f9109d84da6dbe8c5cf57dbf63173b52d37518814c0d9b5b51932b16b2f32",
-      "module_id": "02_macro_cross_asset_exposure",
-      "path": "research/02_macro_cross_asset_exposure",
-      "research_question": "How does crypto co-movement with equities, volatility, rates, dollar, and gold vary by asset, calendar, and period?",
-      "table_count": 13,
-      "title": "Macro and Cross-Asset Exposure"
+      "figure_count": 2,
+      "manifest_path": "research/00_data_measurement_foundation/manifest.json",
+      "manifest_sha256": "db57148968e19fd221aab57de8ecd3e550ba6fcfec146d4c8904b47557895a7b",
+      "module_id": "00_data_measurement_foundation",
+      "path": "research/00_data_measurement_foundation",
+      "question": "What data, assets, units, timing, coverage, identity, and release-risk constraints govern later empirical claims?",
+      "table_count": 11,
+      "title": "Data and Measurement Foundation"
     },
     {
-      "artifact_count": 14,
-      "figure_count": 1,
+      "artifact_count": 24,
+      "figure_count": 3,
+      "manifest_path": "research/01_cross_asset_dependence_regimes/manifest.json",
+      "manifest_sha256": "37512f8871f3247022de204a727a422f8f799019574159f7ea8db9862ccfe7d6",
+      "module_id": "01_cross_asset_dependence_regimes",
+      "path": "research/01_cross_asset_dependence_regimes",
+      "question": "How do crypto and TradFi return dependence, common-factor share, lower-tail co-exceedance, and regimes vary across matched samples?",
+      "table_count": 12,
+      "title": "Cross-Asset Dependence and Regimes"
+    },
+    {
+      "artifact_count": 25,
+      "figure_count": 3,
+      "manifest_path": "research/02_macro_tradfi_integration/manifest.json",
+      "manifest_sha256": "b6c44d64c1c8ef9aaed63c2189bf45a091213fd1b7c236ac8d0684cda9959463",
+      "module_id": "02_macro_tradfi_integration",
+      "path": "research/02_macro_tradfi_integration",
+      "question": "How do crypto exposures to equities, volatility, rates, the dollar, gold, and credit vary across calendars and periods?",
+      "table_count": 13,
+      "title": "Macro and TradFi Integration"
+    },
+    {
+      "artifact_count": 18,
+      "figure_count": 3,
       "manifest_path": "research/03_derivatives_leverage_liquidations/manifest.json",
-      "manifest_sha256": "9561d00f0470fa0d45e10c55e428b72788a18be93015863b83c049defdc91100",
+      "manifest_sha256": "425efcc15facc9e9aeb9656fe762e1b5476104f4522b80a4bb54b9b53b1c3d06",
       "module_id": "03_derivatives_leverage_liquidations",
       "path": "research/03_derivatives_leverage_liquidations",
-      "research_question": "Where do leverage, funding, open-interest scaling, and liquidation stress appear in volatility and tail outcomes?",
+      "question": "Where do leverage, funding, open-interest scaling, and liquidation stress appear in volatility and tail outcomes?",
       "table_count": 6,
       "title": "Derivatives, Leverage, and Liquidations"
     },
     {
-      "artifact_count": 15,
-      "figure_count": 1,
-      "manifest_path": "research/04_etf_institutional_plumbing/manifest.json",
-      "manifest_sha256": "18f3525a07bda4241e3575c45eaba4ef59d0138cc7f58b1b8256315bcb46f131",
-      "module_id": "04_etf_institutional_plumbing",
-      "path": "research/04_etf_institutional_plumbing",
-      "research_question": "How do ETF flow intensity and absorption measures line up with contemporaneous and lagged crypto outcomes?",
-      "table_count": 7,
-      "title": "ETF and Institutional Plumbing"
+      "artifact_count": 22,
+      "figure_count": 3,
+      "manifest_path": "research/04_etf_institutional_flows/manifest.json",
+      "manifest_sha256": "0474ceffed10b1b6287da8758953c2df5290f27ca65fa5392974e80fe4245402",
+      "module_id": "04_etf_institutional_flows",
+      "path": "research/04_etf_institutional_flows",
+      "question": "How do ETF flow intensity, timing, lag response, and shock/placebo diagnostics line up with crypto outcomes?",
+      "table_count": 10,
+      "title": "ETF and Institutional Flows"
     },
     {
-      "artifact_count": 15,
-      "figure_count": 1,
+      "artifact_count": 19,
+      "figure_count": 3,
       "manifest_path": "research/05_stablecoin_defi_liquidity/manifest.json",
-      "manifest_sha256": "55969ab4f2364c3d7bc13c1362c45f9b8f6734e173f3ab7105f588678400614b",
+      "manifest_sha256": "3b2c4d8756c7a29a60021cedad72863a73cf47e8a058c5ea7936b9af0ec65786",
       "module_id": "05_stablecoin_defi_liquidity",
       "path": "research/05_stablecoin_defi_liquidity",
-      "research_question": "What do stablecoin supply and DeFi TVL proxies say about liquidity-state associations after unit and valuation audits?",
+      "question": "What do stablecoin supply and DeFi TVL proxies say about liquidity-state associations after unit and valuation audits?",
       "table_count": 7,
       "title": "Stablecoin and DeFi Liquidity State"
     },
     {
-      "artifact_count": 13,
-      "figure_count": 1,
-      "manifest_path": "research/06_onchain_valuation_holder_state/manifest.json",
-      "manifest_sha256": "8d194a8b29dc827d77ff0c5c52c5fe93fb09077916a1a422bf8588ec38e21286",
-      "module_id": "06_onchain_valuation_holder_state",
-      "path": "research/06_onchain_valuation_holder_state",
-      "research_question": "Which on-chain valuation and holder-state measures are diagnostics versus admissible lagged state variables?",
-      "table_count": 5,
-      "title": "On-Chain Valuation and Holder State"
-    },
-    {
-      "artifact_count": 11,
-      "figure_count": 1,
-      "manifest_path": "research/07_chain_fundamentals/manifest.json",
-      "manifest_sha256": "c36bacab63777bc8213786cf6cee281d1da4f6c66bf30f6cba39dbe3578420d4",
-      "module_id": "07_chain_fundamentals",
-      "path": "research/07_chain_fundamentals",
-      "research_question": "Which chain-level activity measures have enough coverage and definition clarity for descriptive panel analysis?",
-      "table_count": 3,
-      "title": "Chain Fundamentals"
-    },
-    {
-      "artifact_count": 15,
-      "figure_count": 1,
-      "manifest_path": "research/08_relative_major_asset_risk/manifest.json",
-      "manifest_sha256": "6c45f651c0e945c9a6db9c9d735ada1b17e4f50c79105d8a40208fea810b9d7d",
-      "module_id": "08_relative_major_asset_risk",
-      "path": "research/08_relative_major_asset_risk",
-      "research_question": "How do selected major crypto assets compare on matched-window risk, downside, drawdown, and beta measures?",
-      "table_count": 7,
-      "title": "Relative Major-Asset Risk"
-    },
-    {
-      "artifact_count": 13,
-      "figure_count": 1,
-      "manifest_path": "research/09_market_concentration_state/manifest.json",
-      "manifest_sha256": "672183e2b67af757ae208454a61c8ec4e94bd9d21a765a30a35b5b75e3bae577",
-      "module_id": "09_market_concentration_state",
-      "path": "research/09_market_concentration_state",
-      "research_question": "How do monthly point-in-time concentration, turnover, and rank-persistence states relate to market-structure conditions?",
-      "table_count": 7,
-      "title": "Market Concentration State"
-    },
-    {
-      "artifact_count": 12,
-      "figure_count": 1,
-      "manifest_path": "research/10_event_sensitivity/manifest.json",
-      "manifest_sha256": "e313d6cc7b2f4b3b63ebb869692f2be5f379dfe2704f547353bf20bbd071a7d9",
-      "module_id": "10_event_sensitivity",
-      "path": "research/10_event_sensitivity",
-      "research_question": "How do registered event windows compare with empirical placebo windows under fixed window conventions?",
-      "table_count": 4,
-      "title": "Event Sensitivity"
-    },
-    {
       "artifact_count": 17,
-      "figure_count": 1,
-      "manifest_path": "research/11_cross_module_synthesis/manifest.json",
-      "manifest_sha256": "4137b3f5776eefe758ef043345d2c7ff3e2612be4d4b59dbea126b1b38d4b4b5",
-      "module_id": "11_cross_module_synthesis",
-      "path": "research/11_cross_module_synthesis",
-      "research_question": "Which findings remain strongest after comparing outcome, coverage, timing, uncertainty, and measurement-risk evidence?",
+      "figure_count": 3,
+      "manifest_path": "research/06_onchain_valuation_holder_behavior/manifest.json",
+      "manifest_sha256": "1f7aca2a3941806eea9885f06e1c2147fc4fa1e2b3d26de028fc1a24ee718f4d",
+      "module_id": "06_onchain_valuation_holder_behavior",
+      "path": "research/06_onchain_valuation_holder_behavior",
+      "question": "Which on-chain valuation and holder-state measures are diagnostics versus admissible lagged state variables?",
+      "table_count": 5,
+      "title": "On-Chain Valuation and Holder Behavior"
+    },
+    {
+      "artifact_count": 22,
+      "figure_count": 3,
+      "manifest_path": "research/07_chain_fundamentals_sector_dynamics/manifest.json",
+      "manifest_sha256": "55559f6d3361ae91e50715e205302db351aaa5dbc60d53198a08147d816ef3c7",
+      "module_id": "07_chain_fundamentals_sector_dynamics",
+      "path": "research/07_chain_fundamentals_sector_dynamics",
+      "question": "Which chain-level activity, sector, and point-in-time state measures have enough coverage and definition clarity for descriptive panel analysis?",
+      "table_count": 10,
+      "title": "Chain Fundamentals and Sector Dynamics"
+    },
+    {
+      "artifact_count": 21,
+      "figure_count": 3,
+      "manifest_path": "research/08_relative_asset_risk_factor_structure/manifest.json",
+      "manifest_sha256": "95f8b901c16aa0b17abf7428ab3c15766542080a7df6addf706fb40caacb210a",
+      "module_id": "08_relative_asset_risk_factor_structure",
+      "path": "research/08_relative_asset_risk_factor_structure",
+      "question": "How do selected crypto assets compare on matched-window risk, downside beta, expected shortfall, and common-versus-idiosyncratic factor structure?",
       "table_count": 9,
-      "title": "Cross-Module Synthesis"
+      "title": "Relative Asset Risk and Factor Structure"
+    },
+    {
+      "artifact_count": 23,
+      "figure_count": 3,
+      "manifest_path": "research/09_event_stress_cross_module_synthesis/manifest.json",
+      "manifest_sha256": "e16891df3b203a8736af2d3459c2e8337d68701f9761c4a961ef599997b41f8f",
+      "module_id": "09_event_stress_cross_module_synthesis",
+      "path": "research/09_event_stress_cross_module_synthesis",
+      "question": "Which event-window, stress-state, and cross-module findings remain strongest after comparing sample, method, uncertainty, measurement risk, and limitations?",
+      "table_count": 11,
+      "title": "Event Stress and Cross-Module Synthesis"
     }
   ],
   "public_figure_count": 5,
-  "schema_version": 1
+  "schema_version": 1,
+  "selected_root_figures": [
+    "cross_asset_dependence_regimes",
+    "tradfi_exposure_shift",
+    "leverage_tail_stress",
+    "etf_lag_response",
+    "relative_asset_factor_structure"
+  ]
 }

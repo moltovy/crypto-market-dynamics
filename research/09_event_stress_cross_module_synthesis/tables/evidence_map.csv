@@ -1,0 +1,10 @@
+module_id,accepted_claims,median_grade,measurement_risk
+00_data_measurement_foundation,2,A for local inventory; B for release-risk classification.|B,145 measurement-risk rows constrain later modules.; Provider files remain local and untracked.
+01_cross_asset_dependence_regimes,1,B,Current-cohort daily data is survivorship-biased and does not establish historical altseason behavior.
+02_macro_tradfi_integration,1,B,Period splits are descriptive and do not identify ETF effects.
+03_derivatives_leverage_liquidations,1,B,Liquidation observations are timing-sensitive and do not prove directional liquidation attribution.
+04_etf_institutional_flows,1,B,Reported ETF flows have timing and simultaneity concerns; no causal price-impact claim.
+05_stablecoin_defi_liquidity,1,B,No exogenous liquidity-shock language is supported.
+06_onchain_valuation_holder_behavior,1,B,Realized-cap source conventions affect residual interpretation.
+07_chain_fundamentals_sector_dynamics,1,B,PIT state is monthly and cannot support daily constituent-performance claims.
+08_relative_asset_risk_factor_structure,1,B,Short histories and current-cohort survivorship bias limit historical interpretation.

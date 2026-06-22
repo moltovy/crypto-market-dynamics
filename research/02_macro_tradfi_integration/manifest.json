@@ -1,0 +1,132 @@
+{
+  "artifacts": [
+    {
+      "bytes": 103453,
+      "path": "research/02_macro_tradfi_integration/figures/02_macro_block_delta_heatmap.png",
+      "sha256": "132556b3b6edfaa8bdfd267014b79dfe4b0dd1615ec66d1978f5d1fe8c8cc549"
+    },
+    {
+      "bytes": 64264,
+      "path": "research/02_macro_tradfi_integration/figures/02_macro_block_delta_heatmap.svg",
+      "sha256": "1ec955f87ace27ab63ae8dab2fd4ee9bf3411159ed25546260dd8de277923a56"
+    },
+    {
+      "bytes": 61772,
+      "path": "research/02_macro_tradfi_integration/figures/02_rolling_tradfi_beta.png",
+      "sha256": "b39331fc7fb5aaf79c0c4e20bfb5c0ee4e45bbadd9ab48df9d52036eb2f02126"
+    },
+    {
+      "bytes": 44233,
+      "path": "research/02_macro_tradfi_integration/figures/02_rolling_tradfi_beta.svg",
+      "sha256": "7d66de9bc9347baa22566de3b179014846774aa73aafdbc0acb0ec595f47b9df"
+    },
+    {
+      "bytes": 82325,
+      "path": "research/02_macro_tradfi_integration/figures/02_tradfi_exposure_shift.png",
+      "sha256": "fce6b1e2faec68bd96c12343ef5a07513b8b2634aa41c5095b4974db31a17f1e"
+    },
+    {
+      "bytes": 61358,
+      "path": "research/02_macro_tradfi_integration/figures/02_tradfi_exposure_shift.svg",
+      "sha256": "8c0600c3e08464cbc2303036d2362c280e6e78ba3e57845b540fa4b34454b53d"
+    },
+    {
+      "bytes": 274,
+      "path": "research/02_macro_tradfi_integration/findings.md",
+      "sha256": "6d05c41ddceaec0c573204dcb9f05121dcd16f4e0f14fbc22200a479cea3c02c"
+    },
+    {
+      "bytes": 134,
+      "path": "research/02_macro_tradfi_integration/interpretation.md",
+      "sha256": "d481e0e4e99a7866f45d87106c6f5d59bb81c60633265fc0480b1b753220ef6f"
+    },
+    {
+      "bytes": 145,
+      "path": "research/02_macro_tradfi_integration/limitations.md",
+      "sha256": "c2a66d808ccd0d606c9f12e257ce38f9dd1cbf073ef10eeaf3a3a4c58ab8727b"
+    },
+    {
+      "bytes": 297,
+      "path": "research/02_macro_tradfi_integration/methodology.md",
+      "sha256": "43f480949f3d52e553796b4c789a77b5d99d383bdb1ff5c9194b905e89c253ae"
+    },
+    {
+      "bytes": 1661,
+      "path": "research/02_macro_tradfi_integration/module.yml",
+      "sha256": "499607fa02821c8800c89cb3cfa4aab84cc3283770892239807aa56ba87f4b44"
+    },
+    {
+      "bytes": 7078,
+      "path": "research/02_macro_tradfi_integration/README.md",
+      "sha256": "bd83e7230e6b0fbe658636993e239b73ba88035edce13a50e9a2ed2a42b890df"
+    },
+    {
+      "bytes": 43682,
+      "path": "research/02_macro_tradfi_integration/tables/block_delta_r2.csv",
+      "sha256": "63a41506b3014f29002a5194c000d9e4b3937564712527294f3458dfdc3fc9a4"
+    },
+    {
+      "bytes": 73333,
+      "path": "research/02_macro_tradfi_integration/tables/btc_ex_mvrv_feature_strength.csv",
+      "sha256": "aeac518ba267f3ec7e9ced5d598a2b5d1b0d5f8455504780b7a19b814424daa8"
+    },
+    {
+      "bytes": 1563,
+      "path": "research/02_macro_tradfi_integration/tables/claims.csv",
+      "sha256": "eca2c38bc95f5b04f6f60283ba2458d3fe62e533a6e04fe97356749cb6c428a3"
+    },
+    {
+      "bytes": 41533,
+      "path": "research/02_macro_tradfi_integration/tables/conventional_partial_r2.csv",
+      "sha256": "47ba37c0561a0573a9448cd9528d7b9b430b86900a466ad50f6fbbc47b5b22d3"
+    },
+    {
+      "bytes": 68280,
+      "path": "research/02_macro_tradfi_integration/tables/eth_feature_strength.csv",
+      "sha256": "31fd106eadad0ed1525e2b8a8a467a4f2d096c1c9e970f5c14ee9ec2b5f3a799"
+    },
+    {
+      "bytes": 1685,
+      "path": "research/02_macro_tradfi_integration/tables/exposure_regime_comparison.csv",
+      "sha256": "d77016bd11505b4326ca8354ccfb08d008986a6e1e8363cdd84f39880f78d842"
+    },
+    {
+      "bytes": 76164,
+      "path": "research/02_macro_tradfi_integration/tables/fdr_adjusted_inference.csv",
+      "sha256": "381b8436b117ae451812a41b17a63a15fb27e09afd354cfb721f1670c6904a82"
+    },
+    {
+      "bytes": 7746,
+      "path": "research/02_macro_tradfi_integration/tables/frequency_robustness.csv",
+      "sha256": "f5b691ff93d57f35eb1bca45f35a5db0dafae3816013407a6b30ea9d0e3e66c2"
+    },
+    {
+      "bytes": 952,
+      "path": "research/02_macro_tradfi_integration/tables/local_window_correlation_distribution.csv",
+      "sha256": "a51bfd28da964ea5965ac34d158a0f376f42ca7a53728272a6d040fcb1e955a7"
+    },
+    {
+      "bytes": 54377,
+      "path": "research/02_macro_tradfi_integration/tables/multicollinearity_diagnostics.csv",
+      "sha256": "2e39f99c0dc9ffce93bf6b57a6fc5742f2589fe57477accca94bb0f205f46824"
+    },
+    {
+      "bytes": 194656,
+      "path": "research/02_macro_tradfi_integration/tables/ridge_stability.csv",
+      "sha256": "404cb9f25dbd6733b0f12ba7820d6fb11e915d0b2e8d57d214dfea6203fa5718"
+    },
+    {
+      "bytes": 3066,
+      "path": "research/02_macro_tradfi_integration/tables/rolling_exposure_summary.csv",
+      "sha256": "242b8b45715717684c56e427f2986fb6da82c0ea609cddfeb0b28c5e10cb1925"
+    },
+    {
+      "bytes": 1591348,
+      "path": "research/02_macro_tradfi_integration/tables/rolling_tradfi_exposures.csv",
+      "sha256": "a1935d9634206bba49f68a1e792960f8c6849bb681ebd622852dc9e58abb04e9"
+    }
+  ],
+  "build_timestamp_utc": "not_recorded_for_deterministic_rebuilds",
+  "module_id": "02_macro_tradfi_integration",
+  "schema_version": 1
+}

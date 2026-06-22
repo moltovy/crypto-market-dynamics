@@ -1,6 +1,16 @@
 {
   "artifacts": [
     {
+      "bytes": 78776,
+      "path": "research/03_derivatives_leverage_liquidations/figures/03_leverage_state_surface.png",
+      "sha256": "e0c5097242945f4479351e1e04e7382e08eeff7f31b4ecba691a0329fbd77802"
+    },
+    {
+      "bytes": 51282,
+      "path": "research/03_derivatives_leverage_liquidations/figures/03_leverage_state_surface.svg",
+      "sha256": "358c6f6202a336f406036e2f228df66fd9cca0050f3b987f2dde3ceedc555dfa"
+    },
+    {
       "bytes": 148803,
       "path": "research/03_derivatives_leverage_liquidations/figures/03_leverage_tail_stress.png",
       "sha256": "55fcf9b3b41608c7be5b445c83abd87fbcd7bd9b0af9a489f5eda441348d3965"
@@ -11,39 +21,49 @@
       "sha256": "e7a63e903344e52213239167a14432ea744976a48740a28cc32fb2de885224fe"
     },
     {
-      "bytes": 182,
+      "bytes": 87058,
+      "path": "research/03_derivatives_leverage_liquidations/figures/03_liquidation_event_placebo.png",
+      "sha256": "47d8c373a03f8c1cf6456cad290dfc15bfdff3d98ae38c1ecbe98e0f3837a045"
+    },
+    {
+      "bytes": 58683,
+      "path": "research/03_derivatives_leverage_liquidations/figures/03_liquidation_event_placebo.svg",
+      "sha256": "76009ae37ebe528f001010273218a793d2580e656c505e6e5cd8805d31fcf70d"
+    },
+    {
+      "bytes": 116,
       "path": "research/03_derivatives_leverage_liquidations/findings.md",
-      "sha256": "39d0d22b1cf9f8b622bf37f371c88f71cd8dcbdd54235c40865f50769d6a05fd"
+      "sha256": "8cbb24b41958fb13bbaa82b021869970b0987be9e9c09c9a9569848efc94111d"
     },
     {
-      "bytes": 91,
+      "bytes": 155,
       "path": "research/03_derivatives_leverage_liquidations/interpretation.md",
-      "sha256": "85b4394e193e5e5169d8adcb220642febca519bf93b411104c035ef48f272c09"
+      "sha256": "b64684f9be72fdd9eb495f09cb211731e6b61429dbe5d2473818de7f9c467de1"
     },
     {
-      "bytes": 127,
+      "bytes": 118,
       "path": "research/03_derivatives_leverage_liquidations/limitations.md",
-      "sha256": "b7a9d5eac0e27f67e1772d3c63ff8be6b9eed3da54e562ab18b585d829a98fcf"
+      "sha256": "8f047c2b99a5c85897420f9b71d82f6b386eaf5188a216c6646f11872bcbe53d"
     },
     {
-      "bytes": 397,
+      "bytes": 256,
       "path": "research/03_derivatives_leverage_liquidations/methodology.md",
-      "sha256": "2aac2e2111fd423547e21a055b17423215bd4788fe824e3244d2bcbb21c7151d"
+      "sha256": "a9dc1af63cb6250c8be8b026b85f65573cf828e91123072e9e33a076f105a89d"
     },
     {
-      "bytes": 1252,
+      "bytes": 1402,
       "path": "research/03_derivatives_leverage_liquidations/module.yml",
-      "sha256": "9b3f35d38d38f8610289c2d6e243655cd56e23cd9c4cbad92477dc981c972e1f"
+      "sha256": "347cfb1472a01842b138f24ed216ba90fe68a5a19f789b9b0b555ce5801777d2"
     },
     {
-      "bytes": 732,
+      "bytes": 4444,
       "path": "research/03_derivatives_leverage_liquidations/README.md",
-      "sha256": "2e9f4183bf116d0e0f8da6732695896e35efe6471b012709d523c4fdb5b543d4"
+      "sha256": "6b2e5e8d1dd1fe000fa8706f413d514428796223d0c3609c3ec9ab2fc833056c"
     },
     {
-      "bytes": 1763,
+      "bytes": 1684,
       "path": "research/03_derivatives_leverage_liquidations/tables/claims.csv",
-      "sha256": "2fd3af3a7bb26a0b7982bb71770f942cdc46d6735a0d2c4ac1c7854f00518e09"
+      "sha256": "14243d420cf292f6b76a07b0b8a1b59ed5e9ce097e8eb28fbe63d185294000fc"
     },
     {
       "bytes": 1498,

@@ -3,28 +3,30 @@ title: Derivatives, Leverage, and Liquidations
 research_question: Where do leverage, funding, open-interest scaling, and liquidation
   stress appear in volatility and tail outcomes?
 research_questions:
-- Where do leverage, funding, open-interest scaling, and liquidation stress appear
-  in volatility and tail outcomes?
+- Where do lagged leverage states coincide with volatility and bottom-tail outcomes?
+- How do liquidation event windows compare with stress-state summaries?
 outcomes:
-- volatility
-- tail-event frequency
+- tail-day rate
+- realized volatility
 - liquidation event response
 features:
-- open interest
 - funding
-- leverage
+- open interest
 - liquidations
+- leverage percentile
 frequencies:
 - daily
-- weekly
+- event windows
 methods:
-- descriptive statistics
-- tail-event logit diagnostics
+- State bins
+- Tail diagnostics
+- Event/placebo
 sensitivity_dimensions:
 - state bins
 - lags
 - tail threshold
-- raw versus scaled
+- denominator scaling
+- event windows
 status: built
 canonical_surface: research/03_derivatives_leverage_liquidations
 tables:
@@ -35,13 +37,15 @@ tables:
 - liquidation_event_responses.csv
 - tail_risk_models.csv
 figures:
+- 03_leverage_state_surface.png
 - 03_leverage_tail_stress.png
-- 03_leverage_tail_stress.svg
+- 03_liquidation_event_placebo.png
 code:
 - src/cqresearch/research/analytical_modules.py
-- src/cqresearch/pipelines/research.py
 tests:
 - tests/unit/test_feature_strength_outputs.py
 - tests/unit/test_visual_outputs.py
 root_readme_candidate_figures:
+- figures/03_leverage_state_surface.png
 - figures/03_leverage_tail_stress.png
+- figures/03_liquidation_event_placebo.png

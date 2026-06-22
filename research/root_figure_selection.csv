@@ -1,0 +1,30 @@
+figure_id,module,finding,empirical_strength,robustness,economic_relevance,june_2026_relevance,cross_asset_breadth,visual_quality,weighted_score,hard_exclusion,selected,reason
+coverage_missingness_by_block,00_data_measurement_foundation,Coverage Missingness By Block,3,3,5,3,3,3,3.4,,False,module/appendix figure retained outside root selection
+data_governance_inventory,00_data_measurement_foundation,Provider and feature dispositions define release and measurement boundaries.,3,3,3,3,3,5,3.2,,False,module/appendix figure retained outside root selection
+01_common_factor_pca_loadings,01_cross_asset_dependence_regimes,01 Common Factor Pca Loadings,5,5,5,5,5,3,4.8,,False,module/appendix figure retained outside root selection
+cross_asset_dependence_regimes,01_cross_asset_dependence_regimes,Common crypto dependence is broad on the matched selected-major panel.,5,5,5,5,5,5,5,,True,selected root evidence map figure
+01_regime_correlation_difference,01_cross_asset_dependence_regimes,01 Regime Correlation Difference,3,3,5,5,5,3,3.9,,False,module/appendix figure retained outside root selection
+02_macro_block_delta_heatmap,02_macro_tradfi_integration,02 Macro Block Delta Heatmap,5,3,5,5,5,3,4.4,,False,module/appendix figure retained outside root selection
+02_rolling_tradfi_beta,02_macro_tradfi_integration,02 Rolling Tradfi Beta,3,3,5,5,5,3,3.9,,False,module/appendix figure retained outside root selection
+tradfi_exposure_shift,02_macro_tradfi_integration,Later-sample equity co-movement is higher for BTC and ETH.,5,3,5,5,5,5,4.6,,True,selected root evidence map figure
+03_leverage_state_surface,03_derivatives_leverage_liquidations,03 Leverage State Surface,3,3,5,5,3,3,3.7,,False,module/appendix figure retained outside root selection
+leverage_tail_stress,03_derivatives_leverage_liquidations,Leverage states are stress diagnostics.,5,3,5,5,3,5,4.4,,True,selected root evidence map figure
+03_liquidation_event_placebo,03_derivatives_leverage_liquidations,03 Liquidation Event Placebo,3,3,5,5,3,3,3.7,,False,module/appendix figure retained outside root selection
+04_etf_flow_shock_placebo,04_etf_institutional_flows,04 Etf Flow Shock Placebo,5,5,5,5,3,3,4.6,,False,module/appendix figure retained outside root selection
+etf_lag_response,04_etf_institutional_flows,ETF flow intensity is reported as a lag-response market-plumbing diagnostic.,5,5,5,5,3,5,4.8,,True,selected root evidence map figure
+04_etf_timing_audit,04_etf_institutional_flows,04 Etf Timing Audit,5,5,5,5,3,3,4.6,,False,module/appendix figure retained outside root selection
+05_liquidity_state_regimes,05_stablecoin_defi_liquidity,05 Liquidity State Regimes,3,3,3,3,3,3,3,,False,module/appendix figure retained outside root selection
+05_valuation_contamination_audit,05_stablecoin_defi_liquidity,05 Valuation Contamination Audit,3,3,3,3,3,3,3,,False,module/appendix figure retained outside root selection
+liquidity_state_correlations,05_stablecoin_defi_liquidity,Liquidity-state correlations are strongest where USD TVL has valuation content.,3,3,5,3,3,5,3.6,,False,module/appendix figure retained outside root selection
+06_lagged_holder_state_outcomes,06_onchain_valuation_holder_behavior,06 Lagged Holder State Outcomes,3,3,3,3,3,3,3,,False,module/appendix figure retained outside root selection
+06_mvrv_identity_residual,06_onchain_valuation_holder_behavior,06 Mvrv Identity Residual,5,3,3,3,3,3,3.5,"measurement warning belongs in methodology/appendix, not default root slot",False,"measurement warning belongs in methodology/appendix, not default root slot"
+measurement_mvrv_mechanics,06_onchain_valuation_holder_behavior,MVRV same-day mechanics are a measurement warning.,5,3,3,3,3,5,3.7,"measurement warning belongs in methodology/appendix, not default root slot",False,"measurement warning belongs in methodology/appendix, not default root slot"
+07_chain_metric_coverage,07_chain_fundamentals_sector_dynamics,07 Chain Metric Coverage,3,3,3,3,3,3,3,,False,module/appendix figure retained outside root selection
+07_pit_state_coefficients,07_chain_fundamentals_sector_dynamics,07 Pit State Coefficients,3,3,3,3,3,3,3,,False,module/appendix figure retained outside root selection
+chain_panel_coverage,07_chain_fundamentals_sector_dynamics,Chain-fundamental evidence is coverage-first.,3,3,3,3,3,5,3.2,,False,module/appendix figure retained outside root selection
+relative_asset_factor_structure,08_relative_asset_risk_factor_structure,Selected-major matched-window risk separates common and idiosyncratic components.,5,3,5,5,5,5,4.6,,True,selected root evidence map figure
+08_downside_expected_shortfall_forest,08_relative_asset_risk_factor_structure,08 Downside Expected Shortfall Forest,3,3,5,5,5,3,3.9,,False,module/appendix figure retained outside root selection
+08_selected_major_beta_forest,08_relative_asset_risk_factor_structure,08 Selected Major Beta Forest,3,3,5,5,5,3,3.9,,False,module/appendix figure retained outside root selection
+09_evidence_grade_risk_map,09_event_stress_cross_module_synthesis,09 Evidence Grade Risk Map,5,3,5,3,3,3,3.9,,False,module/appendix figure retained outside root selection
+appendix_event_response_matrix,09_event_stress_cross_module_synthesis,Event responses remain appendix sensitivity diagnostics.,3,3,3,3,3,5,3.2,,False,module/appendix figure retained outside root selection
+synthesis_claim_source_depth,09_event_stress_cross_module_synthesis,Synthesis keeps claim counts and source depth visible.,3,3,3,3,3,5,3.2,,False,module/appendix figure retained outside root selection

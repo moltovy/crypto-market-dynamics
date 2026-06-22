@@ -1,0 +1,27 @@
+mapping_check,asset,canonical_key,status,failing_rows,mapping_boundary
+selected_major_ada,ADA,coingecko:cardano,pass,0,Computed against source rows using canonical ID before symbol.
+selected_major_ada,ADA,coingecko:cardano,usable_current_cohort_daily,0,current-cohort daily returns are survivorship-biased; monthly PIT data supports structure/state analysis only
+selected_major_bnb,BNB,coingecko:binancecoin,pass,0,Computed against source rows using canonical ID before symbol.
+selected_major_bnb,BNB,coingecko:binancecoin,usable_current_cohort_daily,0,current-cohort daily returns are survivorship-biased; monthly PIT data supports structure/state analysis only
+selected_major_btc,BTC,coingecko:bitcoin,pass,0,Computed against source rows using canonical ID before symbol.
+selected_major_btc,BTC,coingecko:bitcoin,usable_current_cohort_daily,0,current-cohort daily returns are survivorship-biased; monthly PIT data supports structure/state analysis only
+doge_not_binance_peg_doge,DOGE,,pass,0,Computed from source rows. Binance-Peg DOGE rows must not classify as base DOGE.
+selected_major_doge,DOGE,coingecko:dogecoin,pass,0,Computed against source rows using canonical ID before symbol.
+selected_major_doge,DOGE,coingecko:dogecoin,usable_current_cohort_daily,0,current-cohort daily returns are survivorship-biased; monthly PIT data supports structure/state analysis only
+selected_major_eth,ETH,coingecko:ethereum,pass,0,Computed against source rows using canonical ID before symbol.
+selected_major_eth,ETH,coingecko:ethereum,usable_current_cohort_daily,0,current-cohort daily returns are survivorship-biased; monthly PIT data supports structure/state analysis only
+selected_major_hype,HYPE,coingecko:hyperliquid,pass,0,Computed against source rows using canonical ID before symbol.
+selected_major_hype,HYPE,coingecko:hyperliquid,usable_current_cohort_daily,0,current-cohort daily returns are survivorship-biased; monthly PIT data supports structure/state analysis only
+lst_governance_separated,LDO/RPL/EIGEN/ETHFI,,pass,0,"Computed from source rows. LDO/RPL/EIGEN/ETHFI remain governance/infrastructure risk, not staking derivatives."
+selected_major_sol,SOL,coingecko:solana,pass,0,Computed against source rows using canonical ID before symbol.
+selected_major_sol,SOL,coingecko:solana,usable_current_cohort_daily,0,current-cohort daily returns are survivorship-biased; monthly PIT data supports structure/state analysis only
+sol_not_wrapped_sol,SOL,,pass,0,Computed from source rows. Wrapped SOL rows must remain productized/wrapped assets.
+selected_major_ton,TON,coingecko:the-open-network,pass,0,Computed against source rows using canonical ID before symbol.
+selected_major_ton,TON,coingecko:the-open-network,usable_current_cohort_daily,0,current-cohort daily returns are survivorship-biased; monthly PIT data supports structure/state analysis only
+toncoin_not_tokamak,TON,,pass,0,Computed from source rows. Tokamak Network rows must not classify as Toncoin.
+selected_major_trx,TRX,coingecko:tron,pass,0,Computed against source rows using canonical ID before symbol.
+selected_major_trx,TRX,coingecko:tron,usable_current_cohort_daily,0,current-cohort daily returns are survivorship-biased; monthly PIT data supports structure/state analysis only
+btc_eth_wrappers_separated,WBTC/WETH,,pass,0,Computed from source rows. Wrapped/staked/productized BTC/ETH rows must not classify as base BTC or ETH.
+selected_major_xrp,XRP,coingecko:ripple,pass,0,Computed against source rows using canonical ID before symbol.
+selected_major_xrp,XRP,coingecko:ripple,usable_current_cohort_daily,0,current-cohort daily returns are survivorship-biased; monthly PIT data supports structure/state analysis only
+xrp_not_binance_peg_xrp,XRP,,pass,0,Computed from source rows. Binance-Peg XRP rows must not classify as base XRP.

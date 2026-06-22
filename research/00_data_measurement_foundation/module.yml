@@ -1,0 +1,50 @@
+module_id: 00_data_measurement_foundation
+title: Data and Measurement Foundation
+research_question: What data, assets, units, timing, coverage, identity, and release-risk
+  constraints govern later empirical claims?
+research_questions:
+- Which data, asset, timing, unit, and release constraints govern the analysis?
+- Which features are admissible, diagnostic, or excluded?
+outcomes:
+- provider inventory
+- feature usage status
+- asset universe audit
+- measurement risk audit
+features:
+- all registered features
+- all processed panel columns
+frequencies:
+- file-level
+- daily
+- weekly
+- monthly
+methods:
+- inventory
+- coverage audit
+- usage classification
+sensitivity_dimensions:
+- registered versus unregistered
+- release risk
+- coverage threshold
+status: built
+canonical_surface: research/00_data_measurement_foundation
+tables:
+- provider_inventory.csv
+- raw_file_inventory.csv
+- raw_series_inventory.csv
+- feature_inventory.csv
+- feature_usage_matrix.csv
+- asset_universe_audit.csv
+- chain_token_mapping_audit.csv
+- coverage_missingness.csv
+- units_timing_scaling_audit.csv
+- measurement_risk_audit.csv
+- claims.csv
+figures:
+- data_governance_inventory.png
+- coverage_missingness_by_block.png
+code:
+- src/cqresearch/research/data_foundation.py
+tests:
+- tests/unit/test_feature_strength_outputs.py
+root_readme_candidate_figures: []

@@ -1,0 +1,53 @@
+module_id: 04_etf_institutional_flows
+title: ETF and Institutional Flows
+research_question: How do ETF flow intensity, timing, lag response, and shock/placebo
+  diagnostics line up with crypto outcomes?
+research_questions:
+- How do BTC and ETH ETF flow-intensity associations vary over lags 0-5?
+- Do plotted ETF series begin only at valid source observations?
+outcomes:
+- lag-response correlation
+- flow-shock placebo
+- timing audit
+features:
+- BTC ETF flow
+- ETH ETF flow
+- lagged market cap
+- BTC/ETH returns
+frequencies:
+- ETF trading daily
+methods:
+- Lag response
+- Moving-block bootstrap
+- Timing audit
+sensitivity_dimensions:
+- lags 0-5
+- BTC/ETH separate starts
+- block-bootstrap interval
+- shock threshold
+status: built
+canonical_surface: research/04_etf_institutional_flows
+tables:
+- claims.csv
+- etf_absorption_metrics.csv
+- etf_data_timing_audit.csv
+- etf_era_exposure_comparison.csv
+- etf_flow_associations.csv
+- etf_flow_shock_days.csv
+- etf_flow_shock_placebo.csv
+- etf_lag_response.csv
+- etf_market_plumbing_summary.csv
+- etf_pre_inception_plot_audit.csv
+figures:
+- 04_etf_flow_shock_placebo.png
+- 04_etf_lag_response.png
+- 04_etf_timing_audit.png
+code:
+- src/cqresearch/research/analytical_modules.py
+tests:
+- tests/unit/test_feature_strength_outputs.py
+- tests/unit/test_visual_outputs.py
+root_readme_candidate_figures:
+- figures/04_etf_flow_shock_placebo.png
+- figures/04_etf_lag_response.png
+- figures/04_etf_timing_audit.png

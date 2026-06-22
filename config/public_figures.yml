@@ -1,27 +1,27 @@
 figures:
+- figure_id: cross_asset_dependence_regimes
+  filename: research/01_cross_asset_dependence_regimes/figures/01_cross_asset_clustered_correlation.png
+  status: public
+  research_question: How broad is realized crypto and macro dependence across matched assets?
+  source_tables: research/01_cross_asset_dependence_regimes/tables/pearson_correlation_matrix.csv; research/01_cross_asset_dependence_regimes/tables/pca_variance_share.csv
+  chart_type: clustered_correlation_heatmap
+  units: daily return/change correlations
+  caption: Common crypto dependence is broad on the matched selected-major panel.
+  caveat: Current-cohort selected-major daily data is survivorship-biased.
+  svg_required: true
+  readme_section: selected-analytical-results
+  visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
 - figure_id: tradfi_exposure_shift
-  filename: research/02_macro_cross_asset_exposure/figures/01_tradfi_exposure_shift.png
+  filename: research/02_macro_tradfi_integration/figures/02_tradfi_exposure_shift.png
   status: public
   research_question: How did equity co-movement change across periods?
-  source_tables: research/02_macro_cross_asset_exposure/tables/block_delta_r2.csv
+  source_tables: research/02_macro_tradfi_integration/tables/block_delta_r2.csv; research/02_macro_tradfi_integration/tables/rolling_tradfi_exposures.csv
   chart_type: coefficient_and_block_contribution
-  units: delta R2 and rolling exposure summaries
+  units: delta R-squared and rolling exposure summaries
   caption: Later-sample equity co-movement is higher for BTC and ETH.
   caveat: Period comparison, not ETF-effect identification.
   svg_required: true
-  readme_section: figure-set
-  visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
-- figure_id: etf_market_plumbing
-  filename: research/04_etf_institutional_plumbing/figures/02_etf_market_plumbing.png
-  status: public
-  research_question: How do ETF flow measures line up with same-day and lagged returns?
-  source_tables: research/04_etf_institutional_plumbing/tables/etf_flow_associations.csv; research/04_etf_institutional_plumbing/tables/etf_absorption_metrics.csv
-  chart_type: lag_grid_and_absorption
-  units: correlations and flow-to-lagged-market-cap ratios
-  caption: ETF flow intensity is reported as market plumbing.
-  caveat: Timing and simultaneity limit interpretation.
-  svg_required: true
-  readme_section: figure-set
+  readme_section: selected-analytical-results
   visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
 - figure_id: leverage_tail_stress
   filename: research/03_derivatives_leverage_liquidations/figures/03_leverage_tail_stress.png
@@ -33,41 +33,41 @@ figures:
   caption: Leverage states are stress diagnostics.
   caveat: No liquidation initiation-cause claim.
   svg_required: true
-  readme_section: figure-set
+  readme_section: selected-analytical-results
   visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
-- figure_id: market_concentration_state
-  filename: research/09_market_concentration_state/figures/market_concentration_state.png
+- figure_id: etf_lag_response
+  filename: research/04_etf_institutional_flows/figures/04_etf_lag_response.png
   status: public
-  research_question: How did point-in-time concentration and rank persistence evolve?
-  source_tables: research/09_market_concentration_state/tables/pit_market_structure_summary.csv
-  chart_type: concentration_and_turnover_state
-  units: HHI and rank persistence
-  caption: PIT data supports monthly concentration and turnover state analysis.
-  caveat: No daily constituent-performance claim.
+  research_question: How do ETF flow-return associations vary over lags 0-5?
+  source_tables: research/04_etf_institutional_flows/tables/etf_lag_response.csv; research/04_etf_institutional_flows/tables/etf_pre_inception_plot_audit.csv
+  chart_type: lag_response_with_bootstrap_interval
+  units: correlation and bootstrap interval
+  caption: ETF flow intensity is reported as a lag-response market-plumbing diagnostic.
+  caveat: Timing and simultaneity limit interpretation.
   svg_required: true
-  readme_section: figure-set
+  readme_section: selected-analytical-results
   visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
-- figure_id: selected_major_asset_risk
-  filename: research/08_relative_major_asset_risk/figures/05_selected_major_asset_risk.png
+- figure_id: relative_asset_factor_structure
+  filename: research/08_relative_asset_risk_factor_structure/figures/08_common_idiosyncratic_risk_decomposition.png
   status: public
-  research_question: How do selected majors compare on volatility and drawdown?
-  source_tables: research/08_relative_major_asset_risk/tables/selected_major_risk_metrics.csv; research/08_relative_major_asset_risk/tables/selected_major_comparable_window_metrics.csv
-  chart_type: matched_window_risk_map
-  units: volatility, drawdown, and coverage
-  caption: Selected-major risk is coverage-aware.
-  caveat: Short histories limit cross-asset comparability.
+  research_question: How much selected-major risk is common crypto factor versus idiosyncratic?
+  source_tables: research/08_relative_asset_risk_factor_structure/tables/relative_factor_decomposition.csv; research/08_relative_asset_risk_factor_structure/tables/downside_expected_shortfall.csv
+  chart_type: common_idiosyncratic_risk_decomposition
+  units: variance share
+  caption: Selected-major matched-window risk separates common and idiosyncratic components.
+  caveat: Current-cohort and short-history caveats limit historical interpretation.
   svg_required: true
-  readme_section: figure-set
+  readme_section: selected-analytical-results
   visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
-- figure_id: returns_risk_distribution
-  filename: research/01_returns_risk_regimes/figures/returns_risk_distribution.png
+- figure_id: data_governance_inventory
+  filename: research/00_data_measurement_foundation/figures/data_governance_inventory.png
   status: module
-  research_question: How do BTC and ETH realized risk summaries compare?
-  source_tables: research/01_returns_risk_regimes/tables/returns_distribution_summary.csv; research/01_returns_risk_regimes/tables/returns_regime_risk_summary.csv
-  chart_type: risk_distribution_summary
-  units: annualized volatility and maximum drawdown loss
-  caption: BTC and ETH risk summaries are descriptive realized-sample diagnostics.
-  caveat: No forecast or trading-rule claim.
+  research_question: Which local provider and feature dispositions govern public claims?
+  source_tables: research/00_data_measurement_foundation/tables/provider_inventory.csv; research/00_data_measurement_foundation/tables/feature_usage_matrix.csv
+  chart_type: governance_inventory_bar
+  units: counts
+  caption: Provider and feature dispositions define release and measurement boundaries.
+  caveat: Release-risk labels are not legal permission.
   svg_required: true
   readme_section: module
   visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
@@ -78,16 +78,16 @@ figures:
   source_tables: research/05_stablecoin_defi_liquidity/tables/liquidity_associations.csv; research/05_stablecoin_defi_liquidity/tables/valuation_contamination_audit.csv
   chart_type: state_correlation_with_measurement_risk
   units: weekly correlations
-  caption: Liquidity-state correlations are strongest where USD TVL has high valuation content.
+  caption: Liquidity-state correlations are strongest where USD TVL has valuation content.
   caveat: Endogenous state proxy, not liquidity-shock evidence.
   svg_required: true
   readme_section: module
   visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
 - figure_id: measurement_mvrv_mechanics
-  filename: research/06_onchain_valuation_holder_state/figures/measurement_mvrv_mechanics.png
+  filename: research/06_onchain_valuation_holder_behavior/figures/measurement_mvrv_mechanics.png
   status: appendix
   research_question: How mechanical is same-day MVRV relative to BTC returns?
-  source_tables: research/06_onchain_valuation_holder_state/tables/mvrv_mechanical_link_audit.csv; research/06_onchain_valuation_holder_state/tables/mvrv_identity_points.csv
+  source_tables: research/06_onchain_valuation_holder_behavior/tables/mvrv_mechanical_link_audit.csv; research/06_onchain_valuation_holder_behavior/tables/mvrv_identity_points.csv
   chart_type: measurement_decomposition
   units: log returns and next-week state means
   caption: MVRV same-day mechanics are a measurement warning.
@@ -96,10 +96,10 @@ figures:
   readme_section: appendix
   visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
 - figure_id: chain_panel_coverage
-  filename: research/07_chain_fundamentals/figures/chain_panel_coverage.png
+  filename: research/07_chain_fundamentals_sector_dynamics/figures/chain_panel_coverage.png
   status: module
   research_question: Which chains have enough metric-family coverage for descriptive panel work?
-  source_tables: research/07_chain_fundamentals/tables/chain_fundamental_panel_summary.csv
+  source_tables: research/07_chain_fundamentals_sector_dynamics/tables/chain_fundamental_panel_summary.csv
   chart_type: coverage_readiness_bar
   units: adequate metric families and median observations
   caption: Chain-fundamental evidence is coverage-first.
@@ -108,10 +108,10 @@ figures:
   readme_section: module
   visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
 - figure_id: appendix_event_response_matrix
-  filename: research/10_event_sensitivity/figures/appendix_event_response_matrix.png
+  filename: research/09_event_stress_cross_module_synthesis/figures/appendix_event_response_matrix.png
   status: appendix
   research_question: How do registered event windows compare across BTC and ETH?
-  source_tables: research/10_event_sensitivity/tables/event_response_matrix.csv; research/10_event_sensitivity/tables/event_inference.csv
+  source_tables: research/09_event_stress_cross_module_synthesis/tables/event_response_matrix.csv; research/09_event_stress_cross_module_synthesis/tables/event_inference.csv
   chart_type: event_placebo_response
   units: +1 to +10 event-window returns
   caption: Event responses remain appendix sensitivity diagnostics.
@@ -120,10 +120,10 @@ figures:
   readme_section: appendix
   visual_qa_status: pass_local_png_full_and_readme_width_svg_xml
 - figure_id: synthesis_claim_source_depth
-  filename: research/11_cross_module_synthesis/figures/synthesis_claim_source_depth.png
+  filename: research/09_event_stress_cross_module_synthesis/figures/synthesis_claim_source_depth.png
   status: module
   research_question: How much claim and source-table evidence does each module contribute?
-  source_tables: research/11_cross_module_synthesis/tables/evidence_ledger.csv; research/11_cross_module_synthesis/tables/robustness_summary.csv; research/11_cross_module_synthesis/tables/claim_inventory.csv
+  source_tables: research/09_event_stress_cross_module_synthesis/tables/evidence_ledger.csv; research/09_event_stress_cross_module_synthesis/tables/robustness_summary.csv; research/09_event_stress_cross_module_synthesis/tables/claim_inventory.csv
   chart_type: grouped_evidence_depth_bar
   units: claim and source-table counts
   caption: Synthesis keeps claim counts and source depth visible.

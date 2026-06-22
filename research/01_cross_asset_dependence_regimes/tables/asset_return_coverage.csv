@@ -1,0 +1,19 @@
+series,observations,sample_start,sample_end,missing_pct,coverage_rule
+ADA,1262,2023-01-01,2026-06-16,0.464800678541137,daily matched return/change panel
+BNB,1262,2023-01-01,2026-06-16,0.464800678541137,daily matched return/change panel
+BTC,1262,2023-01-01,2026-06-16,0.464800678541137,daily matched return/change panel
+DOGE,1262,2023-01-01,2026-06-16,0.464800678541137,daily matched return/change panel
+DXY,2291,2020-01-03,2026-04-11,0.0284139100932994,daily matched return/change panel
+ETH,1262,2023-01-01,2026-06-16,0.464800678541137,daily matched return/change panel
+Gold,2291,2020-01-03,2026-04-11,0.0284139100932994,daily matched return/change panel
+HYPE,563,2024-11-30,2026-06-16,0.761238337574215,daily matched return/change panel
+IWM,1233,2020-01-03,2026-04-10,0.477099236641221,daily matched return/change panel
+Nominal 10Y,2291,2020-01-03,2026-04-11,0.0284139100932994,daily matched return/change panel
+QQQ,2291,2020-01-03,2026-04-11,0.0284139100932994,daily matched return/change panel
+Real yield,2291,2020-01-03,2026-04-11,0.0284139100932994,daily matched return/change panel
+SOL,1262,2023-01-01,2026-06-16,0.464800678541137,daily matched return/change panel
+SPY,2291,2020-01-03,2026-04-11,0.0284139100932994,daily matched return/change panel
+TON,1262,2023-01-01,2026-06-16,0.464800678541137,daily matched return/change panel
+TRX,1262,2023-01-01,2026-06-16,0.464800678541137,daily matched return/change panel
+VIX,2291,2020-01-03,2026-04-11,0.0284139100932994,daily matched return/change panel
+XRP,1262,2023-01-01,2026-06-16,0.464800678541137,daily matched return/change panel
